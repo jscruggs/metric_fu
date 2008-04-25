@@ -1,4 +1,6 @@
-The Rails Metrics Plugin (metric_fu) is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
+Version 0.5
+
+Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
 
 
 *Important note:
