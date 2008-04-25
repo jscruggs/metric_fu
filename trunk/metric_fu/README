@@ -70,4 +70,4 @@ This is just 'rake stats' put into a file.  On my projects I like to be able to 
 
 *Thanks
 
-I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.
+I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also Michael Schubert, Kurtis Seebaldt, Toby Tripp, Paul Gross, and Chirdeep Shetty for their help and advice.

@@ -43,7 +43,7 @@ namespace :metrics do
     options = ""
     default_options.each_pair { |key, value| options << "#{key} #{value} " } 
        
-    sh "#{File.expand_path(File.join( File.dirname(__FILE__), '../lib' ))}/saikuro "+
+    sh "ruby #{File.expand_path(File.join( File.dirname(__FILE__), '../lib' ))}/saikuro "+
                 "#{options}" do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
