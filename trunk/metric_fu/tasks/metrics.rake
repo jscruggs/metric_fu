@@ -1,10 +1,17 @@
 require "fileutils"
 
 namespace :metrics do
-  desc "Generate coverage, cyclomatic complexity, flog, and stats reports"
-  task :all => [:coverage, :cyclomatic_complexity, :flog, :stats]
+  task :prepare do
+    RAILS_ENV = 'test'
+  end
   
-  desc "Generate a coverage report using rcov"
+  desc "Useful for continuous integration"
+  task :all_with_migrate => [:prepare, "db:migrate", :all]
+  
+  desc "Generate coverage, cyclomatic complexity, flog, stats, and churn reports"
+  task :all => [:coverage, :cyclomatic_complexity, :flog, :stats, :churn]
+  
+  desc "A coverage report using rcov"
   task :coverage do
     rm_f "coverage.data"
     paths = defined?(TEST_PATHS_FOR_RCOV) ? TEST_PATHS_FOR_RCOV : ['test/**/*_test.rb']
@@ -30,7 +37,7 @@ namespace :metrics do
     end
   end  
   
-  desc "Generate a cyclomatic complexity report using Saikuro"
+  desc "A cyclomatic complexity report using Saikuro"
   task :cyclomatic_complexity do
     default_options = {"--output_directory" => "#{base_directory}/cyclomatic_complexity",
                         "--input_directory" => "app",
@@ -56,7 +63,7 @@ namespace :metrics do
     end
   end
   
-  desc "Generate a Flog report"
+  desc "A Flog report"
   task :flog do
     FileUtils.mkpath "#{base_directory}/flog"
     sh "echo '<pre>' > #{base_directory}/flog/index.html"
@@ -73,23 +80,36 @@ namespace :metrics do
     sh "echo '</pre>' >> #{base_directory}/flog/index.html"
   end
   
-  desc "Generate a stats report"
+  desc "A stats report"
   task :stats do
     sh "rake stats > #{File.join(base_directory, 'stats.log')}"
   end
   
-  desc "See which files change the most"
+  desc "Which files change the most"
   task :churn do
-    svn_logs = `svn log --verbose`.split(/\n/).select {|line| line.strip =~ /^[A,M]/}
-
+    date_range, minimum_churn_count = churn_options()
+    svn_logs = `svn log #{date_range} --verbose`.split(/\n/).select {|line| line.strip =~ /^[A,M]/}    
+    
     changes = {}
     svn_logs.each do |line|
       line.strip =~ /^[A,M] (.*)/
       changes[$1] ? changes[$1] += 1 : changes[$1] = 1 
     end
-    write_churn_file(changes.reject {|file, change_count| change_count < 3})
+    write_churn_file(changes.reject {|file, change_count| change_count < minimum_churn_count})
   end
-
+  
+  def churn_options
+    options = defined?(CHURN_OPTIONS) ? CHURN_OPTIONS : {} 
+    if options[:start_date]
+      require File.dirname(__FILE__) + '/../../../../config/environment'
+      date_range = "--revision {#{options[:start_date].call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
+    else
+      date_range = ""
+    end
+    minimum_churn_count = options[:minimum_churn_count] ? options[:minimum_churn_count] : 5
+    return date_range, minimum_churn_count
+  end
+  
   def write_churn_file changes
     FileUtils.mkpath "#{base_directory}/churn"
     File.open("#{base_directory}/churn/index.html", "w+") do |file|
@@ -104,47 +124,47 @@ namespace :metrics do
   def base_directory
     ENV['CC_BUILD_ARTIFACTS'] ? ENV['CC_BUILD_ARTIFACTS']  : "metrics"
   end
-
+  
   CHURN_FILE_BEGINING = <<-EOS
   <html><head><title>Source Control Churn Results</title></head>
   <style>
   body {
-    margin: 20px;
-    padding: 0;
-    font-size: 12px;
-    font-family: bitstream vera sans, verdana, arial, sans serif;
-    background-color: #efefef;
+  	margin: 20px;
+  	padding: 0;
+  	font-size: 12px;
+  	font-family: bitstream vera sans, verdana, arial, sans serif;
+  	background-color: #efefef;
   }
 
-  table { 
-    border-collapse: collapse;
-    /*border-spacing: 0;*/
-    border: 1px solid #666;
-    background-color: #fff;
-    margin-bottom: 20px;
+  table {	
+  	border-collapse: collapse;
+  	/*border-spacing: 0;*/
+  	border: 1px solid #666;
+  	background-color: #fff;
+  	margin-bottom: 20px;
   }
 
   table, th, th+th, td, td+td  {
-    border: 1px solid #ccc;
+  	border: 1px solid #ccc;
   }
 
   table th {
-    font-size: 12px;
-    color: #fc0;
-    padding: 4px 0;
-    background-color: #336;
+  	font-size: 12px;
+  	color: #fc0;
+  	padding: 4px 0;
+  	background-color: #336;
   }
 
   th, td {
-    padding: 4px 10px;
+  	padding: 4px 10px;
   }
 
-  td {  
-    font-size: 13px;
+  td {	
+  	font-size: 13px;
   }
 
   .warning {
-    background-color: yellow;
+  	background-color: yellow;
   }
   </style>
 
@@ -153,7 +173,7 @@ namespace :metrics do
     <table width="100%" border="1">
       <tr><th>File Path</th><th>Times Changed</th></tr>
   EOS
-
+  
   CHURN_FILE_END = <<-EOS
     </table>
   </body>

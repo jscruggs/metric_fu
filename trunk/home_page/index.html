@@ -87,18 +87,20 @@
     Out of the box metric_fu provides these tasks:
     <ul>
         <li>rake metrics:all</li>          
+        <li>rake metrics:all_with_migrate</li>          
         <li>rake metrics:coverage</li>              
         <li>rake metrics:cyclomatic_complexity</li> 
         <li>rake metrics:flog</li>
         <li>rake metrics:stats</li>
+        <li>rake metrics:churn</li>
     </ul>                
     <br/>
     See below for more detail on the individual tasks.  I recommend using CruiseControl.rb to set up a metrics build.  See the CruiseControl.rb online docs for more info on how to set up cc.rb and, once you've got that figured out, change the cruise_config.rb file inside your project to have these lines:
 <br/><br/>
-    <pre>project.rake_task = 'metrics:all'</pre>
+    <pre>project.rake_task = 'metrics:all_with_migrate'</pre>
     <pre>project.scheduler.polling_interval = 24.hours</pre>
 <br/>
-    Which will check for updates every 24 hours and run all the metric_fu rake tasks.  The output will be visible from an individual build's detail page.  Like so:
+    Which will check for updates every 24 hours and run all the metric_fu rake tasks (migrating your test db first).  The output will be visible from an individual build's detail page.  Like so:
 </p>
 <br/>
 <a href="cruise_control_1.gif">
@@ -148,6 +150,27 @@ end
     This is just 'rake stats' put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
 </p>
 <p><br/>
+    <h2>Notes on metrics:churn</h2>
+    Files that change a lot in your project may be bad a sign.  This task uses "svn log" to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
+<br/><br/>
+<pre>
+    namespace :metrics do 
+      CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
+    end
+</pre>
+<br/>
+    The Proc is there because '3.months.ago' only works when after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
+<br/>
+    You can also change the minimum churn count like so:
+<br/>
+<br/>
+<pre>
+    namespace :metrics do
+      CHURN_OPTIONS = { :minimum_churn_count => 3 }
+    end    
+</pre> 
+</p>
+<p><br/>   
     <h2>Thanks</h2>
     I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also many thanks go to <a href="http://schubert.cx/">Michael Schubert</a>, <a href="http://kseebaldt.blogspot.com/">Kurtis Seebaldt</a>, <a href="http://www.workingwithrails.com/person/11263-toby-tripp">Toby Tripp</a>,  <a href="http://www.aliaghareza.com">Ali Aghareza</a>, <a href="http://www.pgrs.net/">Paul Gross</a>, and <a href="http://chirdeepshetty.net/">Chirdeep Shetty</a> for their help and advice.
 </p>

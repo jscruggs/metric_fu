@@ -1,4 +1,5 @@
-Version 0.5.1
+Version 0.6.0
+http://metric-fu.rubyforge.org/
 
 Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
 
@@ -13,6 +14,7 @@ sudo gem install flog
 
 Out of the box metric_fu provides these tasks:
 rake metrics:all                   
+rake metrics:all_with_migrate                 
 rake metrics:coverage              
 rake metrics:cyclomatic_complexity 
 rake metrics:flog                  
@@ -20,10 +22,10 @@ rake metrics:stats
 
 See below for more detail on the individual tasks.  I recommend using CruiseControl.rb to set up a metrics build.  See the CruiseControl.rb online docs for more info on how to set up cc.rb and, once you've got that figured out, change the cruise_config.rb file inside your project to have these lines:
 
-project.rake_task = 'metrics:all'
+project.rake_task = 'metrics:all_with_migrate'
 project.scheduler.polling_interval = 24.hours
 
-Which will check for updates every 24 hours and run all the metric_fu rake tasks.  The output will be visible from an individual build's detail page.
+Which will check for updates every 24 hours and run all the metric_fu rake tasks (migrating your test db first).  The output will be visible from an individual build's detail page.
 
 
 *Notes on metrics:coverage
@@ -66,6 +68,23 @@ Flog is another way of measuring complexity (or tortured code as the Flog author
 *Notes on metrics:stats
 
 This is just 'rake stats' put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
+
+
+*Notes on metrics:churn
+
+Files that change a lot in your project may be bad a sign.  This task uses "svn log" to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
+
+namespace :metrics do 
+  CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
+end
+
+The Proc is there because '3.months.ago' only works when after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
+
+You can also change the minimum churn count like so:
+
+namespace :metrics do
+  CHURN_OPTIONS = { :minimum_churn_count => 3 }
+end
 
 
 *Thanks
