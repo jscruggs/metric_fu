@@ -1,0 +1,92 @@
+Version 0.6.0
+http://metric-fu.rubyforge.org/
+
+Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
+
+
+*Important note:
+You must have Rcov and Flog installed to get coverage and flog reports.  You can do this through ruby gems at the command line like so:
+sudo gem install rcov
+sudo gem install flog
+
+
+*Usage
+
+Out of the box metric_fu provides these tasks:
+rake metrics:all                   
+rake metrics:all_with_migrate                 
+rake metrics:coverage              
+rake metrics:cyclomatic_complexity 
+rake metrics:flog                  
+rake metrics:stats                 
+
+See below for more detail on the individual tasks.  I recommend using CruiseControl.rb to set up a metrics build.  See the CruiseControl.rb online docs for more info on how to set up cc.rb and, once you've got that figured out, change the cruise_config.rb file inside your project to have these lines:
+
+project.rake_task = 'metrics:all_with_migrate'
+project.scheduler.polling_interval = 24.hours
+
+Which will check for updates every 24 hours and run all the metric_fu rake tasks (migrating your test db first).  The output will be visible from an individual build's detail page.
+
+
+*Notes on metrics:coverage
+
+When creating a coverage report, metric_fu runs all the tests in the test folder using Rcov.  If you use RSpec you can change the default by putting this in your Rakefile:
+
+namespace :metrics do
+  TEST_PATHS_FOR_RCOV = ['spec/**/*_spec.rb']
+end
+
+The namespace is only there for intentional purposes and isn't necessary.  If you have multiple paths to test, then you can do this:
+
+  TEST_PATHS_FOR_RCOV = ['spec/**/*_spec.rb', 'test/**/*_test.rb']
+
+The coverage task will iterate over all the paths and aggregate the results into one report. You'll see a coverage.data file in the root of your project.
+
+If you want to change the options that Rcov is run with, then set this constant in your Rakefile:
+
+  RCOV_OPTIONS =  { "--sort" => "loc" }
+
+It's a hash that gets merged with the default options.  This particular change will sort the coverage report by lines of code (loc).  Check out the Rcov documentation for more options.  If you want to see the default options metric_fu runs, open up the metrics.rake file in the plugin.
+
+
+*Notes on metrics:cyclomatic_complexity
+
+Saikuro is bundled with metric_fu so you don't have to install it.  Look at the SAIKURO_README (or the internet) for more documentation on Saikuro.  If you wish to change the options Saikuro is run with, then set this constant in your Rakefile:
+
+namespace :metrics do                   
+  SAIKURO_OPTIONS = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
+end
+
+Like RCOV_OPTIONS, SAIKURO_OPTIONS is a hash that gets merged with the default options hash.  The above example will set the warn_cyclo to 3 and the error_cyclo to 4 (which is way too low -- it's just an example) instructing Saikuro to flag methods with a higher cyclomatic complexity in it's report.
+
+
+*Notes on metrics:flog
+
+Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  Metric_fu takes the output of Flog run on the 'app' folder, puts it in between some <pre> tags, calculates the average Flog score per method, and jams all that into an index.html file.  You should check out the awesome, and a little scary, Flog website for more info.
+
+
+*Notes on metrics:stats
+
+This is just 'rake stats' put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
+
+
+*Notes on metrics:churn
+
+Files that change a lot in your project may be bad a sign.  This task uses "svn log" to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
+
+namespace :metrics do 
+  CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
+end
+
+The Proc is there because '3.months.ago' only works when after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
+
+You can also change the minimum churn count like so:
+
+namespace :metrics do
+  CHURN_OPTIONS = { :minimum_churn_count => 3 }
+end
+
+
+*Thanks
+
+I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also Michael Schubert, Kurtis Seebaldt, Toby Tripp, Paul Gross, and Chirdeep Shetty for their help and advice.
