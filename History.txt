@@ -1,0 +1,10 @@
+=== 0.2.0 / 2008-06-11
+
+* Integrated use of base directory constant
+* Have all reports automatically open in a browser if platform is darwin
+* Namespaced under Metricks
+
+=== 0.1.0 / 2008-06-10
+
+* Initial integration of metric_fu and my enhancements to flog
+* Metrics are generated but are all over the place  
