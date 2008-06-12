@@ -1,4 +1,4 @@
 == TODO list
 
-* Integrate reports to all be generated under tmp/metrics
-* Integrate MD5 hashing with remainder of tests
+* Integrate MD5 hashing with remainder of reports
+* Update README to more accurately reflect current development

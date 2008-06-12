@@ -1,4 +1,5 @@
-require 'metricks'
+require 'metricks/md5_tracker'
+require 'metricks/flog_reporter'
 
 begin
   FLOG_DIR = File.join(Metricks::BASE_DIRECTORY, 'flog')
@@ -6,8 +7,8 @@ begin
   def flog(output, directory)
     Dir.glob("#{directory}/**/*.rb").each do |filename|
       output_dir = "#{FLOG_DIR}/#{filename.split("/")[0..-2].join("/")}"
-      mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)  
-      `flog #{filename} > #{FLOG_DIR}/#{filename.split('.')[0]}.txt` if Metricks::MD5Tracker.file_changed?(filename)
+      mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
+      `flog #{filename} > #{FLOG_DIR}/#{filename.split('.')[0]}.txt` if Metricks::MD5Tracker.file_changed?(filename, FLOG_DIR)
     end
   end
 
@@ -42,7 +43,7 @@ begin
 
       desc "Generate and open flog report"
       task :all => [:models, :controllers, :helpers, :lib] do
-        FlogReporter::Generator.generate_report(FLOG_DIR)
+        Metricks::FlogReporter::Generator.generate_report(FLOG_DIR)
         system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
       end
     end

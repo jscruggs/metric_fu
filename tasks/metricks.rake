@@ -10,5 +10,5 @@ namespace :metricks do
   task :all_with_migrate => [:prepare, "db:migrate", :all]
   
   desc "Generate coverage, cyclomatic complexity, flog, stats, and churn reports"
-  task :all => [:coverage, :cyclomatic_complexity, :flog, :stats, :churn]
+  task :all => [:coverage, :cyclomatic_complexity, :flog, :churn, :stats]
 end

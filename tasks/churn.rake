@@ -1,4 +1,6 @@
 namespace :metricks do
+  CHURN_DIR = File.join(Metricks::BASE_DIRECTORY, 'churn')
+  
   desc "Which files change the most"
   task :churn do
     date_range, minimum_churn_count = churn_options()
@@ -10,6 +12,7 @@ namespace :metricks do
       changes[$1] ? changes[$1] += 1 : changes[$1] = 1 
     end
     write_churn_file(changes.reject {|file, change_count| change_count < minimum_churn_count})
+    system("open #{CHURN_DIR}/index.html") if PLATFORM['darwin']
   end
 
   def churn_options
@@ -25,8 +28,8 @@ namespace :metricks do
   end
 
   def write_churn_file changes
-    FileUtils.mkpath "#{Metricks::BASE_DIRECTORY}/churn"
-    File.open("#{Metricks::BASE_DIRECTORY}/churn/index.html", "w+") do |file|
+    FileUtils.mkdir_p(CHURN_DIR, :verbose => false) unless File.directory?(CHURN_DIR)
+    File.open("#{CHURN_DIR}/index.html", "w+") do |file|
       file << CHURN_FILE_BEGINING
       changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change|
         file << "<tr><td>#{change[0]}</td><td class='warning'>#{change[1]}</td></tr>\n"
