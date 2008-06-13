@@ -1,5 +1,3 @@
-require 'fileutils'
-
 namespace :metricks do
   
   STATS_DIR = File.join(Metricks::BASE_DIRECTORY, 'stats')

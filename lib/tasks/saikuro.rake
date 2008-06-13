@@ -3,7 +3,7 @@ namespace :metricks do
   SAIKURO_DIR = File.join(Metricks::BASE_DIRECTORY, 'saikuro')
   
   desc "A cyclomatic complexity report using Saikuro"
-  task :cyclomatic_complexity do
+  task :saikuro do
     default_options = {"--output_directory" => SAIKURO_DIR,
                         "--input_directory" => "app",
                         "--cyclo" => "",
@@ -15,7 +15,7 @@ namespace :metricks do
     options = ""
     default_options.each_pair { |key, value| options << "#{key} #{value} " } 
      
-    sh "ruby #{File.expand_path(File.join( File.dirname(__FILE__), '..', 'lib', 'metricks', 'saikuro' ))}/saikuro.rb " +
+    sh "ruby #{File.expand_path(File.join(File.dirname(__FILE__), '..', 'metricks', 'saikuro'))}/saikuro.rb " +
                 "#{options}" do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"

@@ -4,3 +4,4 @@ end
 
 require File.join(File.dirname(__FILE__), 'metricks', 'md5_tracker')
 require File.join(File.dirname(__FILE__), 'metricks', 'flog_reporter')
+require File.join(File.dirname(__FILE__), 'tasks', 'metricks')
