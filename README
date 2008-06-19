@@ -1,4 +1,4 @@
-Version 0.4.0
+Version 0.4.1
 http://github.com/revolutionhealth/metricks
 
 Metricks is a fork of the metric_fu project and is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails' built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
