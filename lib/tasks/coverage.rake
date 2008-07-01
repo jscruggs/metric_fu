@@ -16,17 +16,17 @@ begin
       task(:clean) { rm_f("rcov_tmp", :verbose => false) }
 
       desc "RCov task to generate report"
-      Rcov::RcovTask.new(:unit => :clean) do |t|
+      Rcov::RcovTask.new(:do => :clean) do |t|
         FileUtils.mkdir_p(COVERAGE_DIR) unless File.directory?(COVERAGE_DIR)
         t.test_files = FileList['test/**/*_test.rb']
         t.rcov_opts = ["--sort coverage", "--aggregate '#{COVERAGE_DATA_FILE}'", "--html", "--rails"]
-        t.output_dir = COVERAGE_DIR + '/unit'
+        t.output_dir = COVERAGE_DIR
       end
     end
     
     desc "Generate and open coverage report"
-    task :coverage => ['coverage:unit'] do
-      system("open #{COVERAGE_DIR}/unit/index.html") if PLATFORM['darwin']
+    task :coverage => ['coverage:do'] do
+      system("open #{COVERAGE_DIR}/index.html") if PLATFORM['darwin']
     end
   end
 rescue LoadError

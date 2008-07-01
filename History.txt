@@ -1,3 +1,7 @@
+=== 0.4.2 / 2008-07-01
+
+* Changed rcov output directory so that it is no longer 'coverage/unit' but just 'coverage' for better integration with CC.rb
+
 === 0.4.1 / 2008-06-13
 
 * Rcov tests now extend beyond one level depth directory by using RcovTask instead of the shell
