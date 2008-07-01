@@ -7,7 +7,7 @@ begin
   namespace :metricks do
 
     COVERAGE_DIR = File.join(Metricks::BASE_DIRECTORY, 'coverage')
-    COVERAGE_DATA_FILE = File.join(COVERAGE_DIR, 'coverage.data')
+    COVERAGE_DATA_FILE = File.join(Metricks::BASE_DIRECTORY, 'coverage.data')
 
     namespace :coverage do
       rcov_output = COVERAGE_DIR
@@ -17,7 +17,7 @@ begin
 
       desc "RCov task to generate report"
       Rcov::RcovTask.new(:do => :clean) do |t|
-        FileUtils.mkdir_p(COVERAGE_DIR) unless File.directory?(COVERAGE_DIR)
+        FileUtils.mkdir_p(Metricks::BASE_DIRECTORY) unless File.directory?(Metricks::BASE_DIRECTORY)
         t.test_files = FileList['test/**/*_test.rb']
         t.rcov_opts = ["--sort coverage", "--aggregate '#{COVERAGE_DATA_FILE}'", "--html", "--rails"]
         t.output_dir = COVERAGE_DIR

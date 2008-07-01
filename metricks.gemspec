@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "metricks"
   s.version = "0.4.2"
-  s.date = "2008-06-13"
+  s.date = "2008-07-01"
   s.summary = "Generates project metrics using Flog, RCov, Saikuro and more"
   s.email = "sean.soper@gmail.com"
   s.homepage = "http://github.com/revolutionhealth/metricks"
