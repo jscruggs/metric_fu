@@ -50,10 +50,10 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu</h1>
+            <h1>About metric_fu 0.6.0</h1>
             <div>
 <p><br/>
-    Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses <a href="http://saikuro.rubyforge.org/">Saikuro</a>, <a href="http://ruby.sadi.st/Flog.html">Flog</a>, <a href="http://eigenclass.org/hiki.rb?rcov">Rcov</a>, and <a href="http://www.rubyonrails.org/">Rails</a> built-in stats task to create a series of reports.  It's designed to integrate easily with <a href="http://cruisecontrolrb.thoughtworks.com/">CruiseControl.rb</a> by placing files in the Custom Build Artifacts folder.
+    Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses <a href="http://saikuro.rubyforge.org/">Saikuro</a>, <a href="http://ruby.sadi.st/Flog.html">Flog</a>, <a href="http://eigenclass.org/hiki.rb?rcov">Rcov</a>, <a href="http://subversion.tigris.org/">SubversionF</a>, and <a href="http://www.rubyonrails.org/">Rails</a> built-in stats task to create a series of reports.  It's designed to integrate easily with <a href="http://cruisecontrolrb.thoughtworks.com/">CruiseControl.rb</a> by placing files in the Custom Build Artifacts folder.
 </p>
 <p><br/>
     <h2>Output:</h2>
@@ -81,7 +81,7 @@
     <h2>Installation:</h2>
     You must have Rcov and Flog installed to get coverage and flog reports.  You can do this through ruby gems at the command line like so (the first line needs to be executed in base folder of your Rails project):
     <br/><br/>
-        <pre>ruby script/plugin install http://metric-fu.rubyforge.org/svn/tags/REL_0_5_1/metric_fu/</pre>
+        <pre>ruby script/plugin install http://metric-fu.rubyforge.org/svn/tags/CURRENT/metric_fu/</pre>
         <pre>sudo gem install rcov</pre>
         <pre>sudo gem install flog</pre>
     </ul>
@@ -163,7 +163,8 @@ end
     end
 </pre>
 <br/>
-    The Proc is there because '3.months.ago' only works when after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
+    The Proc is there because '3.months.ago' only works after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
+<br/>
 <br/>
     You can also change the minimum churn count like so:
 <br/>
@@ -176,7 +177,7 @@ end
 </p>
 <p><br/>   
     <h2>Thanks</h2>
-    I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also many thanks go to <a href="http://schubert.cx/">Michael Schubert</a>, <a href="http://kseebaldt.blogspot.com/">Kurtis Seebaldt</a>, <a href="http://www.workingwithrails.com/person/11263-toby-tripp">Toby Tripp</a>,  <a href="http://www.aliaghareza.com">Ali Aghareza</a>, <a href="http://www.pgrs.net/">Paul Gross</a>, and <a href="http://chirdeepshetty.net/">Chirdeep Shetty</a> for their help and advice.
+    I'd like to thank the authors of Saikuro, Subversion, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also many thanks go to <a href="http://schubert.cx/">Michael Schubert</a>, <a href="http://kseebaldt.blogspot.com/">Kurtis Seebaldt</a>, <a href="http://www.workingwithrails.com/person/11263-toby-tripp">Toby Tripp</a>,  <a href="http://www.aliaghareza.com">Ali Aghareza</a>, <a href="http://www.pgrs.net/">Paul Gross</a>, and <a href="http://chirdeepshetty.net/">Chirdeep Shetty</a> for their help and advice.
 </p>
             </div>
 
