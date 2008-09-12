@@ -1,0 +1,4 @@
+== TODO list
+
+* Integrate MD5 hashing with remainder of reports
+* Update README to more accurately reflect current development
