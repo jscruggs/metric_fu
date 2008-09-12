@@ -1,4 +1,4 @@
-module Metricks::FlogReporter
+module MetricFu::FlogReporter
   class ScannedMethod
     attr_accessor :name, :score, :operators
     

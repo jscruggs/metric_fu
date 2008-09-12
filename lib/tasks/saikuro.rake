@@ -1,6 +1,6 @@
-namespace :metricks do
+namespace :metrics do
   
-  SAIKURO_DIR = File.join(Metricks::BASE_DIRECTORY, 'saikuro')
+  SAIKURO_DIR = File.join(MetricFu::BASE_DIRECTORY, 'saikuro')
   
   desc "A cyclomatic complexity report using Saikuro"
   task :saikuro do

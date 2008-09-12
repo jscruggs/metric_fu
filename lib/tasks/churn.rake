@@ -1,5 +1,5 @@
-namespace :metricks do
-  CHURN_DIR = File.join(Metricks::BASE_DIRECTORY, 'churn')
+namespace :metrics do
+  CHURN_DIR = File.join(MetricFu::BASE_DIRECTORY, 'churn')
   
   desc "Which files change the most"
   task :churn do

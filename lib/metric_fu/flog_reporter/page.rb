@@ -1,4 +1,4 @@
-module Metricks::FlogReporter
+module MetricFu::FlogReporter
   class Page
     attr_accessor :score, :scanned_methods
     

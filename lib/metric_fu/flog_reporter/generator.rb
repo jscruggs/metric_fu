@@ -1,4 +1,4 @@
-module Metricks::FlogReporter
+module MetricFu::FlogReporter
   class Generator
     class << self
       def generate_report(base_dir)
@@ -18,7 +18,7 @@ module Metricks::FlogReporter
 
           next unless page
 
-          if Metricks::MD5Tracker.file_already_counted?(filename)            
+          if MetricFu::MD5Tracker.file_already_counted?(filename)            
             flog_hashes << {
               :page => page,
               :path => filename.sub('.txt', '.html').sub("#{base_dir}/", "")

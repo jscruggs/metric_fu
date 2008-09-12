@@ -1,6 +1,6 @@
-namespace :metricks do
+namespace :metrics do
   
-  STATS_DIR = File.join(Metricks::BASE_DIRECTORY, 'stats')
+  STATS_DIR = File.join(MetricFu::BASE_DIRECTORY, 'stats')
   STATS_FILE = File.join(STATS_DIR, 'index.html')
   
   desc "A stats report"

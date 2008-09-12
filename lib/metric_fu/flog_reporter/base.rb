@@ -1,4 +1,4 @@
-module Metricks::FlogReporter
+module MetricFu::FlogReporter
   
   THRESHOLD = (ENV['FLOG_THRESHOLD'] || 120)
   SCORE_FORMAT = "%0.2f"

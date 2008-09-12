@@ -1,4 +1,4 @@
-namespace :metricks do
+namespace :metrics do
   task :prepare do
     RAILS_ENV = 'test'
   end

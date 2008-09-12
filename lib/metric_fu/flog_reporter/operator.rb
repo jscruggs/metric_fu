@@ -1,4 +1,4 @@
-module Metricks::FlogReporter
+module MetricFu::FlogReporter
   class Operator
     attr_accessor :score, :operator
     

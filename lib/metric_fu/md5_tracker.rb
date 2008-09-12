@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'fileutils'
 
-module Metricks
+module MetricFu
   class MD5Tracker
 
     @@unchanged_md5s = []

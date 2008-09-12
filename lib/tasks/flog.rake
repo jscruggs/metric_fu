@@ -2,17 +2,17 @@ require File.join(File.dirname(__FILE__), '..', 'metricks', 'md5_tracker')
 require File.join(File.dirname(__FILE__), '..', 'metricks', 'flog_reporter')
 
 begin
-  FLOG_DIR = File.join(Metricks::BASE_DIRECTORY, 'flog')
+  FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
 
   def flog(output, directory)
     Dir.glob("#{directory}/**/*.rb").each do |filename|
       output_dir = "#{FLOG_DIR}/#{filename.split("/")[0..-2].join("/")}"
       mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-      `flog #{filename} > #{FLOG_DIR}/#{filename.split('.')[0]}.txt` if Metricks::MD5Tracker.file_changed?(filename, FLOG_DIR)
+      `flog #{filename} > #{FLOG_DIR}/#{filename.split('.')[0]}.txt` if MetricFu::MD5Tracker.file_changed?(filename, FLOG_DIR)
     end
   end
 
-  namespace :metricks do
+  namespace :metrics do
   
     task :flog => ['flog:all'] do
     end
@@ -43,7 +43,7 @@ begin
 
       desc "Generate and open flog report"
       task :all => [:models, :controllers, :helpers, :lib] do
-        Metricks::FlogReporter::Generator.generate_report(FLOG_DIR)
+        MetricFu::FlogReporter::Generator.generate_report(FLOG_DIR)
         system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
       end
     end
