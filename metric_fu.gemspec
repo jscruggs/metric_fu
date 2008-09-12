@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
-  s.name = "metricks"
-  s.version = "0.4.2"
-  s.date = "2008-07-01"
+  s.name = "metric_fu"
+  s.version = "0.7.0"
+  s.date = "2008-09-11"
   s.summary = "Generates project metrics using Flog, RCov, Saikuro and more"
-  s.email = "sean.soper@gmail.com"
-  s.homepage = "http://github.com/revolutionhealth/metricks"
-  s.description = "Metricks is a fork of the metric_fu project and adds support for additional code analysis tools"
+  s.email = "jake.scruggs@gmail.com"
+  s.homepage = "http://metric-fu.rubyforge.org/"
+  s.description = "Gives you a fist full of code metrics"
   s.has_rdoc = true
-  s.authors = ["Sean Soper"]
-  s.files = %w(History.txt Manifest.txt metricks.gemspec MIT-LICENSE README TODO.txt) + Dir.glob("{lib,test}/**/*")
+  s.authors = ["Jake Scruggs", "Sean Soper"]
+  s.files = %w(History.txt Manifest.txt metric_fu.gemspec MIT-LICENSE README TODO.txt) + Dir.glob("{lib,test}/**/*")
   s.test_files = ["test/test_md5_tracker.rb"]
   s.rdoc_options = ["--main", "README"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
