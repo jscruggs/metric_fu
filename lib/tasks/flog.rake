@@ -46,6 +46,13 @@ begin
         MetricFu::FlogReporter::Generator.generate_report(FLOG_DIR)
         system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
       end
+      
+      desc "Generate a flog report from specified directories"
+      task :custom do
+        raise "You must define MetricFu::DIRECTORIES_TO_FLOG in your Rakefile" unless defined?(MetricFu::DIRECTORIES_TO_FLOG)
+        MetricFu::DIRECTORIES_TO_FLOG.each { |directory| flog(directory, directory) }
+        MetricFu::FlogReporter::Generator.generate_report(FLOG_DIR)
+      end      
     end
 
   end

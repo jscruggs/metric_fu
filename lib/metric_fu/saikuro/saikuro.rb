@@ -1120,13 +1120,11 @@ if __FILE__ == $0
     end
   end
 
-  def get_ruby_files(path)
+  def get_ruby_files(input_path)
     files = Array.new
-    Find.find(path) do |f|
-      if !FileTest.directory?(f)
-	if f =~ /\.rb$/
-	  files<< f
-	end
+    input_path.split("|").each do |path|
+      Find.find(path.strip) do |f|
+        files << f if !FileTest.directory?(f) && f =~ /\.rb$/
       end
     end
     files
