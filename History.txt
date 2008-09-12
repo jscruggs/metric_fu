@@ -1,3 +1,8 @@
+=== MetricFu 0.7.5 / 2008-09-12
+
+* Flog can now flog any set of directories you like (see README).
+* Saikuro can now look at any set of directories you like (see README).
+
 === MetricFu 0.7.1 / 2008-09-12
 
 * Fixed filename bugs pointed out by Bastien
