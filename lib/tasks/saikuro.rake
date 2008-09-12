@@ -13,9 +13,9 @@ namespace :metricks do
   
     default_options.merge!(SAIKURO_OPTIONS) if defined?(SAIKURO_OPTIONS)
     options = ""
-    default_options.each_pair { |key, value| options << "#{key} #{value} " } 
+    default_options.each_pair { |key, value| options << "#{key} #{value} " }  
      
-    sh "ruby #{File.expand_path(File.join(File.dirname(__FILE__), '..', 'metricks', 'saikuro'))}/saikuro.rb " +
+    sh "ruby \"#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'metricks', 'saikuro'))}/saikuro.rb\" " +
                 "#{options}" do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
