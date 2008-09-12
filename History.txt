@@ -1,30 +1,42 @@
-=== 0.4.2 / 2008-07-01
+=== MetricFu 0.7.1 / 2008-09-12
+
+* Fixed filename bugs pointed out by Bastien
+
+=== MetricFu 0.7.0 / 2008-09-11
+
+* Merged in Sean Soper's changes to metric_fu.  
+* Metric_fu is now a gem.
+* Flogging now uses a MD5 hash to figure out if it should re-flog a file (if it's changed)
+* Floggin also has a cool new output screen
+* Thanks Sean!
+
+=== Metricks 0.4.2 / 2008-07-01
 
 * Changed rcov output directory so that it is no longer 'coverage/unit' but just 'coverage' for better integration with CC.rb
 
-=== 0.4.1 / 2008-06-13
+=== Metricks 0.4.1 / 2008-06-13
 
 * Rcov tests now extend beyond one level depth directory by using RcovTask instead of the shell
 
-=== 0.4.0 / 2008-06-13
+=== Metricks 0.4.0 / 2008-06-13
 
 * Implementing functionality for use as a gem
 * Added Rakefile to facilitate testing
 
-=== 0.3.0 / 2008-06-11
+=== Metricks 0.3.0 / 2008-06-11
 
 * Generated reports now open on darwin automatically
 * Generated reports reside under tmp/metricks unless otherwise specified by ENV['CC_BUILD_ARTIFACTS']
 * MD5Tracker works with Flog reports for speed optimization
 
-=== 0.2.0 / 2008-06-11
+=== Metricks 0.2.0 / 2008-06-11
 
 * Integrated use of base directory constant
 * Have all reports automatically open in a browser if platform is darwin
 * Namespaced under Metricks
 * Dropped use of shell md5 command in favor of Ruby's Digest::MD5 libraries
 
-=== 0.1.0 / 2008-06-10
+=== Metricks 0.1.0 / 2008-06-10
 
 * Initial integration of metric_fu and my enhancements to flog
 * Metrics are generated but are all over the place  
