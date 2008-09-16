@@ -57,11 +57,11 @@ When creating a coverage report, metric_fu runs all the tests in the test folder
 
 Saikuro is bundled with metric_fu so you don't have to install it.  Look at the SAIKURO_README (or the internet) for more documentation on Saikuro.  If you wish to change the options Saikuro is run with, then set this constant in your Rakefile:
                   
-SAIKURO_OPTIONS = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
+MetricFu::SAIKURO_OPTIONS = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
 
-Like RCOV_OPTIONS, SAIKURO_OPTIONS is a hash that gets merged with the default options hash.  The above example will set the warn_cyclo to 3 and the error_cyclo to 4 (which is way too low -- it's just an example) instructing Saikuro to flag methods with a higher cyclomatic complexity in it's report.
+MetricFu::SAIKURO_OPTIONS is a hash that gets merged with the default options hash.  The above example will set the warn_cyclo to 3 and the error_cyclo to 4 (which is way too low -- it's just an example) instructing Saikuro to flag methods with a higher cyclomatic complexity in it's report.
 
-If you want to have Saikuro look at multiple folders you can put something like this in you rakefile:
+If you want to have Saikuro look at multiple folders you can put something like this in your rakefile:
 MetricFu::SAIKURO_OPTIONS = {"--input_directory" => '"cms/app | cms/lib"'}
 
 
