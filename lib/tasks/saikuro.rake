@@ -4,6 +4,7 @@ namespace :metrics do
   
   desc "A cyclomatic complexity report using Saikuro"
   task :saikuro do
+    raise "SAIKURO_OPTIONS is now MetricFu::SAIKURO_OPTIONS" if defined?(SAIKURO_OPTIONS)
     default_options = {"--output_directory" => SAIKURO_DIR,
                         "--input_directory" => "app",
                         "--cyclo" => "",
@@ -11,7 +12,7 @@ namespace :metrics do
                         "--warn_cyclo" => "5",
                         "--error_cyclo" => "7"}
   
-    default_options.merge!(SAIKURO_OPTIONS) if defined?(SAIKURO_OPTIONS)
+    default_options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
     options = ""
     default_options.each_pair { |key, value| options << "#{key} #{value} " }  
      
