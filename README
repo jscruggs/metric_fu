@@ -1,27 +1,26 @@
-Version 0.7.5
+Version 0.7.6
 http://github.com/jscruggs/metric_fu
 
 Metric_fu began its life as a plugin for Rails that generated code metrics reports.  As of version 0.7.0, metric_fu is a gem owing to the excellent work done by Sean Soper.  
 
 Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses Saikuro, Flog, Rcov, and Rails' built-in stats task to create a series of reports.  It's designed to integrate easily with CruiseControl.rb by placing files in the Custom Build Artifacts folder.
 
-*Installation
+****Installation****
 sudo gem install jscruggs-metric_fu -s http://gems.github.com
 
 Then in your Rakefile:
 require 'metric_fu'
 
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
-require 'my_app/vendor/gems/jscruggs-metric_fu-0.7.1/lib/metric_fu'
+require 'vendor/gems/jscruggs-metric_fu-0.7.6/lib/metric_fu'
 
 then you don't have to install it on every box you run it on.
 
-
-*Important note:
+Important note:
 You must have Rcov and Flog installed to get coverage and flog reports.  Metric_fu requires both of these gems so they will be installed when you install the metric_fu gem.
 
 
-*Usage
+****Usage****
 
 Out of the box metrics provides these tasks:
 rake metrics:all                  
@@ -49,54 +48,50 @@ project.scheduler.polling_interval = 24.hours
 Which will check for updates every 24 hours and run all the metrics rake tasks (migrating your test db first).  The output will be visible from an individual build's detail page.
 
 
-*Notes on metrics:coverage
+****Notes on metrics:coverage****
 
-When creating a coverage report, metric_fu runs all the tests in the test folder using Rcov.  This task used to support RSpec, but currently that doesn't work.  This will be fixed in the near future (claims Jake on 9/12/2008).
+When creating a coverage report, metric_fu runs all the tests in the test folder and specs in spec folder using Rcov.
 
 
-*Notes on metrics:saikuro
+****Notes on metrics:saikuro****
 
 Saikuro is bundled with metric_fu so you don't have to install it.  Look at the SAIKURO_README (or the internet) for more documentation on Saikuro.  If you wish to change the options Saikuro is run with, then set this constant in your Rakefile:
-
-namespace :metrics do                   
-  SAIKURO_OPTIONS = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
-end
+                  
+SAIKURO_OPTIONS = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
 
 Like RCOV_OPTIONS, SAIKURO_OPTIONS is a hash that gets merged with the default options hash.  The above example will set the warn_cyclo to 3 and the error_cyclo to 4 (which is way too low -- it's just an example) instructing Saikuro to flag methods with a higher cyclomatic complexity in it's report.
 
 If you want to have Saikuro look at multiple folders you can put something like this in you rakefile:
-SAIKURO_OPTIONS = {"--input_directory" => '"cms/app | cms/lib"'}
+MetricFu::SAIKURO_OPTIONS = {"--input_directory" => '"cms/app | cms/lib"'}
 
 
-*Notes on metrics:flog
+****Notes on metrics:flog****
 
 Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  You should check out the awesome, and a little scary, Flog website for more info.
 
 'rake metrics:flog:custom' allows you to specify a custom set of directories to Flog (in your rakefile) like so:
+
 MetricFu::DIRECTORIES_TO_FLOG = ['cms/app', 'cms/lib']
 
-*Notes on metrics:stats
+
+****Notes on metrics:stats****
 
 This is just 'rake stats' for Rails put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
 
 
-*Notes on metrics:churn
+****Notes on metrics:churn****
 
 Files that change a lot in your project may be bad a sign.  This task uses "svn log" to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
 
-namespace :metrics do 
-  CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
-end
+MetricFu::CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
 
 The Proc is there because '3.months.ago' only works when after the Rails Environment is loaded (and Rails extends Fixnum) which I didn't want to do every time you run a rake task.
 
 You can also change the minimum churn count like so:
 
-namespace :metrics do
-  CHURN_OPTIONS = { :minimum_churn_count => 3 }
-end
+MetricFu::CHURN_OPTIONS = { :minimum_churn_count => 3 }
 
 
-*Thanks
+****Thanks****
 
 I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also Sean Soper, Michael Schubert, Kurtis Seebaldt, Toby Tripp, Paul Gross, and Chirdeep Shetty for their help and advice.
