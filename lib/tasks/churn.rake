@@ -16,9 +16,10 @@ namespace :metrics do
   end
 
   def churn_options
-    options = defined?(CHURN_OPTIONS) ? CHURN_OPTIONS : {} 
+    raise "CHURN_OPTIONS is now MetricFu::CHURN_OPTIONS" if defined?(CHURN_OPTIONS)
+    options = defined?(MetricFu::CHURN_OPTIONS) ? MetricFu::CHURN_OPTIONS : {} 
     if options[:start_date]
-      require File.dirname(__FILE__) + '/../../../../config/environment'
+      require RAILS_ROOT + '/config/environment'
       date_range = "--revision {#{options[:start_date].call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
     else
       date_range = ""
