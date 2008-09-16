@@ -165,11 +165,11 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 </p>
 <p>
     <br/>
-    If you want to have Saikuro look at multiple folders you can put something like this in your rakefile:
+    'rake metrics:flog:custom' allows you to specify a custom set of directories to Flog (in your rakefile) like so:
     <br/>
     <br/>
 <pre>
-    MetricFu::SAIKURO_OPTIONS = {"--input_directory" => '"cms/app | cms/lib"'}    
+    MetricFu::DIRECTORIES_TO_FLOG = ['cms/app', 'cms/lib']  
 </pre>
 </p>
 <p><br/>
