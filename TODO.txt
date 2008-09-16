@@ -1,4 +1,10 @@
 == TODO list
 
+* Sort Flog scores from worst to best
+* Get churn to work with git
+* Extract functionality from rake files and put under test
+* Change churn start_date to not rely on Rails 1.day.ago functionality (so metric_fu can be used in non-Rails apps)
+* Make integration with RSpec better (use SpecTask?)
+* Integrate Flog, Saikuro, and Coverage into one report so you can see methods that have high complexity and low coverage (this is a big one)
 * Integrate MD5 hashing with remainder of reports
-* Update README to more accurately reflect current development
+
