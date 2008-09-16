@@ -18,8 +18,8 @@ begin
       desc "RCov task to generate report"
       Rcov::RcovTask.new(:do => :clean) do |t|
         FileUtils.mkdir_p(MetricFu::BASE_DIRECTORY) unless File.directory?(MetricFu::BASE_DIRECTORY)
-        t.test_files = FileList['test/**/*_test.rb']
-        t.rcov_opts = ["--sort coverage", "--aggregate '#{COVERAGE_DATA_FILE}'", "--html", "--rails"]
+        t.test_files = FileList['test/**/*_test.rb', 'spec/**/*_spec.rb']
+        t.rcov_opts = ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/"]
         t.output_dir = COVERAGE_DIR
       end
     end
