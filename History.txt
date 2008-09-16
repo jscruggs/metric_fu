@@ -1,3 +1,11 @@
+=== MetricFu 0.7.6 / 2008-09-15
+
+* CHURN_OPTIONS has become MetricFu::CHURN_OPTIONS
+* SAIKURO_OPTIONS has become MetricFu::SAIKURO_OPTIONS
+* Rcov now looks at test and specs
+* Exclude gems and Library ruby code from rcov
+* Fixed bug with churn start_date functionality (bad path)
+
 === MetricFu 0.7.5 / 2008-09-12
 
 * Flog can now flog any set of directories you like (see README).
@@ -12,36 +20,52 @@
 * Merged in Sean Soper's changes to metric_fu.  
 * Metric_fu is now a gem.
 * Flogging now uses a MD5 hash to figure out if it should re-flog a file (if it's changed)
-* Floggin also has a cool new output screen
+* Flogging also has a cool new output screen(s)
 * Thanks Sean!
 
-=== Metricks 0.4.2 / 2008-07-01
+    === Metricks 0.4.2 / 2008-07-01
 
-* Changed rcov output directory so that it is no longer 'coverage/unit' but just 'coverage' for better integration with CC.rb
+    * Changed rcov output directory so that it is no longer 'coverage/unit' but just 'coverage' for better integration with CC.rb
 
-=== Metricks 0.4.1 / 2008-06-13
+    === Metricks 0.4.1 / 2008-06-13
 
-* Rcov tests now extend beyond one level depth directory by using RcovTask instead of the shell
+    * Rcov tests now extend beyond one level depth directory by using RcovTask instead of the shell
 
-=== Metricks 0.4.0 / 2008-06-13
+    === Metricks 0.4.0 / 2008-06-13
 
-* Implementing functionality for use as a gem
-* Added Rakefile to facilitate testing
+    * Implementing functionality for use as a gem
+    * Added Rakefile to facilitate testing
 
-=== Metricks 0.3.0 / 2008-06-11
+    === Metricks 0.3.0 / 2008-06-11
 
-* Generated reports now open on darwin automatically
-* Generated reports reside under tmp/metricks unless otherwise specified by ENV['CC_BUILD_ARTIFACTS']
-* MD5Tracker works with Flog reports for speed optimization
+    * Generated reports now open on darwin automatically
+    * Generated reports reside under tmp/metricks unless otherwise specified by ENV['CC_BUILD_ARTIFACTS']
+    * MD5Tracker works with Flog reports for speed optimization
 
-=== Metricks 0.2.0 / 2008-06-11
+    === Metricks 0.2.0 / 2008-06-11
 
-* Integrated use of base directory constant
-* Have all reports automatically open in a browser if platform is darwin
-* Namespaced under Metricks
-* Dropped use of shell md5 command in favor of Ruby's Digest::MD5 libraries
+    * Integrated use of base directory constant
+    * Have all reports automatically open in a browser if platform is darwin
+    * Namespaced under Metricks
+    * Dropped use of shell md5 command in favor of Ruby's Digest::MD5 libraries
 
-=== Metricks 0.1.0 / 2008-06-10
+    === Metricks 0.1.0 / 2008-06-10
 
-* Initial integration of metric_fu and my enhancements to flog
-* Metrics are generated but are all over the place  
+    * Initial integration of metric_fu and my enhancements to flog
+    * Metrics are generated but are all over the place  
+
+=== MetricFu 0.6.0 / 2008-05-11
+
+* Add source control churn report
+
+=== MetricFu 0.5.1 / 2008-04-25
+
+* Fixed bug with Saikuro report generation
+
+=== MetricFu 0.5.0 / 2008-04-25
+
+* create MetricFu as a Rails Plugin
+* Add Flog Report
+* Add Coverage Report
+* Add Saikuro Report
+* Add Stats Report
