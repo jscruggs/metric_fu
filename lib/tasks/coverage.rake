@@ -22,6 +22,23 @@ begin
         t.rcov_opts = ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/"]
         t.output_dir = COVERAGE_DIR
       end
+
+      desc "Fails if coverage is lower than provided THRESHOLD (default = 100.0)"
+      task :verify do
+        ENV['THRESHOLD'] ||= "100.0"
+        threshold = ENV['THRESHOLD'].to_f
+        coverage = nil
+        File.open(COVERAGE_DIR+'/index.html').each do |line|
+          if line =~ /<tt class='coverage_code'>(\d+\.\d+)%<\/tt>/
+            coverage = $1.to_f
+            break
+          end
+        end
+        raise "Coverage is #{coverage}%; should be at least #{threshold}%" if coverage < threshold
+        puts "Coverage is #{coverage}%"
+      end
+    end
+
     end
     
     desc "Generate and open coverage report"
