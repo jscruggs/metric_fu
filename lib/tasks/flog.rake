@@ -1,6 +1,3 @@
-require File.join(File.dirname(__FILE__), '..', 'metric_fu', 'md5_tracker')
-require File.join(File.dirname(__FILE__), '..', 'metric_fu', 'flog_reporter')
-
 begin
   FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
 
