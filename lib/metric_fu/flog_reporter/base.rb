@@ -8,7 +8,7 @@ module MetricFu::FlogReporter
   
   class Base
     MODULE_NAME = "([A-Z][a-z]+)+"
-    METHOD_NAME = "#([a-z]+_?)+"
+    METHOD_NAME = "#([a-z0-9]+_?)+\\??\\!?"
     SCORE = "\\d+\\.\\d+"
 
     METHOD_NAME_RE = Regexp.new("#{MODULE_NAME}#{METHOD_NAME}")
