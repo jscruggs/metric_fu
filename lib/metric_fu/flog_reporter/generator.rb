@@ -48,7 +48,7 @@ module MetricFu::FlogReporter
         html << "<table class='report'>\n"
         html << "<tr><th>File</th><th>Total score</th><th>Methods</th><th>Average score</th><th>Highest score</th></tr>"
         count = 0
-        flog_hashes.each do |flog_hash|
+        flog_hashes.sort {|x,y| y[:page].highest_score <=> x[:page].highest_score }.each do |flog_hash|
           html << <<-EOF
                     <tr class='#{Base.cycle("light", "dark", count)}'>
                       <td><a href='#{flog_hash[:path]}'>#{flog_hash[:path].sub('.html', '.rb')}</a></td>
