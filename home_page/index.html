@@ -50,10 +50,10 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 0.7.6</h1>
+            <h1>About metric_fu 0.8.0</h1>
             <div>
 <p><br/>
-    Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses <a href="http://saikuro.rubyforge.org/">Saikuro</a>, <a href="http://ruby.sadi.st/Flog.html">Flog</a>, <a href="http://eigenclass.org/hiki.rb?rcov">Rcov</a>, <a href="http://subversion.tigris.org/">SubversionF</a>, and <a href="http://www.rubyonrails.org/">Rails</a> built-in stats task to create a series of reports.  It's designed to integrate easily with <a href="http://cruisecontrolrb.thoughtworks.com/">CruiseControl.rb</a> by placing files in the Custom Build Artifacts folder.
+    Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses <a href="http://saikuro.rubyforge.org/">Saikuro</a>, <a href="http://ruby.sadi.st/Flog.html">Flog</a>, <a href="http://eigenclass.org/hiki.rb?rcov">Rcov</a>, <a href="http://subversion.tigris.org/">Subversion</a>, <a href="http://git.or.cz/">Git</a>, and <a href="http://www.rubyonrails.org/">Rails</a> built-in stats task to create a series of reports.  It's designed to integrate easily with <a href="http://cruisecontrolrb.thoughtworks.com/">CruiseControl.rb</a> by placing files in the Custom Build Artifacts folder.
 </p>
 <br/>
 <p>Metric_fu began its life as a plugin for Rails that generated code metrics reports.  As of version 0.7.0, metric_fu is a gem (owing to the excellent work done by Sean Soper) and is hosted on GitHub at <a href="http://github.com/jscruggs/metric_fu">http://github.com/jscruggs/metric_fu</a>. </p>
@@ -178,7 +178,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 </p>
 <p><br/>
     <h2>Notes on metrics:churn</h2>
-    Files that change a lot in your project may be bad a sign.  This task uses "svn log" to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
+    Files that change a lot in your project may be bad a sign.  This task uses svn or git's log to identify those files and put them in a report.  The default is to start counting changes from the beginning of your project, which might be too far back so you can change like so:
 <br/><br/>
 <pre>
     MetricFu::CHURN_OPTIONS = { :start_date => lambda{3.months.ago} }
@@ -193,6 +193,13 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <pre>
     MetricFu::CHURN_OPTIONS = { :minimum_churn_count => 3 } 
 </pre> 
+<br/>
+If you use git, then tell churn about it:
+<br/>
+<br/>
+<pre>
+    MetricFu::CHURN_OPTIONS = {:scm => :git}
+</pre>
 </p>
 <p><br/>   
     <h2>Thanks</h2>
