@@ -1,3 +1,11 @@
+=== MetricFu 0.8.0 / 2008-10-06
+
+* Source Control Churn now supports git (thanks to Erik St Martin)
+* Flog Results are sorted by Highest Flog Score
+* Fix for a bunch of 'already initialized constant' warnings that metric_fu caused
+* Fixing bug so the flog reporter can handle methods with digits in the name (thanks to Andy Gregorowicz)
+* Internal Rake task now allows metric_fu to flog/churn itself
+
 === MetricFu 0.7.6 / 2008-09-15
 
 * CHURN_OPTIONS has become MetricFu::CHURN_OPTIONS

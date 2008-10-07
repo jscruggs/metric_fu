@@ -3,13 +3,23 @@ namespace :metrics do
   
   desc "Which files change the most"
   task :churn do
-    date_range, minimum_churn_count = churn_options()
-    svn_logs = `svn log #{date_range} --verbose`.split(/\n/).select {|line| line.strip =~ /^[A,M]/}    
-  
+    date_range, minimum_churn_count, scm = churn_options()
+
     changes = {}
-    svn_logs.each do |line|
-      line.strip =~ /^[A,M] (.*)/
-      changes[$1] ? changes[$1] += 1 : changes[$1] = 1 
+    if scm == :git
+      git_logs = `git log #{date_range} --name-only --pretty=format:`.split(/\n/) 
+      git_logs.reject!{|line| line == ""}
+
+      git_logs.each do |line|
+        changes[line] ? changes[line] += 1 : changes[line] = 1 
+      end
+    else
+      svn_logs = `svn log #{date_range} --verbose`.split(/\n/).select {|line| line.strip =~ /^[A,M]/}
+  
+      svn_logs.each do |line|
+        line.strip =~ /^[A,M] (.*)/
+        changes[$1] ? changes[$1] += 1 : changes[$1] = 1
+      end
     end
     write_churn_file(changes.reject {|file, change_count| change_count < minimum_churn_count})
     system("open #{CHURN_DIR}/index.html") if PLATFORM['darwin']
@@ -20,12 +30,17 @@ namespace :metrics do
     options = defined?(MetricFu::CHURN_OPTIONS) ? MetricFu::CHURN_OPTIONS : {} 
     if options[:start_date]
       require RAILS_ROOT + '/config/environment'
-      date_range = "--revision {#{options[:start_date].call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
+      if options[:scm] == :git
+        date_range = "--after=#{options[:start_date].call.strftime('%Y-%m-%d')}"
+      else
+        date_range = "--revision {#{options[:start_date].call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
+      end
     else
       date_range = ""
     end
     minimum_churn_count = options[:minimum_churn_count] ? options[:minimum_churn_count] : 5
-    return date_range, minimum_churn_count
+    scm = options[:scm] == :git ? :git : :svn
+    return date_range, minimum_churn_count, scm
   end
 
   def write_churn_file changes
