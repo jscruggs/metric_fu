@@ -1,4 +1,4 @@
-Version 0.7.6
+Version 0.8.0
 http://github.com/jscruggs/metric_fu
 
 Metric_fu began its life as a plugin for Rails that generated code metrics reports.  As of version 0.7.0, metric_fu is a gem owing to the excellent work done by Sean Soper.  
@@ -12,7 +12,7 @@ Then in your Rakefile:
 require 'metric_fu'
 
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
-require 'vendor/gems/jscruggs-metric_fu-0.7.6/lib/metric_fu'
+require 'vendor/gems/jscruggs-metric_fu-0.8.0/lib/metric_fu'
 
 then you don't have to install it on every box you run it on.
 
@@ -90,6 +90,10 @@ The Proc is there because '3.months.ago' only works when after the Rails Environ
 You can also change the minimum churn count like so:
 
 MetricFu::CHURN_OPTIONS = { :minimum_churn_count => 3 }
+
+If you use git, then tell churn about it:
+
+MetricFu::CHURN_OPTIONS = {:scm => :git}
 
 
 ****Thanks****
