@@ -1,16 +1,14 @@
 require 'rake'
-require 'rake/testtask'
 require 'rake/rdoctask'
-require 'test/unit'
+require 'spec/rake/spectask'
 require File.join(File.dirname(__FILE__), 'lib', 'metric_fu')
 
-task :test do
-  runner = Test::Unit::AutoRunner.new(true)
-  runner.to_run << 'test'
-  runner.run
+desc "Run all specs in spec directory"
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-task :default => [:test, :"metrics:churn", :"metrics:flog:custom"] do
+task :default => [:spec, :"metrics:churn", :"metrics:flog:custom"] do
 end
 
 MetricFu::CHURN_OPTIONS = {:scm => :git}
