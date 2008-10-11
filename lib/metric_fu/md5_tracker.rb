@@ -28,7 +28,7 @@ module MetricFu
       
       def file_changed?(path_to_file, base_dir)
         orig_md5_file = md5_file(path_to_file, base_dir)
-        return track(path_to_file, base_dir) unless File.exist?(orig_md5_file)
+        return !!track(path_to_file, base_dir) unless File.exist?(orig_md5_file)
 
         current_md5 = ""
         file = File.open(orig_md5_file, 'r')
