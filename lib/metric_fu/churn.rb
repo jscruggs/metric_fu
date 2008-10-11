@@ -22,7 +22,7 @@ module MetricFu
         changes
       end
       
-      def get_logs
+      def get_logs(source_control_type, date_range)
         if source_control_type == :git
           `git log #{date_range} --name-only --pretty=format:`.split(/\n/).reject{|line| line == ""}
         else
