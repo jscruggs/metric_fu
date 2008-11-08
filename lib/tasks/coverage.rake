@@ -17,7 +17,6 @@ begin
       desc "Delete aggregate coverage data."
       task(:clean) { rm_f("rcov_tmp", :verbose => false) }
         
-      desc "RCov task to generate report"
       Spec::Rake::SpecTask.new(:do => :clean) do |t|
         FileUtils.mkdir_p(MetricFu::BASE_DIRECTORY) unless File.directory?(MetricFu::BASE_DIRECTORY)
         t.ruby_opts = ['-rtest/unit']
@@ -29,9 +28,9 @@ begin
       end
     end
     
-    desc "Generate and open coverage report"
+    desc "Generate RCov report"
     task :coverage => ['coverage:do'] do
-      system("open #{COVERAGE_DIR}/index.html") if PLATFORM['darwin']
+      system("open #{SPEC_HTML_FILE}") if PLATFORM['darwin']
     end
   end
 rescue LoadError
