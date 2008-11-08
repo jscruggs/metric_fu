@@ -36,18 +36,23 @@ module MetricFu
       end
       
       def churn_options(options)
+        if File.exist?(".git")
+          scm = :git
+        elsif File.exist?(".svn")
+          scm = :svn
+        end
+        raise "Churning requires a subversion or git repo" unless scm
+
         if options[:start_date]
           require 'activesupport'
-          if options[:scm] == :git
+          if scm == :git
             date_range = "--after=#{options[:start_date].call.strftime('%Y-%m-%d')}"
           else
             date_range = "--revision {#{options[:start_date].call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
           end
-        else
-          date_range = ""
         end
+
         minimum_churn_count = options[:minimum_churn_count] ? options[:minimum_churn_count] : 5
-        scm = options[:scm] == :git ? :git : :svn
         return date_range, minimum_churn_count, scm
       end
       

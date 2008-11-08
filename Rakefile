@@ -8,7 +8,4 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-task :default => [:spec, :"metrics:all"] do
-end
-
-MetricFu::CHURN_OPTIONS = {:scm => :git}
+task :default => [:"metrics:all"]
