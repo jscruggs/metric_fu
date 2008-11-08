@@ -3,7 +3,7 @@ module MetricFu
   RAILS = File.exist?("config/environment.rb")
   
   if RAILS
-    MetricFu::CODE_DIRS = ['app']
+    MetricFu::CODE_DIRS = ['app', 'lib']
   else
     MetricFu::CODE_DIRS = ['lib']
   end
