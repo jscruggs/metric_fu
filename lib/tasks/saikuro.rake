@@ -9,14 +9,14 @@ namespace :metrics do
 
     raise "SAIKURO_OPTIONS is now MetricFu::SAIKURO_OPTIONS" if defined?(SAIKURO_OPTIONS)
     options = { :output_directory => SAIKURO_DIR,
-                        :input_directory => ,
-                        :cyclo => MetricFu::CODE_DIRS,
+                        :input_directory => MetricFu::CODE_DIRS,
+                        :cyclo => "",
                         :filter_cyclo => "0",
                         :warn_cyclo => "5",
                         :error_cyclo => "7"}
   
     options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
-    options_string = default_options.inject(""){ |o, h| o + "--#{h.join(' ')} " }  
+    options_string = options.inject(""){ |o, h| o + "--#{h.join(' ')} " }  
      
     sh %{ruby "#{SAIKURO}" #{options_string}} do |ok, response|
       unless ok
