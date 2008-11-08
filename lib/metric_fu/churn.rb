@@ -37,7 +37,7 @@ module MetricFu
       
       def churn_options(options)
         if options[:start_date]
-          require RAILS_ROOT + '/config/environment'
+          require 'activesupport'
           if options[:scm] == :git
             date_range = "--after=#{options[:start_date].call.strftime('%Y-%m-%d')}"
           else

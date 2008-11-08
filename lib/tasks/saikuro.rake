@@ -1,23 +1,24 @@
+require 'fileutils'
+
 namespace :metrics do
-  
-  SAIKURO_DIR = File.join(MetricFu::BASE_DIRECTORY, 'saikuro')
-  
+
   desc "A cyclomatic complexity report using Saikuro"
   task :saikuro do
+    SAIKURO_DIR = File.join(MetricFu::BASE_DIRECTORY, 'saikuro')
+    SAIKURO = File.expand_path(File.join(File.dirname(__FILE__), '..', 'metric_fu', 'saikuro', 'saikuro.rb'))
+
     raise "SAIKURO_OPTIONS is now MetricFu::SAIKURO_OPTIONS" if defined?(SAIKURO_OPTIONS)
-    default_options = {"--output_directory" => SAIKURO_DIR,
-                        "--input_directory" => "app",
-                        "--cyclo" => "",
-                        "--filter_cyclo" => "0",
-                        "--warn_cyclo" => "5",
-                        "--error_cyclo" => "7"}
+    options = { :output_directory => SAIKURO_DIR,
+                        :input_directory => ,
+                        :cyclo => MetricFu::CODE_DIRS,
+                        :filter_cyclo => "0",
+                        :warn_cyclo => "5",
+                        :error_cyclo => "7"}
   
-    default_options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
-    options = ""
-    default_options.each_pair { |key, value| options << "#{key} #{value} " }  
+    options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
+    options_string = default_options.inject(""){ |o, h| o + "--#{h.join(' ')} " }  
      
-    sh "ruby \"#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'metric_fu', 'saikuro'))}/saikuro.rb\" " +
-                "#{options}" do |ok, response|
+    sh %{ruby "#{SAIKURO}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
         exit 1
