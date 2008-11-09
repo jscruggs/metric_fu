@@ -10,3 +10,4 @@
 * Generate metrics:* rake tasks for each of CodeMetric's descendants
 * Update flog specs so that they actually run flog
 * Add flay specs that run flay
+* Convert readme to markdown and rename to README.mkdn so github will render it
