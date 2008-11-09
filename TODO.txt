@@ -4,4 +4,9 @@
 * Extract functionality from rake files and put under test
 * Integrate Flog, Saikuro, and Coverage into one report so you can see methods that have high complexity and low coverage (this is a big one)
 * Integrate MD5 hashing with remainder of reports
-
+* Move HTML out of code and into templates/
+* Replace #generate_report with #new on each metric class
+* Make each class descend from MetricFu::CodeMetric
+* Generate metrics:* rake tasks for each of CodeMetric's descendants
+* Update flog specs so that they actually run flog
+* Add flay specs that run flay
