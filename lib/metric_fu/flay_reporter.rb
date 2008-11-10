@@ -1,6 +1,6 @@
 module MetricFu
   module FlayReporter
-    class Generator < MetricFu::Base::Generator
+    class Generator < Base::Generator
       
       def generate_report
         save_html(parse)

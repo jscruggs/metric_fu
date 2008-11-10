@@ -1,5 +1,6 @@
 require 'spec'
 require 'date'
+require File.dirname(__FILE__) + '/../lib/metric_fu/base'
 require File.dirname(__FILE__) + '/../lib/metric_fu/churn'
 include MetricFu
 
@@ -14,12 +15,12 @@ describe MetricFu::Churn do
       git_mock = mock('git')
       git_mock.should_receive(:get_logs).and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)      
-      churn = Churn.new(:scm => :git, :minimum_churn_count => 3)
+      churn = Churn.new('base_dir', :scm => :git, :minimum_churn_count => 3)
       churn.instance_variable_get(:@changes).should == {"accept"=>3} 
     end
     
     it "should have a default min count of 5" do
-      churn = Churn.new()
+      churn = Churn.new('base_dir')
       churn.instance_variable_get(:@minimum_churn_count).should == 5
     end
         
@@ -31,7 +32,7 @@ describe MetricFu::Churn do
       git_mock = mock('git')
       git_mock.should_receive(:get_logs).twice.and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)      
-      changes = Churn.new(:scm => :git).send(:parse_log_for_changes)
+      changes = Churn.new('base_dir', :scm => :git).send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2
       changes["README"].should == 3
@@ -42,7 +43,7 @@ describe MetricFu::Churn do
       svn_mock = mock('svn')
       svn_mock.should_receive(:get_logs).twice.and_return(logs)
       Churn::Svn.should_receive(:new).and_return(svn_mock)
-      changes = Churn.new().send(:parse_log_for_changes)
+      changes = Churn.new('base_dir').send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2
       changes["README"].should == 3

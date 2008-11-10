@@ -1,7 +1,8 @@
 module MetricFu
-  class Churn
+  class Churn < Base::Generator
     
-    def initialize(options={})
+    def initialize(base_dir, options={})
+      @base_dir = base_dir
       case options[:scm]
       when :git
         @source_control = Git.new(options[:start_date])
@@ -11,21 +12,14 @@ module MetricFu
       @minimum_churn_count = options[:minimum_churn_count] || 5
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
     end
-    
-    def self.generate_report(output_dir, options)
-      churn = Churn.new(options)
-      churn.write_churn_file(output_dir)
-    end
 
-    def write_churn_file(output_dir)
-      FileUtils.mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-      File.open("#{output_dir}/index.html", "w+") do |file|
-        file << CHURN_FILE_BEGINING
+    def generate_report
+      content = CHURN_FILE_BEGINING
         @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change|
-          file << "<tr><td>#{change[0]}</td><td class='warning'>#{change[1]}</td></tr>\n"
+          content << "<tr><td>#{change[0]}</td><td class='warning'>#{change[1]}</td></tr>\n"
         end
-        file << CHURN_FILE_END
-      end    
+      content << CHURN_FILE_END        
+      save_html(content)
     end 
   
     private

@@ -1,5 +1,5 @@
 require 'spec'
-require File.dirname(__FILE__) + '/../../lib/metric_fu'
+require File.dirname(__FILE__) + '/../../lib/metric_fu/flog_reporter'
 include MetricFu::FlogReporter
 
 describe "FlogReporter::Base" do
