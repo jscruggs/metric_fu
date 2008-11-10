@@ -1,7 +1,4 @@
-require 'spec'
-
-require File.dirname(__FILE__) + '/../lib/metric_fu/base'
-include MetricFu
+require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe MetricFu::Base::Generator do
   describe "save_html" do

@@ -1,8 +1,4 @@
-require 'spec'
-require 'date'
-require File.dirname(__FILE__) + '/../lib/metric_fu/base'
-require File.dirname(__FILE__) + '/../lib/metric_fu/churn'
-include MetricFu
+require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe MetricFu::Churn do
   describe "generate_report" do
@@ -16,6 +12,7 @@ describe MetricFu::Churn do
       git_mock.should_receive(:get_logs).and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)      
       churn = Churn.new('base_dir', :scm => :git, :minimum_churn_count => 3)
+      churn.analyze
       churn.instance_variable_get(:@changes).should == {"accept"=>3} 
     end
     
@@ -30,7 +27,7 @@ describe MetricFu::Churn do
     it "should count the changes with git" do
       logs = ["home_page/index.html", "README", "History.txt", "README", "History.txt", "README"]
       git_mock = mock('git')
-      git_mock.should_receive(:get_logs).twice.and_return(logs)
+      git_mock.should_receive(:get_logs).and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)
       File.should_receive(:exist?).with(".git").and_return(true)
       changes = Churn.new('base_dir').send(:parse_log_for_changes)
@@ -42,7 +39,7 @@ describe MetricFu::Churn do
     it "should count the changes with svn" do
       logs = ["home_page/index.html", "README", "History.txt", "README", "History.txt", "README"]
       svn_mock = mock('svn')
-      svn_mock.should_receive(:get_logs).twice.and_return(logs)
+      svn_mock.should_receive(:get_logs).and_return(logs)
       Churn::Svn.should_receive(:new).and_return(svn_mock)
       File.should_receive(:exist?).with(".git").and_return(false)
       File.should_receive(:exist?).with(".svn").and_return(true)            
