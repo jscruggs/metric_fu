@@ -1,23 +1,23 @@
 <html>
-  <head>
-    <title>Flay Results</title>
-    <style>
+<head>
+	<title>Flay Results</title>
+	<style>
 	<%= open(File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.css")) { |f| f.read } %>
 	</style>
-  </head>
+</head>
 
 <body>
-  <h1>Flay Results</h1>
+	<h1>Flay Results</h1>
 
-    <% @matches.each do |match| %>
-    <table width="80%" border="1">
-      <tr><th><%= match.first %></th></tr>
-        <tr><td>
-        <% match[1..-1].each do |filename| %>
-          <%= link_to_filename(*filename.split(":")) %><br>
-        <% end %>
-        </td></tr>
-    <% end %>
-  </table>
+	<% @matches.each do |match| %>
+	<table width="80%" border="1">
+		<tr><th><%= match.first %></th></tr>
+		<tr><td>
+			<% match[1..-1].each do |filename| %>
+			<%= link_to_filename(*filename.split(":")) %><br>
+			<% end %>
+		</td></tr>
+		<% end %>
+	</table>
 </body>
 </html>

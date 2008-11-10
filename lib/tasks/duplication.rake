@@ -2,7 +2,8 @@ begin
   DUPLICATION_DIR = File.join(MetricFu::BASE_DIRECTORY, 'duplication')
 
   namespace :metrics do
-  
+    
+    desc "Generate duplication report with flay"
     task :duplication do
       MetricFu::FlayReporter::Generator.generate_report(DUPLICATION_DIR)
       system("open #{DUPLICATION_DIR}/index.html") if PLATFORM['darwin']

@@ -1,5 +1,5 @@
 module MetricFu::FlogReporter
-  class Page
+  class Page < MetricFu::Base::Generator
     attr_accessor :score, :scanned_methods
     
     def initialize(score, scanned_methods = [])
@@ -8,15 +8,7 @@ module MetricFu::FlogReporter
     end
     
     def to_html
-      output = "<html><head><style>"
-      output << Base.load_css
-      output << "</style></head><body>"
-      output << "Score: #{score}\n"
-      scanned_methods.each do |sm|
-        output << sm.to_html
-      end
-      output << "</body></html>"
-      output
+      ERB.new(File.read(template_file)).result(binding)
     end
     
     def average_score
@@ -32,5 +24,10 @@ module MetricFu::FlogReporter
         m.score > highest ? m.score : highest
       end
     end
+    
+    # should be dynamically read from the class
+    def template_name
+      'flog_page'      
+    end    
   end
 end

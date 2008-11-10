@@ -1,0 +1,13 @@
+<html>
+<head>
+	<style>
+	<%= open(File.join(MetricFu::TEMPLATE_DIR, "flog.css")) { |f| f.read } %>
+	</style>
+</head>
+<body>
+	<p>Score: <%= score %></p>
+	<% scanned_methods.each do |sm| %>
+	<%= sm.to_html %>
+	<% end %>
+</body>
+</html>

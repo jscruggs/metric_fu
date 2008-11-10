@@ -33,8 +33,11 @@ module MetricFu
       
       def generate_html    
         analyze
-        template_file = File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")
         html = ERB.new(File.read(template_file)).result(binding)        
+      end
+
+      def template_file
+        File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")
       end
       
       def link_to_filename(name, line = nil)

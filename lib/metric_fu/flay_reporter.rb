@@ -10,6 +10,7 @@ module MetricFu
         @matches = output.chomp.split("\n\n").map{|m| m.split("\n  ") }
       end
       
+      # should be dynamically read from the class      
       def template_name
         'flay'      
       end

@@ -22,15 +22,6 @@ module MetricFu::FlogReporter
         return second_value
       end
 
-      def load_css(css_file = nil)
-        filepath = css_file || File.join(File.dirname(__FILE__), 'flog_reporter.css')
-        css = ""
-        file = File.open(filepath, "r")
-        file.each_line { |line| css << line }
-        file.close
-        css
-      end
-
       def parse(text)
         score = text[/\w+ = (\d+\.\d+)/, 1]
         return nil unless score
