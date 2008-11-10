@@ -1,7 +1,9 @@
 <html>
   <head>
     <title>Flay Results</title>
-    <link rel="stylesheet" href="flay.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <style>
+	<%= open(File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.css")) { |f| f.read } %>
+	</style>
   </head>
 
 <body>

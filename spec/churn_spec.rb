@@ -31,8 +31,9 @@ describe MetricFu::Churn do
       logs = ["home_page/index.html", "README", "History.txt", "README", "History.txt", "README"]
       git_mock = mock('git')
       git_mock.should_receive(:get_logs).twice.and_return(logs)
-      Churn::Git.should_receive(:new).and_return(git_mock)      
-      changes = Churn.new('base_dir', :scm => :git).send(:parse_log_for_changes)
+      Churn::Git.should_receive(:new).and_return(git_mock)
+      File.should_receive(:exist?).with(".git").and_return(true)
+      changes = Churn.new('base_dir').send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2
       changes["README"].should == 3
@@ -43,6 +44,8 @@ describe MetricFu::Churn do
       svn_mock = mock('svn')
       svn_mock.should_receive(:get_logs).twice.and_return(logs)
       Churn::Svn.should_receive(:new).and_return(svn_mock)
+      File.should_receive(:exist?).with(".git").and_return(false)
+      File.should_receive(:exist?).with(".svn").and_return(true)            
       changes = Churn.new('base_dir').send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2

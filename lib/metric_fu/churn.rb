@@ -12,17 +12,15 @@ module MetricFu
       end
 
       @minimum_churn_count = options[:minimum_churn_count] || 5
+    end  
+    
+    def analyze
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
     end
-
-    def generate_html
-      content = CHURN_FILE_BEGINING
-        @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change|
-          content << "<tr><td>#{change[0]}</td><td class='warning'>#{change[1]}</td></tr>\n"
-        end
-      content << CHURN_FILE_END        
-      content
-    end 
+    
+    def template_name
+      'churn'      
+    end    
   
     private
     
@@ -83,61 +81,6 @@ module MetricFu
         m ? m[1] : nil
       end      
     end
-  
-    CHURN_FILE_BEGINING = <<-EOS
-    <html><head><title>Source Control Churn Results</title></head>
-    <style>
-    body {
-    	margin: 20px;
-    	padding: 0;
-    	font-size: 12px;
-    	font-family: bitstream vera sans, verdana, arial, sans serif;
-    	background-color: #efefef;
-    }
-
-    table {	
-    	border-collapse: collapse;
-    	/*border-spacing: 0;*/
-    	border: 1px solid #666;
-    	background-color: #fff;
-    	margin-bottom: 20px;
-    }
-
-    table, th, th+th, td, td+td  {
-    	border: 1px solid #ccc;
-    }
-
-    table th {
-    	font-size: 12px;
-    	color: #fc0;
-    	padding: 4px 0;
-    	background-color: #336;
-    }
-
-    th, td {
-    	padding: 4px 10px;
-    }
-
-    td {	
-    	font-size: 13px;
-    }
-
-    .warning {
-    	background-color: yellow;
-    }
-    </style>
-
-    <body>
-    <h1>Source Control Churn Results</h1>
-      <table width="100%" border="1">
-        <tr><th>File Path</th><th>Times Changed</th></tr>
-    EOS
-
-    CHURN_FILE_END = <<-EOS
-      </table>
-    </body>
-    </html>
-    EOS
   
   end
 end
