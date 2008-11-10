@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Flay Results</title>
+    <link rel="stylesheet" href="flay.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  </head>
+
+<body>
+  <h1>Flay Results</h1>
+
+    <% @matches.each do |match| %>
+    <table width="80%" border="1">
+      <tr><th><%= match.first %></th></tr>
+        <tr><td>
+        <% match[1..-1].each do |filename| %>
+          <%= link_to_filename(*filename.split(":")) %><br>
+        <% end %>
+        </td></tr>
+    <% end %>
+  </table>
+</body>
+</html>

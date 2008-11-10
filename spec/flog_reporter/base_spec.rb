@@ -5,7 +5,7 @@ include MetricFu::FlogReporter
 describe "FlogReporter::Base" do
   before do
     @alpha_only_method = <<-AOM
-    Total score = 13.6283678106927
+    Total flog = 13.6283678106927
 
     ErrorMailer#errormail: (12.5)
         12.0: assignment
@@ -15,7 +15,7 @@ describe "FlogReporter::Base" do
 AOM
 
     @method_that_has_digits = <<-MTHD
-    Total score = 7.08378429936994
+    Total flog = 7.08378429936994
 
     NoImmunizationReason#to_c32: (7.1)
          3.0: code
@@ -26,7 +26,7 @@ AOM
 MTHD
 
     @bang_method = <<-BM
-    Total score = 7.08378429936994
+    Total flog = 7.08378429936994
 
     NoImmunizationReason#to_c32!: (7.1)
          3.0: code

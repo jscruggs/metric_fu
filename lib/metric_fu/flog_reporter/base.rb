@@ -6,7 +6,7 @@ module MetricFu::FlogReporter
   end
   
   class Base
-    MODULE_NAME = "([A-Z][a-z]+)+"
+    MODULE_NAME = "([A-Za-z]+)+"
     METHOD_NAME = "#([a-z0-9]+_?)+\\??\\!?"
     SCORE = "\\d+\\.\\d+"
 
@@ -32,7 +32,7 @@ module MetricFu::FlogReporter
       end
 
       def parse(text)
-        score = text[/score = (\d+\.\d+)/, 1]
+        score = text[/\w+ = (\d+\.\d+)/, 1]
         return nil unless score
         page = Page.new(score)
 

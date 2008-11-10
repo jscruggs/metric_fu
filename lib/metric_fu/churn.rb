@@ -3,12 +3,14 @@ module MetricFu
     
     def initialize(base_dir, options={})
       @base_dir = base_dir
-      case options[:scm]
-      when :git
+      if File.exist?(".git")
         @source_control = Git.new(options[:start_date])
-      else
+      elsif File.exist?(".svn")
         @source_control = Svn.new(options[:start_date])
-      end       
+      else
+        raise "Churning requires a subversion or git repo"
+      end
+
       @minimum_churn_count = options[:minimum_churn_count] || 5
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
     end
@@ -42,6 +44,8 @@ module MetricFu
       
       private
       def require_rails_env
+        # not sure if the following works because active_support might only be in vendor/rails
+        # require 'activesupport'        
         require RAILS_ROOT + '/config/environment'
       end
     end
