@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
     "TODO",
     "MIT-LICENSE",
     "Rakefile",
+    "lib/metric_fu/base.rb",    
     "lib/metric_fu/churn.rb",
     "lib/metric_fu/flay_reporter.rb",
     "lib/metric_fu/flog_reporter/base.rb",
@@ -28,18 +29,29 @@ Gem::Specification.new do |s|
     "lib/tasks/metric_fu.rb",
     "lib/tasks/churn.rake",
     "lib/tasks/coverage.rake",
+    "lib/tasks/duplication.rake",    
     "lib/tasks/flog.rake",
     "lib/tasks/metric_fu.rake",
     "lib/tasks/metric_fu.rb",
     "lib/tasks/saikuro.rake",
-    "lib/tasks/stats.rake"
+    "lib/tasks/stats.rake",
+    "lib/templates/churn.css",
+    "lib/templates/churn.html.erb",
+    "lib/templates/flay.css",
+    "lib/templates/flay.html.erb",
+    "lib/templates/flog.css",
+    "lib/templates/flog.html.erb",   
+    "lib/templates/flog_page.html.erb",
   ]
   
   # Dir['spec/**/*.rb']
   s.test_files = [
+    "spec/base_spec.rb",
+    "spec/flay_reporter_spec.rb",
     "spec/churn_spec.rb",
     "spec/flog_reporter/base_spec.rb",
-    "spec/md5_tracker_spec.rb"
+    "spec/md5_tracker_spec.rb",
+    "spec/spec_helper.rb",
   ]
   
   
