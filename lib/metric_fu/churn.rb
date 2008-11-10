@@ -13,13 +13,13 @@ module MetricFu
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
     end
 
-    def generate_report
+    def generate_html
       content = CHURN_FILE_BEGINING
         @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change|
           content << "<tr><td>#{change[0]}</td><td class='warning'>#{change[1]}</td></tr>\n"
         end
       content << CHURN_FILE_END        
-      save_html(content)
+      content
     end 
   
     private

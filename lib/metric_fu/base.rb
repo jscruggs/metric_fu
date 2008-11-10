@@ -4,7 +4,7 @@ module MetricFu
   module Base
     class Generator
       
-      def initialize(base_dir, options)
+      def initialize(base_dir, options={})
         @base_dir = base_dir
       end      
       
@@ -17,6 +17,10 @@ module MetricFu
           f.puts content
         end
       end
+      
+      def generate_report
+        save_html(generate_html)
+      end      
     end
   end
 end

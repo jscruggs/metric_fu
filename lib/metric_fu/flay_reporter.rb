@@ -1,12 +1,8 @@
 module MetricFu
   module FlayReporter
-    class Generator < Base::Generator
+    class Generator < Base::Generator    
       
-      def generate_report
-        save_html(parse)
-      end
-      
-      def parse
+      def generate_html
         content = ""
         File.open("#{@base_dir}/result.txt", "r").each_line do |file|
           content << file + "<br/>"
