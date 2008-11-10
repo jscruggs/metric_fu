@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     "MIT-LICENSE",
     "Rakefile",
     "lib/metric_fu/churn.rb",
-    "lib/metric_fu/flay.rb",
+    "lib/metric_fu/flay_reporter.rb",
     "lib/metric_fu/flog_reporter/base.rb",
     "lib/metric_fu/flog_reporter/generator.rb",
     "lib/metric_fu/flog_reporter/operator.rb",
