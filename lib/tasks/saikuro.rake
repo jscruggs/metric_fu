@@ -14,10 +14,10 @@ namespace :metrics do
                         :filter_cyclo => "0",
                         :warn_cyclo => "5",
                         :error_cyclo => "7"}
-  
+
     options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
-    options_string = options.inject(""){ |o, h| o + "--#{h.join(' ')} " }  
-     
+    options_string = options.inject(""){ |o, h| o + "--#{h.join(' ')} " }
+
     sh %{ruby "#{SAIKURO}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
@@ -26,10 +26,10 @@ namespace :metrics do
     end
 
     if File.exist? "#{SAIKURO_DIR}/index_cyclo.html"
-      mv "#{SAIKURO_DIR}/index_cyclo.html", 
+      mv "#{SAIKURO_DIR}/index_cyclo.html",
          "#{SAIKURO_DIR}/index.html"
     end
-    
+
     system("open #{SAIKURO_DIR}/index.html") if PLATFORM['darwin']
   end
 end

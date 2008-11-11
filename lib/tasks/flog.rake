@@ -10,40 +10,40 @@ begin
   end
 
   namespace :metrics do
-  
+
     task :flog => ['flog:all'] do
     end
-    
+
     namespace :flog do
       desc "Delete aggregate flog data."
       task(:clean) { rm_rf(FLOG_DIR, :verbose => false) }
-  
+
       desc "Flog code in app/models"
       task :models do
         flog "models", "app/models"
       end
 
-      desc "Flog code in app/controllers"  
+      desc "Flog code in app/controllers"
       task :controllers do
         flog "controllers", "app/controllers"
       end
 
-      desc "Flog code in app/helpers"  
+      desc "Flog code in app/helpers"
       task :helpers do
         flog "helpers", "app/helpers"
       end
 
-      desc "Flog code in lib"  
+      desc "Flog code in lib"
       task :lib do
         flog "lib", "lib"
-      end  
+      end
 
       desc "Generate a flog report from specified directories"
       task :custom do
         MetricFu::CODE_DIRS.each { |directory| flog(directory, directory) }
         MetricFu::FlogReporter::Generator.generate_report(FLOG_DIR)
-      end      
-      
+      end
+
       desc "Generate and open flog report"
       if MetricFu::RAILS
         task :all => [:models, :controllers, :helpers, :lib] do
@@ -56,7 +56,7 @@ begin
           system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
         end
       end
-      
+
     end
 
   end

@@ -1,10 +1,10 @@
 module MetricFu::FlogReporter
-  
+
   SCORE_FORMAT = "%0.2f"
-  
+
   class InvalidFlog < RuntimeError
   end
-  
+
   class Base
     MODULE_NAME = "([A-Za-z]+)+"
     METHOD_NAME = "#([a-z0-9]+_?)+\\??\\!?"
@@ -12,7 +12,7 @@ module MetricFu::FlogReporter
 
     METHOD_NAME_RE = Regexp.new("#{MODULE_NAME}#{METHOD_NAME}")
     SCORE_RE = Regexp.new(SCORE)
-  
+
     METHOD_LINE_RE = Regexp.new("#{MODULE_NAME}#{METHOD_NAME}:\\s\\(#{SCORE}\\)")
     OPERATOR_LINE_RE = Regexp.new("\\s+(#{SCORE}):\\s(.*)$")
 
@@ -41,7 +41,7 @@ module MetricFu::FlogReporter
              page.scanned_methods.last.operators << Operator.new(score, operator)
           end
         end
-      
+
         page
       end
     end

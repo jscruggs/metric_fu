@@ -16,9 +16,9 @@ module MetricFu::FlogReporter
           generate_page(filename, page)
         end
         flog_hashes << { :path => File.basename(filename, ".txt") + '.html',
-                 :page => page }        
+                 :page => page }
       end
-      
+
       generate_index(flog_hashes)
     end
 
@@ -28,7 +28,7 @@ module MetricFu::FlogReporter
 
     # should be dynamically read from the class
     def template_name
-      'flog'      
+      'flog'
     end
 
     def generate_index(flog_hashes)

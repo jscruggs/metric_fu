@@ -13,7 +13,7 @@ begin
 
     namespace :coverage do
       rcov_output = COVERAGE_DIR
-      
+
       desc "Delete aggregate coverage data."
       task(:clean) { rm_f("rcov_tmp", :verbose => false) }
 
@@ -36,7 +36,7 @@ begin
       #   t.rcov_dir = COVERAGE_DIR
       # end
     end
-    
+
     desc "Generate and open coverage report"
     task :coverage => ['coverage:do'] do
       system("open #{COVERAGE_DIR}/index.html") if PLATFORM['darwin']

@@ -36,27 +36,27 @@ MTHD
          1.1: entryRelationship
 BM
   end
-  
+
   it "should be able to parse an alpha only method" do
     page = Base.parse(@alpha_only_method)
     page.should_not be_nil
     page.score.should == 13.6283678106927
-    page.scanned_methods.size.should == 1 
+    page.scanned_methods.size.should == 1
     sm = page.scanned_methods.first
     sm.name.should == 'ErrorMailer#errormail'
-    sm.score.should == 12.5 
+    sm.score.should == 12.5
   end
-  
+
   it "should be able to parse method that has digits" do
     page = Base.parse(@method_that_has_digits)
     page.should_not be_nil
     page.score.should == 7.08378429936994
-    page.scanned_methods.size.should == 1 
+    page.scanned_methods.size.should == 1
     sm = page.scanned_methods.first
     sm.name.should == 'NoImmunizationReason#to_c32'
     sm.score.should == 7.1
   end
-  
+
   it "should be able to parse bang method" do
     page = Base.parse(@bang_method)
     page.should_not be_nil

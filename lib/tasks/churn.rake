@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../metric_fu/churn')
 
 namespace :metrics do
-  
+
   desc "Which files change the most"
   task :churn do
     churn_dir = File.join(MetricFu::BASE_DIRECTORY, 'churn')

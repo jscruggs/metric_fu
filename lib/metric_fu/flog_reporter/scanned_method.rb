@@ -1,13 +1,13 @@
 module MetricFu::FlogReporter
   class ScannedMethod
     attr_accessor :name, :score, :operators
-    
+
     def initialize(name, score, operators = [])
       @name = name
       @score = score.to_f
       @operators = operators
     end
-    
+
     def to_html
       output = "<p><strong>#{name} (#{score})</strong></p>\n"
       output << "<table>\n"
