@@ -60,4 +60,5 @@ Gem::Specification.new do |s|
   s.add_dependency("flog", [">= 1.2.0"])
   s.add_dependency("rcov", [">= 0.8.1"])
   s.add_dependency("flay", ["> 0.0.0"])
+  s.add_dependency("diff-lcs", ["> 0.0.0"])
 end
