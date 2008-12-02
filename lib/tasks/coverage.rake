@@ -21,6 +21,7 @@ begin
         t.test_files = FileList['test/**/*_test.rb', 'spec/**/*_spec.rb']
         t.rcov_opts = ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/"]
         t.output_dir = COVERAGE_DIR
+        # this line is a fix for Rails 2.1 relative loading issues
         t.libs << 'test'
       end
     end
