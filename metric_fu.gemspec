@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
   s.add_dependency("flog", ["> 0.0.0"])
   s.add_dependency("rcov", ["> 0.0.0"])
+  
 end
