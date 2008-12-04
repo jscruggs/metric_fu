@@ -7,5 +7,5 @@ namespace :metrics do
   task :all_with_migrate => [:prepare, "db:migrate", :all]
   
   desc "Generate coverage, cyclomatic complexity (saikuro), flog, stats, and churn reports"
-  task :all => [:coverage, :saikuro, :flog, :churn, :stats]
+  task :all => [:coverage, :saikuro, :flog, :churn, :stats, :reek, :roodi, :flay]
 end
