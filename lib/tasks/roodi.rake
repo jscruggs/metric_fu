@@ -4,7 +4,7 @@ namespace :metrics do
   ROODI_FILE = File.join(ROODI_DIR, 'index.html')
   
   desc "A Ruby coding standards report using Roodi"
-  task :reek do
+  task :roodi do
     mkdir_p(ROODI_DIR) unless File.directory?(ROODI_DIR)
     `echo '<pre>' > #{ROODI_FILE}`
     `roodi #{RAILS_ROOT}/lib/**/*.rb #{RAILS_ROOT}/app/**/*.rb >> #{ROODI_FILE}`

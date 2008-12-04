@@ -4,7 +4,7 @@ namespace :metrics do
   FLAY_FILE = File.join(FLAY_DIR, 'index.html')
   
   desc "A code duplication report using flay"
-  task :FLAY do
+  task :flay do
     mkdir_p(FLAY_DIR) unless File.directory?(FLAY_DIR)
     `echo '<pre>' > #{FLAY_FILE}`
     `flay #{RAILS_ROOT}/test/**/*.rb #{RAILS_ROOT}/app/**/*.rb >> #{FLAY_FILE}`

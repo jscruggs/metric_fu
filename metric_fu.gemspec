@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "metric_fu"
-  s.version = "0.8.0.1"
+  s.version = "0.8.0.2"
   s.summary = "Generates project metrics using Flog, RCov, Saikuro and more"
   s.email = "jake.scruggs@gmail.com"
   s.homepage = "http://metric-fu.rubyforge.org/"
