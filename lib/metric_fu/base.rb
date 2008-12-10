@@ -18,6 +18,7 @@ module MetricFu
       end
 
       def self.generate_report(base_dir, options={})
+        FileUtils.mkdir_p(base_dir, :verbose => false) unless File.directory?(base_dir)
         self.new(base_dir, options).generate_report
       end
 
