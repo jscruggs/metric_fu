@@ -16,19 +16,19 @@ namespace :metrics do
     desc "Create a railroad models report"
     task :models do
       mkdir_p(RAILROAD_DIR) unless File.directory?(RAILROAD_DIR)
-      `railroad -M -a -m -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,models.png)}`
+      `railroad -M -a -m -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,'models.png')}`
     end
   
     desc "Create a railroad controllers report"
     task :controllers do
       mkdir_p(RAILROAD_DIR) unless File.directory?(RAILROAD_DIR)
-      `railroad -C -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,controllers.png)}`
+      `railroad -C -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,'controllers.png')}`
     end
   
     desc "Create a railroad acts_as_state_machine report"
     task :aasm do
       mkdir_p(RAILROAD_DIR) unless File.directory?(RAILROAD_DIR)
-      `railroad -A -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,aasm.png)}`
+      `railroad -A -l -v | neato -Tpng > #{File.join(RAILROAD_DIR,'aasm.png')}`
     end
     
   end
