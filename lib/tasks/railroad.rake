@@ -3,6 +3,9 @@ namespace :metrics do
   RAILROAD_DIR = File.join(MetricFu::BASE_DIRECTORY, 'railroad')
   RAILROAD_INDEX = File.join(RAILROAD_DIR, 'index.html')
   
+  task :railroad => ['railroad:all'] do
+  end
+  
   namespace :railroad do
   
     desc "Create all railroad reports"
