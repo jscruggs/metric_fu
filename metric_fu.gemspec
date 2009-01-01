@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name = "metric_fu"
-  s.version = "0.8.2"
+  s.version = "0.8.3"
   s.summary = "A fistful of code metrics"
   s.email = "jake.scruggs@gmail.com"
   s.homepage = "http://metric-fu.rubyforge.org/"
   s.description = "Code metrics from Flog, Flay, RCov, Saikuro, Churn, and Rails' stats task"
-  s.authors = ["Jake Scruggs", "Sean Soper", "Andre Arko"]
+  s.authors = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus"]
 
   s.files = [
     "README",
