@@ -11,12 +11,17 @@ module MetricFu
   end
 
   module Base
+    
+    ######################################################################
+    # Base class for report Generators
+    #
     class Generator
 
       def initialize(base_dir, options={})
         @base_dir = base_dir
       end
 
+      # generates a report for base_dir
       def self.generate_report(base_dir, options={})
         FileUtils.mkdir_p(base_dir, :verbose => false) unless File.directory?(base_dir)
         self.new(base_dir, options).generate_report
