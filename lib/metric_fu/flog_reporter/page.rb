@@ -12,6 +12,7 @@ module MetricFu::FlogReporter
     end
 
     def average_score
+      return 0 if scanned_methods.length == 0
       sum = 0
       scanned_methods.each do |m|
         sum += m.score
