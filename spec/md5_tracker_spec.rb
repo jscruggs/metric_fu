@@ -1,6 +1,4 @@
-require 'spec'
-require File.join(File.dirname(__FILE__), '../lib/metric_fu/md5_tracker')
-include MetricFu
+require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe MetricFu::MD5Tracker do
   before do
