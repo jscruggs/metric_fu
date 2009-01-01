@@ -7,7 +7,15 @@
 <body>
 	<p>Score: <%= score %></p>
 	<% scanned_methods.each do |sm| %>
-	<%= sm.to_html %>
-	<% end %>
+  <p><strong><%= sm.name %> (<%= sm.score %>)</strong></p>
+  <table>
+    <tr><th>Score</th><th>Operator</th></tr>
+    <% operators.each_with_index do |operator, count| %>
+      <tr class='<%= cycle("light", "dark", count) %>'>
+        <td class='score'><%= sprintf(SCORE_FORMAT, operator.score) %></td>
+        <td class='score'><%= operator.operator %></td>
+      </tr>
+  <% end %>
+  </table>
 </body>
 </html>

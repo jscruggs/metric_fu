@@ -17,10 +17,6 @@ module MetricFu::FlogReporter
     OPERATOR_LINE_RE = Regexp.new("\\s+(#{SCORE}):\\s(.*)$")
 
     class << self
-      def cycle(first_value, second_value, iteration)
-        return first_value if iteration % 2 == 0
-        return second_value
-      end
 
       def parse(text)
         score = text[/\w+ = (\d+\.\d+)/, 1]

@@ -45,7 +45,10 @@ module MetricFu
       def template_file
         File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")
       end
-
+      
+      ########################
+      # Template methods
+      
       def link_to_filename(name, line = nil)
         filename = File.expand_path(name)
         if PLATFORM['darwin']
@@ -54,6 +57,11 @@ module MetricFu
           %{<a href="file://#{filename}">#{name}</a>}
         end
       end
+      
+      def cycle(first_value, second_value, iteration)
+        return first_value if iteration % 2 == 0
+        return second_value
+      end      
     end
   end
 end
