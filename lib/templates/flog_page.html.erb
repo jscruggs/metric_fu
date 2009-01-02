@@ -1,7 +1,7 @@
 <html>
 <head>
 	<style>
-	<%= open(File.join(MetricFu::TEMPLATE_DIR, "flog.css")) { |f| f.read } %>
+	<%= inline_css("flog.css") %>
 	</style>
 </head>
 <body>
@@ -15,7 +15,8 @@
         <td class='score'><%= sprintf(SCORE_FORMAT, operator.score) %></td>
         <td class='score'><%= operator.operator %></td>
       </tr>
-  <% end %>
+    <% end %>
   </table>
+ <% end %>
 </body>
 </html>

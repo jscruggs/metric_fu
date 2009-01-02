@@ -49,6 +49,10 @@ module MetricFu
       ########################
       # Template methods
       
+      def inline_css(css)
+	      open(File.join(MetricFu::TEMPLATE_DIR, css)) { |f| f.read }      
+      end
+      
       def link_to_filename(name, line = nil)
         filename = File.expand_path(name)
         if PLATFORM['darwin']

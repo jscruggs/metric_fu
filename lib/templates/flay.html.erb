@@ -2,7 +2,7 @@
 <head>
 	<title>Flay Results</title>
 	<style>
-	<%= open(File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.css")) { |f| f.read } %>
+	<%= inline_css("#{template_name}.css") %>
 	</style>
 </head>
 

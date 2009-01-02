@@ -2,9 +2,6 @@ module MetricFu::FlogReporter
 
   SCORE_FORMAT = "%0.2f"
 
-  class InvalidFlog < RuntimeError
-  end
-
   class Base
     MODULE_NAME = "([A-Za-z]+)+"
     METHOD_NAME = "#([a-z0-9]+_?)+\\??\\!?"
@@ -33,11 +30,10 @@ module MetricFu::FlogReporter
           if OPERATOR_LINE_RE =~ method_line and
              operator = method_line[OPERATOR_LINE_RE, 2] and
              score = method_line[SCORE_RE]
-             raise InvalidFlog if page.scanned_methods.empty?
+             return if page.scanned_methods.empty?
              page.scanned_methods.last.operators << Operator.new(score, operator)
           end
         end
-
         page
       end
     end
@@ -45,45 +41,47 @@ module MetricFu::FlogReporter
   
   class Generator < MetricFu::Base::Generator
     def generate_report
-      flog_hashes = []
-      Dir.glob("#{@base_dir}/**/*.txt").each do |filename|
-        begin
-          page = Base.parse(open(filename, "r") { |f| f.read })
-        rescue InvalidFlog
-          puts "Invalid flog for #{filename}"
-          next
+      pages = []
+      flog_results.each do |filename|
+        page = Base.parse(open(filename, "r") { |f| f.read })
+        if page
+          page.page = File.basename(filename, ".txt") + '.html'
+          page.filename = filename
+          pages << page
         end
-
-        next unless page
-
-        unless MetricFu::MD5Tracker.file_already_counted?(filename)
-          generate_page(filename, page)
-        end
-        flog_hashes << { :path => File.basename(filename, ".txt") + '.html',
-                 :page => page }
       end
-
-      generate_index(flog_hashes)
+      generate_pages(pages)
     end
 
-    def generate_page(filename, page)
-      save_html(page.to_html, File.basename(filename, ".txt"))
+    def generate_pages(pages)
+      pages.each do |page|
+        unless MetricFu::MD5Tracker.file_already_counted?(page.filename)
+          generate_page(page)
+        end
+      end      
+      save_html(ERB.new(File.read(template_file)).result(binding))
     end
 
+    def generate_page(page)
+      save_html(page.to_html, page.page)
+    end
+
+    def flog_results
+      Dir.glob("#{@base_dir}/**/*.txt")
+    end
+    
     # should be dynamically read from the class
     def template_name
       'flog'
-    end
-
-    def generate_index(flog_hashes)
-      save_html(ERB.new(File.read(template_file)).result(binding))
-    end
+    end    
   end  
   
   class Page < MetricFu::Base::Generator
-    attr_accessor :score, :scanned_methods
+    attr_accessor :filename, :path, :score, :scanned_methods
 
-    def initialize(score, scanned_methods = [])
+    def initialize(filename, path, score, scanned_methods = [])
+      @filename = filename
+      @path = path
       @score = score.to_f
       @scanned_methods = scanned_methods
     end
@@ -129,23 +127,6 @@ module MetricFu::FlogReporter
       @name = name
       @score = score.to_f
       @operators = operators
-    end
-
-    def to_html
-      output = "<p><strong>#{name} (#{score})</strong></p>\n"
-      output << "<table>\n"
-      output << "<tr><th>Score</th><th>Operator</th></tr>\n"
-      count = 0
-      operators.each do |operator|
-        output << <<-EOF
-                    <tr class='#{Base.cycle("light", "dark", count)}'>
-                      <td class='score'>#{sprintf(SCORE_FORMAT, operator.score)}</td>
-                      <td class='score'>#{operator.operator}</td>
-                    </tr>
-                  EOF
-        count += 1
-      end
-      output << "</table>\n\n"
     end
   end  
 end
