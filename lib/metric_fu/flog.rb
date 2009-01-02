@@ -1,9 +1,9 @@
-FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
-
 module MetricFu
+  FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
   
-  def generate_flog_report
+  def self.generate_flog_report
     MetricFu::Flog::Generator.generate_report(FLOG_DIR)
+    system("open #{FLOG_DIR}/index.html") if open_in_browser?  
   end
   
   module Flog

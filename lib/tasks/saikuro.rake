@@ -30,6 +30,6 @@ namespace :metrics do
          "#{SAIKURO_DIR}/index.html"
     end
 
-    system("open #{SAIKURO_DIR}/index.html") if PLATFORM['darwin']
+    system("open #{SAIKURO_DIR}/index.html") if MetricFu.open_in_browser?
   end
 end

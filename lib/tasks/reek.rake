@@ -9,6 +9,6 @@ namespace :metrics do
     `echo '<pre>' > #{REEK_FILE}`
     `reek #{RAILS_ROOT}/test/**/*.rb #{RAILS_ROOT}/app/**/*.rb >> #{REEK_FILE}`
     `echo '</pre>' >> #{REEK_FILE}`
-    system("open #{REEK_FILE}") if PLATFORM['darwin']
+    system("open #{REEK_FILE}") if MetricFu.open_in_browser?
   end
 end

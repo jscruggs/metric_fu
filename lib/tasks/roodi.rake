@@ -9,6 +9,6 @@ namespace :metrics do
     `echo '<pre>' > #{ROODI_FILE}`
     `roodi #{RAILS_ROOT}/lib/**/*.rb #{RAILS_ROOT}/app/**/*.rb >> #{ROODI_FILE}`
     `echo '</pre>' >> #{ROODI_FILE}`
-    system("open #{ROODI_FILE}") if PLATFORM['darwin']
+    system("open #{ROODI_FILE}") if MetricFu.open_in_browser?
   end
 end

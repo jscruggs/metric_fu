@@ -1,9 +1,9 @@
-FLAY_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flay')
-
 module MetricFu
+  FLAY_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flay')
   
-  def generate_flay_report
+  def self.generate_flay_report
     MetricFu::Flay.generate_report(FLAY_DIR)
+    system("open #{FLAY_DIR}/index.html") if open_in_browser?    
   end
     
   class Flay < Base::Generator

@@ -9,6 +9,6 @@ namespace :metrics do
     `echo '<pre>' > #{STATS_FILE}`
     `rake stats >> #{STATS_FILE}`
     `echo '</pre>' >> #{STATS_FILE}`
-    system("open #{STATS_FILE}") if PLATFORM['darwin']
+    system("open #{STATS_FILE}") if MetricFu.open_in_browser?
   end
 end

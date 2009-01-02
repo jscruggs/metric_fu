@@ -11,6 +11,14 @@ module MetricFu
     CODE_DIRS = ['lib']
   end
 
+  def open_in_browser?
+    if defined?(MetricFu::OPEN_IN_BROWSER)
+      PLATFORM['darwin'] && MetricFu::OPEN_IN_BROWSER
+    else
+      PLATFORM['darwin']
+    end
+  end
+
   module Base
     
     ######################################################################
