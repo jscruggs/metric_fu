@@ -18,11 +18,6 @@ module MetricFu
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
     end
 
-    # should be dynamically read from the class
-    def template_name
-      'churn'
-    end
-
     private
 
     def parse_log_for_changes

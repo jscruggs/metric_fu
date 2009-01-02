@@ -38,10 +38,13 @@ describe MetricFu::Base::Generator do
       @generator = MetricFu::Base::Generator.new('other_dir')      
       @generator.cycle("light", "dark", 0).should == 'light'
       @generator.cycle("light", "dark", 1).should == 'dark'      
-      # @generator = MetricFu::Base::Generator.new('other_dir')
-      # @generator.should_receive(:open).with("other_dir/index.html", "w")
-      # @generator.should_receive(:generate_html).and_return('<html>')
-      # @generator.generate_report
+    end
+  end
+  
+  describe "template_name" do
+    it "should return the class name in lowercase" do
+      @generator = MetricFu::Base::Generator.new('other_dir')      
+      @generator.template_name.should == 'generator'
     end
   end  
 end

@@ -22,6 +22,13 @@ describe MetricFu::Churn do
     end
 
   end
+  
+  describe "template_name" do
+    it "should return the class name in lowercase" do
+      churn = Churn.new('base_dir')      
+      churn.template_name.should == 'churn'
+    end
+  end  
 
   describe "parse_log_for_changes" do
     it "should count the changes with git" do

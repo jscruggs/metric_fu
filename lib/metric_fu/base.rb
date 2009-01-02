@@ -41,6 +41,10 @@ module MetricFu
         analyze
         html = ERB.new(File.read(template_file)).result(binding)
       end
+      
+      def template_name
+        self.class.to_s.split('::').last.downcase
+      end
 
       def template_file
         File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")

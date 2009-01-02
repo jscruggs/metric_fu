@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   # Dir['lib/**/*.rb'] + Dir['lib/tasks/*'] + Dir['lib/templates/*']
   s.files += ["lib/metric_fu/base.rb",
     "lib/metric_fu/churn.rb",
-    "lib/metric_fu/flay_reporter.rb",
-    "lib/metric_fu/flog_reporter.rb",
+    "lib/metric_fu/flay.rb",
+    "lib/metric_fu/flog.rb",
     "lib/metric_fu/md5_tracker.rb",
     "lib/metric_fu/saikuro/saikuro.rb",
     "lib/metric_fu.rb",
@@ -42,8 +42,8 @@ Gem::Specification.new do |s|
   # Dir['spec/**/*.rb']
   s.test_files = ["spec/base_spec.rb",
    "spec/churn_spec.rb",
-   "spec/flay_reporter_spec.rb",
-   "spec/flog_reporter_spec.rb",
+   "spec/flay_spec.rb",
+   "spec/flog_spec.rb",
    "spec/md5_tracker_spec.rb",
    "spec/spec_helper.rb"]
 
