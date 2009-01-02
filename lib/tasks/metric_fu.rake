@@ -13,8 +13,8 @@ namespace :metrics do
 
   else
 
-    desc "Generate coverage, cyclomatic complexity, flog, flay, railroad, reek, roodi and churn reports"
-    task :all => [:coverage, :saikuro, :churn, :flog, :flay, :railroad, :reek, :roodi]
+    desc "Generate coverage, cyclomatic complexity, flog, flay, railroad and churn reports"
+    task :all => [:coverage, :saikuro, :churn, :flog, :flay, :railroad ]
 
   end
 
