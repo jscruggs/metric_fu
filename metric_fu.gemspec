@@ -18,11 +18,6 @@ Gem::Specification.new do |s|
   s.files += ["lib/metric_fu/base.rb",
     "lib/metric_fu/churn.rb",
     "lib/metric_fu/flay_reporter.rb",
-    "lib/metric_fu/flog_reporter/base.rb",
-    "lib/metric_fu/flog_reporter/generator.rb",
-    "lib/metric_fu/flog_reporter/operator.rb",
-    "lib/metric_fu/flog_reporter/page.rb",
-    "lib/metric_fu/flog_reporter/scanned_method.rb",
     "lib/metric_fu/flog_reporter.rb",
     "lib/metric_fu/md5_tracker.rb",
     "lib/metric_fu/saikuro/saikuro.rb",
@@ -48,7 +43,7 @@ Gem::Specification.new do |s|
   s.test_files = ["spec/base_spec.rb",
    "spec/churn_spec.rb",
    "spec/flay_reporter_spec.rb",
-   "spec/flog_reporter/base_spec.rb",
+   "spec/flog_reporter_spec.rb",
    "spec/md5_tracker_spec.rb",
    "spec/spec_helper.rb"]
 
