@@ -54,10 +54,10 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.rdoc_options = ["--main", "README"]
   s.extra_rdoc_files = ["HISTORY", "Manifest.txt", "README"]
-  s.add_dependency("factorylabs-railroad", ["> 0.0.0"])  
   s.add_dependency("flay", ["> 0.0.0"])  
   s.add_dependency("flog", ["> 1.2.0"])
   s.add_dependency("rcov", ["> 0.8.1"])
+  s.add_dependency("railroad", ["> 0.5.0"])  
   s.add_dependency("reek", ["> 0.0.0"])
   s.add_dependency("roodi", ["> 0.0.0"])
 end
