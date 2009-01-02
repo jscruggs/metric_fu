@@ -9,3 +9,5 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 
 task :default => [:"metrics:all"]
+
+MetricFu::OPEN_IN_BROWSER = false
