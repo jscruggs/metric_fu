@@ -92,11 +92,11 @@ IM = <<-IM
          1.2: act
          1.1: entryRelationship
 IM
-describe MetricFu::Flog::Generator do
+describe MetricFu::Flog do
 
   describe "generate_report" do
     it "should generate reports" do
-      generator = Generator.new('other_dir')
+      generator = Flog::Generator.new('other_dir')
       generator.should_receive(:flog_results).and_return(['A', 'B'])
       generator.should_receive(:save_html).at_least(3).times.and_return('')
       generator.should_receive(:open).any_number_of_times.and_return(['Total Flog = 1273.9 (9.3 +/- 259.2 flog / method)', 'TokenCounter#list_tokens_per_line: (15.2)', '9.0: assignment'].join("\n"))
@@ -104,7 +104,7 @@ describe MetricFu::Flog::Generator do
     end
     
     it "should be able to handle InvalidFlogs" do
-      generator = Generator.new('other_dir')
+      generator = Flog::Generator.new('other_dir')
       generator.should_receive(:flog_results).and_return(['A', 'B'])
       generator.should_receive(:inline_css).any_number_of_times.and_return('')
       generator.should_receive(:save_html).once
@@ -115,7 +115,7 @@ describe MetricFu::Flog::Generator do
   
   describe "template_name" do
     it "should return the class name in lowercase" do
-      flog = Generator.new('base_dir')      
+      flog = Flog::Generator.new('base_dir')      
       flog.template_name.should == 'flog'
     end
   end  

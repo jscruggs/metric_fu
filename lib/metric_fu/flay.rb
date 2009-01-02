@@ -1,6 +1,11 @@
-require 'erb'
+FLAY_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flay')
 
 module MetricFu
+  
+  def generate_flay_report
+    MetricFu::Flay.generate_report(FLAY_DIR)
+  end
+    
   class Flay < Base::Generator
 
     def analyze

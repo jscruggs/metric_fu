@@ -1,5 +1,4 @@
 begin
-  FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
 
   def flog(output, directory)
     Dir.glob("#{directory}/**/*.rb").each do |filename|
@@ -41,18 +40,19 @@ begin
       desc "Generate a flog report from specified directories"
       task :custom do
         MetricFu::CODE_DIRS.each { |directory| flog(directory, directory) }
-        MetricFu::Flog::Generator.generate_report(FLOG_DIR)
+        MetricFu.generate_flog_report
+        system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']        
       end
 
       desc "Generate and open flog report"
       if MetricFu::RAILS
         task :all => [:models, :controllers, :helpers, :lib] do
-          MetricFu::Flog::Generator.generate_report(FLOG_DIR)
+          MetricFu.generate_flog_report
           system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
         end
       else
         task :all => [:custom] do
-          MetricFu::Flog::Generator.generate_report(FLOG_DIR)
+          MetricFu.generate_flog_report
           system("open #{FLOG_DIR}/index.html") if PLATFORM['darwin']
         end
       end

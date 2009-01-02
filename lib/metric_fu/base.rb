@@ -1,3 +1,4 @@
+require 'erb'
 module MetricFu
 
   TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', 'templates')
