@@ -47,10 +47,5 @@ describe MetricFu::Base::Generator do
       @generator.template_name.should == 'generator'
     end
   end
-  
-  describe "open_in_browser?" do
-    it "should return the value of PLATFORM['darwin']" do
-      @generator = MetricFu.open_in_browser?.should == PLATFORM['darwin']
-    end
-  end  
+
 end

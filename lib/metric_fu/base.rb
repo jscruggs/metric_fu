@@ -9,15 +9,7 @@ module MetricFu
     CODE_DIRS = ['app', 'lib']
   else
     CODE_DIRS = ['lib']
-  end
-
-  def self.open_in_browser?
-    if defined?(MetricFu::OPEN_IN_BROWSER)
-      PLATFORM['darwin'] && MetricFu::OPEN_IN_BROWSER
-    else
-      PLATFORM['darwin']
-    end
-  end  
+  end 
 
   module Base
     
@@ -79,6 +71,32 @@ module MetricFu
         return first_value if iteration % 2 == 0
         return second_value
       end      
+    end
+  end
+  
+  class << self
+    # The Configuration instance used to configure the Rails environment
+    def configuration
+      @@configuration ||= Configuration.new
+    end
+  
+    def open_in_browser?
+      PLATFORM['darwin'] && configuration.open_in_browser
+    end
+
+    def churn_options
+      configuration.churn_options
+    end
+  end
+  
+  class Configuration
+    attr_accessor :churn_options, :open_in_browser
+    def initialize
+      @churn_options = {}
+      @open_in_browser = true
+    end
+    def self.run()
+      yield MetricFu.configuration
     end
   end
 end
