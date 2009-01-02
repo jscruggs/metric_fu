@@ -117,13 +117,13 @@ describe MetricFu::FlogReporter::Page do
 
   describe "average_score" do
     it "should calculate the average score" do
-      page = MetricFu::FlayReporter::Page.new('other_dir')
+      page = MetricFu::FlayReporter::Page.new(10)
       page.should_receive(:scanned_methods).any_number_of_times.and_return([ScannedMethod.new(:test, 10), ScannedMethod.new(:test, 20)])      
       page.average_score.should == 15
     end
     
     it "should be able to handle divide by zero" do
-      page = MetricFu::FlayReporter::Page.new('other_dir')
+      page = MetricFu::FlayReporter::Page.new(10)
       page.should_receive(:scanned_methods).any_number_of_times.and_return([])
       page.average_score.should == 0
     end    
@@ -131,7 +131,7 @@ describe MetricFu::FlogReporter::Page do
   
   describe "highest_score" do
     it "should calculate the average score" do
-      page = MetricFu::FlayReporter::Page.new('other_dir')
+      page = MetricFu::FlayReporter::Page.new(10)
       page.should_receive(:scanned_methods).any_number_of_times.and_return([ScannedMethod.new(:test, 10), ScannedMethod.new(:test, 20)])
       page.highest_score.should == 20
     end   

@@ -45,7 +45,6 @@ module MetricFu::FlogReporter
       flog_results.each do |filename|
         page = Base.parse(open(filename, "r") { |f| f.read })
         if page
-          page.page = File.basename(filename, ".txt") + '.html'
           page.filename = filename
           pages << page
         end
@@ -63,7 +62,7 @@ module MetricFu::FlogReporter
     end
 
     def generate_page(page)
-      save_html(page.to_html, page.page)
+      save_html(page.to_html, page.path)
     end
 
     def flog_results
@@ -77,13 +76,15 @@ module MetricFu::FlogReporter
   end  
   
   class Page < MetricFu::Base::Generator
-    attr_accessor :filename, :path, :score, :scanned_methods
+    attr_accessor :filename, :score, :scanned_methods
 
-    def initialize(filename, path, score, scanned_methods = [])
-      @filename = filename
-      @path = path
+    def initialize(score, scanned_methods = [])
       @score = score.to_f
       @scanned_methods = scanned_methods
+    end
+
+    def path
+      File.basename(filename, ".txt") + '.html'
     end
 
     def to_html

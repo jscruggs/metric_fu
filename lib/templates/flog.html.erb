@@ -10,13 +10,13 @@
 	<p>Generated on <%= Time.now.localtime %> with <a href='http://ruby.sadi.st/Flog.html'>flog</a></p>
 	<table class='report'>
 		<tr><th>File</th><th>Total score</th><th>Methods</th><th>Average score</th><th>Highest score</th></tr>
-		<% pages.sort {|x,y| y[:page].highest_score <=> x[:page].highest_score }.each_with_index do |page, count| %>
+		<% pages.sort {|x,y| y.highest_score <=> x.highest_score }.each_with_index do |page, count| %>
 		<tr class='<%= cycle("light", "dark", count) %>'>
-			<td><a href='<%= page[:path]%>'><%= page[:path].sub('.html', '.rb') %></a></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page[:page].score) %></td>
-			<td class='score'><%=                       page[:page].scanned_methods.length %></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page[:page].average_score) %></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page[:page].highest_score) %></td>
+			<td><a href='<%= page.path %>'><%= page.path.sub('.html', '.rb') %></a></td>
+			<td class='score'><%= sprintf(SCORE_FORMAT, page.score) %></td>
+			<td class='score'><%=                       page.scanned_methods.length %></td>
+			<td class='score'><%= sprintf(SCORE_FORMAT, page.average_score) %></td>
+			<td class='score'><%= sprintf(SCORE_FORMAT, page.highest_score) %></td>
 		</tr>
 		<% end %>
 	</table>
