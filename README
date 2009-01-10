@@ -89,6 +89,7 @@ If you want to have Saikuro look at multiple folders you can put something like 
 Flay analyzes ruby code for structural similarities. 
 You can configure which directories need to be flayed.
 The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
+
   config.flay_options[:dirs_to_flay] = ['cms/app', 'cms/lib']
 
 ****Notes on metrics:flog****
@@ -99,11 +100,18 @@ The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails proje
 
   config.flog_options[:dirs_to_flog] = ['cms/app', 'cms/lib']
 
+****Notes on metrics:flay****
+
+Reek detects common smells in ruby code.
+You can configure which directories need to be checked.
+The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
+
+  config.reek_options[:dirs_to_reek] = ['cms/app', 'cms/lib']
+
 
 ****Notes on metrics:stats****
 
 This is just 'rake stats' for Rails put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
-
 
 ****Notes on metrics:churn****
 

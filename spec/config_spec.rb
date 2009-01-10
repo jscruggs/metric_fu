@@ -17,7 +17,7 @@ describe MetricFu::Configuration do
 
   describe "metrics" do
     it "should be configurable" do
-      MetricFu.metrics.should == [:coverage, :churn, :flog, :flay, :saikuro]
+      MetricFu.metrics.should == [:coverage, :churn, :flog, :flay, :reek, :saikuro]
       MetricFu::Configuration.run do |config|
         config.metrics = [:coverage, :flog]
       end
@@ -59,7 +59,6 @@ describe MetricFu::Configuration do
 
   describe "flog_options" do
     it "should be configurable" do
-      now = Time.now
       MetricFu.flog_options.should == { :dirs_to_flog =>  ['lib'] }
       MetricFu::Configuration.run do |config|
         config.flog_options[:dirs_to_flog] =  ['cms/app', 'cms/lib']
@@ -85,5 +84,15 @@ describe MetricFu::Configuration do
         end
       }.should raise_error
     end    
-  end    
+  end
+  
+  describe "reek_options" do
+    it "should be configurable" do
+      MetricFu.reek_options.should == { :dirs_to_reek =>  ['lib'] }
+      MetricFu::Configuration.run do |config|
+        config.reek_options[:dirs_to_reek] =  ['cms/app', 'cms/lib']
+      end
+      MetricFu.reek_options.should == { :dirs_to_reek =>  ['cms/app', 'cms/lib'] }
+    end
+  end  
 end

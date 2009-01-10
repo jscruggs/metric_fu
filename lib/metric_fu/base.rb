@@ -10,7 +10,7 @@ module MetricFu
     DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :railroad, :reek, :roodi, :stats, :saikuro ]
   else
     CODE_DIRS = ['lib']
-    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :saikuro ]
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :saikuro ]
   end 
 
   module Base
@@ -109,11 +109,15 @@ module MetricFu
     def saikuro_options
       configuration.saikuro_options
     end
-    
+
+    def reek_options
+      configuration.reek_options
+    end    
+
   end
   
   class Configuration
-    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :saikuro_options
+    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :reek_options, :saikuro_options
     def initialize
       raise "Use config.churn_options instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
       raise "Use config.flog_options[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
@@ -130,6 +134,7 @@ module MetricFu
       @coverage_options = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
       @flay_options     = { :dirs_to_flay => CODE_DIRS}
       @flog_options     = { :dirs_to_flog => CODE_DIRS}
+      @reek_options     = { :dirs_to_reek => CODE_DIRS}      
       @metrics          = DEFAULT_METRICS
       @saikuro_options  = {}
     end
