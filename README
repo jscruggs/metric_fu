@@ -57,8 +57,7 @@ MetricFu::Configuration.run do |config|
   config.flay_options     = { :dirs_to_flay => ['cms/app', 'cms/lib']  }  
   config.saikuro_options = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
   config.open_in_browser = false # Don't open reports in the browser on a mac
-    
-  ...  
+  ...
 end
 
 ****Notes on metrics:coverage****
