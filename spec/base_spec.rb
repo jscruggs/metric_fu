@@ -11,7 +11,7 @@ describe MetricFu::Base::Generator do
     it "should save to a custom.html to the base_dir if 'custom' is passed as name" do
       @generator = MetricFu::Base::Generator.new('base_dir')
       @generator.should_receive(:open).with("base_dir/metric_fu/custom.html", "w")
-      @generator.save_html("<html>", 'metric_fu/custom')
+      @generator.save_html("<html>", 'metric_fu/custom.html')
     end
   end
 

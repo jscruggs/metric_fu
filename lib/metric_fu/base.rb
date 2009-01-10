@@ -30,8 +30,8 @@ module MetricFu
         self.new(base_dir, options).generate_report
       end
 
-      def save_html(content, file='index')
-        open("#{@base_dir}/#{file}.html", "w") do |f|
+      def save_html(content, file='index.html')
+        open("#{@base_dir}/#{file}", "w") do |f|
           f.puts content
         end
       end
