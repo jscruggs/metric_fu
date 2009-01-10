@@ -9,6 +9,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 
 MetricFu::Configuration.run do |config|
-  config.metrics = [:flog]
+  config.metrics = [:coverage, :flog, :flay]
+  config.open_in_browser = false
 end
 task :default => [:"metrics:all"]
