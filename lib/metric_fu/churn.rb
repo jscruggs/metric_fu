@@ -1,8 +1,8 @@
-CHURN_DIR = File.join(MetricFu::BASE_DIRECTORY, 'churn')
-    
 module MetricFu
+  CHURN_DIR = File.join(MetricFu::BASE_DIRECTORY, 'churn')
+  
   def self.generate_churn_report
-    MetricFu::Churn.generate_report(CHURN_DIR, defined?(MetricFu::CHURN_OPTIONS) ? MetricFu::CHURN_OPTIONS : {} )
+    MetricFu::Churn.generate_report(CHURN_DIR, MetricFu.churn_options )
     system("open #{CHURN_DIR}/index.html") if open_in_browser?
   end
   

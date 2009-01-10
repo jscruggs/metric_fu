@@ -79,24 +79,55 @@ module MetricFu
     def configuration
       @@configuration ||= Configuration.new
     end
-  
-    def open_in_browser?
-      PLATFORM['darwin'] && configuration.open_in_browser
-    end
 
     def churn_options
       configuration.churn_options
     end
+
+    def coverage_options
+      configuration.coverage_options
+    end
+
+    def flay_options
+      configuration.flay_options
+    end
+
+    def flog_options
+      configuration.flog_options
+    end
+
+    def open_in_browser?
+      PLATFORM['darwin'] && configuration.open_in_browser
+    end
+    
+    def saikuro_options
+      configuration.saikuro_options
+    end
+    
   end
   
   class Configuration
-    attr_accessor :churn_options, :open_in_browser
+    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :open_in_browser, :saikuro_options
     def initialize
-      @churn_options = {}
-      @open_in_browser = true
+      raise "Use config.churn_options instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
+      raise "Use config.flog_options[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
+      raise "Use config.saikuro_options instead of MetricFu::SAIKURO_OPTIONS" if defined? ::MetricFu::SAIKURO_OPTIONS      
+      reset      
     end
-    def self.run()
+    def self.run()  
       yield MetricFu.configuration
+    end
+    def reset
+      @churn_options =  {}
+      @coverage_options = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
+      @flay_options = { :dirs_to_flay => CODE_DIRS}
+      @flog_options = { :dirs_to_flog => CODE_DIRS}
+      @open_in_browser = true
+      @saikuro_options = {}
+    end
+    def saikuro_options=(options)
+      raise "saikuro_options need to be a Hash" unless options.is_a?(Hash)
+      @saikuro_options = options
     end
   end
 end

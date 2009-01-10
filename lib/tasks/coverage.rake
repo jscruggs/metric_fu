@@ -20,7 +20,7 @@ begin
       desc "RCov task to generate report"
       Rcov::RcovTask.new(:do => :clean) do |t|
         FileUtils.mkdir_p(MetricFu::BASE_DIRECTORY) unless File.directory?(MetricFu::BASE_DIRECTORY)
-        t.test_files = FileList['test/**/*_test.rb', 'spec/**/*_spec.rb']
+        t.test_files = FileList[*MetricFu.coverage_options[:test_files]]
         t.rcov_opts = ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/"]
         t.output_dir = COVERAGE_DIR
         # this line is a fix for Rails 2.1 relative loading issues
