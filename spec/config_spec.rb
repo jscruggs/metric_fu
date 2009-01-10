@@ -9,9 +9,11 @@ describe MetricFu::Configuration do
   end
   describe "open_in_browser" do
     it "should return false if running in cruise" do
-      MetricFu.open_in_browser?.should == !!PLATFORM['darwin']
-      ENV['CC_BUILD_ARTIFACTS'] = ''
-      MetricFu.open_in_browser?.should == false
+      unless ENV['CC_BUILD_ARTIFACTS']
+        MetricFu.open_in_browser?.should == !!PLATFORM['darwin']
+        ENV['CC_BUILD_ARTIFACTS'] = ''
+        MetricFu.open_in_browser?.should == false
+      end
     end    
   end
 

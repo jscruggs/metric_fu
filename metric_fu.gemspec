@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
     "lib/metric_fu/churn.rb",
     "lib/metric_fu/flay.rb",
     "lib/metric_fu/flog.rb",
+    "lib/metric_fu/reek.rb",    
     "lib/metric_fu/md5_tracker.rb",
     "lib/metric_fu/saikuro/saikuro.rb",
     "lib/metric_fu.rb",
@@ -40,7 +41,9 @@ Gem::Specification.new do |s|
     "lib/templates/flay.html.erb",
     "lib/templates/flog.css",
     "lib/templates/flog.html.erb",
-    "lib/templates/flog_page.html.erb"]
+    "lib/templates/flog_page.html.erb",
+    "lib/templates/reek.css",
+    "lib/templates/reek.html.erb"]
 
   # Dir['spec/**/*.rb']
   s.test_files = ["spec/base_spec.rb",

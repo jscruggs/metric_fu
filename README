@@ -23,13 +23,13 @@ You must have Rcov and Flog installed to get coverage and flog reports.  Metric_
 ****Usage****
 
 Out of the box metrics provides these tasks:
-rake metrics:all                  
-rake metrics:all_with_migrate     # Useful for continuous integration
+rake metrics:all                  # Generate coverage, cyclomatic complexity, flog, flay, railroad and churn reports
 rake metrics:churn                # Which files change the most
 rake metrics:coverage             # Generate and open coverage report
 rake metrics:coverage:clean       # Delete aggregate coverage data.
 rake metrics:coverage:clobber_do  # Remove rcov products for do
 rake metrics:coverage:do          # RCov task to generate report
+rake metrics:flay                 # Generate code duplication report with flay
 rake metrics:flog:all             # Generate and open flog report
 rake metrics:flog:clean           # Delete aggregate flog data.
 rake metrics:flog:controllers     # Flog code in app/controllers
@@ -37,8 +37,12 @@ rake metrics:flog:custom          # Generate a flog report from specified direct
 rake metrics:flog:helpers         # Flog code in app/helpers
 rake metrics:flog:lib             # Flog code in lib
 rake metrics:flog:models          # Flog code in app/models
+rake metrics:reek                 # A code smell report using Reek
 rake metrics:saikuro              # A cyclomatic complexity report using Saikuro
-rake metrics:stats                # A stats report
+
+Rails projects also have the following tasks:
+
+rake metrics:stats                 # A stats report
 
 See below for more detail on the individual tasks.  It's recommended to use CruiseControl.rb to set up a metrics build.  See the CruiseControl.rb online docs for more info on how to set up cc.rb and, once you've got that figured out, change the cruise_config.rb file inside your project to have these lines:
 
@@ -46,6 +50,7 @@ project.rake_task = 'metrics:all_with_migrate'
 project.scheduler.polling_interval = 24.hours
 
 Which will check for updates every 24 hours and run all the metrics rake tasks (migrating your test db first).  The output will be visible from an individual build's detail page.
+
 
 ****Notes on configuration****
 
@@ -59,8 +64,8 @@ MetricFu::Configuration.run do |config|
   config.flog_options     = { :dirs_to_flog => ['cms/app', 'cms/lib']  }
   config.flay_options     = { :dirs_to_flay => ['cms/app', 'cms/lib']  }  
   config.saikuro_options = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
-
 end
+
 
 ****Notes on metrics:coverage****
 
@@ -92,6 +97,7 @@ The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails proje
 
   config.flay_options[:dirs_to_flay] = ['cms/app', 'cms/lib']
 
+
 ****Notes on metrics:flog****
 
 Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  You should check out the awesome, and a little scary, Flog website for more info.
@@ -99,6 +105,7 @@ Flog is another way of measuring complexity (or tortured code as the Flog author
 The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
 
   config.flog_options[:dirs_to_flog] = ['cms/app', 'cms/lib']
+
 
 ****Notes on metrics:flay****
 
@@ -112,6 +119,7 @@ The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails proje
 ****Notes on metrics:stats****
 
 This is just 'rake stats' for Rails put into a file.  On my projects I like to be able to look at CruiseControl and get stats about the app at different points in time.
+
 
 ****Notes on metrics:churn****
 
