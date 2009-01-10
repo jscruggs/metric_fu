@@ -103,7 +103,7 @@ module MetricFu
     end
 
     def open_in_browser?
-      PLATFORM['darwin'] && configuration.open_in_browser
+      PLATFORM['darwin'] && !ENV['CC_BUILD_ARTIFACTS'] && configuration.open_in_browser
     end
     
     def saikuro_options

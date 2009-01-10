@@ -4,7 +4,7 @@ begin
     Dir.glob("#{directory}/**/*.rb").each do |filename|
       output_dir = "#{MetricFu::FLOG_DIR}/#{filename.split("/")[0..-2].join("/")}"
       mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-      puts `flog #{filename} > #{MetricFu::FLOG_DIR}/#{filename.split('.')[0]}.txt` if MetricFu::MD5Tracker.file_changed?(filename, MetricFu::FLOG_DIR)
+      `flog #{filename} > #{MetricFu::FLOG_DIR}/#{filename.split('.')[0]}.txt` if MetricFu::MD5Tracker.file_changed?(filename, MetricFu::FLOG_DIR)
     end
   end
 
