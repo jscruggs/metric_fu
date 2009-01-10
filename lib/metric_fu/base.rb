@@ -103,7 +103,7 @@ module MetricFu
     end
 
     def open_in_browser?
-      PLATFORM['darwin'] && !ENV['CC_BUILD_ARTIFACTS'] && configuration.open_in_browser
+      PLATFORM['darwin'] && !ENV['CC_BUILD_ARTIFACTS']
     end
     
     def saikuro_options
@@ -113,7 +113,7 @@ module MetricFu
   end
   
   class Configuration
-    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :open_in_browser, :saikuro_options
+    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :saikuro_options
     def initialize
       raise "Use config.churn_options instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
       raise "Use config.flog_options[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
@@ -131,7 +131,6 @@ module MetricFu
       @flay_options     = { :dirs_to_flay => CODE_DIRS}
       @flog_options     = { :dirs_to_flog => CODE_DIRS}
       @metrics          = DEFAULT_METRICS
-      @open_in_browser  = true
       @saikuro_options  = {}
     end
     

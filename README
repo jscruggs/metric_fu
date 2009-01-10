@@ -53,9 +53,7 @@ Metric_fu can be customized to your liking by adding the following to your Rakef
 
 MetricFu::Configuration.run do |config|
   #define which metrics you want to use
-  config.metrics = [:coverage, :flog]
-   # Don't open reports in the browser on a mac
-  config.open_in_browser = false
+  config.metrics          = [:coverage, :flog]
   config.churn_options    = { :start_date => lambda{ 3.months.ago } }  
   config.coverage_options = { :test_files => ['test/**/test_*.rb'] }
   config.flog_options     = { :dirs_to_flog => ['cms/app', 'cms/lib']  }

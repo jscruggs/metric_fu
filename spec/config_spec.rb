@@ -4,15 +4,15 @@ describe MetricFu::Configuration do
   before do
     MetricFu.configuration.reset
   end
+  after do
+    ENV['CC_BUILD_ARTIFACTS'] = nil
+  end
   describe "open_in_browser" do
-    it "should be configurable" do
+    it "should return false if running in cruise" do
       MetricFu.open_in_browser?.should == !!PLATFORM['darwin']
-      MetricFu::Configuration.run do |config|
-        config.open_in_browser = false
-      end
-      MetricFu.configuration.open_in_browser.should == false
+      ENV['CC_BUILD_ARTIFACTS'] = ''
       MetricFu.open_in_browser?.should == false
-    end
+    end    
   end
 
   describe "metrics" do
