@@ -8,6 +8,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
+MetricFu::Configuration.run do |config|
+  config.metrics = [:flog]
+end
 task :default => [:"metrics:all"]
-
-MetricFu::OPEN_IN_BROWSER = false

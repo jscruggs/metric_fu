@@ -7,8 +7,10 @@ module MetricFu
 
   if RAILS
     CODE_DIRS = ['app', 'lib']
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :railroad, :reek, :roodi, :stats, :saikuro ]
   else
     CODE_DIRS = ['lib']
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :saikuro ]
   end 
 
   module Base
@@ -96,6 +98,10 @@ module MetricFu
       configuration.flog_options
     end
 
+    def metrics
+      configuration.metrics
+    end
+
     def open_in_browser?
       PLATFORM['darwin'] && configuration.open_in_browser
     end
@@ -107,24 +113,28 @@ module MetricFu
   end
   
   class Configuration
-    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :open_in_browser, :saikuro_options
+    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :open_in_browser, :saikuro_options
     def initialize
       raise "Use config.churn_options instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
       raise "Use config.flog_options[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
       raise "Use config.saikuro_options instead of MetricFu::SAIKURO_OPTIONS" if defined? ::MetricFu::SAIKURO_OPTIONS      
       reset      
     end
+    
     def self.run()  
       yield MetricFu.configuration
     end
+    
     def reset
-      @churn_options =  {}
+      @churn_options    =  {}
       @coverage_options = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
-      @flay_options = { :dirs_to_flay => CODE_DIRS}
-      @flog_options = { :dirs_to_flog => CODE_DIRS}
-      @open_in_browser = true
-      @saikuro_options = {}
+      @flay_options     = { :dirs_to_flay => CODE_DIRS}
+      @flog_options     = { :dirs_to_flog => CODE_DIRS}
+      @metrics          = DEFAULT_METRICS
+      @open_in_browser  = true
+      @saikuro_options  = {}
     end
+    
     def saikuro_options=(options)
       raise "saikuro_options need to be a Hash" unless options.is_a?(Hash)
       @saikuro_options = options

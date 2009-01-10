@@ -1,8 +1,10 @@
+MetricFu.metrics.each { |task| import "#{File.dirname(__FILE__)}/#{task}.rake" }
+
 namespace :metrics do
   if MetricFu::RAILS
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad, reek, roodi, stats and churn reports"
-    task :all => [:coverage, :stats, :saikuro, :churn, :flog, :flay, :railroad, :reek, :roodi]
+    task :all => MetricFu.metrics
 
     task :set_testing_env do
       RAILS_ENV = 'test'
@@ -14,7 +16,7 @@ namespace :metrics do
   else
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad and churn reports"
-    task :all => [:coverage, :saikuro, :churn, :flog, :flay, :railroad ]
+    task :all => MetricFu.metrics
 
   end
 

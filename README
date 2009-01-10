@@ -50,14 +50,16 @@ Which will check for updates every 24 hours and run all the metrics rake tasks (
 ****Notes on configuration****
 
 MetricFu::Configuration.run do |config|
-  config.open_in_browser = false # Don't open reports in the browser on a mac
+  #define which metrics you want to use
+  config.metrics = [:coverage, :flog]
+   # Don't open reports in the browser on a mac
+  config.open_in_browser = false
   config.churn_options    = { :start_date => lambda{ 3.months.ago } }  
   config.coverage_options = { :test_files => ['test/**/test_*.rb'] }
   config.flog_options     = { :dirs_to_flog => ['cms/app', 'cms/lib']  }
   config.flay_options     = { :dirs_to_flay => ['cms/app', 'cms/lib']  }  
   config.saikuro_options = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
-  config.open_in_browser = false # Don't open reports in the browser on a mac
-  ...
+
 end
 
 ****Notes on metrics:coverage****

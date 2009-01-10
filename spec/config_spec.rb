@@ -14,6 +14,16 @@ describe MetricFu::Configuration do
       MetricFu.open_in_browser?.should == false
     end
   end
+
+  describe "metrics" do
+    it "should be configurable" do
+      MetricFu.metrics.should == [:coverage, :churn, :flog, :flay, :saikuro]
+      MetricFu::Configuration.run do |config|
+        config.metrics = [:coverage, :flog]
+      end
+      MetricFu.metrics.should == [:coverage, :flog]
+    end
+  end  
   
   describe "churn_options" do
     it "should be configurable" do

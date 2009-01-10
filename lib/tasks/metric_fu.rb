@@ -3,4 +3,4 @@ require 'rubygems'
 require 'rake'
 
 # Load rake files
-Dir["#{File.dirname(__FILE__)}/*.rake"].each { |ext| load ext }
+import "#{File.dirname(__FILE__)}/metric_fu.rake"
