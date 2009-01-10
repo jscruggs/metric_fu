@@ -1,0 +1,38 @@
+body {
+	background-color: rgb(240, 240, 245);
+	font-family: verdana, arial, helvetica;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table.report {
+	width: 100%;
+}
+
+table th {
+	text-align: center;
+}
+
+table td.score {
+	text-align: right;
+}
+
+table th {
+	background: #dcecff;
+	border: #d0d0d0 1px solid;
+	font-weight: bold;
+}
+
+table td {
+	border: #d0d0d0 1px solid;
+}
+
+table tr.light {
+ background-color: rgb(240, 240, 245);
+}
+
+table tr.dark {
+ background-color: rgb(230, 230, 235);
+}

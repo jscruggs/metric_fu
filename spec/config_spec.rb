@@ -19,7 +19,7 @@ describe MetricFu::Configuration do
 
   describe "metrics" do
     it "should be configurable" do
-      MetricFu.metrics.should == [:coverage, :churn, :flog, :flay, :reek, :saikuro]
+      MetricFu.metrics.should == [:coverage, :churn, :flog, :flay, :reek, :roodi, :saikuro]
       MetricFu::Configuration.run do |config|
         config.metrics = [:coverage, :flog]
       end
@@ -27,74 +27,84 @@ describe MetricFu::Configuration do
     end
   end  
   
-  describe "churn_options" do
+  describe "churn" do
     it "should be configurable" do
       now = Time.now
-      MetricFu.churn_options.should == {}
+      MetricFu.churn.should == {}
       MetricFu::Configuration.run do |config|
-        config.churn_options[:start_date] = now
+        config.churn[:start_date] = now
       end
-      MetricFu.churn_options.should == {:start_date => now }
+      MetricFu.churn.should == {:start_date => now }
     end
   end
   
-  describe "coverage_options" do
+  describe "coverage" do
     it "should be configurable" do
-      MetricFu.coverage_options[:test_files].should == ['test/**/*_test.rb', 'spec/**/*_spec.rb']
+      MetricFu.coverage[:test_files].should == ['test/**/*_test.rb', 'spec/**/*_spec.rb']
       MetricFu::Configuration.run do |config|
-        config.coverage_options[:test_files] = ['test/**/test_*.rb']
+        config.coverage[:test_files] = ['test/**/test_*.rb']
       end
-      MetricFu.coverage_options[:test_files].should == ['test/**/test_*.rb']
+      MetricFu.coverage[:test_files].should == ['test/**/test_*.rb']
     end
   end
 
-  describe "flay_options" do
+  describe "flay" do
     it "should be configurable" do
       now = Time.now
-      MetricFu.flay_options.should == { :dirs_to_flay =>  ['lib'] }
+      MetricFu.flay.should == { :dirs_to_flay =>  ['lib'] }
       MetricFu::Configuration.run do |config|
-        config.flay_options[:dirs_to_flay] =  ['cms/app', 'cms/lib']
+        config.flay[:dirs_to_flay] =  ['cms/app', 'cms/lib']
       end
-      MetricFu.flay_options.should == { :dirs_to_flay =>  ['cms/app', 'cms/lib'] }
+      MetricFu.flay.should == { :dirs_to_flay =>  ['cms/app', 'cms/lib'] }
     end
   end
 
-  describe "flog_options" do
+  describe "flog" do
     it "should be configurable" do
-      MetricFu.flog_options.should == { :dirs_to_flog =>  ['lib'] }
+      MetricFu.flog.should == { :dirs_to_flog =>  ['lib'] }
       MetricFu::Configuration.run do |config|
-        config.flog_options[:dirs_to_flog] =  ['cms/app', 'cms/lib']
+        config.flog[:dirs_to_flog] =  ['cms/app', 'cms/lib']
       end
-      MetricFu.flog_options.should == { :dirs_to_flog =>  ['cms/app', 'cms/lib'] }
+      MetricFu.flog.should == { :dirs_to_flog =>  ['cms/app', 'cms/lib'] }
     end
   end
 
-  describe "saikuro_options" do
+  describe "saikuro" do
     it "should be configurable" do
-      MetricFu.saikuro_options.should == {}
+      MetricFu.saikuro.should == {}
       MetricFu::Configuration.run do |config|
-        config.saikuro_options = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
+        config.saikuro = { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
       end
-      MetricFu.saikuro_options.should == { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
+      MetricFu.saikuro.should == { "--warn_cyclo" => "3", "--error_cyclo" => "4" }
     end
     
     it "should only accept a Hash" do
-      MetricFu.saikuro_options.should == {}
+      MetricFu.saikuro.should == {}
       lambda {
         MetricFu::Configuration.run do |config|
-          config.saikuro_options = ''
+          config.saikuro = ''
         end
       }.should raise_error
     end    
   end
   
-  describe "reek_options" do
+  describe "reek" do
     it "should be configurable" do
-      MetricFu.reek_options.should == { :dirs_to_reek =>  ['lib'] }
+      MetricFu.reek.should == { :dirs_to_reek =>  ['lib'] }
       MetricFu::Configuration.run do |config|
-        config.reek_options[:dirs_to_reek] =  ['cms/app', 'cms/lib']
+        config.reek[:dirs_to_reek] =  ['cms/app', 'cms/lib']
       end
-      MetricFu.reek_options.should == { :dirs_to_reek =>  ['cms/app', 'cms/lib'] }
+      MetricFu.reek.should == { :dirs_to_reek =>  ['cms/app', 'cms/lib'] }
     end
-  end  
+  end
+  
+  describe "roodi" do
+    it "should be configurable" do
+      MetricFu.roodi.should == { :dirs_to_roodi =>  ['lib'] }
+      MetricFu::Configuration.run do |config|
+        config.roodi[:dirs_to_roodi] =  ['cms/app', 'cms/lib']
+      end
+      MetricFu.roodi.should == { :dirs_to_roodi =>  ['cms/app', 'cms/lib'] }
+    end
+  end   
 end

@@ -10,7 +10,7 @@ module MetricFu
     DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :railroad, :reek, :roodi, :stats, :saikuro ]
   else
     CODE_DIRS = ['lib']
-    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :saikuro ]
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :roodi, :saikuro ]
   end 
 
   module Base
@@ -82,20 +82,20 @@ module MetricFu
       @@configuration ||= Configuration.new
     end
 
-    def churn_options
-      configuration.churn_options
+    def churn
+      configuration.churn
     end
 
-    def coverage_options
-      configuration.coverage_options
+    def coverage
+      configuration.coverage
     end
 
-    def flay_options
-      configuration.flay_options
+    def flay
+      configuration.flay
     end
 
-    def flog_options
-      configuration.flog_options
+    def flog
+      configuration.flog
     end
 
     def metrics
@@ -106,22 +106,26 @@ module MetricFu
       PLATFORM['darwin'] && !ENV['CC_BUILD_ARTIFACTS']
     end
     
-    def saikuro_options
-      configuration.saikuro_options
+    def saikuro
+      configuration.saikuro
     end
 
-    def reek_options
-      configuration.reek_options
+    def reek
+      configuration.reek
     end    
+
+    def roodi
+      configuration.roodi
+    end
 
   end
   
   class Configuration
-    attr_accessor :churn_options, :coverage_options, :flay_options, :flog_options, :metrics, :reek_options, :saikuro_options
+    attr_accessor :churn, :coverage, :flay, :flog, :metrics, :reek, :roodi, :saikuro
     def initialize
-      raise "Use config.churn_options instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
-      raise "Use config.flog_options[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
-      raise "Use config.saikuro_options instead of MetricFu::SAIKURO_OPTIONS" if defined? ::MetricFu::SAIKURO_OPTIONS      
+      raise "Use config.churn instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
+      raise "Use config.flog[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
+      raise "Use config.saikuro instead of MetricFu::SAIKURO_OPTIONS" if defined? ::MetricFu::SAIKURO_OPTIONS      
       reset      
     end
     
@@ -130,18 +134,19 @@ module MetricFu
     end
     
     def reset
-      @churn_options    =  {}
-      @coverage_options = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
-      @flay_options     = { :dirs_to_flay => CODE_DIRS}
-      @flog_options     = { :dirs_to_flog => CODE_DIRS}
-      @reek_options     = { :dirs_to_reek => CODE_DIRS}      
+      @churn    =  {}
+      @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
+      @flay     = { :dirs_to_flay => CODE_DIRS}
+      @flog     = { :dirs_to_flog => CODE_DIRS}
+      @reek     = { :dirs_to_reek => CODE_DIRS}
+      @roodi    = { :dirs_to_roodi => CODE_DIRS}
       @metrics          = DEFAULT_METRICS
-      @saikuro_options  = {}
+      @saikuro  = {}
     end
     
-    def saikuro_options=(options)
-      raise "saikuro_options need to be a Hash" unless options.is_a?(Hash)
-      @saikuro_options = options
+    def saikuro=(options)
+      raise "saikuro need to be a Hash" unless options.is_a?(Hash)
+      @saikuro = options
     end
   end
 end

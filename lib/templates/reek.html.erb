@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Reek Results</title>
+	<style>
+	<%= inline_css("#{template_name}.css") %>
+	</style>
+</head>
+
+<body>
+	<h1>Reek Results</h1>
+	<table width="80%" border="1">
+	<% @matches.each do |match| %>	  
+		<tr><td><%= match.first %></td>
+		<td>
+			<% match[1..-1].each do |line| %>
+			<%= line %><br>
+			<% end %>
+		</td></tr>
+		<% end %>
+	</table>
+</body>
+</html>

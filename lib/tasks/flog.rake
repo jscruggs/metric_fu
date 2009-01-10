@@ -39,7 +39,7 @@ begin
 
       desc "Generate a flog report from specified directories"
       task :custom do
-        MetricFu::flog_options[:dirs_to_flog].each { |directory| flog(directory, directory) }
+        MetricFu::flog[:dirs_to_flog].each { |directory| flog(directory, directory) }
         MetricFu.generate_flog_report
       end
 

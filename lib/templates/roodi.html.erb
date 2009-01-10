@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title>Roodi Results</title>
+	<style>
+	<%= inline_css("#{template_name}.css") %>
+	</style>
+</head>
+
+<body>
+	<h1>Roodi Results</h1>
+	<table width="80%" border="1">
+	<% @matches.each do |match| %>	  
+		<tr>
+		  <td><%= link_to_filename(match.first.split(':').first) if match.first %></td>
+		  <td><%= match[1] %></td>
+		</tr>
+		<% end %>
+	</table>
+</body>
+</html>
