@@ -13,7 +13,6 @@ module MetricFu
         flog_results.each do |filename|
           page = Base.parse(open(filename, "r") { |f| f.read })
           if page
-            puts filename
             page.filename = filename
             pages << page
           end
@@ -31,7 +30,6 @@ module MetricFu
       end
 
       def generate_page(page)
-        puts page.path
         save_html(page.to_html, page.path)
       end
 
@@ -92,7 +90,7 @@ module MetricFu
       end
 
       def path
-        File.basename(filename, ".txt") + '.html'
+        @path ||= File.basename(filename, ".txt") + '.html'
       end
 
       def to_html
