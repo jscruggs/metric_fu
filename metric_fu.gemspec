@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
   # Dir['spec/**/*.rb']
   s.test_files = ["spec/base_spec.rb",
    "spec/churn_spec.rb",
+   "spec/config_spec.rb",   
    "spec/flay_spec.rb",
    "spec/flog_spec.rb",
    "spec/md5_tracker_spec.rb",
