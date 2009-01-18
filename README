@@ -109,7 +109,7 @@ The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails proje
 
 ****Notes on metrics:reek****
 
-Reek detects common smells in ruby code.
+Reek detects common code smells in ruby code.
 You can configure which directories need to be checked.
 The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
 
