@@ -116,7 +116,7 @@ describe MetricFu::Flog do
   describe "template_name" do
     it "should return the class name in lowercase" do
       flog = Flog::Generator.new('base_dir')      
-      flog.template_name.should == 'flog'
+      Flog::Generator.template_name.should == 'flog'
     end
   end  
 end

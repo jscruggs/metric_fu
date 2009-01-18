@@ -37,7 +37,7 @@ module MetricFu
         Dir.glob("#{@base_dir}/**/*.txt")
       end
       
-      def template_name
+      def self.template_name
         "flog"
       end
     end
