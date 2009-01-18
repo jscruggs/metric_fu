@@ -1,10 +1,13 @@
 begin
 
   def flog(output, directory)
+    metric_dir = MetricFu::Flog::Generator.metric_dir
     Dir.glob("#{directory}/**/*.rb").each do |filename|
-      output_dir = "#{MetricFu::FLOG_DIR}/#{filename.split("/")[0..-2].join("/")}"
+      output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
       mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-      `flog #{filename} > #{MetricFu::FLOG_DIR}/#{filename.split('.')[0]}.txt` if MetricFu::MD5Tracker.file_changed?(filename, MetricFu::FLOG_DIR)
+      if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
+        `flog #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+      end
     end
   end
 
@@ -15,7 +18,7 @@ begin
 
     namespace :flog do
       desc "Delete aggregate flog data."
-      task(:clean) { rm_rf(MetricFu::FLOG_DIR, :verbose => false) }
+      task(:clean) { rm_rf(MetricFu::Flog.metric_dir, :verbose => false) }
 
       desc "Flog code in app/models"
       task :models do

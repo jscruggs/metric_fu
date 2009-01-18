@@ -11,7 +11,7 @@ describe MetricFu::Churn do
       git_mock = mock('git')
       git_mock.should_receive(:get_logs).and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)
-      churn = Churn.new('base_dir', :scm => :git, :minimum_churn_count => 3)
+      churn = Churn.new(:scm => :git, :minimum_churn_count => 3)
       churn.analyze
       churn.instance_variable_get(:@changes).should == {"accept"=>3}
     end
@@ -25,7 +25,7 @@ describe MetricFu::Churn do
   
   describe "template_name" do
     it "should return the class name in lowercase" do
-      churn = Churn.new('base_dir')      
+      churn = Churn.new
       churn.template_name.should == 'churn'
     end
   end  
@@ -37,7 +37,7 @@ describe MetricFu::Churn do
       git_mock.should_receive(:get_logs).and_return(logs)
       Churn::Git.should_receive(:new).and_return(git_mock)
       File.should_receive(:exist?).with(".git").and_return(true)
-      changes = Churn.new('base_dir').send(:parse_log_for_changes)
+      changes = Churn.new.send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2
       changes["README"].should == 3
@@ -50,7 +50,7 @@ describe MetricFu::Churn do
       Churn::Svn.should_receive(:new).and_return(svn_mock)
       File.should_receive(:exist?).with(".git").and_return(false)
       File.should_receive(:exist?).with(".svn").and_return(true)
-      changes = Churn.new('base_dir').send(:parse_log_for_changes)
+      changes = Churn.new.send(:parse_log_for_changes)
       changes["home_page/index.html"].should == 1
       changes["History.txt"].should == 2
       changes["README"].should == 3

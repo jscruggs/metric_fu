@@ -1,14 +1,14 @@
 module MetricFu
-  FLOG_DIR = File.join(MetricFu::BASE_DIRECTORY, 'flog')
   
   def self.generate_flog_report
-    MetricFu::Flog::Generator.generate_report(FLOG_DIR)
-    system("open #{FLOG_DIR}/index.html") if open_in_browser?  
+    Flog::Generator.generate_report
+    system("open #{Flog::Generator.metric_dir}/index.html") if open_in_browser?  
   end
   
   module Flog
     class Generator < Base::Generator
       def generate_report
+        @base_dir = self.class.metric_dir
         pages = []
         flog_results.each do |filename|
           page = Base.parse(open(filename, "r") { |f| f.read })

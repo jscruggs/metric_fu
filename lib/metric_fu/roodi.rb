@@ -1,9 +1,8 @@
 module MetricFu
-  ROODI_DIR = File.join(MetricFu::BASE_DIRECTORY, 'roodi')
   
   def self.generate_roodi_report
-    MetricFu::Roodi.generate_report(ROODI_DIR)
-    system("open #{ROODI_DIR}/index.html") if open_in_browser?    
+    MetricFu::Roodi.generate_report
+    system("open #{Roodi.metric_dir}/index.html") if open_in_browser?    
   end
     
   class Roodi < Base::Generator

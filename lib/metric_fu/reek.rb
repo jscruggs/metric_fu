@@ -1,9 +1,8 @@
 module MetricFu
-  REEK_DIR = File.join(MetricFu::BASE_DIRECTORY, 'reek')
   
   def self.generate_reek_report
-    MetricFu::Reek.generate_report(REEK_DIR)
-    system("open #{REEK_DIR}/index.html") if open_in_browser?    
+    Reek.generate_report
+    system("open #{Reek.metric_dir}/index.html") if open_in_browser?    
   end
     
   class Reek < Base::Generator

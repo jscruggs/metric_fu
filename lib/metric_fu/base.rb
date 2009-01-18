@@ -7,7 +7,7 @@ module MetricFu
 
   if RAILS
     CODE_DIRS = ['app', 'lib']
-    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :railroad, :reek, :roodi, :stats, :saikuro ]
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :roodi, :stats, :saikuro ]
   else
     CODE_DIRS = ['lib']
     DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :roodi, :saikuro ]
@@ -20,14 +20,21 @@ module MetricFu
     #
     class Generator
 
-      def initialize(base_dir, options={})
-        @base_dir = base_dir
+      def initialize(options={})
+        @base_dir = self.class.metric_dir
       end
 
-      # generates a report for base_dir
-      def self.generate_report(base_dir, options={})
-        FileUtils.mkdir_p(base_dir, :verbose => false) unless File.directory?(base_dir)
-        self.new(base_dir, options).generate_report
+      def self.metric_dir
+        File.join(BASE_DIRECTORY, template_name)        
+      end
+      
+      def self.template_name
+        self.to_s.split('::').last.downcase
+      end      
+
+      def self.generate_report(options={})
+        FileUtils.mkdir_p(metric_dir, :verbose => false) unless File.directory?(metric_dir)
+        self.new(options).generate_report
       end
 
       def save_html(content, file='index.html')
@@ -46,12 +53,12 @@ module MetricFu
       end
       
       def template_name
-        self.class.to_s.split('::').last.downcase
+        self.class.template_name
       end
 
       def template_file
         File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")
-      end
+      end      
       
       ########################
       # Template methods

@@ -1,15 +1,14 @@
 module MetricFu
-  CHURN_DIR = File.join(MetricFu::BASE_DIRECTORY, 'churn')
   
   def self.generate_churn_report
-    MetricFu::Churn.generate_report(CHURN_DIR, MetricFu.churn )
-    system("open #{CHURN_DIR}/index.html") if open_in_browser?
+    Churn.generate_report(MetricFu.churn)
+    system("open #{Churn.metric_dir}/index.html") if open_in_browser?
   end
   
   class Churn < Base::Generator
 
-    def initialize(base_dir, options={})
-      @base_dir = base_dir
+    def initialize(options={})
+      @base_dir = File.join(MetricFu::BASE_DIRECTORY, template_name)
       if File.exist?(".git")
         @source_control = Git.new(options[:start_date])
       elsif File.exist?(".svn")
