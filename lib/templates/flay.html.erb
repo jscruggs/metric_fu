@@ -2,22 +2,29 @@
 <head>
 	<title>Flay Results</title>
 	<style>
-	<%= inline_css("#{template_name}.css") %>
+	<%= inline_css("default.css") %>	
 	</style>
 </head>
 
 <body>
 	<h1>Flay Results</h1>
-
-	<% @matches.each do |match| %>
-	<table width="80%" border="1">
-		<tr><th><%= match.first %></th></tr>
-		<tr><td>
-			<% match[1..-1].each do |filename| %>
-			<%= link_to_filename(*filename.split(":")) %><br>
-			<% end %>
-		</td></tr>
+  <p><a href='http://ruby.sadi.st/Flay.html'>Flay</a> analyzes ruby code for structural similarities.</p>  
+	<table>
+		<tr>
+		  <th>Files</th>
+		  <th>Matches</th>		  
+		</tr>
+  	<% @matches.each_with_index do |match, count| %>
+  		<tr class='<%= cycle("light", "dark", count) %>'>
+  		  <td>
+  			  <% match[1..-1].each do |filename| %>
+  			  <%= link_to_filename(*filename.split(":")) %><br>
+  			  <% end %>
+  		  </td>
+    		<td><%= match.first %></td>
+  		</tr>
 		<% end %>
 	</table>
+	<p>Generated on <%= Time.now.localtime %></p>	
 </body>
 </html>

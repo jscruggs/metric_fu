@@ -2,19 +2,25 @@
 <head>
 	<title>Roodi Results</title>
 	<style>
-	<%= inline_css("#{template_name}.css") %>
+	<%= inline_css("default.css") %>	
 	</style>
 </head>
 
 <body>
 	<h1>Roodi Results</h1>
-	<table width="80%" border="1">
-	<% @matches.each do |match| %>	  
+  <p><a href="http://roodi.rubyforge.org/">Roodi</a> parses your Ruby code and warns you about design issues you have based on the checks that is has configured.</p>
+	<table>
 		<tr>
-		  <td><%= link_to_filename(match.first.split(':').first) if match.first %></td>
-		  <td><%= match[1] %></td>
-		</tr>
-		<% end %>
+		  <th>File Path</th>
+		  <th>Warning</th>
+		</tr>	  
+		<% @matches.each_with_index do |match, count| %>
+  		<tr class='<%= cycle("light", "dark", count) %>'>
+  		  <td><%= link_to_filename(match.first.split(':').first) if match.first %></td>
+  		  <td><%= match[1] %></td>
+  		</tr>
+  		<% end %>
 	</table>
+	<p>Generated on <%= Time.now.localtime %></p>	
 </body>
 </html>

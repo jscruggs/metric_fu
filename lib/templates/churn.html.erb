@@ -2,18 +2,21 @@
 <head>
 	<title>Source Control Churn Results</title>
 	<style>
-	<%= inline_css("#{template_name}.css") %>
+	<%= inline_css("default.css") %>	
 	</style>
 </head>
 
 <body>
 	<h1>Source Control Churn Results</h1>
-	<table width="100%" border="1">
+	<p>Files that change a lot in your project may be bad a sign.
+	  This task uses your source control log to identify those files.
+	  </p>
+	<table>
 		<tr><th>File Path</th><th>Times Changed</th></tr>
 		<% @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change| %>
 		<tr><td><%= change[0] %></td><td class='warning'><%= change[1] %></td></tr>
 		<% end %>
-
 	</table>
+	<p>Generated on <%= Time.now.localtime %></p>	
 </body>
 </html>

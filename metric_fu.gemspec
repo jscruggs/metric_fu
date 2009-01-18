@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "metric_fu" 
-  s.version = "0.8.4.15" 
+  s.version = "0.8.0.16" 
   s.summary = "A fistful of code metrics"
   s.email = "jake.scruggs@gmail.com"
   s.homepage = "http://metric-fu.rubyforge.org/"
@@ -36,23 +36,23 @@ Gem::Specification.new do |s|
     "lib/tasks/roodi.rake",    
     "lib/tasks/saikuro.rake",
     "lib/tasks/stats.rake",
-    "lib/templates/churn.css",
     "lib/templates/churn.html.erb",
-    "lib/templates/flay.css",
+    "lib/templates/default.css",
     "lib/templates/flay.html.erb",
-    "lib/templates/flog.css",
     "lib/templates/flog.html.erb",
     "lib/templates/flog_page.html.erb",
-    "lib/templates/reek.css",
-    "lib/templates/reek.html.erb"]
+    "lib/templates/reek.html.erb",
+    "lib/templates/roodi.html.erb"]
 
   # Dir['spec/**/*.rb']
   s.test_files = ["spec/base_spec.rb",
    "spec/churn_spec.rb",
-   "spec/config_spec.rb",   
+   "spec/config_spec.rb",
    "spec/flay_spec.rb",
    "spec/flog_spec.rb",
    "spec/md5_tracker_spec.rb",
+   "spec/reek_spec.rb",
+   "spec/roodi_spec.rb",
    "spec/spec_helper.rb"]
 
 

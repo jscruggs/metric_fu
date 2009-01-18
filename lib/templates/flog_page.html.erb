@@ -1,7 +1,7 @@
 <html>
 <head>
 	<style>
-	<%= inline_css("flog.css") %>
+	<%= inline_css("default.css") %>
 	</style>
 </head>
 <body>
@@ -9,7 +9,10 @@
 	<% scanned_methods.each do |sm| %>
   <p><strong><%= sm.name %> (<%= sm.score %>)</strong></p>
   <table>
-    <tr><th>Score</th><th>Operator</th></tr>
+    <tr>
+      <th>Score</th>
+      <th>Operator</th>
+    </tr>
     <% sm.operators.each_with_index do |operator, count| %>
       <tr class='<%= cycle("light", "dark", count) %>'>
         <td class='score'><%= sprintf(SCORE_FORMAT, operator.score) %></td>

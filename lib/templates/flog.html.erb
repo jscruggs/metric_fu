@@ -2,23 +2,30 @@
 <head>
 	<title>Flog Reporter</title>
 	<style>
-	<%= inline_css("#{template_name}.css") %>
+	<%= inline_css("default.css") %>	
 	</style>
 </head>
 <body>
-	<h1>Flogged files</h1>
-	<p>Generated on <%= Time.now.localtime %> with <a href='http://ruby.sadi.st/Flog.html'>flog</a></p>
-	<table class='report'>
-		<tr><th>File</th><th>Total score</th><th>Methods</th><th>Average score</th><th>Highest score</th></tr>
-		<% pages.sort {|x,y| y.highest_score <=> x.highest_score }.each_with_index do |page, count| %>
-		<tr class='<%= cycle("light", "dark", count) %>'>
-			<td><a href='<%= page.path %>'><%= page.path.sub('.html', '.rb') %></a></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page.score) %></td>
-			<td class='score'><%=                       page.scanned_methods.length %></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page.average_score) %></td>
-			<td class='score'><%= sprintf(SCORE_FORMAT, page.highest_score) %></td>
+	<h1>Flog Results</h1>
+	<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+	<table>
+		<tr>
+		  <th>File</th>
+		  <th>Total score</th>
+		  <th>Methods</th>
+		  <th>Average score</th>
+		  <th>Highest score</th>
 		</tr>
+		<% pages.sort {|x,y| y.highest_score <=> x.highest_score }.each_with_index do |page, count| %>
+  		<tr class='<%= cycle("light", "dark", count) %>'>
+  			<td><a href='<%= page.path %>'><%= page.path.sub('.html', '.rb') %></a></td>
+  			<td class='score'><%= sprintf(SCORE_FORMAT, page.score) %></td>
+  			<td class='score'><%=                       page.scanned_methods.length %></td>
+  			<td class='score'><%= sprintf(SCORE_FORMAT, page.average_score) %></td>
+  			<td class='score'><%= sprintf(SCORE_FORMAT, page.highest_score) %></td>
+  		</tr>
 		<% end %>
 	</table>
+	<p>Generated on <%= Time.now.localtime %></p>	
 </body>
 </html>
