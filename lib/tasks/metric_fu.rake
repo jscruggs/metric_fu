@@ -1,3 +1,4 @@
+# only load configured metrics
 MetricFu.metrics.each { |task| import "#{File.dirname(__FILE__)}/#{task}.rake" }
 
 namespace :metrics do
