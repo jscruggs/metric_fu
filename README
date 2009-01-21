@@ -1,4 +1,4 @@
-Version 0.8.0
+Version 0.8.9
 http://github.com/jscruggs/metric_fu
 
 Metric_fu began its life as a plugin for Rails that generated code metrics reports.  As of version 0.7.0, metric_fu is a gem owing to the excellent work done by Sean Soper.  
@@ -12,7 +12,7 @@ Then in your Rakefile:
 require 'metric_fu'
 
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
-require 'vendor/gems/jscruggs-metric_fu-0.8.0/lib/metric_fu'
+require 'vendor/gems/jscruggs-metric_fu-0.8.9/lib/metric_fu'
 
 then you don't have to install it on every box you run it on.
 
@@ -144,4 +144,4 @@ You can also change the minimum churn count like so:
 
 ****Thanks****
 
-I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, and Rails for creating such excellent open source products.  Also Sean Soper, Michael Schubert, Kurtis Seebaldt, Toby Tripp, Paul Gross, and Chirdeep Shetty for their help and advice.
+I'd like to thank the authors of Saikuro, Flog, Rcov, CruiseControl.rb, Flay, Reek, Roodi and Rails for creating such excellent open source products.  Also Andre Arko, Petrik de Heus, Sean Soper, Erik St Martin, Andy Gregorowicz, Bastien, Michael Schubert, Kurtis Seebaldt, Toby Tripp, Paul Gross, and Chirdeep Shetty for their help and advice.

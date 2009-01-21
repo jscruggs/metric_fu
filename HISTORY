@@ -1,3 +1,15 @@
+=== MetricFu 0.8.9 / 2009-1-20
+
+* Thanks to Andre Arko and Petrik de Heus for adding the following features:
+* The source control type is auto-detected for Churn
+* Moved all presentation to templates
+* Wrote specs for all classes
+* Added flay, Reek and Roodi metrics
+* There's now a configuration class (see README for details)
+* Unification of metrics reports
+* Metrics can be generated using one command
+* Adding new metrics reports has been standardized
+
 === MetricFu 0.8.0 / 2008-10-06
 
 * Source Control Churn now supports git (thanks to Erik St Martin)
