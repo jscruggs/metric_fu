@@ -45,15 +45,8 @@ module MetricFu
     SCORE_FORMAT = "%0.2f"
 
     class Base
-      MODULE_NAME = "([A-Za-z]+)+"
-      METHOD_NAME = "#([a-z0-9]+_?)+\\??\\!?"
-      SCORE = "\\d+\\.\\d+"
-
-      METHOD_NAME_RE = Regexp.new("#{MODULE_NAME}#{METHOD_NAME}")
-      SCORE_RE = Regexp.new(SCORE)
-
-      METHOD_LINE_RE = Regexp.new("#{MODULE_NAME}#{METHOD_NAME}:\\s\\(#{SCORE}\\)")
-      OPERATOR_LINE_RE = Regexp.new("\\s+(#{SCORE}):\\s(.*)$")
+      METHOD_LINE_REGEX = /([A-Za-z]+#.*):\s\((\d+\.\d+)\)/
+      OPERATOR_LINE_REGEX = /\s+(\d+\.\d+):\s(.*)$/
 
       class << self
 
@@ -63,21 +56,18 @@ module MetricFu
           page = Page.new(score)
 
           text.each_line do |method_line|
-            if METHOD_LINE_RE =~ method_line and
-               method_name = method_line[METHOD_NAME_RE] and
-               score = method_line[SCORE_RE]
-               page.scanned_methods << ScannedMethod.new(method_name, score)
+           if match = method_line.match(METHOD_LINE_REGEX)
+              page.scanned_methods << ScannedMethod.new(match[1], match[2])
             end
-
-            if OPERATOR_LINE_RE =~ method_line and
-               operator = method_line[OPERATOR_LINE_RE, 2] and
-               score = method_line[SCORE_RE]
-               return if page.scanned_methods.empty?
-               page.scanned_methods.last.operators << Operator.new(score, operator)
+            
+            if match = method_line.match(OPERATOR_LINE_REGEX)
+              return if page.scanned_methods.empty?
+              page.scanned_methods.last.operators << Operator.new(match[1], match[2])
             end
           end
           page
         end
+        
       end
     end 
   
