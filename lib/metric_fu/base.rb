@@ -142,7 +142,8 @@ module MetricFu
     
     def reset
       @churn    =  {}
-      @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
+      @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'],
+                    :rcov_opts => ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/,spec"] }
       @flay     = { :dirs_to_flay => CODE_DIRS}
       @flog     = { :dirs_to_flog => CODE_DIRS}
       @reek     = { :dirs_to_reek => CODE_DIRS}

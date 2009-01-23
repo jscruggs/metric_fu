@@ -75,6 +75,11 @@ You can configure the coverage test files pattern:
 
 The default value is ['test/**/*_test.rb', 'spec/**/*_spec.rb']
 
+You may also configure Rcov options:
+  config.coverage[:rcov_opts] = ["--sort coverage", "--html", "--exclude /gems/,/Library/"]
+
+The default value is ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/,spec"]
+
 
 ****Notes on metrics:saikuro****
 
