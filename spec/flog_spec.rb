@@ -159,7 +159,7 @@ describe MetricFu::Flog do
     it "should generate reports" do
       generator = Flog::Generator.new('other_dir')
       generator.should_receive(:flog_results).and_return(['A', 'B'])
-      generator.should_receive(:save_html).at_least(3).times.and_return('')
+      generator.should_receive(:save_output).at_least(3).times.and_return('')
       generator.should_receive(:open).any_number_of_times.and_return(['Total Flog = 1273.9 (9.3 +/- 259.2 flog / method)', 'TokenCounter#list_tokens_per_line: (15.2)', '9.0: assignment'].join("\n"))
       generator.generate_report
     end
@@ -168,7 +168,7 @@ describe MetricFu::Flog do
       generator = Flog::Generator.new('other_dir')
       generator.should_receive(:flog_results).and_return(['A', 'B'])
       generator.should_receive(:inline_css).any_number_of_times.and_return('')
-      generator.should_receive(:save_html).once
+      generator.should_receive(:save_output).once
       generator.should_receive(:open).any_number_of_times.and_return(IM)      
       generator.generate_report
     end      

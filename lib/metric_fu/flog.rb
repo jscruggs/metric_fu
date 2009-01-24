@@ -26,11 +26,11 @@ module MetricFu
             generate_page(page)
           end
         end      
-        save_html(ERB.new(File.read(template_file)).result(binding))
+        save_output(ERB.new(File.read(template_file)).result(binding))
       end
 
       def generate_page(page)
-        save_html(page.to_html, page.path)
+        save_output(page.to_html, page.path)
       end
 
       def flog_results

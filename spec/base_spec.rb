@@ -1,17 +1,17 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe MetricFu::Base::Generator do
-  describe "save_html" do
+  describe "save_output" do
     it "should save to a index.html in the base_dir" do
       @generator = MetricFu::Base::Generator.new
       @generator.should_receive(:open).with("#{MetricFu::BASE_DIRECTORY}/generator/index.html", "w")
-      @generator.save_html("<html>")
+      @generator.save_output("<html>")
     end
 
     it "should save to a custom.html to the base_dir if 'custom' is passed as name" do
       @generator = MetricFu::Base::Generator.new
       @generator.should_receive(:open).with("#{MetricFu::BASE_DIRECTORY}/generator/metric_fu/custom.html", "w")
-      @generator.save_html("<html>", 'metric_fu/custom.html')
+      @generator.save_output("<html>", 'metric_fu/custom.html')
     end
   end
 
@@ -24,11 +24,11 @@ describe MetricFu::Base::Generator do
     end
   end
 
-  describe "generate_html" do
+  describe "generate_output" do
     it "should create a new Generator and call generate_report on it" do
       @generator = MetricFu::Base::Generator.new
       @generator.should_receive(:open).with("#{MetricFu::BASE_DIRECTORY}/generator/index.html", "w")
-      @generator.should_receive(:generate_html).and_return('<html>')
+      @generator.should_receive(:generate_output).and_return('<html>')
       @generator.generate_report
     end
   end

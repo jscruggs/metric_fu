@@ -9,11 +9,11 @@ REEK_RESULT = %("lib/metric_fu/base.rb" -- 5 warnings:
 
 describe MetricFu::Reek do
 
-  describe "generate_html" do
+  describe "generate_output" do
     it "should create a new Generator and call generate_report on it" do
       @generator = MetricFu::Reek.new('other_dir')
       @generator.should_receive(:`).and_return(REEK_RESULT)
-      @generator.generate_html
+      @generator.generate_output
     end
   end
   

@@ -4,6 +4,8 @@ module MetricFu
   TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', 'templates')
   BASE_DIRECTORY = ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu'
   RAILS = File.exist?("config/environment.rb")
+  HTML_EXTENSION = '.html.erb'
+  YML_EXTENSION  = '.yml.erb'
 
   if RAILS
     CODE_DIRS = ['app', 'lib']
@@ -37,19 +39,19 @@ module MetricFu
         self.new(options).generate_report
       end
 
-      def save_html(content, file='index.html')
+      def save_output(content, file='index.html')
         open("#{@base_dir}/#{file}", "w") do |f|
           f.puts content
         end
       end
 
       def generate_report
-        save_html(generate_html)
+        save_output(generate_output)
       end
 
-      def generate_html
+      def generate_output
         analyze
-        html = ERB.new(File.read(template_file)).result(binding)
+        output = ERB.new(File.read(template_file), nil, '-').result(binding)
       end
       
       def template_name
@@ -57,7 +59,15 @@ module MetricFu
       end
 
       def template_file
-        File.join(MetricFu::TEMPLATE_DIR, "#{template_name}.html.erb")
+        case MetricFu.output[:type]
+        when :yml
+          extension = YML_EXTENSION
+        when :html
+          extension = HTML_EXTENSION
+        else
+          extension = HTML_EXTENSION
+        end
+          File.join(MetricFu::TEMPLATE_DIR, template_name + extension)
       end      
       
       ########################
@@ -66,7 +76,7 @@ module MetricFu
       def inline_css(css)
 	      open(File.join(MetricFu::TEMPLATE_DIR, css)) { |f| f.read }      
       end
-      
+     
       def link_to_filename(name, line = nil)
         filename = File.expand_path(name)
         if PLATFORM['darwin']
@@ -87,6 +97,10 @@ module MetricFu
     # The Configuration instance used to configure the Rails environment
     def configuration
       @@configuration ||= Configuration.new
+    end
+
+    def output
+      configuration.output
     end
 
     def churn
@@ -128,7 +142,8 @@ module MetricFu
   end
   
   class Configuration
-    attr_accessor :churn, :coverage, :flay, :flog, :metrics, :reek, :roodi, :saikuro
+    attr_accessor :churn, :coverage, :flay, :flog, :metrics, :reek, :roodi, :saikuro, :output
+
     def initialize
       raise "Use config.churn instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
       raise "Use config.flog[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG" if defined? ::MetricFu::DIRECTORIES_TO_FLOG
@@ -141,6 +156,7 @@ module MetricFu
     end
     
     def reset
+      @output   = { :type => HTML_EXTENSION }
       @churn    =  {}
       @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
       @flay     = { :dirs_to_flay => CODE_DIRS}
