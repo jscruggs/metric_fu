@@ -70,9 +70,9 @@ module MetricFu
       def link_to_filename(name, line = nil)
         filename = File.expand_path(name)
         if PLATFORM['darwin']
-          %{<a href="txmt://open/?url=file://#{filename}&line=#{line}">#{name}</a>}
+          %{<a href="txmt://open/?url=file://#{filename}&line=#{line}">#{name}:#{line}</a>}
         else
-          %{<a href="file://#{filename}">#{name}</a>}
+          %{<a href="file://#{filename}">#{name}:#{line}</a>}
         end
       end
       
