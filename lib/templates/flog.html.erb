@@ -25,6 +25,13 @@
   			<td class='score'><%= sprintf(SCORE_FORMAT, page.highest_score) %></td>
   		</tr>
 		<% end %>
+		<tr>
+			<td><strong>Totals</strong></td>
+			<td class='score'><strong><%= sprintf(SCORE_FORMAT, pages.inject(0){|sum, page| sum + page.score }) %></strong></td>
+			<td class='score'><strong><%=                       pages.inject(0){|sum, page| sum + page.scanned_methods.length } %></strong></td>
+			<td class='score'></td>
+			<td class='score'></td>
+		</tr>		
 	</table>
 	<p>Generated on <%= Time.now.localtime %></p>	
 </body>
