@@ -1,0 +1,10 @@
+reek:
+<% @matches.each_with_index do |match, count| -%>
+  -
+    file_path: <%= match.first %> 
+    code_smells:
+      -
+<% match[1..-1].each do |line| -%>
+  	  <%= line %>
+<% end -%>
+<% end -%>
