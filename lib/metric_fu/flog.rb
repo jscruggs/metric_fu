@@ -26,7 +26,7 @@ module MetricFu
             generate_page(page)
           end
         end      
-        save_output(ERB.new(File.read(template_file)).result(binding))
+        save_output(ERB.new(File.read(template_file), nil, '-').result(binding))
       end
 
       def generate_page(page)
@@ -84,7 +84,7 @@ module MetricFu
       end
 
       def to_html
-        ERB.new(File.read(template_file)).result(binding)
+        ERB.new(File.read(template_file),nil,'-').result(binding)
       end
 
       def average_score
