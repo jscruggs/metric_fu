@@ -1,4 +1,4 @@
-Version 0.8.9
+Version 0.9.0
 http://github.com/jscruggs/metric_fu
 
 Metric_fu began its life as a plugin for Rails that generated code metrics reports.  As of version 0.7.0, metric_fu is a gem owing to the excellent work done by Sean Soper.  
@@ -12,7 +12,7 @@ Then in your Rakefile:
 require 'metric_fu'
 
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
-require 'vendor/gems/jscruggs-metric_fu-0.8.9/lib/metric_fu'
+require 'vendor/gems/jscruggs-metric_fu-0.9.0/lib/metric_fu'
 
 then you don't have to install it on every box you run it on.
 
@@ -74,6 +74,13 @@ You can configure the coverage test files pattern:
   config.coverage[:test_files] = ['test/**/test_*.rb']
 
 The default value is ['test/**/*_test.rb', 'spec/**/*_spec.rb']
+
+You may also configure Rcov options:
+  config.coverage = { :test_files => ['test/**/*_test.rb'],
+                :rcov_opts => ["--exclude /gems/,/Library/"] }
+                
+The default value is  { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'],
+                        :rcov_opts => ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/,spec"] }
 
 
 ****Notes on metrics:saikuro****

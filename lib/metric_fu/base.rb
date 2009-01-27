@@ -82,9 +82,9 @@ module MetricFu
       def link_to_filename(name, line = nil)
         filename = File.expand_path(name)
         if PLATFORM['darwin']
-          %{<a href="txmt://open/?url=file://#{filename}&line=#{line}">#{name}</a>}
+          %{<a href="txmt://open/?url=file://#{filename}&line=#{line}">#{name}:#{line}</a>}
         else
-          %{<a href="file://#{filename}">#{name}</a>}
+          %{<a href="file://#{filename}">#{name}:#{line}</a>}
         end
       end
       
@@ -162,7 +162,8 @@ module MetricFu
     def reset
       @output   = { :type => HTML_EXTENSION }
       @churn    =  {}
-      @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'] }
+      @coverage = { :test_files => ['test/**/*_test.rb', 'spec/**/*_spec.rb'],
+                    :rcov_opts => ["--sort coverage", "--html", "--rails", "--exclude /gems/,/Library/,spec"] }
       @flay     = { :dirs_to_flay => CODE_DIRS}
       @flog     = { :dirs_to_flog => CODE_DIRS}
       @reek     = { :dirs_to_reek => CODE_DIRS}
