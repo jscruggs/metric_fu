@@ -9,7 +9,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 MetricFu::Configuration.run do |config|
   config.output     = { :type => :yml }
-  config.metrics    = [ :flay ]
+  config.metrics    = [ :churn ]
   #define which metrics you want to use
   # config.metrics          = [:coverage, :flog]
   # config.churn    = { :start_date => lambda{ 3.months.ago } }  

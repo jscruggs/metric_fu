@@ -9,10 +9,12 @@ module MetricFu
 
   if RAILS
     CODE_DIRS = ['app', 'lib']
-    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :roodi, :stats, :saikuro ]
+    DEFAULT_METRICS = [:coverage, :churn, :flog, 
+                       :flay, :reek, :roodi, :stats, :saikuro ]
   else
     CODE_DIRS = ['lib']
-    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, :reek, :roodi, :saikuro ]
+    DEFAULT_METRICS = [:coverage, :churn, :flog, :flay, 
+                       :reek, :roodi, :saikuro ]
   end 
 
   module Base
@@ -142,7 +144,9 @@ module MetricFu
   end
   
   class Configuration
-    attr_accessor :churn, :coverage, :flay, :flog, :metrics, :reek, :roodi, :saikuro, :output
+    attr_accessor :churn, :coverage, :flay, 
+                  :flog, :metrics, :reek, 
+                  :roodi, :saikuro, :output
 
     def initialize
       raise "Use config.churn instead of MetricFu::CHURN_OPTIONS" if defined? ::MetricFu::CHURN_OPTIONS
