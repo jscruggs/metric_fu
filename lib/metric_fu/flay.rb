@@ -1,10 +1,5 @@
 module MetricFu
   
-  def self.generate_flay_report
-    Flay.generate_report
-    system("open #{Flay.metric_dir}/index.html") if open_in_browser?    
-  end
-    
   class Flay < Base::Generator
 
     def analyze
@@ -13,5 +8,24 @@ module MetricFu
       @matches = output.chomp.split("\n\n").map{|m| m.split("\n  ") }
     end
 
+    def to_yaml
+      @matches.flatten!
+      potential_matches = []
+      target = [] 
+      while(! @matches.empty?) do
+        candidate = @matches.pop
+        if candidate.match(/Matches found in/)
+          matches = potential_matches.map do |potential_match|
+            name, line = potential_match.split(":")
+            {:name => name.strip, :line => line.strip}
+          end
+          target << [:reason => candidate.strip, 
+                     :matches => matches]
+        else
+          potential_matches << candidate.strip
+        end
+      end
+      {:flay => {:matches => target}}
+    end
   end
 end

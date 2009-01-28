@@ -1,6 +1,2 @@
-churn:
-<% @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change| -%>
-  -
-    file_path: <%= change[0] %>
-    times_changed: <%= change[1] %>
-<% end -%>
+<% require 'yaml' %>
+<%= @churn_report.to_yaml %>

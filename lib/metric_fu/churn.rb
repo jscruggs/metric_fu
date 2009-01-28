@@ -1,14 +1,9 @@
 module MetricFu
   
-  def self.generate_churn_report
-    Churn.generate_report(MetricFu.churn)
-    system("open #{Churn.metric_dir}/index.html") if open_in_browser?
-  end
-  
   class Churn < Base::Generator
 
     def initialize(options={})
-      @base_dir = File.join(MetricFu::BASE_DIRECTORY, template_name)
+      super
       if File.exist?(".git")
         @source_control = Git.new(options[:start_date])
       elsif File.exist?(".svn")
@@ -22,6 +17,12 @@ module MetricFu
 
     def analyze
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
+      @changes = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
+      @changes.map! {|change| {:file_path => change[0], :times_changed => change[1] }}
+    end
+
+    def to_yaml
+      {:churn => {:changes => @changes}}
     end
 
     private

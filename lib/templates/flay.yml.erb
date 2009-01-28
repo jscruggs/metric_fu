@@ -1,14 +1,2 @@
-flay:
-<% @matches.each_with_index do |match, count| -%>
-  -  filenames:  
-<% match[1..-1].each do |filename| -%>
-<% name, line = filename.split(":") -%>
-<% if name -%>
-     -  name: <%= name.strip %>
-<% end -%>
-<% if line -%>
-        line: <%= line.strip %>
-<% end -%>
-<% end -%>
-     matches: <%= match.first.strip %>
-<% end -%>
+<% require 'yaml' %>
+<%= @flay_report.to_yaml %>

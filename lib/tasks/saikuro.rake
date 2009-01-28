@@ -13,10 +13,14 @@ namespace :metrics do
                         :cyclo => "",
                         :filter_cyclo => "0",
                         :warn_cyclo => "5",
-                        :error_cyclo => "7"}
+                        :error_cyclo => "7",
+                        :formater => "text"}
+    
 
     options.merge!(MetricFu::SAIKURO_OPTIONS) if defined?(MetricFu::SAIKURO_OPTIONS)
     options_string = options.inject(""){ |o, h| o + "--#{h.join(' ')} " }
+
+    puts options_string
 
     sh %{ruby "#{SAIKURO}" #{options_string}} do |ok, response|
       unless ok
@@ -25,11 +29,12 @@ namespace :metrics do
       end
     end
 
-    if File.exist? "#{SAIKURO_DIR}/index_cyclo.html"
-      mv "#{SAIKURO_DIR}/index_cyclo.html",
-         "#{SAIKURO_DIR}/index.html"
-    end
+    MetricFu.generate_saikuro_report
+    # if File.exist? "#{SAIKURO_DIR}/index_cyclo.html"
+    #   mv "#{SAIKURO_DIR}/index_cyclo.html",
+    #      "#{SAIKURO_DIR}/index.html"
+    # end
 
-    system("open #{SAIKURO_DIR}/index.html") if MetricFu.open_in_browser?
+    # system("open #{SAIKURO_DIR}/index.html") if MetricFu.open_in_browser?
   end
 end

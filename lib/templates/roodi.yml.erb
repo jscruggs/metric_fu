@@ -1,11 +1,1 @@
-roodi:
-  total_errors: <%= @matches.pop.first %>
-  errors:
-<% @matches.each_with_index do |match, count| -%>
-<% unless match.first.nil? || match.first.empty? -%>
-    -
-      file_path: <%= match.first.split(':')[0] if match.first %> 
-      line_number: <%= match.first.split(':')[1] if match.first %>
-      warning: <%= match[1] %> 
-<% end -%>
-<% end -%>
+<%= @roodi_report.to_yaml %>

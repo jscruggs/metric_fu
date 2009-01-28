@@ -1,129 +1,118 @@
 module MetricFu
-  
-  def self.generate_flog_report
-    Flog::Generator.generate_report
-    system("open #{Flog::Generator.metric_dir}/index.html") if open_in_browser?  
-  end
-  
-  module Flog
-    class Generator < Base::Generator
-      def generate_report
-        @base_dir = self.class.metric_dir
-        pages = []
-        flog_results.each do |filename|
-          page = Base.parse(open(filename, "r") { |f| f.read })
-          if page
-            page.filename = filename
-            pages << page
-          end
-        end
-        generate_pages(pages)
-      end
 
-      def generate_pages(pages)
-        pages.each do |page|
-          unless MetricFu::MD5Tracker.file_already_counted?(page.filename)
-            generate_page(page)
-          end
-        end      
-        save_output(ERB.new(File.read(template_file), nil, '-').result(binding))
-      end
+class Flog < Base::Generator
+  attr_reader :pages
 
-      def generate_page(page)
-        save_output(page.to_html, page.path)
-      end
+  SCORE_FORMAT = "%0.2f"
+  METHOD_LINE_REGEX = /([A-Za-z]+#.*):\s\((\d+\.\d+)\)/
+  OPERATOR_LINE_REGEX = /\s+(\d+\.\d+):\s(.*)$/
 
-      def flog_results
-        Dir.glob("#{@base_dir}/**/*.txt")
+  def parse(text)
+    score = text[/\w+ = (\d+\.\d+)/, 1]
+    return nil unless score
+    page = Flog::Page.new(score)
+    text.each_line do |method_line|
+     if match = method_line.match(METHOD_LINE_REGEX)
+        page.scanned_methods << ScannedMethod.new(match[1], match[2])
       end
-      
-      def self.template_name
-        "flog"
+      if match = method_line.match(OPERATOR_LINE_REGEX)
+        return if page.scanned_methods.empty?
+        page.scanned_methods.last.operators << Operator.new(match[1], match[2])
       end
     end
-
-    SCORE_FORMAT = "%0.2f"
-
-    class Base
-      METHOD_LINE_REGEX = /([A-Za-z]+#.*):\s\((\d+\.\d+)\)/
-      OPERATOR_LINE_REGEX = /\s+(\d+\.\d+):\s(.*)$/
-
-      class << self
-
-        def parse(text)
-          score = text[/\w+ = (\d+\.\d+)/, 1]
-          return nil unless score
-          page = Page.new(score)
-
-          text.each_line do |method_line|
-           if match = method_line.match(METHOD_LINE_REGEX)
-              page.scanned_methods << ScannedMethod.new(match[1], match[2])
-            end
-            
-            if match = method_line.match(OPERATOR_LINE_REGEX)
-              return if page.scanned_methods.empty?
-              page.scanned_methods.last.operators << Operator.new(match[1], match[2])
-            end
-          end
-          page
-        end
-        
-      end
-    end 
-  
-    class Page < MetricFu::Base::Generator
-      attr_accessor :filename, :score, :scanned_methods
-
-      def initialize(score, scanned_methods = [])
-        @score = score.to_f
-        @scanned_methods = scanned_methods
-      end
-
-      def path
-        @path ||= File.basename(filename, ".txt") + '.html'
-      end
-
-      def to_html
-        ERB.new(File.read(template_file),nil,'-').result(binding)
-      end
-
-      def average_score
-        return 0 if scanned_methods.length == 0
-        sum = 0
-        scanned_methods.each do |m|
-          sum += m.score
-        end
-        sum / scanned_methods.length
-      end
-
-      def highest_score
-        scanned_methods.inject(0) do |highest, m|
-          m.score > highest ? m.score : highest
-        end
-      end
-
-      def template_name
-        'flog_page'
-      end
-    end  
-  
-    class Operator
-      attr_accessor :score, :operator
-
-      def initialize(score, operator)
-        @score = score.to_f
-        @operator = operator
-      end
-    end  
-  
-    class ScannedMethod
-      attr_accessor :name, :score, :operators
-
-      def initialize(name, score, operators = [])
-        @name = name
-        @score = score.to_f
-        @operators = operators
-      end
-    end  
+    page
   end
+
+  def analyze
+    @pages = []
+    flog_results.each do |path|
+      page = parse(open(path, "r") { |f| f.read })
+      if page
+        page.path = path 
+        @pages << page
+      end
+    end
+  end
+
+  def generate_report
+    analyze
+    to_yaml
+  end
+
+  def to_yaml
+    {:flog => {:pages => @pages}}
+  end
+  
+
+  def flog_results
+    Dir.glob("#{metric_dir}/**/*.txt")
+  end
+  
+  class Operator
+    attr_accessor :score, :operator
+
+    def initialize(score, operator)
+      @score = score.to_f
+      @operator = operator
+    end
+    
+    def to_yaml
+      {:score => @score, :operator => @operator}.to_yaml
+    end
+  end  
+
+  class ScannedMethod
+    attr_accessor :name, :score, :operators
+
+    def initialize(name, score, operators = [])
+      @name = name
+      @score = score.to_f
+      @operators = operators
+    end
+
+    def to_yaml
+      {:name => @name,
+       :score => @score,
+       :operators => @operators}.to_yaml
+    end
+  end  
+  
+end
+
+class Flog::Page < MetricFu::Base::Generator
+  attr_accessor :path, :score, :scanned_methods
+
+  def initialize(score, scanned_methods = [])
+    @score = score.to_f
+    @scanned_methods = scanned_methods
+  end
+
+  def filename 
+    File.basename(path, ".txt") 
+  end
+
+  def to_yaml
+    {:score => @score, 
+     :scanned_methods => @scanned_methods,
+     :highest_score => highest_score,
+     :average_score => average_score}.to_yaml
+  end
+
+  def average_score
+    return 0 if scanned_methods.length == 0
+    sum = 0
+    scanned_methods.each do |m|
+      sum += m.score
+    end
+    sum / scanned_methods.length
+  end
+
+  def highest_score
+    scanned_methods.inject(0) do |highest, m|
+      m.score > highest ? m.score : highest
+    end
+  end
+
+end  
+
 end
