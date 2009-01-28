@@ -6,7 +6,12 @@ namespace :metrics do
   if MetricFu.configuration.rails
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad, reek, roodi, stats and churn reports"
-    task :all => MetricFu.metrics
+    task :all do
+      MetricFu.metrics
+      MetricFu.save_output(MetricFu.report.to_yaml,
+                           MetricFu.base_directory, 
+                           'report.yml') 
+    end
 
     task :set_testing_env do
       RAILS_ENV = 'test'
@@ -18,7 +23,11 @@ namespace :metrics do
   else
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad and churn reports"
-    task :all => MetricFu.metrics
+    task :all => MetricFu.metrics do
+      MetricFu.save_output(MetricFu.report.to_yaml,
+                           MetricFu.base_directory, 
+                           'report.yml') 
+    end
 
   end
 

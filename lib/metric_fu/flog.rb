@@ -40,7 +40,7 @@ class Flog < Base::Generator
   end
 
   def to_yaml
-    {:flog => {:pages => @pages}}
+    {:flog => {:pages => @pages.map {|page| page.to_yaml}}}
   end
   
 
@@ -57,7 +57,7 @@ class Flog < Base::Generator
     end
     
     def to_yaml
-      {:score => @score, :operator => @operator}.to_yaml
+      {:score => @score, :operator => @operator}
     end
   end  
 
@@ -73,7 +73,7 @@ class Flog < Base::Generator
     def to_yaml
       {:name => @name,
        :score => @score,
-       :operators => @operators}.to_yaml
+       :operators => @operators.map {|o| o.to_yaml}}
     end
   end  
   
@@ -93,9 +93,9 @@ class Flog::Page < MetricFu::Base::Generator
 
   def to_yaml
     {:score => @score, 
-     :scanned_methods => @scanned_methods,
+     :scanned_methods => @scanned_methods.map {|sm| sm.to_yaml},
      :highest_score => highest_score,
-     :average_score => average_score}.to_yaml
+     :average_score => average_score}
   end
 
   def average_score
