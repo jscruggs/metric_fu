@@ -47,7 +47,7 @@ begin
       end
 
       desc "Generate and open flog report"
-      if MetricFu::RAILS
+      if MetricFu.configuration.rails
         task :all => [:models, :controllers, :helpers, :lib] do
           MetricFu.generate_flog_report
         end

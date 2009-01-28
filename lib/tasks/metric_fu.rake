@@ -1,8 +1,9 @@
 # only load configured metrics
+
 MetricFu.metrics.each { |task| import "#{File.dirname(__FILE__)}/#{task}.rake" }
 
 namespace :metrics do
-  if MetricFu::RAILS
+  if MetricFu.configuration.rails
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad, reek, roodi, stats and churn reports"
     task :all => MetricFu.metrics

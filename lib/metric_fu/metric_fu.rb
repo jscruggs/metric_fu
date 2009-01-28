@@ -1,31 +1,10 @@
 module MetricFu
  
-  AVAILABLE_METRICS = [:coverage, :churn, :flog, :flay,
-                       :reek, :roodi, :saikuro]
 
-  TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', 'templates')
-  BASE_DIRECTORY = ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu'
-  RAILS = File.exist?("config/environment.rb")
   HTML_EXTENSION = '.html.erb'
   YML_EXTENSION  = '.yml.erb'
 
-  if RAILS
-    CODE_DIRS = ['app', 'lib']
-    DEFAULT_METRICS = AVAILABLE_METRICS + :stats
-  else
-    CODE_DIRS = ['lib']
-    DEFAULT_METRICS = AVAILABLE_METRICS
-  end 
  
-  AVAILABLE_METRICS.each do |meth|
-    method = <<-EOF
-      def self.generate_#{meth}_report
-        @#{meth}_report = #{meth.to_s.capitalize}.generate_report
-        show_in_browser(@#{meth}_report)
-      end
-    EOF
-    class_eval(method)
-  end
 
   def self.generate_roodi_report
     @roodi_report = Roodi.generate_report
@@ -88,6 +67,10 @@ module MetricFu
     open("#{dir}/#{file}", "w") do |f|
       f.puts content
     end
+  end
+
+  def self.open_in_browser?
+    PLATFORM['darwin'] && !ENV['CC_BUILD_ARTIFACTS']
   end
 
   def self.show_in_browser(dir)
