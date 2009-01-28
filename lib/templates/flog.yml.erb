@@ -1,9 +1,0 @@
-flog:
-<% @flog_report[:flog][:pages].sort {|x,y| y.highest_score <=> x.highest_score }.each_with_index do |page, count| -%>
-  -
-    file: <%= File.basename(page.filename, ".txt") + ".rb" %>
-    total_score: <%= sprintf(MetricFu::Flog::SCORE_FORMAT, page.score) %>
-    methods: <%= page.scanned_methods.length %>
-    average_score: <%= sprintf(MetricFu::Flog::SCORE_FORMAT, page.average_score) %> 
-    highest_score: <%= sprintf(MetricFu::Flog::SCORE_FORMAT, page.highest_score) %> 
-<% end -%>
