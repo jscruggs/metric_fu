@@ -1,6 +1,6 @@
 module MetricFu
   
-  class Reek < Base::Generator
+  class Reek < Generator
     PROBLEM_CLASS_REGEX = /\[(.*)\]/
     PROBLEM_MESSAGE_REGEX = /\](.*)/
 

@@ -10,19 +10,21 @@
 	<h1>Flay Results</h1>
   <p><a href='http://ruby.sadi.st/Flay.html'>Flay</a> analyzes ruby code for structural similarities.</p>  
 	<table>
-		<tr>
+    <tr>
 		  <th>Files</th>
 		  <th>Matches</th>		  
-		</tr>
-  	<% @matches.each_with_index do |match, count| %>
+    </tr>
+    <% count = 0 %>
+    <% @flay[:matches].each do |match| %>
   		<tr class='<%= cycle("light", "dark", count) %>'>
-  		  <td>
-  			  <% match[1..-1].each do |filename| %>
-  			  <%= link_to_filename(*filename.split(":")) %><br>
-  			  <% end %>
+        <td>
+          <% match[:matches].each do |file| %>
+            <%= file[:name] %>:<%= file[:line] %><br />
+          <% end %>
   		  </td>
-    		<td><%= match.first %></td>
-  		</tr>
+    		<td><%= match[:reason] %></td>
+      </tr>
+      <% count += 1 %>
 		<% end %>
 	</table>
 	<p>Generated on <%= Time.now.localtime %></p>	

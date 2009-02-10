@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>Flog Reporter</title>
+	<style>
+	<%= inline_css("default.css") %>	
+	</style>
+</head>
+<body>
+	<h1>Flog Results</h1>
+	<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+	<table>
+		<tr>
+		  <th>File</th>
+		  <th>Total score</th>
+		  <th>Methods</th>
+		  <th>Average score</th>
+		  <th>Highest score</th>
+    </tr>
+    <% pages = @flog[:pages].sort_by {|page| page[:highest_score] }.reverse %> 
+
+      <% pages.each do |page| %>
+      <tr>
+        <td><%= page[:path] %></td>
+        <td><%= page[:score].round %></td>
+        <td><%= page[:scanned_methods].length %></td>
+        <td><%= page[:average_score].round %></td>
+        <td><%= page[:highest_score].round %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <% pages.each do |page| %>
+    <h2><%= page[:path] %></h2>
+      <% page[:scanned_methods].each do |sm| %>
+        <p><%= sm[:name] %></p>
+        <table>
+          <tr>
+            <th>Score</th>
+            <th>Operator</th>
+          </tr>
+          <% sm[:operators].each do |operator| %>
+            <tr>
+              <td><%= operator[:score] %></td>
+              <td><%= operator[:operator] %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+  <% end %>
+	<p>Generated on <%= Time.now.localtime %></p>	
+</body>
+</html>

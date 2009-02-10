@@ -1,6 +1,6 @@
 module MetricFu
   
-  class Flay < Base::Generator
+  class Flay < Generator
 
     def analyze
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
@@ -25,7 +25,7 @@ module MetricFu
           potential_matches << candidate.strip
         end
       end
-      {:flay => {:matches => target}}
+      {:flay => {:matches => target.flatten}}
     end
   end
 end

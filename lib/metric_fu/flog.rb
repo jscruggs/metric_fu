@@ -1,6 +1,6 @@
 module MetricFu
 
-class Flog < Base::Generator
+class Flog < Generator
   attr_reader :pages
 
   SCORE_FORMAT = "%0.2f"
@@ -45,7 +45,7 @@ class Flog < Base::Generator
   
 
   def flog_results
-    Dir.glob("#{metric_dir}/**/*.txt")
+    Dir.glob("#{metric_directory}/**/*.txt")
   end
   
   class Operator
@@ -79,7 +79,7 @@ class Flog < Base::Generator
   
 end
 
-class Flog::Page < MetricFu::Base::Generator
+class Flog::Page < MetricFu::Generator
   attr_accessor :path, :score, :scanned_methods
 
   def initialize(score, scanned_methods = [])
@@ -95,7 +95,8 @@ class Flog::Page < MetricFu::Base::Generator
     {:score => @score, 
      :scanned_methods => @scanned_methods.map {|sm| sm.to_yaml},
      :highest_score => highest_score,
-     :average_score => average_score}
+     :average_score => average_score,
+     :path => path}
   end
 
   def average_score

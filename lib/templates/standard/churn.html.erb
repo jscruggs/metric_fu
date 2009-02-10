@@ -12,9 +12,17 @@
 	  This task uses your source control log to identify those files.
 	  </p>
 	<table>
-		<tr><th>File Path</th><th>Times Changed</th></tr>
-		<% @changes.to_a.sort {|x,y| y[1] <=> x[1]}.each do |change| %>
-		<tr><td><%= change[0] %></td><td class='warning'><%= change[1] %></td></tr>
+    <tr>
+      <th>File Path</th>
+      <th>Times Changed</th>
+    </tr>
+    <% count = 0 %>
+    <% @churn[:changes].each do |change| %>
+      <tr>
+        <td><%= change[:file_path] %></td>
+        <td><%= change[:times_changed] %></td>
+      </tr>
+      <% count += 1 %>
 		<% end %>
 	</table>
 	<p>Generated on <%= Time.now.localtime %></p>	

@@ -1,17 +1,38 @@
 module MetricFu
 
-class Saikuro < Base::Generator
+class Saikuro < Generator
 
   def analyze
-    @units = []
+    @files = []
     saikuro_results.each do |path|
-      if Saikuro::Unit.is_valid_text_file?(path)
-        unit = Saikuro::Unit.new(path) 
-        if unit
-          @units << unit
+      if Saikuro::SFile.is_valid_text_file?(path)
+        file = Saikuro::SFile.new(path) 
+        if file 
+          @files << file 
         end
       end
     end
+    @files = @files.sort_by do |file|
+      file.elements.
+           max {|a,b| a.complexity.to_i <=> b.complexity.to_i}.
+           complexity.to_i
+    end
+    @files.reverse!
+    klasses = []
+    @files.each {|f| klasses << f.elements}
+    klasses.flatten!
+    @classes = klasses.sort_by {|k| k.complexity.to_i}
+    @classes.reverse!
+    meths = []
+    @files.each {|f| 
+      f.elements.each {|el|
+        el.defs.each {|defn|
+          meths <<  defn}
+      }
+    }
+    meths = meths.sort_by {|meth| meth.complexity.to_i}
+    @meths = meths.reverse
+    
   end
 
   def generate_report
@@ -20,22 +41,28 @@ class Saikuro < Base::Generator
   end
 
   def to_yaml
-    units = @units.map do |unit|
-      new_unit = unit.to_yaml
-      new_unit[:filename] = unit.filename
-      new_unit
+    files = @files.map do |file|
+      my_file = file.to_yaml
+      my_file[:filename] = file.filename
+      my_file 
     end
-    {:saikuro => {:units => units} }
+    {:saikuro => {:files => files, 
+                  :classes => @classes.map {|c| c.to_yaml},
+                  :methods => @meths.map {|m| m.to_yaml} 
+                 }
+    }  
   end
 
   def saikuro_results
-    Dir.glob("#{metric_dir}/**/*.html")
+    Dir.glob("#{metric_directory}/**/*.html")
   end
+
+  private
 
 
 end
 
-class Saikuro::Unit
+class Saikuro::SFile
 
   attr_reader :elements
   
@@ -61,10 +88,8 @@ class Saikuro::Unit
   end
 
   def to_yaml
-    elements = @elements.map do |element|
-      element.to_yaml
-    end
-    {:elements => elements}
+    merge_classes
+    {:classes => @elements}
   end
 
   def get_elements
@@ -85,6 +110,42 @@ class Saikuro::Unit
     end
   end
 
+
+  def merge_classes
+    new_elements = []
+    get_class_names.each do |target_class|
+      elements = @elements.find_all {|el| el.name == target_class }
+      complexity = 0
+      lines = 0
+      defns = []
+      elements.each do |el|
+        complexity += el.complexity.to_i
+        lines += el.lines.to_i
+        defns << el.defs
+      end
+
+      new_element = {:class_name => target_class,
+                     :complexity => complexity,
+                     :lines      => lines,
+                     :methods => defns.flatten.map {|d| d.to_yaml}}
+      new_element[:methods] = new_element[:methods].
+                              sort_by {|x| x[:complexity] }.
+                              reverse
+
+      new_elements << new_element
+    end
+    @elements = new_elements if new_elements
+  end
+
+  def get_class_names
+    class_names = []
+    @elements.each do |element|
+      unless class_names.include?(element.name)
+        class_names << element.name
+      end
+    end
+    class_names
+  end
 
 end
 

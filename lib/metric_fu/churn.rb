@@ -1,6 +1,6 @@
 module MetricFu
   
-  class Churn < Base::Generator
+  class Churn < Generator
 
     def initialize(options={})
       super

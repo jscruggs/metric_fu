@@ -1,7 +1,7 @@
 begin
 
   def flog(output, directory)
-    metric_dir = MetricFu::Flog.metric_dir
+    metric_dir = MetricFu::Flog.metric_directory
     Dir.glob("#{directory}/**/*.rb").each do |filename|
       output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
       mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)

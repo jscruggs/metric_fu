@@ -1,15 +1,17 @@
 module MetricFu
  
-
-  HTML_EXTENSION = '.html.erb'
-  YML_EXTENSION  = '.yml.erb'
-
   def self.report
     @report ||= {}
   end
 
   def self.generate_roodi_report
     report.merge!(Roodi.generate_report)
+  end
+
+  def self.save_templatized_report
+    @template = MetricFu.template_class.new
+    @template.report = report
+    @template.write
   end
 
   def self.generate_reek_report
@@ -30,6 +32,14 @@ module MetricFu
 
   def self.generate_flog_report
     report.merge!(Flog.generate_report)
+  end
+
+  def self.generate_rcov_report
+    report.merge!(Rcov.generate_report)
+  end
+
+  def self.generate_stats_report
+    report.merge!(Stats.generate_report)
   end
 
   def self.save_output(content, dir, file='index.html')

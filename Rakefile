@@ -9,8 +9,6 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 
 MetricFu::Configuration.run do |config|
-  config.output     = { :type => :yml }
-  config.metrics    = [ :roodi,  :reek, :flay, :churn, :saikuro, :flog ]
 end
 
 task :default => [:"metrics:all"]

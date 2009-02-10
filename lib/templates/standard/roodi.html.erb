@@ -13,13 +13,15 @@
 		<tr>
 		  <th>File Path</th>
 		  <th>Warning</th>
-		</tr>	  
-		<% @matches.each_with_index do |match, count| %>
-  		<tr class='<%= cycle("light", "dark", count) %>'>
-  		  <td><%= link_to_filename(match.first.split(':').first) if match.first %></td>
-  		  <td><%= match[1] %></td>
-  		</tr>
-  		<% end %>
+    </tr>
+    <% count = 0 %>
+    <% @roodi[:problems].each do |problem| %>
+      <tr class='<%= cycle("light", "dark", count) %>'>
+        <td><%= problem[:file] %>:<%= problem[:line] %></td>
+        <td><%= problem[:problem] %></td>
+      </tr>
+      <% count += 1 %>
+  	<% end %>
 	</table>
 	<p>Generated on <%= Time.now.localtime %></p>	
 </body>

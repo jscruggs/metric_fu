@@ -1,7 +1,7 @@
 module MetricFu
   
     
-  class Roodi < Base::Generator
+  class Roodi < Generator
 
     def analyze
       files_to_analyze = MetricFu.roodi[:dirs_to_roodi].map{|dir| Dir[File.join(dir, "**/*.rb")] }
