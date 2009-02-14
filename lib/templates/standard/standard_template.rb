@@ -7,7 +7,7 @@ class StandardTemplate < MetricFu::Template
         create_instance_var(section, contents)
         html = erbify(section)
         fn = output_filename(section)
-        MetricFu.save_output(html, MetricFu.output_directory, fn)
+        MetricFu.report.save_output(html, MetricFu.output_directory, fn)
       end
     end
 
@@ -15,7 +15,7 @@ class StandardTemplate < MetricFu::Template
     if template_exists?('index')
       html = erbify('index')
       fn = output_filename('index')
-      MetricFu.save_output(html, MetricFu.output_directory, fn)
+      MetricFu.report.save_output(html, MetricFu.output_directory, fn)
     end
   end
 

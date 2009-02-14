@@ -1,4 +1,5 @@
-class MetricFu::Template
+module MetricFu
+class Template
   attr_accessor :report
   
   private
@@ -43,4 +44,4 @@ class MetricFu::Template
   end      
 
 end
-
+end

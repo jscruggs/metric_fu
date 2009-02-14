@@ -1,3 +1,4 @@
+require 'generator'
 module MetricFu
   
   class Churn < Generator
