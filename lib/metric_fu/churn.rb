@@ -11,12 +11,14 @@ module MetricFu
       else
         raise "Churning requires a subversion or git repo"
       end
-
       @minimum_churn_count = options[:minimum_churn_count] || 5
     end
 
-    def analyze
+    def emit
       @changes = parse_log_for_changes.reject! {|file, change_count| change_count < @minimum_churn_count}
+    end
+
+    def analyze
       @changes = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
       @changes.map! {|change| {:file_path => change[0], :times_changed => change[1] }}
     end

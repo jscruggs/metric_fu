@@ -2,8 +2,12 @@ module MetricFu
 
   class Stats < Generator
 
+    def emit
+      `rake stats > #{metric_directory + '/stats.txt'}`
+    end
+
     def analyze
-      output = File.open(MetricFu::Stats.metric_directory + '/index.html').read
+      output = File.open(metric_directory + '/stats.txt').read
       output = output.split("\n")
       output = output.find_all {|line| line[0].chr != "+" }
       output = output.find_all {|line| line[0].chr != "(" }

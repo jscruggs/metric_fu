@@ -4,10 +4,13 @@ module MetricFu
     PROBLEM_CLASS_REGEX = /\[(.*)\]/
     PROBLEM_MESSAGE_REGEX = /\](.*)/
 
-    def analyze
+    def emit
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      output = `reek #{files_to_reek.join(" ")}`
-      @matches = output.chomp.split("\n\n").map{|m| m.split("\n") }
+      @output = `reek #{files_to_reek.join(" ")}`
+    end
+
+    def analyze
+      @matches = @output.chomp.split("\n\n").map{|m| m.split("\n") }
       @matches.map! do |match|
         file_path = match.shift.split('--').first
         file_path = file_path.gsub('"', ' ').strip

@@ -3,10 +3,14 @@ module MetricFu
     
   class Roodi < Generator
 
-    def analyze
+    def emit
       files_to_analyze = MetricFu.roodi[:dirs_to_roodi].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      output = `roodi #{files_to_analyze.join(" ")}`
-      @matches = output.chomp.split("\n").map{|m| m.split(" - ") }
+      @output = `roodi #{files_to_analyze.join(" ")}`
+
+    end
+
+    def analyze
+      @matches = @output.chomp.split("\n").map{|m| m.split(" - ") }
       total = @matches.pop
       @matches.reject! {|array| array.empty? }
       @matches.map! do |match|

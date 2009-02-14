@@ -40,6 +40,7 @@ module MetricFu
     end
 
     def generate_report
+      emit
       analyze
       to_yaml
     end

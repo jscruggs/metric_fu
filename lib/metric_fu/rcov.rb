@@ -19,6 +19,24 @@ module MetricFu
       end
     end
 
+    def emit
+      begin
+        FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
+        Dir.mkdir(MetricFu::Rcov.metric_directory)
+        test_files = FileList[*MetricFu.coverage[:test_files]].join(' ')
+        rcov_opts = MetricFu.coverage[:rcov_opts].join(' ')
+        output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
+        `rcov --include-file #{test_files}  #{rcov_opts} #{output}`
+      rescue LoadError
+        if RUBY_PLATFORM =~ /java/
+          puts 'running in jruby - rcov tasks not available'
+        else
+          puts 'sudo gem install rcov # if you want the rcov tasks'
+        end
+      end
+    end
+
+
     def analyze
       output = File.open(MetricFu::Rcov.metric_directory + '/rcov.txt').read
       output = output.split(NEW_FILE_MARKER)

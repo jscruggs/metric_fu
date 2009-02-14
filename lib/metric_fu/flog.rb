@@ -7,6 +7,27 @@ class Flog < Generator
   METHOD_LINE_REGEX = /([A-Za-z]+#.*):\s\((\d+\.\d+)\)/
   OPERATOR_LINE_REGEX = /\s+(\d+\.\d+):\s(.*)$/
 
+  def emit
+    begin
+    metric_dir = MetricFu::Flog.metric_directory
+    MetricFu::Flog.dirs_to_flog do |directory|
+      Dir.glob("#{directory}/**/*.rb").each do |filename|
+        output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
+        mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
+        if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
+          `flog #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+        end
+      end
+    end
+    rescue LoadError
+      if RUBY_PLATFORM =~ /java/
+        puts 'running in jruby - flog tasks not available'
+      else
+        puts 'sudo gem install flog # if you want the flog tasks'
+      end
+    end
+  end
+
   def parse(text)
     score = text[/\w+ = (\d+\.\d+)/, 1]
     return nil unless score

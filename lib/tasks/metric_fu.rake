@@ -1,7 +1,5 @@
 # only load configured metrics
 
-MetricFu.metrics.each { |task| import "#{File.dirname(__FILE__)}/#{task}.rake" }
-
 Mystat = <<-EOF
 (in /Users/gmcinnes/Documents/projects/NeerBeer/src/Web)
 +----------------------+-------+-------+---------+---------+-----+-------+
@@ -49,7 +47,8 @@ namespace :metrics do
   else
 
     desc "Generate coverage, cyclomatic complexity, flog, flay, railroad and churn reports"
-    task :all => MetricFu.metrics do
+    task :all do
+      MetricFu.metrics.each {|metric| MetricFu.add_report(metric) }
       MetricFu.save_output(MetricFu.report.to_yaml,
                            MetricFu.base_directory, 
                            'report.yml')

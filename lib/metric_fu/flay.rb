@@ -2,10 +2,14 @@ module MetricFu
   
   class Flay < Generator
 
-    def analyze
+    def emit
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      output = `flay #{files_to_flay.join(" ")}`
-      @matches = output.chomp.split("\n\n").map{|m| m.split("\n  ") }
+      @output = `flay #{files_to_flay.join(" ")}`
+
+    end
+
+    def analyze
+      @matches = @output.chomp.split("\n\n").map{|m| m.split("\n  ") }
     end
 
     def to_yaml
