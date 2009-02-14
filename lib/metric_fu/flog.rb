@@ -57,11 +57,11 @@ class Flog < Generator
 
   def generate_report
     analyze
-    to_yaml
+    to_h
   end
 
-  def to_yaml
-    {:flog => {:pages => @pages.map {|page| page.to_yaml}}}
+  def to_h
+    {:flog => {:pages => @pages.map {|page| page.to_h}}}
   end
   
 
@@ -77,7 +77,7 @@ class Flog < Generator
       @operator = operator
     end
     
-    def to_yaml
+    def to_h
       {:score => @score, :operator => @operator}
     end
   end  
@@ -91,10 +91,10 @@ class Flog < Generator
       @operators = operators
     end
 
-    def to_yaml
+    def to_h
       {:name => @name,
        :score => @score,
-       :operators => @operators.map {|o| o.to_yaml}}
+       :operators => @operators.map {|o| o.to_h}}
     end
   end  
   
@@ -112,9 +112,9 @@ class Flog::Page < MetricFu::Generator
     File.basename(path, ".txt") 
   end
 
-  def to_yaml
+  def to_h
     {:score => @score, 
-     :scanned_methods => @scanned_methods.map {|sm| sm.to_yaml},
+     :scanned_methods => @scanned_methods.map {|sm| sm.to_h},
      :highest_score => highest_score,
      :average_score => average_score,
      :path => path}

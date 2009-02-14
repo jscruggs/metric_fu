@@ -24,7 +24,7 @@ module MetricFu
       end
     end
 
-    def to_yaml
+    def to_h
       {:reek => {:matches => @matches}}
     end
 

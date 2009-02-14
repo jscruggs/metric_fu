@@ -34,7 +34,7 @@ module MetricFu
       end
     end
 
-    def to_yaml
+    def to_h
       {:stats => @stats}
     end
 

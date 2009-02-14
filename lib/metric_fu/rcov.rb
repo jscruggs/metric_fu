@@ -67,7 +67,7 @@ module MetricFu
       @rcov = files
     end
 
-    def to_yaml
+    def to_h
       {:rcov => @rcov}   
     end
   end

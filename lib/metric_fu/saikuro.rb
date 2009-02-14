@@ -54,18 +54,18 @@ class Saikuro < Generator
 
   def generate_report
     analyze
-    to_yaml
+    to_h
   end
 
-  def to_yaml
+  def to_h
     files = @files.map do |file|
-      my_file = file.to_yaml
+      my_file = file.to_h
       my_file[:filename] = file.filename
       my_file 
     end
     {:saikuro => {:files => files, 
-                  :classes => @classes.map {|c| c.to_yaml},
-                  :methods => @meths.map {|m| m.to_yaml} 
+                  :classes => @classes.map {|c| c.to_h},
+                  :methods => @meths.map {|m| m.to_h} 
                  }
     }  
   end
@@ -104,7 +104,7 @@ class Saikuro::SFile
     File.basename(@path, '_cyclo.html')
   end
 
-  def to_yaml
+  def to_h
     merge_classes
     {:classes => @elements}
   end
@@ -144,7 +144,7 @@ class Saikuro::SFile
       new_element = {:class_name => target_class,
                      :complexity => complexity,
                      :lines      => lines,
-                     :methods => defns.flatten.map {|d| d.to_yaml}}
+                     :methods => defns.flatten.map {|d| d.to_h}}
       new_element[:methods] = new_element[:methods].
                               sort_by {|x| x[:complexity] }.
                               reverse
@@ -187,11 +187,11 @@ class Saikuro::ParsingElement
     @defs << Saikuro::ParsingElement.new(line) 
   end
 
-  def to_yaml
+  def to_h
     base = {:name => @name, :complexity => @complexity, :lines => @lines}
     unless @defs.empty?
       defs = @defs.map do |my_def|
-        my_def = my_def.to_yaml
+        my_def = my_def.to_h
         my_def.delete(:defs)
         my_def
       end

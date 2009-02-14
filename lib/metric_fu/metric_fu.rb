@@ -4,10 +4,6 @@ module MetricFu
     @report ||= {}
   end
 
-  # def self.generate_roodi_report
-  #   report.merge!(Roodi.generate_report)
-  # end
-
   def self.save_templatized_report
     @template = MetricFu.template_class.new
     @template.report = report
@@ -18,34 +14,6 @@ module MetricFu
     clazz = MetricFu.const_get(report_type.to_s.capitalize)
     report.merge!(clazz.generate_report)
   end
-
-  # def self.generate_reek_report
-  #   report.merge!(Reek.generate_report)
-  # end
-
-  # def self.generate_flay_report
-  #   report.merge!(Flay.generate_report)
-  # end
-
-  # def self.generate_churn_report
-  #   report.merge!(Churn.generate_report)
-  # end
-
-  # def self.generate_saikuro_report
-  #   report.merge!(Saikuro.generate_report)
-  # end
-
-  # def self.generate_flog_report
-  #   report.merge!(Flog.generate_report)
-  # end
-
-  # def self.generate_rcov_report
-  #   report.merge!(Rcov.generate_report)
-  # end
-
-  # def self.generate_stats_report
-  #   report.merge!(Stats.generate_report)
-  # end
 
   def self.save_output(content, dir, file='index.html')
     open("#{dir}/#{file}", "w") do |f|

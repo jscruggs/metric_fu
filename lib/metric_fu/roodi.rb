@@ -21,7 +21,7 @@ module MetricFu
       @roodi_results = {:total => total, :problems => @matches}
     end
 
-    def to_yaml
+    def to_h
       {:roodi => @roodi_results}
     end
   end

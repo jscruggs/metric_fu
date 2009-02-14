@@ -12,7 +12,7 @@ module MetricFu
       @matches = @output.chomp.split("\n\n").map{|m| m.split("\n  ") }
     end
 
-    def to_yaml
+    def to_h
       @matches.flatten!
       potential_matches = []
       target = [] 

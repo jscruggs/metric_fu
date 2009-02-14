@@ -23,7 +23,7 @@ module MetricFu
       @changes.map! {|change| {:file_path => change[0], :times_changed => change[1] }}
     end
 
-    def to_yaml
+    def to_h
       {:churn => {:changes => @changes}}
     end
 
