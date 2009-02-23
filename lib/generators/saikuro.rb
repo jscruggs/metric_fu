@@ -4,8 +4,8 @@ class Saikuro < Generator
 
 
   def emit
-    relative_path = [File.dirname(__FILE__), '..', 
-                     'metric_fu', 'saikuro', 'saikuro.rb']
+    relative_path = [File.dirname(__FILE__), '..', '..', 
+                     'vendor', 'saikuro', 'saikuro.rb']
     saikuro = File.expand_path(File.join(relative_path))
     options_string = MetricFu.saikuro.inject("") do |o, h|
       o + "--#{h.join(' ')} " 
