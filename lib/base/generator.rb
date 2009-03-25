@@ -91,10 +91,11 @@ module MetricFu
 
    
     # Defines some hook methods for the concrete classes to hook into.
-    %w[emit analyze to_h].each do |meth|
+    %w[emit analyze].each do |meth|
       define_method("before_#{meth}".to_sym) {}
       define_method("after_#{meth}".to_sym) {}
     end
+    define_method("before_to_h".to_sym) {}
 
     # Provides a template method to drive the production of a metric
     # from a concrete implementation of this class.  Each concrete
@@ -106,11 +107,13 @@ module MetricFu
     # methods to allow extra hooks into the processing methods, and help
     # to keep the logic of your Generators clean.
     def generate_report
-      %w[emit analyze to_h].each do |meth|
+      %w[emit analyze].each do |meth|
         send("before_#{meth}".to_sym)
         send("#{meth}".to_sym)
         send("after_#{meth}".to_sym)
       end
+      before_to_h()
+      to_h()
     end
 
 

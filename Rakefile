@@ -23,6 +23,21 @@ namespace :metrics do
       MetricFu.report.show_in_browser(MetricFu.output_directory)
     end
   end
+
+  MetricFu.metrics.each do |metric|
+    desc "Generate report for #{metric}"
+    task metric do
+
+      MetricFu.report.add(metric)
+      MetricFu.report.save_output(MetricFu.report.to_yaml,
+                                  MetricFu.base_directory,
+                                  'report.yml')
+      MetricFu.report.save_templatized_report
+      if MetricFu.report.open_in_browser?
+        MetricFu.report.show_in_browser(MetricFu.output_directory)
+      end
+    end
+  end
 end
 
 task :default => [:"metrics:all"]

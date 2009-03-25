@@ -19,6 +19,7 @@ module MetricFu
     # @return String
     #   The erb evaluated string
     def erbify(section)
+      require 'erb'
       erb_doc = File.read(template(section))
       ERB.new(erb_doc).result(binding)
     end

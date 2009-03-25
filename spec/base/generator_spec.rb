@@ -93,7 +93,7 @@ describe MetricFu::Generator do
   describe '@concrete_class should have hook methods for '\
            +'[before|after]_[emit|analyze|to_h]' do
 
-    %w[emit analyze to_h].each do |meth|
+    %w[emit analyze].each do |meth|
 
       it "should respond to #before_#{meth}" do
         @concrete_class.respond_to?("before_#{meth}".to_sym).should be_true
@@ -102,6 +102,10 @@ describe MetricFu::Generator do
       it "should respond to #after_#{meth}" do
         @concrete_class.respond_to?("after_#{meth}".to_sym).should be_true
       end
+    end
+      
+    it "should respond to #before_to_h" do
+      @concrete_class.respond_to?("before_to_h".to_sym).should be_true
     end
   end
 
@@ -124,7 +128,7 @@ describe MetricFu::Generator do
 
   describe "#generate_report (in a concrete class)" do
     
-    %w[emit analyze to_h].each do |meth|
+    %w[emit analyze].each do |meth|
       it "should call #before_#{meth}" do
         @concrete_class.should_receive("before_#{meth}")
         @concrete_class.generate_report
@@ -140,5 +144,16 @@ describe MetricFu::Generator do
         @concrete_class.generate_report
       end
     end
+    
+    it "should call #before_to_h" do
+      @concrete_class.should_receive("before_to_h")
+      @concrete_class.generate_report
+    end
+    
+    it "should call #to_h" do
+      @concrete_class.should_receive(:to_h)
+      @concrete_class.generate_report
+    end
+
   end
 end

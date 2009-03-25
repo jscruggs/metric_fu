@@ -23,8 +23,8 @@ module MetricFu
       begin
         FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
         Dir.mkdir(MetricFu::Rcov.metric_directory)
-        test_files = FileList[*MetricFu.coverage[:test_files]].join(' ')
-        rcov_opts = MetricFu.coverage[:rcov_opts].join(' ')
+        test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
+        rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
         output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
         `rcov --include-file #{test_files}  #{rcov_opts} #{output}`
       rescue LoadError
