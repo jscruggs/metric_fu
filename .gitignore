@@ -1,3 +1,4 @@
+.DS_Store
 previous_failures.txt
 tmp/*
 metric_fu-*.gem
