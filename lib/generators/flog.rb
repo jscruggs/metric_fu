@@ -10,7 +10,7 @@ class Flog < Generator
   def emit
     begin
     metric_dir = MetricFu::Flog.metric_directory
-    MetricFu::Flog.dirs_to_flog do |directory|
+    MetricFu.flog[:dirs_to_flog].each do |directory|
       Dir.glob("#{directory}/**/*.rb").each do |filename|
         output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
         mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
@@ -53,11 +53,6 @@ class Flog < Generator
         @pages << page
       end
     end
-  end
-
-  def generate_report
-    analyze
-    to_h
   end
 
   def to_h
