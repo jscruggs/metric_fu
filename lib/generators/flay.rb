@@ -6,7 +6,6 @@ module MetricFu
     def emit
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
       @output = `flay #{files_to_flay.join(" ")}`
-
     end
 
     def analyze
@@ -14,23 +13,17 @@ module MetricFu
     end
 
     def to_h
-      @matches.flatten!
-      potential_matches = []
-      target = [] 
-      while(! @matches.empty?) do
-        candidate = @matches.pop
-        if candidate.match(/Matches found in/)
-          matches = potential_matches.map do |potential_match|
-            name, line = potential_match.split(":")
-            {:name => name.strip, :line => line.strip}
-          end
-          target << [:reason => candidate.strip, 
-                     :matches => matches]
-        else
-          potential_matches << candidate.strip
+      target = []
+      total_score = @matches.shift.first.split('=').last.strip
+      @matches.each do |problem|
+        reason = problem.shift.strip
+        lines_info = problem.map do |full_line|
+          name, line = full_line.split(":")
+          {:name => name.strip, :line => line.strip}
         end
+        target << [:reason => reason, :matches => lines_info]
       end
-      {:flay => {:matches => target.flatten}}
+      {:flay => {:total_score => total_score, :matches => target.flatten}}
     end
   end
 end
