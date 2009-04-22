@@ -8,6 +8,8 @@
 <body>
 	<h1>Flog Results</h1>
 	<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+	<h2>Total Flog score for all methods: <%= @flog[:total]%></h2>
+	<h2>Average Flog score for all methods: <%= @flog[:average]%></h2>
 	<table>
 		<tr>
 		  <th>File</th>
@@ -16,9 +18,7 @@
 		  <th>Average score</th>
 		  <th>Highest score</th>
     </tr>
-    <% pages = @flog[:pages].sort_by {|page| page[:highest_score] }.reverse %> 
-
-      <% pages.each do |page| %>
+      <% @flog[:pages].each do |page| %>
       <tr>
         <td><%= page[:path] %></td>
         <td><%= page[:score].round %></td>
@@ -29,7 +29,7 @@
     <% end %>
   </table>
 
-  <% pages.each do |page| %>
+  <% @flog[:pages].each do |page| %>
     <h2><%= page[:path] %></h2>
       <% page[:scanned_methods].each do |sm| %>
         <p><%= sm[:name] %></p>
