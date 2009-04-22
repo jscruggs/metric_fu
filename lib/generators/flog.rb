@@ -54,8 +54,8 @@ class Flog < Generator
   end
 
   def to_h
-    number_of_methods = @pages.inject(0) {|count, p| count += p.scanned_methods.size}
-    total_flog_score = @pages.inject(0) {|total, p| total += p.score}
+    number_of_methods = @pages.inject(0) {|count, page| count += page.scanned_methods.size}
+    total_flog_score = @pages.inject(0) {|total, page| total += page.score}
     sorted_pages = @pages.sort_by {|page| page.score }.reverse 
     {:flog => { :total => total_flog_score,
                 :average => total_flog_score/number_of_methods,
