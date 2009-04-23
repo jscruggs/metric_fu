@@ -10,7 +10,6 @@ class Saikuro < Generator
     options_string = MetricFu.saikuro.inject("") do |o, h|
       o + "--#{h.join(' ')} " 
     end  
-    puts options_string
     sh %{ruby "#{saikuro}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
@@ -50,11 +49,6 @@ class Saikuro < Generator
     meths = meths.sort_by {|meth| meth.complexity.to_i}
     @meths = meths.reverse
     
-  end
-
-  def generate_report
-    analyze
-    to_h
   end
 
   def to_h
