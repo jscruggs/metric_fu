@@ -1,130 +1,130 @@
 module MetricFu
 
-class Flog < Generator
-  attr_reader :pages
+  class Flog < Generator
+    attr_reader :pages
 
-  SCORE_FORMAT = "%0.2f"
-  METHOD_LINE_REGEX = /(\d+\.\d+):\s+([A-Za-z]+#.*)/
-  OPERATOR_LINE_REGEX = /\s*(\d+\.\d+):\s(.*)$/
+    SCORE_FORMAT = "%0.2f"
+    METHOD_LINE_REGEX = /(\d+\.\d+):\s+([A-Za-z]+#.*)/
+    OPERATOR_LINE_REGEX = /\s*(\d+\.\d+):\s(.*)$/
 
-  def emit
-    metric_dir = MetricFu::Flog.metric_directory
-    MetricFu.flog[:dirs_to_flog].each do |directory|
-      Dir.glob("#{directory}/**/*.rb").each do |filename|
-        output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
-        mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-        if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
-          `flog -ad #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+    def emit
+      metric_dir = MetricFu::Flog.metric_directory
+      MetricFu.flog[:dirs_to_flog].each do |directory|
+        Dir.glob("#{directory}/**/*.rb").each do |filename|
+          output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
+          mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
+          if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
+            `flog -ad #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+          end
+        end
+      end
+    rescue LoadError
+      if RUBY_PLATFORM =~ /java/
+        puts 'running in jruby - flog tasks not available'
+      else
+        puts 'sudo gem install flog # if you want the flog tasks'
+      end
+    end
+
+    def parse(text)
+      summary, methods_summary = text.split "\n\n"
+      score, average = summary.split("\n").map {|line| line[OPERATOR_LINE_REGEX, 1]}
+      return nil unless score && methods_summary
+      page = Flog::Page.new(score, average)
+      methods_summary.each_line do |method_line|
+        if match = method_line.match(METHOD_LINE_REGEX)
+         page.scanned_methods << ScannedMethod.new(match[2], match[1])
+        elsif match = method_line.match(OPERATOR_LINE_REGEX)
+          return if page.scanned_methods.empty?
+          page.scanned_methods.last.operators << Operator.new(match[1], match[2])
+        end
+      end
+      page
+    end
+
+    def analyze
+      @pages = []
+      flog_results.each do |path|
+        page = parse(open(path, "r") { |f| f.read })
+        if page
+          page.path = path 
+          @pages << page
         end
       end
     end
-  rescue LoadError
-    if RUBY_PLATFORM =~ /java/
-      puts 'running in jruby - flog tasks not available'
-    else
-      puts 'sudo gem install flog # if you want the flog tasks'
-    end
-  end
 
-  def parse(text)
-    summary, methods_summary = text.split "\n\n"
-    score, average = summary.split("\n").map {|line| line[OPERATOR_LINE_REGEX, 1]}
-    return nil unless score && methods_summary
-    page = Flog::Page.new(score, average)
-    methods_summary.each_line do |method_line|
-      if match = method_line.match(METHOD_LINE_REGEX)
-       page.scanned_methods << ScannedMethod.new(match[2], match[1])
-      elsif match = method_line.match(OPERATOR_LINE_REGEX)
-        return if page.scanned_methods.empty?
-        page.scanned_methods.last.operators << Operator.new(match[1], match[2])
-      end
+    def to_h
+      number_of_methods = @pages.inject(0) {|count, page| count += page.scanned_methods.size}
+      total_flog_score = @pages.inject(0) {|total, page| total += page.score}
+      sorted_pages = @pages.sort_by {|page| page.score }.reverse 
+      {:flog => { :total => total_flog_score,
+                  :average => round_to_tenths(total_flog_score/number_of_methods),
+                  :pages => sorted_pages.map {|page| page.to_h}}}
     end
-    page
-  end
-
-  def analyze
-    @pages = []
-    flog_results.each do |path|
-      page = parse(open(path, "r") { |f| f.read })
-      if page
-        page.path = path 
-        @pages << page
-      end
-    end
-  end
-
-  def to_h
-    number_of_methods = @pages.inject(0) {|count, page| count += page.scanned_methods.size}
-    total_flog_score = @pages.inject(0) {|total, page| total += page.score}
-    sorted_pages = @pages.sort_by {|page| page.score }.reverse 
-    {:flog => { :total => total_flog_score,
-                :average => total_flog_score/number_of_methods,
-                :pages => sorted_pages.map {|page| page.to_h}}}
-  end
   
-
-  def flog_results
-    Dir.glob("#{metric_directory}/**/*.txt")
-  end
-  
-  class Operator
-    attr_accessor :score, :operator
-
-    def initialize(score, operator)
-      @score = score.to_f
-      @operator = operator
+    def round_to_tenths(decimal)
+      (decimal * 10).round / 10.0 
     end
+    def flog_results
+      Dir.glob("#{metric_directory}/**/*.txt")
+    end
+  
+    class Operator
+      attr_accessor :score, :operator
+
+      def initialize(score, operator)
+        @score = score.to_f
+        @operator = operator
+      end
     
-    def to_h
-      {:score => @score, :operator => @operator}
-    end
-  end  
+      def to_h
+        {:score => @score, :operator => @operator}
+      end
+    end  
 
-  class ScannedMethod
-    attr_accessor :name, :score, :operators
+    class ScannedMethod
+      attr_accessor :name, :score, :operators
 
-    def initialize(name, score, operators = [])
-      @name = name
-      @score = score.to_f
-      @operators = operators
-    end
+      def initialize(name, score, operators = [])
+        @name = name
+        @score = score.to_f
+        @operators = operators
+      end
 
-    def to_h
-      {:name => @name,
-       :score => @score,
-       :operators => @operators.map {|o| o.to_h}}
-    end
-  end  
+      def to_h
+        {:name => @name,
+         :score => @score,
+         :operators => @operators.map {|o| o.to_h}}
+      end
+    end  
   
-end
-
-class Flog::Page < MetricFu::Generator
-  attr_accessor :path, :score, :scanned_methods, :average_score
-
-  def initialize(score, average_score, scanned_methods = [])
-    @score = score.to_f
-    @scanned_methods = scanned_methods
-    @average_score = average_score.to_f
   end
 
-  def filename 
-    File.basename(path, ".txt") 
-  end
+  class Flog::Page < MetricFu::Generator
+    attr_accessor :path, :score, :scanned_methods, :average_score
 
-  def to_h
-    {:score => @score, 
-     :scanned_methods => @scanned_methods.map {|sm| sm.to_h},
-     :highest_score => highest_score,
-     :average_score => average_score,
-     :path => path}
-  end
-
-  def highest_score
-    scanned_methods.inject(0) do |highest, m|
-      m.score > highest ? m.score : highest
+    def initialize(score, average_score, scanned_methods = [])
+      @score = score.to_f
+      @scanned_methods = scanned_methods
+      @average_score = average_score.to_f
     end
-  end
 
-end  
+    def filename 
+      File.basename(path, ".txt") 
+    end
 
+    def to_h
+      {:score => @score, 
+       :scanned_methods => @scanned_methods.map {|sm| sm.to_h},
+       :highest_score => highest_score,
+       :average_score => average_score,
+       :path => path}
+    end
+
+    def highest_score
+      scanned_methods.inject(0) do |highest, m|
+        m.score > highest ? m.score : highest
+      end
+    end
+  end  
 end
