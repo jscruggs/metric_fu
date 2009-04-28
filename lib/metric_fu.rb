@@ -10,6 +10,8 @@ template_dir  = File.join(MetricFu::LIB_ROOT, 'templates')
 # depend on them.
 require File.join(base_dir, 'report') 
 require File.join(base_dir, 'generator')
+
+# Load the rakefile so users of the gem get the default metric_fu task
 load File.join(MetricFu::LIB_ROOT, '..', 'tasks', 'metric_fu.rake')
 
 # Now load everything else that's in the directory
