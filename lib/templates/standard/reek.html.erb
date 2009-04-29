@@ -12,8 +12,9 @@
 	<table>
 		<tr>
 		  <th>File Path</th>
-      <th>Code Smell</th>
+      <th>Method</th>
       <th>Description</th>
+      <th>Type</th>
     </tr>
     <% count = 0 %>
     <% @reek[:matches].each do |match| %>
@@ -21,10 +22,13 @@
   		  <tr class='<%= cycle("light", "dark", count) %>'>
   		    <td><%= match[:file_path] %></td>
           <td>
-            <%= smell[:problem_class] %>
+            <%= smell[:method] %>
           </td>
           <td>
-            <%= smell[:problem_message] %>
+            <%= smell[:message] %>
+    		  </td>
+    		  <td>
+            <%= smell[:type] %>
     		  </td>
         </tr>
         <% count += 1 %>
