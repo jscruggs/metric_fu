@@ -32,6 +32,7 @@ module MetricFu
         end
         info_line
       end
+      @stats
     end
 
     def to_h
