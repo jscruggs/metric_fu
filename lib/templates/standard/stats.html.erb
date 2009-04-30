@@ -11,14 +11,14 @@
 	<p>Rails rake stats results.</p>
 	<table>
     <tr>
-      <th>Code LOC</th>
-      <th>Test LOC</th>
+      <th>Lines of Code</th>
+      <th>Lines of Test</th>
       <th>Code to test ratio</th>
     </tr>
     <tr>
-      <td><%= @stats[:testLOC] %></td>
       <td><%= @stats[:codeLOC] %></td>
-      <td><%= @stats[:code_to_test_ratio] %></td>
+      <td><%= @stats[:testLOC] %></td>
+      <td>1:<%= @stats[:code_to_test_ratio] %></td>
     </tr>
   </table>
 
