@@ -1,3 +1,4 @@
+require 'chronic'
 require 'generator'
 module MetricFu
   
@@ -6,13 +7,13 @@ module MetricFu
     def initialize(options={})
       super
       if File.exist?(".git")
-        @source_control = Git.new(options[:start_date])
+        @source_control = Git.new(MetricFu.churn[:start_date])
       elsif File.exist?(".svn")
-        @source_control = Svn.new(options[:start_date])
+        @source_control = Svn.new(MetricFu.churn[:start_date])
       else
         raise "Churning requires a subversion or git repo"
       end
-      @minimum_churn_count = options[:minimum_churn_count] || 5
+      @minimum_churn_count = MetricFu.churn[:minimum_churn_count] || 5
     end
 
     def emit
@@ -45,13 +46,6 @@ module MetricFu
       def initialize(start_date=nil)
         @start_date = start_date
       end
-
-      private
-      def require_rails_env
-        # not sure if the following works because active_support might only be in vendor/rails
-        # require 'activesupport'
-        require RAILS_ROOT + '/config/environment'
-      end
     end
 
     class Git < SourceControl
@@ -62,8 +56,8 @@ module MetricFu
       private
       def date_range
         if @start_date
-          require_rails_env
-          "--after=#{@start_date.call.strftime('%Y-%m-%d')}"
+          date = Chronic.parse(@start_date)
+          "--after=#{date.strftime('%Y-%m-%d')}"
         end
       end
 
@@ -77,8 +71,8 @@ module MetricFu
       private
       def date_range
         if @start_date
-          require_rails_env
-          "--revision {#{@start_date.call.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
+          date = Chronic.parse(@start_date)
+          "--revision {#{date.strftime('%Y-%m-%d')}}:{#{Time.now.strftime('%Y-%m-%d')}}"
         end
       end
 

@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_dependency("rcov", ["> 0.8.1"])
   s.add_dependency("reek", [">= 1.0.0"])
   s.add_dependency("roodi", [">= 1.3.5"])
+  s.add_dependency("chronic", [">= 0.2.3"])
 end

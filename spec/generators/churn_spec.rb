@@ -9,8 +9,8 @@ describe Churn do
     
     it "should setup git if .git exits" do
       File.should_receive(:exist?).with(".git").and_return(true)
-      Churn::Git.should_receive(:new).with("start_date")
-      MetricFu::Churn.new(:start_date => "start_date" )
+      Churn::Git.should_receive(:new)
+      MetricFu::Churn.new
     end
     
     it "should setup git if .svn exits" do
@@ -28,7 +28,7 @@ describe Churn do
   
   describe "emit method with git" do
     before :each do
-      MetricFu::Configuration.run {}
+      MetricFu::Configuration.run {|config| config.churn = {:minimum_churn_count => 2} }
       File.stub!(:directory?).and_return(true)
       File.should_receive(:exist?).with(".git").and_return(true)
       @git = Churn::Git.new
@@ -61,7 +61,7 @@ describe Churn do
     end
     
     it "should read the logs" do
-      churn = MetricFu::Churn.new(:minimum_churn_count => 2)
+      churn = MetricFu::Churn.new
       @git.should_receive(:`).with("git log  --name-only --pretty=format:").and_return(@lines)
       changes = churn.emit
       changes["lib/generators/flog.rb"].should == 2
@@ -71,7 +71,7 @@ describe Churn do
   
   describe "emit method with svn" do
     before :each do
-      MetricFu::Configuration.run {}
+      MetricFu::Configuration.run{|config| config.churn = {:minimum_churn_count => 2} }
       File.stub!(:directory?).and_return(true)
       File.should_receive(:exist?).with(".git").and_return(false)
       File.should_receive(:exist?).with(".svn").and_return(true)
@@ -108,7 +108,7 @@ describe Churn do
     end
     
     it "should read the logs" do
-      churn = MetricFu::Churn.new(:minimum_churn_count => 2)
+      churn = MetricFu::Churn.new
       @svn.should_receive(:`).with("svn log  --verbose").and_return(@lines)
       changes = churn.emit
       changes["/trunk/app/views/promotions/index.erb"].should == 3
