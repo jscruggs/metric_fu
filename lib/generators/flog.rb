@@ -47,7 +47,7 @@ module MetricFu
       flog_results.each do |path|
         page = parse(open(path, "r") { |f| f.read })
         if page
-          page.path = path 
+          page.path = path.sub(metric_directory, "").sub(".txt", ".rb") 
           @pages << page
         end
       end

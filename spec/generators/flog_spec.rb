@@ -165,7 +165,7 @@ describe Flog do
       File.stub!(:directory?).and_return(true)
       flog = MetricFu::Flog.new('base_dir')
       flog.should_receive(:open).and_return(@text)
-      Dir.should_receive(:glob).and_return(["path/to/flog/scratch"])
+      Dir.should_receive(:glob).and_return(["tmp/metric_fu/scratch/flog/app/controllers/user_controller.txt"])
       flog.analyze
       @flog_hash = flog.to_h
     end
@@ -180,6 +180,10 @@ describe Flog do
     
     it "should put pages into the hash" do
       @flog_hash[:flog][:pages].first[:scanned_methods].first[:score].should == 34.8
+    end
+    
+    it "should put the filename into the hash" do
+      @flog_hash[:flog][:pages].first[:path].should == "/app/controllers/user_controller.rb"
     end
   end
 end
