@@ -1,3 +1,13 @@
+=== MetricFu 1.0.0 / 2009-4-30
+
+* Merged in Grant McInnes' work on creating yaml output for all metrics to aid harvesting by other tools
+* Supporting Flog 2.1.0
+* Supporting Reek 1.0.0
+* Removed dependency on Rails Env for 3.months.ago (for churn report), now using chronic gem ("3 months ago").
+* Almost all code is out of Rakefiles now and so is more easily testable
+* Metrics inherit from a refactored Generator now.  New metrics generators just have to implement "emit", "analyze", "to_h" and inherit from Generator.  They also must have a template.  See the flay generator and template for a simple implementation.
+* You now define the metrics you wish to run in the configuration and then run "metrics:all".  No other metrics task is exposed by default.
+
 === MetricFu 0.9.0 / 2009-1-25
 
 * Adding line numbers to the views so that people viewing it on cc.rb can figure out where the problems are
