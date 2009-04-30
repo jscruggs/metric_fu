@@ -43,6 +43,7 @@ class Saikuro < Generator
     @files.each {|f| 
       f.elements.each {|el|
         el.defs.each {|defn|
+          defn.name = "#{el.name}##{defn.name}"
           meths <<  defn}
       }
     }
@@ -166,7 +167,8 @@ class Saikuro::ParsingElement
   COMPLEXITY_REGEX=/Complexity:(.*) Lines/
   LINES_REGEX=/Lines:(.*)/
 
-  attr_reader :name, :complexity, :lines, :defs, :element_type
+  attr_reader :complexity, :lines, :defs, :element_type
+  attr_accessor :name
 
   def initialize(line)
     @line = line
@@ -182,7 +184,7 @@ class Saikuro::ParsingElement
   end
 
   def to_h
-    base = {:name => @name, :complexity => @complexity, :lines => @lines}
+    base = {:name => @name, :complexity => @complexity.to_i, :lines => @lines.to_i}
     unless @defs.empty?
       defs = @defs.map do |my_def|
         my_def = my_def.to_h
