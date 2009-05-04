@@ -86,14 +86,14 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
-<p>Later versions of Rails like to manage your gems for you, so you can put this in your environment.rb file:</p>
+<p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
 <pre>config.gem 'jscruggs-metric_fu', :version => '1.0.0', :lib => 'metric_fu', :source => 'http://gems.github.com'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
 <pre>
-  $ rake gems:install
+  $ rake gems:unpack
 </pre>
 <br/>
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
