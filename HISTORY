@@ -1,3 +1,8 @@
+=== MetricFu 1.0.1 / 2009-5-3
+
+* metrics:all task no longer requires a MetricFu::Configuration.run {} if you want to accept the defaults
+* rcov task now reports total coverage percent
+
 === MetricFu 1.0.0 / 2009-4-30
 
 * Merged in Grant McInnes' work on creating yaml output for all metrics to aid harvesting by other tools
