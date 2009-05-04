@@ -57,10 +57,12 @@ module MetricFu
       end
 
       # Calculate the percentage of lines run in each file
+      @global_total_lines = 0
+      @global_total_lines_run = 0
       files.each_pair do |fname, content|
         lines = content[:lines]
-        lines_run = lines.find_all {|line| line[:was_run] == true }.length
-        total_lines = lines.length
+        @global_total_lines_run += lines_run = lines.find_all {|line| line[:was_run] == true }.length
+        @global_total_lines += total_lines = lines.length
         percent_run = ((lines_run.to_f / total_lines.to_f) * 100).round
         files[fname][:percent_run] = percent_run 
       end
@@ -68,7 +70,8 @@ module MetricFu
     end
 
     def to_h
-      {:rcov => @rcov}   
+      global_percent_run = ((@global_total_lines_run.to_f / @global_total_lines.to_f) * 100)
+      {:rcov => @rcov.merge({:global_percent_run => round_to_tenths(global_percent_run) })}   
     end
   end
 end

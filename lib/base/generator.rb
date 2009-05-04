@@ -116,6 +116,9 @@ module MetricFu
       to_h()
     end
 
+    def round_to_tenths(decimal)
+      (decimal * 10).round / 10.0 
+    end
 
     def emit #:nodoc:
       raise <<-EOF

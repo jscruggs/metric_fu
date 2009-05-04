@@ -61,10 +61,7 @@ module MetricFu
                   :average => round_to_tenths(total_flog_score/number_of_methods),
                   :pages => sorted_pages.map {|page| page.to_h}}}
     end
-  
-    def round_to_tenths(decimal)
-      (decimal * 10).round / 10.0 
-    end
+    
     def flog_results
       Dir.glob("#{metric_directory}/**/*.txt")
     end
