@@ -7,15 +7,25 @@ class Saikuro < Generator
     relative_path = [File.dirname(__FILE__), '..', '..', 
                      'vendor', 'saikuro', 'saikuro.rb']
     saikuro = File.expand_path(File.join(relative_path))
-    options_string = MetricFu.saikuro.inject("") do |o, h|
-      o + "--#{h.join(' ')} " 
-    end  
+    
+    format_directories
+    
+    options_string = MetricFu.saikuro.inject("") do |options, option|
+      options + "--#{option.join(' ')} " 
+    end
+    
     sh %{ruby "#{saikuro}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
         exit 1
       end
     end
+  end
+  
+  def format_directories
+    dirs = MetricFu.saikuro[:input_directory].join(" | ")
+    dirs = "\"#{dirs}\""
+    MetricFu.saikuro[:input_directory] = dirs
   end
 
   def analyze
