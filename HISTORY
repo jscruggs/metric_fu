@@ -1,3 +1,9 @@
+=== MetricFu 1.0.2 / 2009-5-11
+
+* Fixing problems with Reek new line character (thanks to all who pointed this out)
+* Flog now recognizes namespaces in method names thanks to Daniel Guettler
+* Saikuro now looks at multiple directories, again.
+
 === MetricFu 1.0.1 / 2009-5-3
 
 * metrics:all task no longer requires a MetricFu::Configuration.run {} if you want to accept the defaults
