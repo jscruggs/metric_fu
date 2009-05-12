@@ -146,7 +146,7 @@ module MetricFu
                                    "--no-color",
                                    "--profile",
                                    "--rails",
-                                   "--exclude /gems/,/Library/,spec"]}
+                                   "--exclude /gems/,/Library/,/usr/,spec"]}
     end
 
     # Perform a simple check to try and guess if we're running
