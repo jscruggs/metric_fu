@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-
 describe Flog do
   before :each do
     @text = <<-HERE
@@ -156,6 +155,18 @@ describe Flog do
     
     it "should find the scanned method opperators scores" do
       @flog_page.scanned_methods.first.operators.first.score.should == 9.2
+    end
+    
+    it "should find the name of the method even if namespaced" do
+      text = <<-HERE
+      157.9: flog total
+       11.3: flog/method average
+
+       34.8: SomeNamespace::UsersController#create
+      HERE
+        flog = MetricFu::Flog.new('base_dir')
+        flog_page = flog.parse(text)
+        flog_page.scanned_methods.first.name.should == "SomeNamespace::UsersController#create"
     end
   end
   

@@ -4,7 +4,7 @@ module MetricFu
     attr_reader :pages
 
     SCORE_FORMAT = "%0.2f"
-    METHOD_LINE_REGEX = /(\d+\.\d+):\s+([A-Za-z]+#.*)/
+    METHOD_LINE_REGEX = /(\d+\.\d+):\s+([A-Za-z:]+#.*)/
     OPERATOR_LINE_REGEX = /\s*(\d+\.\d+):\s(.*)$/
 
     def emit
