@@ -15,10 +15,11 @@ module MetricFu
         file_path = file_path.gsub('"', ' ').strip
         code_smells = match.map do |smell|
           match_object = smell.match(REEK_REGEX)
+          next unless match_object
           {:method => match_object[1].strip,
            :message => match_object[2].strip,
            :type => match_object[3].strip}
-        end
+        end.compact
         {:file_path => file_path, :code_smells => code_smells}
       end
     end
