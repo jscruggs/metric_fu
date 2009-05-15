@@ -106,7 +106,7 @@ class Saikuro::SFile
 
   def self.is_valid_text_file?(path)
     File.open(path, "r") do |f|
-      unless f.readline.match /--/
+      if f.eof? || !f.readline.match /--/
         return false
       else
         return true
@@ -125,8 +125,8 @@ class Saikuro::SFile
 
   def get_elements
     begin
-      while ( line = @file_handle.readline) do
-			  element ||= nil
+      while (line = @file_handle.readline) do
+        return [] if line.blank?
         if line.match /START/
 				  unless element.nil?
 					  @elements << element
