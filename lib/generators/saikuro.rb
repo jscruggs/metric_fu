@@ -4,16 +4,16 @@ class Saikuro < Generator
 
 
   def emit
-    relative_path = [File.dirname(__FILE__), '..', '..', 
+    relative_path = [File.dirname(__FILE__), '..', '..',
                      'vendor', 'saikuro', 'saikuro.rb']
     saikuro = File.expand_path(File.join(relative_path))
-    
+
     format_directories
-    
+
     options_string = MetricFu.saikuro.inject("") do |options, option|
-      options + "--#{option.join(' ')} " 
+      options + "--#{option.join(' ')} "
     end
-    
+
     sh %{ruby "#{saikuro}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
@@ -21,7 +21,7 @@ class Saikuro < Generator
       end
     end
   end
-  
+
   def format_directories
     dirs = MetricFu.saikuro[:input_directory].join(" | ")
     dirs = "\"#{dirs}\""
@@ -32,9 +32,9 @@ class Saikuro < Generator
     @files = []
     saikuro_results.each do |path|
       if Saikuro::SFile.is_valid_text_file?(path)
-        file = Saikuro::SFile.new(path) 
-        if file 
-          @files << file 
+        file = Saikuro::SFile.new(path)
+        if file
+          @files << file
         end
       end
     end
@@ -50,7 +50,7 @@ class Saikuro < Generator
     @classes = klasses.sort_by {|k| k.complexity.to_i}
     @classes.reverse!
     meths = []
-    @files.each {|f| 
+    @files.each {|f|
       f.elements.each {|el|
         el.defs.each {|defn|
           defn.name = "#{el.name}##{defn.name}"
@@ -59,20 +59,20 @@ class Saikuro < Generator
     }
     meths = meths.sort_by {|meth| meth.complexity.to_i}
     @meths = meths.reverse
-    
+
   end
 
   def to_h
     files = @files.map do |file|
       my_file = file.to_h
       my_file[:filename] = file.filename
-      my_file 
+      my_file
     end
-    {:saikuro => {:files => files, 
+    {:saikuro => {:files => files,
                   :classes => @classes.map {|c| c.to_h},
-                  :methods => @meths.map {|m| m.to_h} 
+                  :methods => @meths.map {|m| m.to_h}
                  }
-    }  
+    }
   end
 
   def saikuro_results
@@ -87,7 +87,7 @@ end
 class Saikuro::SFile
 
   attr_reader :elements
-  
+
   def initialize(path)
     @path = path
     @file_handle = File.open(@path, "r")
@@ -117,11 +117,16 @@ class Saikuro::SFile
   def get_elements
     begin
       while ( line = @file_handle.readline) do
+			  element ||= nil
         if line.match /START/
+				  unless element.nil?
+					  @elements << element
+						element = nil
+					end
           line = @file_handle.readline
           element = Saikuro::ParsingElement.new(line)
         elsif line.match /END/
-          @elements << element 
+          @elements << element unless element.nil?
           element = nil
         else
           element << line
@@ -190,7 +195,7 @@ class Saikuro::ParsingElement
   end
 
   def <<(line)
-    @defs << Saikuro::ParsingElement.new(line) 
+    @defs << Saikuro::ParsingElement.new(line)
   end
 
   def to_h
