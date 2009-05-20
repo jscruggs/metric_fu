@@ -12,9 +12,7 @@ Gem::Specification.new do |s|
     "HISTORY",
     "TODO",
     "MIT-LICENSE",
-    "Rakefile"]
-
-  # Dir['lib/**/*.*'] + Dir['tasks/*.*'] + Dir['vendor/**/*.*']
+    "Rakefile"] + Dir['lib/**/*.*'] + Dir['tasks/*.*'] + Dir['vendor/**/*.*']
   s.files += ["lib/base/base_template.rb", "lib/base/configuration.rb", "lib/base/generator.rb", "lib/base/md5_tracker.rb", "lib/base/report.rb", "lib/generators/churn.rb", "lib/generators/flay.rb", "lib/generators/flog.rb", "lib/generators/rcov.rb", "lib/generators/reek.rb", "lib/generators/roodi.rb", "lib/generators/saikuro.rb", "lib/generators/stats.rb", "lib/metric_fu.rb", "lib/templates/standard/churn.html.erb", "lib/templates/standard/default.css", "lib/templates/standard/flay.html.erb", "lib/templates/standard/flog.html.erb", "lib/templates/standard/index.html.erb", "lib/templates/standard/rcov.html.erb", "lib/templates/standard/reek.html.erb", "lib/templates/standard/roodi.html.erb", "lib/templates/standard/saikuro.html.erb", "lib/templates/standard/standard_template.rb", "lib/templates/standard/stats.html.erb", "tasks/metric_fu.rake", "tasks/railroad.rake", "vendor/saikuro/saikuro.rb"]
 
   # Dir['spec/**/*.rb']
