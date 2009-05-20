@@ -12,6 +12,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 
 MetricFu::Configuration.run do |config|
+  config.template_class = AwesomeTemplate
 end
 
 namespace :metrics do

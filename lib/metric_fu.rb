@@ -18,3 +18,4 @@ load File.join(MetricFu::LIB_ROOT, '..', 'tasks', 'metric_fu.rake')
 Dir[File.join(base_dir, '*.rb')].each{|l| require l }
 Dir[File.join(generator_dir, '*.rb')].each {|l| require l }
 Dir[File.join(template_dir, 'standard/*.rb')].each {|l| require l}
+Dir[File.join(template_dir, 'awesome/*.rb')].each {|l| require l}
