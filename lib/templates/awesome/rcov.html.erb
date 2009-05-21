@@ -18,13 +18,15 @@
 
 <% @rcov.each_pair do |fname, file| %>
   <h2> <%= fname %></h2>
-  <table class="rcov_code">
-  <% file[:lines].each do |line| %>
-    <tr>
-      <% css_class = line[:was_run] ? "rcov_run" : "rcov_not_run" %>
-      <td class="<%= css_class %>"><pre><%= line[:content] %></pre></td>
-    </tr>
-  <% end %>
-  </table>
+  <div class="rcov_overflow">
+    <table class="rcov_code">
+    <% file[:lines].each do |line| %>
+      <tr>
+        <% css_class = line[:was_run] ? "rcov_run" : "rcov_not_run" %>
+        <td class="<%= css_class %>"><pre><%= line[:content] %></pre></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
 <% end %>
 <p>Generated on <%= Time.now.localtime %></p>	
