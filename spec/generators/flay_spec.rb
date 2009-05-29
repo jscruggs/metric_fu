@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper.rb'
 
 describe Flay do 
+  before :each do
+    MetricFu::Flay.stub!(:verify_dependencies!).and_return(true)
+  end
   describe "emit method" do
     before :each do
       MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib']  } }

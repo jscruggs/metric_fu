@@ -1,5 +1,12 @@
 module MetricFu
   class Roodi < Generator
+
+    def self.verify_dependencies!
+      `roodi --help`
+      raise 'sudo gem install roodi # if you want the roodi tasks' unless $?.success?
+    end
+
+    
     def emit
       files_to_analyze = MetricFu.roodi[:dirs_to_roodi].map{|dir| Dir[File.join(dir, "**/*.rb")] }
       @output = `roodi #{files_to_analyze.join(" ")}`

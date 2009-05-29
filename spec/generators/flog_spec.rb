@@ -123,6 +123,7 @@ describe Flog do
       1.2: assignment
       1.2: all
     HERE
+    MetricFu::Flog.stub!(:verify_dependencies!).and_return(true)
   end
   
   describe "parse method" do

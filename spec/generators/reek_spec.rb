@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Reek do
   describe "analyze method" do
     before :each do
+      MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
       @lines = <<-HERE
 "app/controllers/activity_reports_controller.rb" -- 4 warnings:
 ActivityReportsController#authorize_user calls current_user.primary_site_ids multiple times (Duplication)

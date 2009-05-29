@@ -3,6 +3,11 @@ module MetricFu
   class Flog < Generator
     attr_reader :pages
 
+    def self.verify_dependencies!
+      `flog --help`
+      raise 'sudo gem install flog # if you want the flog tasks' unless $?.success?
+    end
+
     SCORE_FORMAT = "%0.2f"
     METHOD_LINE_REGEX = /(\d+\.\d+):\s+([A-Za-z:]+#.*)/
     OPERATOR_LINE_REGEX = /\s*(\d+\.\d+):\s(.*)$/
