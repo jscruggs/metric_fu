@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "metric_fu" 
-  s.version = "1.0.3.4" 
+  s.version = "1.0.3.5" 
   s.summary = "A fistful of code metrics"
   s.email = "jake.scruggs@gmail.com"
   s.homepage = "http://metric-fu.rubyforge.org/"
@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["HISTORY", "Manifest.txt", "README"]
   s.add_dependency("flay", [">= 1.2.1"])
   s.add_dependency("flog", [">= 2.1.0"])
-  s.add_dependency("rcov", [">= 0.8.1"])
-  s.add_dependency("reek", [">= 1.0.0"])
-  s.add_dependency("roodi", [">= 1.3.5"])
-  s.add_dependency("chronic", [">= 0.2.3"])
+  s.add_dependency("relevance-rcov", [">= 0.8.3.3"])
+  s.add_dependency("reek", [">= 1.1.3"])
+  s.add_dependency("roodi", [">= 1.4.0"])
+  s.add_dependency("mojombo-chronic", [">= 0.3.0"])
 end
