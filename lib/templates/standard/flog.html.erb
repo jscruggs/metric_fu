@@ -20,7 +20,7 @@
     </tr>
       <% @flog[:pages].each do |page| %>
       <tr>
-        <td><%= page[:path] %></td>
+        <td><a href="#<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></a></td>
         <td><%= page[:score].round %></td>
         <td><%= page[:scanned_methods].length %></td>
         <td><%= page[:average_score].round %></td>
@@ -30,7 +30,7 @@
   </table>
 
   <% @flog[:pages].each do |page| %>
-    <h2><%= page[:path] %></h2>
+    <h2 id="<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></h2>
       <% page[:scanned_methods].each do |sm| %>
         <p><%= sm[:name] %></p>
         <table>
