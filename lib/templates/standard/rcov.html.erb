@@ -16,10 +16,10 @@
       <th>Percent run</th>
     </tr>
     <% count = 0 %>
-    <% @rcov.each_pair do |fname, file| %>
+    <% @rcov.sort_by{|k,v| v[:percent_run]}.each do |e| %>
       <tr>
-        <td><a href="#<%= fname.gsub(/[^a-z]+/, '_') %>"><%= fname %></a></td>
-        <td><%= file[:percent_run] %></td>
+        <td><a href="#<%= e[0].gsub(/[^a-z]+/, '_') %>"><%= e[0] %></a></td>
+        <td><%= e[1][:percent_run] %></td>
       </tr>
       <% count += 1 %>
 		<% end %>
