@@ -18,7 +18,7 @@
     <% count = 0 %>
     <% @rcov.each_pair do |fname, file| %>
       <tr>
-        <td><%= fname %></td>
+        <td><a href="#<%= fname.gsub(/[^a-z]+/, '_') %>"><%= fname %></a></td>
         <td><%= file[:percent_run] %></td>
       </tr>
       <% count += 1 %>
@@ -26,7 +26,7 @@
   </table>
 
   <% @rcov.each_pair do |fname, file| %>
-    <h2> <%= fname %></h2>
+    <h2 id="<%= fname.gsub(/[^a-z]+/, '_') %>"> <%= fname %></h2>
     <table class="rcov_code">
     <% file[:lines].each do |line| %>
       <tr>
