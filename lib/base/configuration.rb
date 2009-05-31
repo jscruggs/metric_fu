@@ -122,7 +122,7 @@ module MetricFu
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory, 
                                        'lib', 'templates') 
-      @template_class = StandardTemplate
+      @template_class = AwesomeTemplate
       set_metrics
       set_code_dirs
       @flay     = { :dirs_to_flay => @code_dirs  } 
