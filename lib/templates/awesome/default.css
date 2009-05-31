@@ -14,6 +14,10 @@ table tr.dark {
   background: #f9f9f9;
 }
 
+table tr:hover {
+  background: #FFFFC0;
+}
+
 table td, table th {
   padding: 4px;
   font-size: 11px;
