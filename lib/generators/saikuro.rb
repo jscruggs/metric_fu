@@ -23,7 +23,7 @@ class Saikuro < Generator
   end
   
   def format_directories
-    dirs = MetricFu.saikuro[:input_directory]#.join(" | ")
+    dirs = MetricFu.saikuro[:input_directory].join(" | ")
     dirs = "\"#{dirs}\""
     MetricFu.saikuro[:input_directory] = dirs
   end
