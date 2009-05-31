@@ -1,19 +1,19 @@
 module MetricFu
-
+ 
 class Saikuro < Generator
-
-
+ 
+ 
   def emit
-    relative_path = [File.dirname(__FILE__), '..', '..', 
+    relative_path = [File.dirname(__FILE__), '..', '..',
                      'vendor', 'saikuro', 'saikuro.rb']
     saikuro = File.expand_path(File.join(relative_path))
-    
+ 
     format_directories
-    
+ 
     options_string = MetricFu.saikuro.inject("") do |options, option|
-      options + "--#{option.join(' ')} " 
+      options + "--#{option.join(' ')} "
     end
-    
+ 
     sh %{ruby "#{saikuro}" #{options_string}} do |ok, response|
       unless ok
         puts "Saikuro failed with exit status: #{response.exitstatus}"
@@ -21,20 +21,20 @@ class Saikuro < Generator
       end
     end
   end
-  
+ 
   def format_directories
     dirs = MetricFu.saikuro[:input_directory].join(" | ")
     dirs = "\"#{dirs}\""
     MetricFu.saikuro[:input_directory] = dirs
   end
-
+ 
   def analyze
     @files = []
     saikuro_results.each do |path|
       if Saikuro::SFile.is_valid_text_file?(path)
-        file = Saikuro::SFile.new(path) 
-        if file 
-          @files << file 
+        file = Saikuro::SFile.new(path)
+        if file
+          @files << file
         end
       end
     end
@@ -50,51 +50,51 @@ class Saikuro < Generator
     @classes = klasses.sort_by {|k| k.complexity.to_i}
     @classes.reverse!
     meths = []
-    @files.each {|f| 
+    @files.each {|f|
       f.elements.each {|el|
         el.defs.each {|defn|
           defn.name = "#{el.name}##{defn.name}"
-          meths <<  defn}
+          meths << defn}
       }
     }
     meths = meths.sort_by {|meth| meth.complexity.to_i}
     @meths = meths.reverse
-    
+ 
   end
-
+ 
   def to_h
     files = @files.map do |file|
       my_file = file.to_h
       my_file[:filename] = file.filename
-      my_file 
+      my_file
     end
-    {:saikuro => {:files => files, 
+    {:saikuro => {:files => files,
                   :classes => @classes.map {|c| c.to_h},
-                  :methods => @meths.map {|m| m.to_h} 
+                  :methods => @meths.map {|m| m.to_h}
                  }
-    }  
+    }
   end
-
+ 
   def saikuro_results
     Dir.glob("#{metric_directory}/**/*.html")
   end
-
+ 
   private
-
-
+ 
+ 
 end
-
+ 
 class Saikuro::SFile
-
+ 
   attr_reader :elements
-  
+ 
   def initialize(path)
     @path = path
     @file_handle = File.open(@path, "r")
     @elements = []
     get_elements
   end
-
+ 
   def self.is_valid_text_file?(path)
     File.open(path, "r") do |f|
       unless f.readline.match /--/
@@ -104,24 +104,29 @@ class Saikuro::SFile
       end
     end
   end
-
+ 
   def filename
     File.basename(@path, '_cyclo.html')
   end
-
+ 
   def to_h
     merge_classes
     {:classes => @elements}
   end
-
+ 
   def get_elements
     begin
       while ( line = @file_handle.readline) do
+       element ||= nil
         if line.match /START/
+         unless element.nil?
+           @elements << element
+            element = nil
+          end
           line = @file_handle.readline
           element = Saikuro::ParsingElement.new(line)
         elsif line.match /END/
-          @elements << element 
+          @elements << element unless element.nil?
           element = nil
         else
           element << line
@@ -131,8 +136,8 @@ class Saikuro::SFile
       nil
     end
   end
-
-
+ 
+ 
   def merge_classes
     new_elements = []
     get_class_names.each do |target_class|
@@ -145,20 +150,20 @@ class Saikuro::SFile
         lines += el.lines.to_i
         defns << el.defs
       end
-
+ 
       new_element = {:class_name => target_class,
                      :complexity => complexity,
-                     :lines      => lines,
+                     :lines => lines,
                      :methods => defns.flatten.map {|d| d.to_h}}
       new_element[:methods] = new_element[:methods].
                               sort_by {|x| x[:complexity] }.
                               reverse
-
+ 
       new_elements << new_element
     end
     @elements = new_elements if new_elements
   end
-
+ 
   def get_class_names
     class_names = []
     @elements.each do |element|
@@ -168,31 +173,31 @@ class Saikuro::SFile
     end
     class_names
   end
-
+ 
 end
-
+ 
 class Saikuro::ParsingElement
   TYPE_REGEX=/Type:(.*) Name/
   NAME_REGEX=/Name:(.*) Complexity/
   COMPLEXITY_REGEX=/Complexity:(.*) Lines/
   LINES_REGEX=/Lines:(.*)/
-
+ 
   attr_reader :complexity, :lines, :defs, :element_type
   attr_accessor :name
-
+ 
   def initialize(line)
     @line = line
     @element_type = line.match(TYPE_REGEX)[1].strip
     @name = line.match(NAME_REGEX)[1].strip
-    @complexity  = line.match(COMPLEXITY_REGEX)[1].strip
+    @complexity = line.match(COMPLEXITY_REGEX)[1].strip
     @lines = line.match(LINES_REGEX)[1].strip
     @defs = []
   end
-
+ 
   def <<(line)
-    @defs << Saikuro::ParsingElement.new(line) 
+    @defs << Saikuro::ParsingElement.new(line)
   end
-
+ 
   def to_h
     base = {:name => @name, :complexity => @complexity.to_i, :lines => @lines.to_i}
     unless @defs.empty?
@@ -206,6 +211,6 @@ class Saikuro::ParsingElement
     return base
   end
 end
-
-
+ 
+ 
 end
