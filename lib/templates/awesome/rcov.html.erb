@@ -16,7 +16,7 @@
   <% end %>
 </table>
 
-<% @rcov.each_pair do |fname, file| %>
+<% @rcov.sort_by{|k,v| v[:percent_run]}.each_pair do |fname, file| %>
   <h2 id="<%= fname.gsub(/[^a-z]+/, '_') %>"> <%= fname %></h2>
   <div class="rcov_overflow">
     <table class="rcov_code">
