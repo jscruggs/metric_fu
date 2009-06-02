@@ -1,4 +1,3 @@
-require 'graph'
 require 'gruff'
 module MetricFu
   
