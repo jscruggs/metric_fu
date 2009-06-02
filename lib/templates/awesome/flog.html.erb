@@ -1,7 +1,13 @@
 <h3>Flog Results</h3>
 <p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+
+<a href="flog.png?<%= Time.now.localtime %>">
+  <img src="flog.png?<%= Time.now.localtime %>" width="400">
+</a>
+
 <h2>Total Flog score for all methods: <%= @flog[:total]%></h2>
 <h2>Average Flog score for all methods: <%= @flog[:average]%></h2>
+
 <table>
   <tr>
     <th>File</th>

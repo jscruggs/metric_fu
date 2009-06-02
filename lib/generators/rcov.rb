@@ -5,7 +5,6 @@ module MetricFu
   class Rcov < Generator
     NEW_FILE_MARKER =  ("=" * 80) + "\n"
 
-
     class Line
       attr_accessor :content, :was_run
 

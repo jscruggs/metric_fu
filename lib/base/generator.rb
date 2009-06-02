@@ -35,6 +35,7 @@ module MetricFu
     def initialize(options={})
       create_metric_dir_if_missing
       create_output_dir_if_missing
+      create_data_dir_if_missing
     end
     
     # Creates a new generator and returns the output of the 
@@ -80,6 +81,12 @@ module MetricFu
     def create_output_dir_if_missing #:nodoc:
       unless File.directory?(MetricFu.output_directory)
         FileUtils.mkdir_p(MetricFu.output_directory, :verbose => false) 
+      end
+    end
+    
+    def create_data_dir_if_missing #:nodoc:
+      unless File.directory?(MetricFu.data_directory)
+        FileUtils.mkdir_p(MetricFu.data_directory, :verbose => false) 
       end
     end
 
@@ -135,8 +142,8 @@ module MetricFu
         information.
       EOF
     end
-
-    def to_h #:nodoc:
+    
+    def to_graph #:nodoc:
       raise <<-EOF
         This method must be implemented by a concrete class descending
         from Generator.  See generator class documentation for more 
