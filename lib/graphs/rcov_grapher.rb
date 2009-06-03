@@ -16,7 +16,7 @@ module MetricFu
     end
     
     def graph!
-      g = Gruff::Line.new("1024x768")
+      g = Gruff::Line.new(MetricFu.graph_size)
       g.title = "Rcov: code coverage"
       g.theme = MetricFu.graph_theme
       g.font = MetricFu.graph_font

@@ -18,7 +18,7 @@ module MetricFu
     end
     
     def graph!
-      g = Gruff::Line.new("1024x768")
+      g = Gruff::Line.new(MetricFu.graph_size)
       g.title = "Flog: code complexity"
       g.theme = MetricFu.graph_theme
       g.font = MetricFu.graph_font

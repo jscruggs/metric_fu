@@ -2,9 +2,7 @@
 
 <p>C0 code coverage information.</p>
 
-<a href="rcov.png?<%= Time.now.localtime %>">
-  <img src="rcov.png?<%= Time.now.localtime %>" width="400">
-</a>
+<img src="rcov.png?<%= Time.now.localtime %>">
 
 <p>Total Coverage: <%= @rcov.delete(:global_percent_run) %>% </p>
 <table>
