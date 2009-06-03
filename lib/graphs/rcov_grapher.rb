@@ -22,6 +22,10 @@ module MetricFu
       g.font = MetricFu.graph_font
       g.data('rcov', self.rcov_percent)
       g.labels = self.labels
+      g.title_font_size = MetricFu.graph_title_font_size
+      g.legend_box_size = MetricFu.graph_legend_box_size
+      g.legend_font_size = MetricFu.graph_legend_font_size
+      g.marker_font_size = MetricFu.graph_marker_font_size
       g.write(File.join(MetricFu.output_directory, 'rcov.png'))
     end
     

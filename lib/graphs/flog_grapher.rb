@@ -25,6 +25,10 @@ module MetricFu
       g.data('flog total', self.flog_total)
       g.data('flog average', self.flog_average)
       g.labels = self.labels
+      g.title_font_size = MetricFu.graph_title_font_size
+      g.legend_box_size = MetricFu.graph_legend_box_size
+      g.legend_font_size = MetricFu.graph_legend_font_size
+      g.marker_font_size = MetricFu.graph_marker_font_size
       g.write(File.join(MetricFu.output_directory, 'flog.png'))
     end
     
