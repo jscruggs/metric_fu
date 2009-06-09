@@ -170,7 +170,7 @@ describe MetricFu::Configuration do
                                               "--no-color",        
                                               "--profile",         
                                               "--rails",           
-                                              "--exclude /gems/,/Library/,spec"]}' do
+                                              "--exclude /gems/,/Library/,/usr/,spec"]}' do
       @config.instance_variable_get(:@rcov).
               should ==  { :test_files => ['test/**/*_test.rb', 
                                            'spec/**/*_spec.rb'],
@@ -180,7 +180,7 @@ describe MetricFu::Configuration do
                                          "--no-color",
                                          "--profile",
                                          "--rails",
-                                         "--exclude /gems/,/Library/,spec"]}
+                                         "--exclude /gems/,/Library/,/usr/,spec"]}
     end
 
     it 'should set @saikuro to { :output_directory => @scratch_directory + "/saikuro",
