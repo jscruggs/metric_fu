@@ -168,6 +168,13 @@ describe Flog do
         flog_page = flog.parse(text)
         flog_page.scanned_methods.first.name.should == "SomeNamespace::UsersController#create"
     end
+
+    it "should parse empty flog files" do
+      text = ""
+      flog = MetricFu::Flog.new('base_dir')
+      flog_page = flog.parse(text)
+      flog_page.should be_nil
+    end
   end
   
   describe "to_h function" do

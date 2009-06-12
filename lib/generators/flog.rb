@@ -28,6 +28,7 @@ module MetricFu
 
     def parse(text)
       summary, methods_summary = text.split "\n\n"
+      return unless summary
       score, average = summary.split("\n").map {|line| line[OPERATOR_LINE_REGEX, 1]}
       return nil unless score && methods_summary
       page = Flog::Page.new(score, average)
