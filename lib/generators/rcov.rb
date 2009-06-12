@@ -5,6 +5,16 @@ module MetricFu
   class Rcov < Generator
     NEW_FILE_MARKER =  ("=" * 80) + "\n"
 
+    def self.verify_dependencies!
+      `flay --help`
+      unless $?.success?
+        if RUBY_PLATFORM =~ /java/
+          raise 'running in jruby - rcov tasks not available'
+        else
+          raise 'sudo gem install rcov # if you want the rcov tasks'
+        end
+      end
+    end
 
     class Line
       attr_accessor :content, :was_run

@@ -2,11 +2,12 @@ module MetricFu
 
 class Saikuro < Generator
 
+  def self.verify_dependencies!
+    `ruby "#{saikuro}" --help`
+    raise "Please check #{saikuro} is a valid installation of saikuro" unless $?.success?
+  end
 
   def emit
-    relative_path = [File.dirname(__FILE__), '..', '..',
-                     'vendor', 'saikuro', 'saikuro.rb']
-    saikuro = File.expand_path(File.join(relative_path))
 
     format_directories
 
@@ -81,6 +82,14 @@ class Saikuro < Generator
 
   private
 
+  def self.saikuro
+    relative_path = [File.dirname(__FILE__), '..', '..',
+                     'vendor', 'saikuro', 'saikuro.rb']
+    File.expand_path(File.join(relative_path))
+  end
+  def saikuro
+    self.class.saikuro
+  end
 
 end
 

@@ -33,6 +33,7 @@ module MetricFu
     attr_reader :report, :template
 
     def initialize(options={})
+      self.class.verify_dependencies!
       create_metric_dir_if_missing
       create_output_dir_if_missing
     end
@@ -118,6 +119,11 @@ module MetricFu
 
     def round_to_tenths(decimal)
       (decimal * 10).round / 10.0 
+    end
+    
+    # Allows subclasses to check for required gems
+    def self.verify_dependencies!
+      true
     end
 
     def emit #:nodoc:
