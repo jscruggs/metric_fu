@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h1>Flog Results</h1>
+  <a href="index.html">back to menu</a>
 	<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
 	<h2>Total Flog score for all methods: <%= @flog[:total]%></h2>
 	<h2>Average Flog score for all methods: <%= @flog[:average]%></h2>
@@ -20,7 +21,7 @@
     </tr>
       <% @flog[:pages].each do |page| %>
       <tr>
-        <td><%= page[:path] %></td>
+        <td><a href="#<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></a></td>
         <td><%= page[:score].round %></td>
         <td><%= page[:scanned_methods].length %></td>
         <td><%= page[:average_score].round %></td>
@@ -30,7 +31,7 @@
   </table>
 
   <% @flog[:pages].each do |page| %>
-    <h2><%= page[:path] %></h2>
+    <h2 id="<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></h2>
       <% page[:scanned_methods].each do |sm| %>
         <p><%= sm[:name] %></p>
         <table>

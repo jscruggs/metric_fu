@@ -6,7 +6,7 @@ module MetricFu
 
     def initialize(options={})
       super
-      if File.exist?(".git")
+      if `git branch`
         @source_control = Git.new(MetricFu.churn[:start_date])
       elsif File.exist?(".svn")
         @source_control = Svn.new(MetricFu.churn[:start_date])
