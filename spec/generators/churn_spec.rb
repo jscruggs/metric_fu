@@ -8,20 +8,20 @@ describe Churn do
     end
     
     it "should setup git if .git exits" do
-      File.should_receive(:exist?).with(".git").and_return(true)
+      MetricFu::Churn.should_receive(:system).and_return(true)
       Churn::Git.should_receive(:new)
       MetricFu::Churn.new
     end
     
     it "should setup git if .svn exits" do
-      File.should_receive(:exist?).with(".git").and_return(false)
+      MetricFu::Churn.should_receive(:system).and_return(false)
       File.should_receive(:exist?).with(".svn").and_return(true)
       Churn::Svn.should_receive(:new)
       MetricFu::Churn.new()
     end
     
     it "should raise an error if not .svn or .git" do
-      File.stub!(:exist?).and_return(false)
+      MetricFu::Churn.should_receive(:system).and_return(false)
       lambda{MetricFu::Churn.new()}.should raise_error(Exception)
     end
   end
@@ -30,7 +30,7 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run {|config| config.churn = {:minimum_churn_count => 2} }
       File.stub!(:directory?).and_return(true)
-      File.should_receive(:exist?).with(".git").and_return(true)
+      MetricFu::Churn.should_receive(:system).and_return(true)
       @git = Churn::Git.new
       Churn::Git.should_receive(:new).and_return(@git)
       @lines = <<-HERE.gsub(/^\s*/, "")
@@ -73,7 +73,7 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run{|config| config.churn = {:minimum_churn_count => 2} }
       File.stub!(:directory?).and_return(true)
-      File.should_receive(:exist?).with(".git").and_return(false)
+      MetricFu::Churn.should_receive(:system).and_return(false)
       File.should_receive(:exist?).with(".svn").and_return(true)
       @svn = Churn::Svn.new
       Churn::Svn.should_receive(:new).and_return(@svn)
@@ -120,7 +120,7 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
-      File.should_receive(:exist?).with(".git").and_return(true)
+      MetricFu::Churn.should_receive(:system).and_return(true)
       @changes = {"lib/generators/flog.rb"=>2, "lib/metric_fu.rb"=>3}
     end
     
@@ -139,7 +139,7 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
-      File.should_receive(:exist?).with(".git").and_return(true)
+      MetricFu::Churn.should_receive(:system).and_return(true)
     end
     
     it "should put the changes into a hash" do

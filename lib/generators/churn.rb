@@ -4,9 +4,10 @@ module MetricFu
   
   class Churn < Generator
 
+    
     def initialize(options={})
       super
-      if `git branch`
+      if self.class.git?
         @source_control = Git.new(MetricFu.churn[:start_date])
       elsif File.exist?(".svn")
         @source_control = Svn.new(MetricFu.churn[:start_date])
@@ -16,6 +17,10 @@ module MetricFu
       @minimum_churn_count = MetricFu.churn[:minimum_churn_count] || 5
     end
 
+    def self.git?
+      system("git branch")
+    end
+    
     def emit
       @changes = parse_log_for_changes.reject {|file, change_count| change_count < @minimum_churn_count}
     end
