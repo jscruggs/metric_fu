@@ -1,0 +1,46 @@
+<h3>Flog Results</h3>
+<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+
+<img src="flog.png?<%= Time.now %>">
+
+<h2>Total Flog score for all methods: <%= @flog[:total]%></h2>
+<h2>Average Flog score for all methods: <%= @flog[:average]%></h2>
+
+<table>
+  <tr>
+    <th>File</th>
+    <th>Total score</th>
+    <th>Methods</th>
+    <th>Average score</th>
+    <th>Highest score</th>
+  </tr>
+    <% @flog[:pages].each do |page| %>
+    <tr>
+      <td><a href="#<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></a></td>
+      <td><%= page[:score].round %></td>
+      <td><%= page[:scanned_methods].length %></td>
+      <td><%= page[:average_score].round %></td>
+      <td><%= page[:highest_score].round %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% @flog[:pages].each do |page| %>
+  <h2 id="<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></h2>
+    <% page[:scanned_methods].each do |sm| %>
+      <p><%= sm[:name] %></p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        <% sm[:operators].each do |operator| %>
+          <tr>
+            <td><%= operator[:score] %></td>
+            <td><%= operator[:operator] %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+<% end %>
+<p>Generated on <%= Time.now.localtime %></p>	

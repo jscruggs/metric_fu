@@ -129,7 +129,7 @@ describe MetricFu::Configuration do
     end
     
     it 'should set @template_class to StandardTemplate' do
-      template_class.should == StandardTemplate
+      template_class.should == AwesomeTemplate
     end
 
     it 'should set @flay to {:dirs_to_flay => @code_dirs}' do

@@ -12,6 +12,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
 
 MetricFu::Configuration.run do |config|
+  config.template_class = AwesomeTemplate
 end
 
 namespace :metrics do
@@ -19,8 +20,8 @@ namespace :metrics do
   task :all do
     MetricFu.metrics.each {|metric| MetricFu.report.add(metric) }
     MetricFu.report.save_output(MetricFu.report.to_yaml,
-                                MetricFu.base_directory, 
-                                'report.yml')
+                                MetricFu.data_directory, 
+                                "#{Time.now.strftime("%Y%m%d")}.yml")
     MetricFu.report.save_templatized_report
     if MetricFu.report.open_in_browser?
       MetricFu.report.show_in_browser(MetricFu.output_directory)
@@ -33,8 +34,8 @@ namespace :metrics do
 
       MetricFu.report.add(metric)
       MetricFu.report.save_output(MetricFu.report.to_yaml,
-                                  MetricFu.base_directory,
-                                  'report.yml')
+                                  MetricFu.data_directory,
+                                  "#{Time.now.strftime("%Y%m%d")}.yml")
       MetricFu.report.save_templatized_report
       if MetricFu.report.open_in_browser?
         MetricFu.report.show_in_browser(MetricFu.output_directory)

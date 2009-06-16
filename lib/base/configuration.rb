@@ -8,6 +8,7 @@ module MetricFu
   AVAILABLE_METRICS = [:churn, :flog, :flay, :reek, 
                        :roodi, :saikuro, :rcov]
 
+  AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov]
 
   # The @@configuration class variable holds a global type configuration
   # object for any parts of the system to use.
@@ -118,12 +119,14 @@ module MetricFu
       @base_directory = ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu'
       @scratch_directory = File.join(@base_directory, 'scratch')
       @output_directory = File.join(@base_directory, 'output')
+      @data_directory = File.join(@base_directory, '_data')
       @metric_fu_root_directory = File.join(File.dirname(__FILE__), 
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory, 
                                        'lib', 'templates') 
-      @template_class = StandardTemplate
+      @template_class = AwesomeTemplate
       set_metrics
+      set_graphs
       set_code_dirs
       @flay     = { :dirs_to_flay => @code_dirs  } 
       @flog     = { :dirs_to_flog => @code_dirs  }
@@ -147,6 +150,19 @@ module MetricFu
                                    "--profile",
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
+                                   
+      @graph_theme = { :colors => %w(orange purple green white red blue pink yellow),
+                       :marker_color => 'blue',
+                       :background_colors => %w(white white)}
+      
+      relative_font_path = [File.dirname(__FILE__), '..', '..', 'vendor', '_fonts', 'monaco.ttf']
+      @graph_font = File.expand_path(File.join(relative_font_path))
+      @graph_size = "1000x400"
+      @graph_title_font_size = 12
+      @graph_legend_box_size = 12
+      @graph_legend_font_size = 10
+      @graph_marker_font_size = 10
+      
     end
 
     # Perform a simple check to try and guess if we're running
@@ -165,6 +181,10 @@ module MetricFu
       else
         @metrics = MetricFu::AVAILABLE_METRICS
       end 
+    end
+    
+    def set_graphs
+      @graphs = MetricFu::AVAILABLE_GRAPHS 
     end
 
     # Add the 'app' directory if we're running within rails.
