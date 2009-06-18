@@ -65,7 +65,11 @@
 </p>
 <br/>
 <p>
-  The big new feature in metric_fu 1.0.0 is yaml serialization of the metrics.  Running metric_fu now generates, in addition to html reports, a report.yml file.  You can consume this file to mash up metrics, track them, or whatever you desire.  Many thanks go to <a href="http://github.com/gmcinnes">Grant McInnes</a> for his work on this feature.
+  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quarantos</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.
+</p>
+<br/>
+<p>
+  New in metric_fu 1.0.0 is yaml serialization of the metrics.  Running metric_fu now generates, in addition to html reports, a report.yml file.  You can consume this file to mash up metrics, track them, or whatever you desire.  Many thanks go to <a href="http://github.com/gmcinnes">Grant McInnes</a> for his work on this feature.
 </p>
 <h2>Installation:</h2>
 <p>If you haven't added github to your gem sources do this:</p>
@@ -128,6 +132,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
       MetricFu::Configuration.run do |config|
         #define which metrics you want to use
         config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :reek, :roodi, :rcov]
+        config.graphs   = [:flog, :flay, :reek, :roodi, :rcov]
         config.flay     = { :dirs_to_flay => ['app', 'lib']  } 
         config.flog     = { :dirs_to_flog => ['app', 'lib']  }
         config.reek     = { :dirs_to_reek => ['app', 'lib']  }
@@ -151,6 +156,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
                                            "--exclude /gems/,/Library/,spec"]}
     end
     </pre>
+    Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.
 </p>
 
 <p><br/>
