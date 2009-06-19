@@ -1,0 +1,14 @@
+<h3>Flurn Results</h3>
+<p>Flurn is combination of FLog and chURN</p>
+<table>
+  <tr>
+    <th>Path</th>
+    <th>Flurn Score</th>
+  </tr>
+  <% @flurn.each do |path, flurn_score| %>  
+    <tr>
+      <td><%= path %></td>
+      <td><%= flurn_score %></td>
+    </tr>
+  <% end %>
+</table>
