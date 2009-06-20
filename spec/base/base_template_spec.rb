@@ -95,14 +95,14 @@ describe MetricFu::Template do
         File.stub(:expand_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, 'filename')
         result.should eql("<a href='txmt://open/?url=file://" \
-                         + "/expanded/filename&line='>filename:</a>")
+                         + "/expanded/filename'>filename</a>")
       end
 
       it "should do the right thing with a filename that starts with a slash" do
         File.stub(:expand_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, '/filename')
         result.should eql("<a href='txmt://open/?url=file://" \
-                         + "/expanded/filename&line='>/filename:</a>")
+                         + "/expanded/filename'>/filename</a>")
       end
 
       it "should include a line number" do
@@ -133,7 +133,7 @@ describe MetricFu::Template do
       it 'should return a file protocol link' do
         name = "filename"
         result = @template.send(:link_to_filename, name)
-        result.should == "<a href='file://filename'>filename:</a>"
+        result.should == "<a href='file://filename'>filename</a>"
       end
     end
   end

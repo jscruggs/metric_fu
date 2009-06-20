@@ -100,19 +100,27 @@ module MetricFu
     # @return String
     #   An anchor link to a textmate reference or a file reference
     def link_to_filename(name, line = nil, link_content = nil)
-      link_content ||= "#{name}:#{line}"
-      "<a href='#{file_url(name, line)}'>#{link_content}</a>"
+      "<a href='#{file_url(name, line)}'>#{link_content(name, line, link_content)}</a>"
     end
     
-    def file_url(name, line)
+    def link_content(name, line=nil, link_content=nil) # :nodoc:
+      if link_content
+        link_content
+      elsif line
+        "#{name}:#{line}"
+      else
+        name
+      end
+    end
+    
+    def file_url(name, line) # :nodoc:
       filename = File.expand_path(name.gsub(/^\//, ''))
       if MetricFu.configuration.platform.include?('darwin')
-        "txmt://open/?url=file://#{filename}&line=#{line}"
+        "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
       else 
        "file://#{filename}"
       end
     end
-  
 
     # Provides a brain dead way to cycle between two values during
     # an iteration of some sort.  Pass in the first_value, the second_value,
