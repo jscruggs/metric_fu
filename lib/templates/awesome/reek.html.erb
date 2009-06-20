@@ -15,7 +15,7 @@
   <% @reek[:matches].each do |match| %>
     <% match[:code_smells].each do |smell| %>
       <tr class='<%= cycle("light", "dark", count) %>'>
-        <td><%= link_to_filename(match[:file_path], 1) %></td>
+        <td><%= link_to_filename(match[:file_path]) %></td>
         <td>
           <%= smell[:method] %>
         </td>
