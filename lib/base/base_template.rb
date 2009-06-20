@@ -99,13 +99,17 @@ module MetricFu
     #
     # @return String
     #   An anchor link to a textmate reference or a file reference
-    def link_to_filename(name, line = nil)
-      filename = File.expand_path(name)
+    def link_to_filename(name, line = nil, link_content = nil)
+      link_content ||= "#{name}:#{line}"
+      "<a href='#{file_url(name, line)}'>#{link_content}</a>"
+    end
+    
+    def file_url(name, line)
+      filename = File.expand_path(name.gsub(/^\//, ''))
       if MetricFu.configuration.platform.include?('darwin')
-        "<a href='txmt://open/?url=file://" \
-        +"#{filename}&line=#{line}'>#{name}:#{line}</a>"
+        "txmt://open/?url=file://#{filename}&line=#{line}"
       else 
-       "<a href='file://#{filename}'>#{name}:#{line}</a>"
+       "file://#{filename}"
       end
     end
   

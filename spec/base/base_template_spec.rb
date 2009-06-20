@@ -36,7 +36,7 @@ describe MetricFu::Template do
     end
 
     describe 'if the template does not exist' do
-      it 'should return false' do  
+      it 'should return false' do
         File.should_receive(:exist?).with(@section).and_return(false)
         result = @template.send(:template_exists?, @section)
         result.should be_false
@@ -82,27 +82,48 @@ describe MetricFu::Template do
       result.should == 'css contents'
     end
   end
-
+  
   describe "#link_to_filename " do
     describe "when on OS X" do
       before(:each) do
         config = mock("configuration")
-        config.should_receive(:platform).and_return('universal-darwin-9.0')
+        config.stub!(:platform).and_return('universal-darwin-9.0')
         MetricFu.stub!(:configuration).and_return(config)
-        File.should_receive(:expand_path).and_return('filename')
       end
 
       it 'should return a textmate protocol link' do
-        name = "filename" 
-        result = @template.send(:link_to_filename, name)
+        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        result = @template.send(:link_to_filename, 'filename')
         result.should eql("<a href='txmt://open/?url=file://" \
-                         + "filename&line='>filename:</a>")
+                         + "/expanded/filename&line='>filename:</a>")
       end
 
+      it "should do the right thing with a filename that starts with a slash" do
+        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        result = @template.send(:link_to_filename, '/filename')
+        result.should eql("<a href='txmt://open/?url=file://" \
+                         + "/expanded/filename&line='>/filename:</a>")
+      end
+
+      it "should include a line number" do
+        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        result = @template.send(:link_to_filename, 'filename', 6)
+        result.should eql("<a href='txmt://open/?url=file://" \
+                         + "/expanded/filename&line=6'>filename:6</a>")
+      end
+
+      describe "and given link text" do
+        it "should use the submitted link text" do
+          File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+          result = @template.send(:link_to_filename, 'filename', 6, 'link content')
+          result.should eql("<a href='txmt://open/?url=file://" \
+                           + "/expanded/filename&line=6'>link content</a>")
+        end
+      end
     end
 
     describe "when on other platforms"  do
-      before(:each) do 
+      before(:each) do
         config = mock("configuration")
         config.should_receive(:platform).and_return('other')
         MetricFu.stub!(:configuration).and_return(config)
@@ -110,9 +131,9 @@ describe MetricFu::Template do
       end
 
       it 'should return a file protocol link' do
-        name = "filename" 
+        name = "filename"
         result = @template.send(:link_to_filename, name)
-        result.should == "<a href='file://filename'>filename:</a>" 
+        result.should == "<a href='file://filename'>filename:</a>"
       end
     end
   end
@@ -122,15 +143,15 @@ describe MetricFu::Template do
       first_val = "first"
       second_val = "second"
       iter = 2
-      result = @template.send(:cycle, first_val, second_val, iter)  
+      result = @template.send(:cycle, first_val, second_val, iter)
       result.should == first_val
     end
 
     it 'should return the second_value passed if iteration passed is odd' do
       first_val = "first"
       second_val = "second"
-      iter = 1 
-      result = @template.send(:cycle, first_val, second_val, iter)  
+      iter = 1
+      result = @template.send(:cycle, first_val, second_val, iter)
       result.should == second_val
     end
   end
