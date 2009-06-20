@@ -92,21 +92,21 @@ describe MetricFu::Template do
       end
 
       it 'should return a textmate protocol link' do
-        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, 'filename')
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename'>filename</a>")
       end
 
       it "should do the right thing with a filename that starts with a slash" do
-        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, '/filename')
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename'>/filename</a>")
       end
 
       it "should include a line number" do
-        File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, 'filename', 6)
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename&line=6'>filename:6</a>")
@@ -114,7 +114,7 @@ describe MetricFu::Template do
 
       describe "and given link text" do
         it "should use the submitted link text" do
-          File.stub(:expand_path).with('filename').and_return('/expanded/filename')
+          File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
           result = @template.send(:link_to_filename, 'filename', 6, 'link content')
           result.should eql("<a href='txmt://open/?url=file://" \
                            + "/expanded/filename&line=6'>link content</a>")
