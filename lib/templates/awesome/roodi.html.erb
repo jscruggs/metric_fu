@@ -12,7 +12,7 @@
   <% count = 0 %>
   <% @roodi[:problems].each do |problem| %>
     <tr class='<%= cycle("light", "dark", count) %>'>
-      <td><%= problem[:file] %>:<%= problem[:line] %></td>
+      <td><%= link_to_filename(problem[:file], problem[:line]) %></td>
       <td><%= problem[:problem] %></td>
     </tr>
     <% count += 1 %>

@@ -16,7 +16,7 @@
     <tr class='<%= cycle("light", "dark", count) %>'>
       <td>
         <% match[:matches].each do |file| %>
-          <%= file[:name] %>:<%= file[:line] %><br />
+          <%= link_to_filename(file[:name], file[:line]) %><br/>
         <% end %>
       </td>
       <td><%= match[:reason] %></td>

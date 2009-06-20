@@ -10,7 +10,7 @@
   <% count = 0 %>
   <% @churn[:changes].each do |change| %>
     <tr>
-      <td><%= change[:file_path] %></td>
+      <td><%= link_to_filename(change[:file_path]) %></td>
       <td><%= change[:times_changed] %></td>
     </tr>
     <% count += 1 %>

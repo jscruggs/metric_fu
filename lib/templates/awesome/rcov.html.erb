@@ -24,10 +24,10 @@
   <h2 id="<%= fname.gsub(/[^a-z]+/, '_') %>"> <%= fname %></h2>
   <div class="rcov_overflow">
     <table class="rcov_code">
-    <% file[:lines].each do |line| %>
+    <% file[:lines].each_with_index do |line, index| %>
       <tr>
         <% css_class = line[:was_run] ? "rcov_run" : "rcov_not_run" %>
-        <td class="<%= css_class %>"><pre><%= line[:content] %></pre></td>
+        <td class="<%= css_class %>"><%= link_to_filename(fname, index + 1, "<pre>#{line[:content]}</pre>") %></td>
       </tr>
     <% end %>
     </table>

@@ -60,6 +60,15 @@ table td.score {
 .rcov_not_run {
   background-color: #d88;
 }
+.rcov_run a, .rcov_not_run a {
+  text-decoration: none;
+}
+.rcov_run a {
+  color: #333;
+}
+.rcov_not_run a {
+  color: #000;
+}
 .rcov_overflow {
   overflow: auto;
   font-size: 50%;
