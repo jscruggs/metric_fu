@@ -34,20 +34,15 @@ describe Saikuro do
     end
   end
 
-  describe "emit method" do
+  describe "format_directories method" do
     it "should format the directories" do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
       saikuro = MetricFu::Saikuro.new
  
       MetricFu.saikuro[:input_directory] = ["app", "lib"]
- 
-      File.stub!(:dirname).and_return('..')
-      File.stub!(:expand_path)
- 
-      saikuro.should_receive(:sh).with(/"app \| lib"/)
- 
-      saikuro.emit
+  
+      saikuro.format_directories.should == "\"app | lib\""
     end
   end
  

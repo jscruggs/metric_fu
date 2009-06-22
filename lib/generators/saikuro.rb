@@ -7,7 +7,7 @@ module MetricFu
                        'vendor', 'saikuro', 'saikuro.rb']
       saikuro = File.expand_path(File.join(relative_path))
  
-      format_directories
+      MetricFu.saikuro[:input_directory] = format_directories
  
       options_string = MetricFu.saikuro.inject("") do |options, option|
         options + "--#{option.join(' ')} "
@@ -23,8 +23,7 @@ module MetricFu
 
     def format_directories
       dirs = MetricFu.saikuro[:input_directory].join(" | ")
-      dirs = "\"#{dirs}\""
-      MetricFu.saikuro[:input_directory] = dirs
+      "\"#{dirs}\""
     end
  
     def analyze
