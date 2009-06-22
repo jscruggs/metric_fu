@@ -15,33 +15,4 @@ MetricFu::Configuration.run do |config|
   config.template_class = AwesomeTemplate
 end
 
-namespace :metrics do
-  desc "Generate all reports"
-  task :all do
-    MetricFu.metrics.each {|metric| MetricFu.report.add(metric) }
-    MetricFu.report.save_output(MetricFu.report.to_yaml,
-                                MetricFu.data_directory, 
-                                "#{Time.now.strftime("%Y%m%d")}.yml")
-    MetricFu.report.save_templatized_report
-    if MetricFu.report.open_in_browser?
-      MetricFu.report.show_in_browser(MetricFu.output_directory)
-    end
-  end
-
-  MetricFu.metrics.each do |metric|
-    desc "Generate report for #{metric}"
-    task metric do
-
-      MetricFu.report.add(metric)
-      MetricFu.report.save_output(MetricFu.report.to_yaml,
-                                  MetricFu.data_directory,
-                                  "#{Time.now.strftime("%Y%m%d")}.yml")
-      MetricFu.report.save_templatized_report
-      if MetricFu.report.open_in_browser?
-        MetricFu.report.show_in_browser(MetricFu.output_directory)
-      end
-    end
-  end
-end
-
 task :default => [:"metrics:all"]
