@@ -1,7 +1,7 @@
 === MetricFu 1.1.0 / 2009-6-22
 
-* Flog, flay, reek, roodi, and rcov reports now graph progress over time.  Well done Nick Quarantos and Edouard Brière.
-* 'Awesome' template has been brought in so that reports look 90% less 'ghetto.'  Also done by Nick Quarantos and Edouard Brière.
+* Flog, flay, reek, roodi, and rcov reports now graph progress over time.  Well done Nick Quaranto and Edouard Brière.
+* 'Awesome' template has been brought in so that reports look 90% less 'ghetto.'  Also done by Nick Quaranto and Edouard Brière.
 * Added links to TextMate (which keep getting removed.  Probably by me. Sorry.) -- David Chelimsky
 * Fixed a bug for scratch files which have a size of 0 -- Kevin Hall
 * Changed gem dependencies from install-time in gemspec to runtime when each of the generators is loaded.  This allows use of github gems (i.e. relevance-rcov instead of rcov) and also allows you to install only the gems for the metrics you plan on using.  -- Alex Rothenberg
