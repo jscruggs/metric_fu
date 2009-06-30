@@ -128,7 +128,7 @@ describe MetricFu::Configuration do
       output_directory.should == output_dir
     end
     
-    it 'should set @template_class to StandardTemplate' do
+    it 'should set @template_class to AwesomeTemplate' do
       template_class.should == AwesomeTemplate
     end
 
