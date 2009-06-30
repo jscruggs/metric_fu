@@ -178,7 +178,7 @@ describe Flog do
     end
   end
   
-  describe "to_h function" do
+  describe "to_h function with results" do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
@@ -203,6 +203,17 @@ describe Flog do
     
     it "should put the filename into the hash" do
       @flog_hash[:flog][:pages].first[:path].should == "/app/controllers/user_controller.rb"
+    end
+  end
+  
+  describe "to_h function with zero total" do
+    it "should not blow up" do
+      MetricFu::Configuration.run {}
+      File.stub!(:directory?).and_return(true)
+      flog = MetricFu::Flog.new('base_dir')
+      flog.should_receive(:open).and_return("") # some sort of empty or unparsable file
+      Dir.should_receive(:glob).and_return(["empty_file.txt"])
+      flog.analyze
     end
   end
 end

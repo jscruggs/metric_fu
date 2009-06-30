@@ -64,8 +64,15 @@ module MetricFu
       total_flog_score = @pages.inject(0) {|total, page| total += page.score}
       sorted_pages = @pages.sort_by {|page| page.score }.reverse 
       {:flog => { :total => total_flog_score,
-                  :average => round_to_tenths(total_flog_score/number_of_methods),
+                  :average => average_score(total_flog_score, number_of_methods),
                   :pages => sorted_pages.map {|page| page.to_h}}}
+    end
+    
+    private
+    
+    def average_score(total_flog_score, number_of_methods)
+      return 0 if total_flog_score == 0
+      round_to_tenths(total_flog_score/number_of_methods)
     end
     
     def flog_results
