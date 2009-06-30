@@ -199,7 +199,38 @@ describe MetricFu::Configuration do
                     :error_cyclo => "7",
                     :formater => "text"}
     end
-
+    
+    it 'should set @graph_theme to { 
+                    :colors => %w(orange purple green white red blue pink yellow),
+                    :marker_color => "blue",
+                    :background_colors => %w(white white)}' do
+      @config.instance_variable_get(:@graph_theme).
+              should ==  { :colors => %w(orange purple green white red blue pink yellow),
+              :marker_color => "blue",
+              :background_colors => %w(white white) }
+    end
+    
+    it 'should set @graph_font to the path to the font directory' do
+      @config.instance_variable_get(:@graph_font).
+              should include(File.join('vendor', '_fonts', 'monaco.ttf'))
+    end
+    
+    it 'should set @graph_title_font_size to 12' do
+      @config.instance_variable_get(:@graph_title_font_size).should eql(12)
+    end
+    
+    it 'should set @graph_legend_box_size to 12' do
+      @config.instance_variable_get(:@graph_legend_box_size).should eql(12)
+    end
+    
+    it 'should set @graph_legend_box_size to 10' do
+      @config.instance_variable_get(:@graph_legend_font_size).should eql(10)
+    end
+    
+    it 'should set @graph_marker_font_size to 10' do
+      @config.instance_variable_get(:@graph_marker_font_size).should eql(10)
+    end
+    
     describe 'if #rails? is true ' do
       before(:each) do
         @config.stub!(:rails?).and_return(true)
@@ -210,6 +241,13 @@ describe MetricFu::Configuration do
            +'[:stats]' do
           @config.instance_variable_get(:@metrics).
                   should == MetricFu::AVAILABLE_METRICS << [:stats]
+        end
+      end
+
+      describe '#set_graphs ' do
+        it 'should set the @graphs instance var to AVAILABLE_GRAPHS' do
+          @config.instance_variable_get(:@graphs).
+                  should == MetricFu::AVAILABLE_GRAPHS
         end
       end
 
@@ -264,7 +302,13 @@ describe MetricFu::Configuration do
 
     MetricFu::AVAILABLE_METRICS.each do |metric|
       it "should add a #{metric} class method to the MetricFu module " do
-        MetricFu.respond_to?(metric).should be_true
+        MetricFu.should respond_to(metric)
+      end
+    end
+    
+    MetricFu::AVAILABLE_GRAPHS.each do |graph|
+      it "should add a #{graph} class metrhod to the MetricFu module" do
+        MetricFu.should respond_to(graph)
       end
     end
   end
