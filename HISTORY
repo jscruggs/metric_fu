@@ -1,3 +1,7 @@
+=== MetricFu 1.1.1 / 2009-6-29
+
+* Fix for empty flog files
+
 === MetricFu 1.1.0 / 2009-6-22
 
 * Flog, flay, reek, roodi, and rcov reports now graph progress over time.  Well done Nick Quaranto and Edouard Brière.
