@@ -191,7 +191,7 @@ describe MetricFu::Configuration do
                                  :error_cyclo => "7",
                                  :formater => "text" }' do
       @config.instance_variable_get(:@saikuro).
-              should ==  { :output_directory => 'tmp/metric_fu/scratch/saikuro', 
+              should ==  { :output_directory => "#{scratch_directory}/saikuro", 
                     :input_directory => ['lib'],
                     :cyclo => "",
                     :filter_cyclo => "0",
