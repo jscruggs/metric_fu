@@ -120,10 +120,10 @@ module MetricFu
             line = @file_handle.readline
             element = Saikuro::ParsingElement.new(line)
           elsif line.match /END/
-            @elements << element unless element.nil?
+            @elements << element if element
             element = nil
           else
-            element << line
+            element << line if element
           end
         end
       rescue EOFError
