@@ -6,7 +6,7 @@ module MetricFu
     NEW_FILE_MARKER =  ("=" * 80) + "\n"
 
     def self.verify_dependencies!
-      `flay --help`
+      `rcov --help`
       unless $?.success?
         if RUBY_PLATFORM =~ /java/
           raise 'running in jruby - rcov tasks not available'
