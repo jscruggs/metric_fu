@@ -36,7 +36,6 @@ describe ReekGrapher do
         "Duplication" => [48],
         "Large Class" => [1] 
       }
-      puts @reek_grapher.reek_count.inspect
     end
     
     it "should update labels with the date" do
