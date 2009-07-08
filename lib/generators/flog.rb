@@ -62,7 +62,7 @@ module MetricFu
     def to_h
       number_of_methods = @pages.inject(0) {|count, page| count += page.scanned_methods.size}
       total_flog_score = @pages.inject(0) {|total, page| total += page.score}
-      sorted_pages = @pages.sort_by {|page| page.score }.reverse 
+      sorted_pages = @pages.sort_by {|page| page.highest_score }.reverse 
       {:flog => { :total => total_flog_score,
                   :average => average_score(total_flog_score, number_of_methods),
                   :pages => sorted_pages.map {|page| page.to_h}}}
