@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'spec'
+require 'spec/autorun'
 require 'date'
 
 require File.join(File.dirname(__FILE__), '/../lib/metric_fu.rb')
