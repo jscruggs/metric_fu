@@ -1,11 +1,11 @@
-require 'gruff'
 module MetricFu
   
-  class FlogGrapher
+  class FlogGrapher < Grapher
     
     attr_accessor :flog_total, :flog_average, :labels
     
     def initialize
+      super
       self.flog_total = []
       self.flog_average = []
       self.labels = {}

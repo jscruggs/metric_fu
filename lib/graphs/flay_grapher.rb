@@ -1,11 +1,12 @@
-require 'gruff'
+
 module MetricFu
   
-  class FlayGrapher
+  class FlayGrapher < Grapher
     
     attr_accessor :flay_score, :labels
     
     def initialize
+      super
       self.flay_score = []
       self.labels = {}
     end

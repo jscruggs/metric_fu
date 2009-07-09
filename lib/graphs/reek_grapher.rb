@@ -1,11 +1,11 @@
-require 'gruff'
 module MetricFu
   
-  class ReekGrapher
+  class ReekGrapher < Grapher
     
     attr_accessor :reek_count, :labels
     
     def initialize
+      super
       self.reek_count = {}
       self.labels= {}
     end

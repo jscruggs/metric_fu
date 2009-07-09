@@ -19,6 +19,7 @@ module MetricFu
     
     
     def generate
+      return if self.clazz.empty?
       puts "Generating graphs"
       Dir[File.join(MetricFu.data_directory, '*.yml')].sort.each do |metric_file|
         puts "Generating graphs for #{metric_file}"
