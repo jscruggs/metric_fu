@@ -51,7 +51,6 @@ module MetricFu
   class Configuration
 
     def initialize #:nodoc:#
-      warn_about_deprecated_config_options
       reset
       add_attr_accessors_to_self
       add_class_methods_to_metric_fu
@@ -79,25 +78,6 @@ module MetricFu
       instance_variables.each do |name|
         method_name = name[1..-1].to_sym
         MetricFu::Configuration.send(:attr_accessor, method_name)
-      end
-    end
-
-    # Check if certain constants that are deprecated have been
-    # assigned.  If so, warn the user about them, and the 
-    # fact that they will have no effect.
-    def warn_about_deprecated_config_options
-      if defined?(::MetricFu::CHURN_OPTIONS)
-        raise("Use config.churn instead of MetricFu::CHURN_OPTIONS")
-      end
-      if defined?(::MetricFu::DIRECTORIES_TO_FLOG)
-        raise("Use config.flog[:dirs_to_flog] "+
-              "instead of MetricFu::DIRECTORIES_TO_FLOG") 
-      end
-      if defined?(::MetricFu::SAIKURO_OPTIONS)
-        raise("Use config.saikuro instead of MetricFu::SAIKURO_OPTIONS")
-      end
-      if defined?(SAIKURO_OPTIONS)
-        raise("Use config.saikuro instead of SAIKURO_OPTIONS")
       end
     end
 

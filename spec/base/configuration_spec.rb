@@ -30,53 +30,6 @@ describe MetricFu::Configuration do
     @config.instance_variable_get(:@metric_fu_root_directory)
   end
 
-  describe '#warn_about_deprecated_config_options' do
-
-    def get_new_config_and_raise_runtime_error
-      lambda { get_new_config  }.should raise_error
-    end
-
-    describe 'when ::MetricFu::CHURN_OPTIONS is present' do
-      before(:each) { ::MetricFu::CHURN_OPTIONS = 'option' }
-      after(:each)  { ::MetricFu.send(:remove_const, 'CHURN_OPTIONS') }
-      
-      it 'should raise a RuntimeError with "Use config.churn '+ 
-      'instead of MetricFu::CHURN_OPTIONS"' do
-        get_new_config_and_raise_runtime_error
-      end
-    end
-    
-    describe 'when ::MetricFu::DIRECTORIES_TO_FLOG is present' do
-      before(:each) { ::MetricFu::DIRECTORIES_TO_FLOG = 'option' }
-      after(:each)  { ::MetricFu.send(:remove_const,'DIRECTORIES_TO_FLOG')}
-
-      it 'should raise a RuntimeError with "Use config.flog '+
-      '[:dirs_to_flog] instead of MetricFu::DIRECTORIES_TO_FLOG' do
-        get_new_config_and_raise_runtime_error
-      end 
-    end
-
-    describe 'when ::MetricFu::SAIKURO_OPTIONS is present' do
-      before(:each) { ::MetricFu::SAIKURO_OPTIONS = 'option' }
-      after(:each)  { ::MetricFu.send(:remove_const,'SAIKURO_OPTIONS')}
-      
-      it 'should raise a RuntimeError with "Use config.saikuro '+
-      'instead of MetricFu::SAIKURO_OPTIONS' do 
-        get_new_config_and_raise_runtime_error
-      end
-    end
-
-    describe 'when SAIKURO_OPTIONS is present' do
-      before(:each) { SAIKURO_OPTIONS = 'option' }
-      after(:each)  { Object.send(:remove_const,'SAIKURO_OPTIONS')}
-      
-      it 'should raise a RuntimeError with "Use config.saikuro '+
-      'instead of SAIKURO_OPTIONS' do
-        get_new_config_and_raise_runtime_error
-      end
-    end
-  end
-
   describe "#reset" do
     
     before(:each) { get_new_config } 
@@ -318,7 +271,7 @@ describe MetricFu::Configuration do
     before(:each) { get_new_config }
 
     it 'should return the value of the PLATFORM constant' do
-      this_platform = PLATFORM
+      this_platform = RUBY_PLATFORM
       @config.platform.should == this_platform
     end
   end
