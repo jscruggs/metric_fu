@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "metric_fu" 
-  s.version = "1.1.2"
+  s.version = "1.1.3"
   s.summary = "A fistful of code metrics, with awesome templates and graphs"
   s.email = "jake.scruggs@gmail.com"
   s.homepage = "http://metric-fu.rubyforge.org/"
