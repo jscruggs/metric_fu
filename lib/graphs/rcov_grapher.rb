@@ -1,11 +1,11 @@
-require 'gruff'
 module MetricFu
   
-  class RcovGrapher
+  class RcovGrapher < Grapher
     
     attr_accessor :rcov_percent, :labels
     
     def initialize
+      super
       self.rcov_percent = []
       self.labels = {}
     end

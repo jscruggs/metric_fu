@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.1.1</h1>
+            <h1>About metric_fu 1.1.2</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -65,7 +65,7 @@
 </p>
 <br/>
 <p>
-  New in metric_fu 1.1.1 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.
+  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  Graphing requires the gems 'gruff' and 'rmagick' (and rmagick requires ImageMagick).  If that's too much installation to bear, then see configuration section below for how to turn off graphing of the metrics. 
 </p>
 <br/>
 <p>
@@ -86,13 +86,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.1.1', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.1.2', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'jscruggs-metric_fu', :version => '1.1.1', :lib => 'metric_fu', :source => 'http://gems.github.com'</pre>
+<pre>config.gem 'jscruggs-metric_fu', :version => '1.1.2', :lib => 'metric_fu', :source => 'http://gems.github.com'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -103,7 +103,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem jscruggs-metric_fu-1.1.1 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem jscruggs-metric_fu-1.1.2 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
@@ -156,7 +156,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
                                            "--exclude /gems/,/Library/,spec"]}
     end
     </pre>
-    Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.
+    Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.  Set config.graphs to an empty array (config.graphs = []) if you want no graphing at all.
 </p>
 
 <p><br/>
@@ -177,6 +177,8 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 
 <p><br/>
     <h2>Notes on metrics:flog</h2>
+    Note:  Flog 2.1.2 has some issues -- I'd use Flog 2.1.0 until that gets straightened out.
+    <br/>
     Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  You should check out the awesome, and a little scary, <a href="http://ruby.sadi.st/Flog.html">Flog website</a> for more info.
 </p>
 <p><br/>

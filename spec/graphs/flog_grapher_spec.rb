@@ -7,16 +7,16 @@ describe MetricFu::FlogGrapher do
   end
   
   it "should respond to flog_total, flog_average and labels" do
-    @flog_grapher.should respond_to(:flog_total)
     @flog_grapher.should respond_to(:flog_average)
     @flog_grapher.should respond_to(:labels)
+    @flog_grapher.should respond_to(:top_five_percent_average)
   end
   
   describe "responding to #initialize" do
-    it "should initialize flog_total, flog_average and labels" do
-      @flog_grapher.flog_total.should == []
+    it "should initialize top_five_percent_average, flog_average and labels" do
       @flog_grapher.flog_average.should == []
       @flog_grapher.labels.should == {}
+      @flog_grapher.top_five_percent_average.should == []
     end
   end
   
@@ -26,8 +26,9 @@ describe MetricFu::FlogGrapher do
       @date = "01022003"
     end
     
-    it "should push 1491.1 to flog_total" do
-      @flog_grapher.flog_total.should_receive(:push).with(1491.1)      
+    it "should push to top_five_percent_average" do
+      average = (73.6 + 68.5 + 66.1 + 46.6 + 44.8 + 44.1 + 41.2 + 36.0) / 8.0
+      @flog_grapher.top_five_percent_average.should_receive(:push).with(average)      
       @flog_grapher.get_metrics(@metrics, @date)
     end
     

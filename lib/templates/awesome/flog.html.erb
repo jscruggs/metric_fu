@@ -29,6 +29,7 @@
   <h2 id="<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename page[:path] %></h2>
     <% page[:scanned_methods].each do |sm| %>
       <p><%= sm[:name] %></p>
+      <p>Total Score: <%=sm[:score]%></p>
       <table>
         <tr>
           <th>Score</th>

@@ -1,3 +1,11 @@
+=== MetricFu 1.1.2 / 2009-7-09
+
+* Removed dependency on gruff and rmagick (unless the user wants graphs, of course).
+* New look for styling -- Edouard Brière
+* Extra param in rcov call was causing problems -- Stewart Welbourne
+* Preventing rake task from being run multiple times when other rake tasks switch the environment -- Matthew Van Horn
+* Typo in Rcov dependency verification and fixing parsing Saikuro nested information -- Mark Wilden
+
 === MetricFu 1.1.1 / 2009-6-29
 
 * Fix for empty flog files

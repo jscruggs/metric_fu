@@ -1,11 +1,11 @@
-require 'gruff'
 module MetricFu
   
-  class RoodiGrapher
+  class RoodiGrapher < Grapher
     
     attr_accessor :roodi_count, :labels
     
     def initialize
+      super
       self.roodi_count = []
       self.labels = {}
     end
