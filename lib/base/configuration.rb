@@ -197,7 +197,7 @@ module MetricFu
     end
     
     def platform #:nodoc:
-      return PLATFORM
+      return RUBY_PLATFORM
     end
     
     def is_cruise_control_rb?
