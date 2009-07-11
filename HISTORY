@@ -1,3 +1,10 @@
+=== MetricFu 1.1.3 / 2009-7-10
+
+* MetricFu is now Ruby 1.9x compatible
+* Removed the check for deprecated ways of configuring metric_fu as the tests were causing Ruby 1.9x problems and it's been forever since they were supported.
+* Removed total flog score from graph (which will always go up and so doesn't mean much) and replacing it with top_five_percent_average which is an average of the worst 5 percent of your methods.
+* Sort Flog by highest score in the class which I feel is more important than the total flog flog score.
+
 === MetricFu 1.1.2 / 2009-7-09
 
 * Removed dependency on gruff and rmagick (unless the user wants graphs, of course).
