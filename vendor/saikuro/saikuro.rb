@@ -1105,9 +1105,12 @@ if __FILE__ == $0
   require 'getoptlong'
   require 'fileutils'
   require 'find'
-  require 'rdoc/ri/ri_paths'
-  require 'rdoc/usage'
-
+  begin
+    require 'rdoc/ri/ri_paths'
+    require 'rdoc/usage'
+  rescue
+    # these requires cause problems in Ruby 1.9x that I'm not really sure how to fix 
+  end
   include ResultIndexGenerator
 
   #Returns the path without the file
