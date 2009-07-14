@@ -1108,8 +1108,10 @@ if __FILE__ == $0
   begin
     require 'rdoc/ri/ri_paths'
     require 'rdoc/usage'
-  rescue
+  rescue LoadError
     # these requires cause problems in Ruby 1.9x that I'm not really sure how to fix 
+    require 'rdoc/ri/paths'
+    #Still not sure what the equivalent of rdoc/usage is. I know it has been removed from 1.9
   end
   include ResultIndexGenerator
 
