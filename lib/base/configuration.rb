@@ -137,7 +137,7 @@ module MetricFu
       
       relative_font_path = [File.dirname(__FILE__), '..', '..', 'vendor', '_fonts', 'monaco.ttf']
       @graph_font = File.expand_path(File.join(relative_font_path))
-      @graph_size = "1000x400"
+      @graph_size = "700x400"
       @graph_title_font_size = 12
       @graph_legend_box_size = 12
       @graph_legend_font_size = 10

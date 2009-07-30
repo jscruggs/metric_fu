@@ -7,27 +7,27 @@ module MetricFu
     
     def initialize
       super
-      self.flay_score = []
-      self.labels = {}
+      @flay_score = []
+      @labels = {}
     end
     
     def get_metrics(metrics, date)
-      self.flay_score.push(metrics[:flay][:total_score].to_i)
-      self.labels.update( { self.labels.size => date })
+      @flay_score.push(metrics[:flay][:total_score].to_i)
+      year, month, day = self.class.parsedate(date)
+      @labels.update( { @labels.size => "#{month}/#{day}" })
     end
     
     def graph!
-      g = Gruff::Line.new(MetricFu.graph_size)
-      g.title = "Flay: duplication"
-      g.theme = MetricFu.graph_theme
-      g.font = MetricFu.graph_font
-      g.data('flay', self.flay_score)
-      g.labels = self.labels
-      g.title_font_size = MetricFu.graph_title_font_size
-      g.legend_box_size = MetricFu.graph_legend_box_size
-      g.legend_font_size = MetricFu.graph_legend_font_size
-      g.marker_font_size = MetricFu.graph_marker_font_size
-      g.write(File.join(MetricFu.output_directory, 'flay.png'))
+      determine_y_axis_scale(@flay_score)
+      url = Gchart.line(
+        :size => MetricFu.graph_size,
+        :title => URI.escape("Flay: duplication"),
+        :data => @flay_score,
+        :max_value => @max_value,
+        :axis_with_labels => 'x,y',
+        :axis_labels => [@labels.values, @yaxis],
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'flay.png'))
     end
     
   end

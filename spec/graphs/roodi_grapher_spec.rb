@@ -21,7 +21,7 @@ describe RoodiGrapher do
   describe "responding to #get_metrics" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "01022003"
+      @date = "20030102"
     end
     
     it "should push 13 to roodi_count" do
@@ -30,7 +30,7 @@ describe RoodiGrapher do
     end
     
     it "should update labels with the date" do
-      @roodi_grapher.labels.should_receive(:update).with({ 0 => "01022003" })
+      @roodi_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @roodi_grapher.get_metrics(@metrics, @date)
     end
   end
