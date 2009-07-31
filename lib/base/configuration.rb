@@ -9,6 +9,7 @@ module MetricFu
                        :roodi, :saikuro, :rcov]
 
   AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov]
+  AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
 
   # The @@configuration class variable holds a global type configuration
   # object for any parts of the system to use.
@@ -131,6 +132,7 @@ module MetricFu
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
                                    
+      @graph_engine = AVAILABLE_GRAPH_ENGINES.first
       @graph_theme = { :colors => %w(orange purple green white red blue pink yellow),
                        :marker_color => 'blue',
                        :background_colors => %w(white white)}

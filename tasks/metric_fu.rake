@@ -12,7 +12,7 @@ namespace :metrics do
                                 "#{Time.now.strftime("%Y%m%d")}.yml")
     MetricFu.report.save_templatized_report
     
-    MetricFu.graphs.each {|graph| MetricFu.graph.add(graph) }
+    MetricFu.graphs.each {|graph| MetricFu.graph.add(graph, MetricFu.graph_engine) }
     MetricFu.graph.generate
     
     if MetricFu.report.open_in_browser?

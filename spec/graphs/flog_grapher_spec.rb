@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu::FlogGrapher do
   before :each do
-    @flog_grapher = MetricFu::FlogGrapher.new
+    @flog_grapher = MetricFu::FlogGchartGrapher.new
     MetricFu.configuration
   end
   
@@ -23,7 +23,7 @@ describe MetricFu::FlogGrapher do
   describe "responding to #get_metrics" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "20030102"
+      @date = "1/2"
     end
     
     it "should push to top_five_percent_average" do

@@ -15,10 +15,10 @@ describe MetricFu::Graph do
     @graph = MetricFu::Graph.new
   end
   
-  describe "responding to #add" do
+  describe "responding to #add with gchart enabled" do
     it 'should instantiate a grapher and push it to clazz' do
-      @graph.clazz.should_receive(:push).with(an_instance_of(RcovGrapher))
-      @graph.add("rcov")
+      @graph.clazz.should_receive(:push).with(an_instance_of(RcovGchartGrapher))
+      @graph.add("rcov", 'gchart')
     end
   end  
 end

@@ -14,24 +14,7 @@ module MetricFu
     def get_metrics(metrics, date)
       @top_five_percent_average.push(calc_top_five_percent_average(metrics))
       @flog_average.push(metrics[:flog][:average])
-      year, month, day = self.class.parsedate(date)
-      @labels.update( { @labels.size => "#{month}/#{day}" })
-    end
-    
-    def graph!
-      determine_y_axis_scale(@top_five_percent_average + @flog_average)
-      url = Gchart.line(
-        :size => MetricFu.graph_size,
-        :title => URI.escape("Flay: code complexity"),
-        :data => [@flog_average, @top_five_percent_average],
-        :stacked => false,
-        :bar_colors => COLORS[0..2],
-        :legend => ['average', 'top 5%25 average'],
-        :max_value => @max_value,
-        :axis_with_labels => 'x,y',
-        :axis_labels => [@labels.values, @yaxis],
-        :format => 'file',
-        :filename => File.join(MetricFu.output_directory, 'flog.png'))
+      @labels.update( { @labels.size => date })
     end
     
     private
@@ -43,8 +26,13 @@ module MetricFu
 
       number_of_methods_that_is_five_percent = (methods.size * 0.05).ceil
 
-      total_for_five_percent = methods[0...number_of_methods_that_is_five_percent].inject(0) {|total, method| total += method[:score]}
-      number_of_methods_that_is_five_percent == 0 ? 0.0 : total_for_five_percent / number_of_methods_that_is_five_percent.to_f
+      total_for_five_percent =
+        methods[0...number_of_methods_that_is_five_percent].inject(0) {|total, method| total += method[:score] }
+      if number_of_methods_that_is_five_percent == 0
+        0.0
+      else
+        total_for_five_percent / number_of_methods_that_is_five_percent.to_f
+      end
     end
     
   end

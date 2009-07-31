@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe RoodiGrapher do 
   before :each do
-    @roodi_grapher = MetricFu::RoodiGrapher.new
+    @roodi_grapher = MetricFu::RoodiGchartGrapher.new
     MetricFu.configuration
   end
   
@@ -21,7 +21,7 @@ describe RoodiGrapher do
   describe "responding to #get_metrics" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "20030102"
+      @date = "1/2"
     end
     
     it "should push 13 to roodi_count" do

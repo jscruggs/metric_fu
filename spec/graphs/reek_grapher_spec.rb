@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe ReekGrapher do 
   before :each do
-    @reek_grapher = MetricFu::ReekGrapher.new
+    @reek_grapher = MetricFu::ReekGchartGrapher.new
     MetricFu.configuration
   end
   
@@ -21,7 +21,7 @@ describe ReekGrapher do
   describe "responding to #get_metrics" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "20030102"
+      @date = "1/2"
     end
     
     it "should set a hash of code smells to reek_count" do
