@@ -3,7 +3,7 @@
 <p><a href='http://ruby.sadi.st/Flay.html'>Flay</a> analyzes ruby code for structural similarities.</p>
 
 <% graph_name = 'flay' %>
-<% if File.exist?(File.join(MetricFu.output_directory, "#{graph_name}.png")) %>
+<% if MetricFu.configuration.graph_engine == :gchart %>
 <img src="<%= graph_name %>.png?<%= Time.now.to_i %>" />
 <% else %>
 <canvas id="graph"></canvas>

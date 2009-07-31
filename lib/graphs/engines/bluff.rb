@@ -2,14 +2,20 @@ require 'activesupport'
 
 module MetricFu
   class Grapher
-    BLUFF_GRAPH_SIZE = "1000x400"
+    BLUFF_GRAPH_SIZE = "1000x600"
+    BLUFF_DEFAULT_OPTIONS = <<-EOS
+      var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
+      g.theme_37signals();
+      g.title_font_size = "24px"
+      g.legend_font_size = "12px"
+      g.marker_font_size = "10px"
+    EOS
   end
   
   class FlayBluffGrapher < FlayGrapher
     def graph!
       content = <<-EOS
-        var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
-        g.theme_pastel();
+        #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Flay: duplication';
         g.data('flay', [#{@flay_score.join(',')}]);
         g.labels = #{@labels.to_json};
@@ -22,8 +28,7 @@ module MetricFu
   class FlogBluffGrapher < FlogGrapher
     def graph!
       content = <<-EOS
-        var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
-        g.theme_pastel();
+        #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Flog: code complexity';
         g.data('average', [#{@flog_average.join(',')}]);
         g.data('top 5% average', [#{@top_five_percent_average.join(',')}])
@@ -37,8 +42,7 @@ module MetricFu
   class RcovBluffGrapher < RcovGrapher
     def graph!
       content = <<-EOS
-        var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
-        g.theme_pastel();
+        #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Rcov: code coverage';
         g.data('rcov', [#{@rcov_percent.join(',')}]);
         g.labels = #{@labels.to_json};
@@ -56,8 +60,7 @@ module MetricFu
         data += "g.data('#{name}', [#{@reek_count[name].join(',')}])\n"
       end
       content = <<-EOS
-        var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
-        g.theme_pastel();
+        #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Reek: code smells';
         #{data}
         g.labels = #{@labels.to_json};
@@ -70,8 +73,7 @@ module MetricFu
   class RoodiBluffGrapher < RoodiGrapher
     def graph!
       content = <<-EOS
-        var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
-        g.theme_pastel();
+        #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Roodi: design problems';
         g.data('roodi', [#{@roodi_count.join(',')}]);
         g.labels = #{@labels.to_json};
