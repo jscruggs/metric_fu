@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe RcovGrapher do 
   before :each do
-    @rcov_grapher = MetricFu::RcovGchartGrapher.new
+    @rcov_grapher = MetricFu::RcovGrapher.new
     MetricFu.configuration
   end
   
@@ -32,13 +32,6 @@ describe RcovGrapher do
     it "should update labels with the date" do
       @rcov_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @rcov_grapher.get_metrics(@metrics, @date)
-    end
-  end
-  
-  describe "responding to #graph!" do
-    it "should write rcov.png" do
-      @rcov_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'rcov.png')) }.should_not raise_error
     end
   end
 end

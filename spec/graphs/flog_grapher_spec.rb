@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu::FlogGrapher do
   before :each do
-    @flog_grapher = MetricFu::FlogGchartGrapher.new
+    @flog_grapher = MetricFu::FlogGrapher.new
     MetricFu.configuration
   end
   
@@ -42,11 +42,4 @@ describe MetricFu::FlogGrapher do
       @flog_grapher.get_metrics(@metrics, @date)
     end
   end
-  
-  describe "responding to #graph!" do
-    it "should write flog.png" do
-      @flog_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'flog.png')) }.should_not raise_error
-    end
-  end  
 end

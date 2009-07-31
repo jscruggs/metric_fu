@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe RoodiGrapher do 
   before :each do
-    @roodi_grapher = MetricFu::RoodiGchartGrapher.new
+    @roodi_grapher = MetricFu::RoodiGrapher.new
     MetricFu.configuration
   end
   
@@ -32,13 +32,6 @@ describe RoodiGrapher do
     it "should update labels with the date" do
       @roodi_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @roodi_grapher.get_metrics(@metrics, @date)
-    end
-  end
-  
-  describe "responding to #graph!" do
-    it "should write rcov.png" do
-      @roodi_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'roodi.png')) }.should_not raise_error
     end
   end
 end

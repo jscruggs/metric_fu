@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe FlayGrapher do 
   before :each do
-    @flay_grapher = MetricFu::FlayGchartGrapher.new
+    @flay_grapher = MetricFu::FlayGrapher.new
     MetricFu.configuration
   end
   
@@ -32,13 +32,6 @@ describe FlayGrapher do
     it "should update labels with the date" do
       @flay_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @flay_grapher.get_metrics(@metrics, @date)
-    end
-  end
-  
-  describe "responding to #graph!" do
-    it "should write flay.png" do
-      @flay_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'flay.png')) }.should_not raise_error
     end
   end
 end

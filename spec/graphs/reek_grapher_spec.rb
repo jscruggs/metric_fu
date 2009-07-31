@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe ReekGrapher do 
   before :each do
-    @reek_grapher = MetricFu::ReekGchartGrapher.new
+    @reek_grapher = MetricFu::ReekGrapher.new
     MetricFu.configuration
   end
   
@@ -41,13 +41,6 @@ describe ReekGrapher do
     it "should update labels with the date" do
       @reek_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @reek_grapher.get_metrics(@metrics, @date)
-    end
-  end
-  
-  describe "responding to #graph!" do
-    it "should write reek.png" do
-      @reek_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'reek.png')) }.should_not raise_error
     end
   end
 end
