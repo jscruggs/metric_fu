@@ -132,19 +132,7 @@ module MetricFu
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
                                    
-      @graph_engine = AVAILABLE_GRAPH_ENGINES.first
-      @graph_theme = { :colors => %w(orange purple green white red blue pink yellow),
-                       :marker_color => 'blue',
-                       :background_colors => %w(white white)}
-      
-      relative_font_path = [File.dirname(__FILE__), '..', '..', 'vendor', '_fonts', 'monaco.ttf']
-      @graph_font = File.expand_path(File.join(relative_font_path))
-      @graph_size = "700x400"
-      @graph_title_font_size = 12
-      @graph_legend_box_size = 12
-      @graph_legend_font_size = 10
-      @graph_marker_font_size = 10
-      
+      @graph_engine = :bluff # can be :bluff or :gchart
     end
 
     # Perform a simple check to try and guess if we're running

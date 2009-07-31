@@ -27,7 +27,5 @@ Dir[File.join(generator_dir, '*.rb')].each {|l| require l }
 Dir[File.join(template_dir, 'standard/*.rb')].each {|l| require l}
 Dir[File.join(template_dir, 'awesome/*.rb')].each {|l| require l}
 require graph_dir + "/grapher"
-Dir[File.join(graph_dir, '*.rb')].each {|l| p l; require l}
-
-# load the graphing files for the specific graphing engine specified in the configuration
-require File.join(graph_dir, 'engines', MetricFu.configuration.graph_engine.to_s.downcase)
+Dir[File.join(graph_dir, '*.rb')].each {|l| require l}
+Dir[File.join(graph_dir, 'engines', '*.rb')].each {|l| require l}

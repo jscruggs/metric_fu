@@ -139,8 +139,7 @@ module MetricFu
     def cycle(first_value, second_value, iteration)
       return first_value if iteration % 2 == 0
       return second_value
-    end      
-    
+    end
 
   end
 end

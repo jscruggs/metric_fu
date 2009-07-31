@@ -1,8 +1,16 @@
+require 'ftools'
+
 class AwesomeTemplate < MetricFu::Template
 
   def write
     # Getting rid of the crap before and after the project name from integrity
     @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
+
+    # Copy Bluff javascripts to output directory
+    Dir[File.join(this_directory, '..', 'javascripts', '*')].each do |f|
+      puts "Copying #{f} to #{File.join(MetricFu.output_directory, File.basename(f))}"
+      File.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
+    end
 
     report.each_pair do |section, contents|
       if template_exists?(section)
