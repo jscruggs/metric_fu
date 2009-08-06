@@ -7,6 +7,7 @@ module MetricFu
     
     NUMBER_OF_TICKS = 6
     def determine_y_axis_scale(values)
+      values.collect! {|val| val || 0.0 }
       if values.empty?
         @max_value = 10
         @yaxis = [0, 2, 4, 6, 8, 10]
