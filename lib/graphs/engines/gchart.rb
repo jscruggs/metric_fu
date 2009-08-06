@@ -14,7 +14,7 @@ module MetricFu
         @max_value = values.max + Integer(0.1 * values.max)
         portion_size = (@max_value / (NUMBER_OF_TICKS - 1).to_f).ceil
         @yaxis = []
-        NUMBER_OF_TICKS.times.each {|n| @yaxis << Integer(portion_size * n) }
+        NUMBER_OF_TICKS.times {|n| @yaxis << Integer(portion_size * n) }
         @max_value = @yaxis.last
       end
     end
