@@ -1,5 +1,3 @@
-require 'gchart'
-
 module MetricFu
   module GchartGrapher
     COLORS = %w{009999 FF7400 A60000 008500 E6399B 344AD7 00B860 D5CCB9}    
@@ -23,6 +21,14 @@ module MetricFu
   
   class Grapher
     include MetricFu::GchartGrapher
+    
+    def self.require_graphing_gem
+      require 'gchart'
+    rescue LoadError
+      puts "#"*99 + "\n" +
+           "If you want to use google charts for graphing, you'll need to install the googlecharts rubygem." +
+           "\n" + "#"*99
+    end
   end
 
   class FlayGchartGrapher < FlayGrapher
@@ -57,7 +63,7 @@ module MetricFu
         :filename => File.join(MetricFu.output_directory, 'flog.png'))
     end
   end
-
+  
   class RcovGchartGrapher < RcovGrapher
     def graph!
       determine_y_axis_scale(self.rcov_percent)
