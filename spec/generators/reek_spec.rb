@@ -58,3 +58,69 @@ NewlineController#some_method calls current_user.<< "new line\n" multiple times 
   end
   
 end
+
+describe Reek do
+  before :each do
+    @reek = MetricFu::Reek.new
+    @lines11 = <<-HERE
+"app/controllers/activity_reports_controller.rb" -- 4 warnings:
+ActivityReportsController#authorize_user calls current_user.primary_site_ids multiple times (Duplication)
+ActivityReportsController#authorize_user calls params[id] multiple times (Duplication)
+ActivityReportsController#authorize_user calls params[primary_site_id] multiple times (Duplication)
+ActivityReportsController#authorize_user has approx 6 statements (Long Method)
+
+"app/controllers/application.rb" -- 1 warnings:
+ApplicationController#start_background_task/block/block is nested (Nested Iterators)
+
+"app/controllers/link_targets_controller.rb" -- 1 warnings:
+LinkTargetsController#authorize_user calls current_user.role multiple times (Duplication)
+
+"app/controllers/newline_controller.rb" -- 1 warnings:
+NewlineController#some_method calls current_user.<< "new line\n" multiple times (Duplication)
+      HERE
+    @lines12 = <<-HERE
+app/controllers/activity_reports_controller.rb -- 4 warnings (+3 masked):
+  ActivityReportsController#authorize_user calls current_user.primary_site_ids multiple times (Duplication)
+  ActivityReportsController#authorize_user calls params[id] multiple times (Duplication)
+  ActivityReportsController#authorize_user calls params[primary_site_id] multiple times (Duplication)
+  ActivityReportsController#authorize_user has approx 6 statements (Long Method)
+app/controllers/application.rb -- 1 warnings:
+  ApplicationController#start_background_task/block/block is nested (Nested Iterators)
+app/controllers/link_targets_controller.rb -- 1 warnings (+1 masked):
+  LinkTargetsController#authorize_user calls current_user.role multiple times (Duplication)
+app/controllers/newline_controller.rb -- 1 warnings:
+  NewlineController#some_method calls current_user.<< "new line\n" multiple times (Duplication)
+      HERE
+  end
+
+  context 'with Reek 1.1 output format' do
+    it 'reports 1.1 style when the output is empty' do
+      @reek.instance_variable_set(:@output, "")
+      @reek.should_not be_reek_12
+    end
+    it 'detects 1.1 format output' do
+      @reek.instance_variable_set(:@output, @lines11)
+      @reek.should_not be_reek_12
+    end
+
+    it 'massages empty output to be unchanged' do
+      @reek.instance_variable_set(:@output, "")
+      @reek.massage_for_reek_12.should be_empty
+    end
+  end
+
+  context 'with Reek 1.2 output format' do
+    before :each do
+      @reek = MetricFu::Reek.new
+    end
+    it 'detects 1.2 format output' do
+      @reek.instance_variable_set(:@output, @lines12)
+      @reek.should be_reek_12
+    end
+
+    it 'correctly massages 1.2 output' do
+      @reek.instance_variable_set(:@output, @lines12)
+      @reek.massage_for_reek_12.should == @lines11
+    end
+  end
+end
