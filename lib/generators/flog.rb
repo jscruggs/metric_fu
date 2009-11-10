@@ -1,3 +1,5 @@
+require 'pathname'
+
 module MetricFu
 
   class Flog < Generator
@@ -19,7 +21,8 @@ module MetricFu
           output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
           mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
           if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
-            `flog -ad #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+            editted_filename = Pathname.new(filename).basename.to_s
+            `flog -ad #{filename} > #{metric_dir}/#{editted_filename.split('.')[0]}.txt`
           end
         end
       end
