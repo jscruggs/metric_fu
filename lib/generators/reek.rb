@@ -10,7 +10,8 @@ module MetricFu
 
     def emit
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      @output = `reek #{files_to_reek.join(" ")}`
+      files = remove_excluded_files(files_to_reek.flatten)
+      @output = `reek #{files.join(" ")}`
     end
 
     def analyze

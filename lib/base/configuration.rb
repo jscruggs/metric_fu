@@ -130,6 +130,8 @@ module MetricFu
                                    "--profile",
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
+
+      @file_globs_to_ignore = []
                                    
       @graph_theme = { :colors => %w(orange purple green white red blue pink yellow),
                        :marker_color => 'blue',

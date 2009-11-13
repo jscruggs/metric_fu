@@ -17,12 +17,15 @@ module MetricFu
     def emit
       metric_dir = MetricFu::Flog.metric_directory
       MetricFu.flog[:dirs_to_flog].each do |directory|
-        Dir.glob("#{directory}/**/*.rb").each do |filename|
+        files = Dir.glob("#{directory}/**/*.rb")
+        files = remove_excluded_files(files)
+        files.each do |filename|
           output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
           mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
           if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
-            editted_filename = Pathname.new(filename).basename.to_s
-            `flog -ad #{filename} > #{metric_dir}/#{editted_filename.split('.')[0]}.txt`
+            pathname = Pathname.new(filename)
+            editted_filename = (pathname.dirname + pathname.basename(pathname.extname)).to_s + ".txt"
+            `flog -ad #{filename} > #{metric_dir}/#{editted_filename}`
           end
         end
       end

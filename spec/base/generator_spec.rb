@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu::Generator do
 
+  include Construct::Helpers
+
   MetricFu::Configuration.run do |config|
   end
 
@@ -176,6 +178,67 @@ describe MetricFu::Generator do
       ConcreteClass.should_receive(:verify_dependencies!).and_return(true)
       ConcreteClass.new()
     end
+  end
+
+  describe "path filter" do
+    
+    context "given a list of paths" do
+
+      before do
+        @paths = %w(lib/fake/fake.rb
+                  lib/this/dan_file.rb
+                  lib/this/ben_file.rb
+                  lib/this/avdi_file.rb
+                  basic.rb
+                  lib/bad/one.rb
+                  lib/bad/two.rb
+                  lib/bad/three.rb
+                  lib/worse/four.rb)
+        @container = create_construct 
+        @paths.each do |path|
+          @container.file(path)
+        end
+        @old_dir = Dir.pwd
+        Dir.chdir(@container)
+      end
+      
+      after do
+        Dir.chdir(@old_dir)
+        @container.destroy!
+      end
+
+      it "should return entire pathlist given no exclude pattens" do
+        files = @concrete_class.remove_excluded_files(@paths)
+        files.should be == @paths
+      end
+
+      it "should filter filename at root level" do
+        files = @concrete_class.remove_excluded_files(@paths, ['basic.rb'])
+        files.should_not include('basic.rb')
+      end
+
+      it "should remove files that are two levels deep" do
+        files = @concrete_class.remove_excluded_files(@paths, ['**/fake.rb'])
+        files.should_not include('lib/fake/fake.rb')
+      end
+
+      it "should remove files from an excluded directory" do
+        files = @concrete_class.remove_excluded_files(@paths, ['lib/bad/**'])
+        files.should_not include('lib/bad/one.rb')
+        files.should_not include('lib/bad/two.rb')
+        files.should_not include('lib/bad/three.rb')
+      end
+
+      it "should support shell alternation globs" do
+        files = @concrete_class.remove_excluded_files(@paths, ['lib/this/{ben,dan}_file.rb'])
+        files.should_not include('lib/this/dan_file.rb')
+        files.should_not include('lib/this/ben_file.rb')
+        files.should include('lib/this/avdi_file.rb')
+      end
+
+    end
+
+
   end
   
 end

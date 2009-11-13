@@ -9,7 +9,8 @@ module MetricFu
 
     def emit
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      @output = `flay #{files_to_flay.join(" ")}`
+      files = remove_excluded_files(files_to_flay.flatten)
+      @output = `flay #{files.join(" ")}`
     end
 
     def analyze
