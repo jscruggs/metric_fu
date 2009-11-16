@@ -22,8 +22,8 @@ module MetricFu
         files.each do |filename|
           output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
           mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
-          if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
-            pathname = Pathname.new(filename)
+          pathname         = Pathname.new(filename)
+          if MetricFu::MD5Tracker.file_changed?(filename, metric_dir) 
             editted_filename = (pathname.dirname + pathname.basename(pathname.extname)).to_s + ".txt"
             `flog -ad #{filename} > #{metric_dir}/#{editted_filename}`
           end
@@ -60,7 +60,10 @@ module MetricFu
         page = parse(open(path, "r") { |f| f.read })
         if page
           page.path = path.sub(metric_directory, "").sub(".txt", ".rb") 
-          @pages << page
+          #don't include old cached flog results for files that no longer exist.
+          if is_file_current?(page.path.to_s)
+            @pages << page
+          end
         end
       end
     end
@@ -75,7 +78,20 @@ module MetricFu
     end
     
     private
-    
+
+    def is_file_current?(pathname)
+      pathname = pathname.gsub(/^\//,'')
+      exists = false
+      MetricFu.flog[:dirs_to_flog].each do |directory|
+        files = Dir.glob("#{directory}/**/*.rb")
+        if files.include?(pathname)
+          exists = true
+          break
+        end
+      end
+      exists
+    end
+
     def average_score(total_flog_score, number_of_methods)
       return 0 if total_flog_score == 0
       round_to_tenths(total_flog_score/number_of_methods)
