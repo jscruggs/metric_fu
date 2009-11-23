@@ -17,6 +17,7 @@ module MetricFu
     def emit
       metric_dir = MetricFu::Flog.metric_directory
       MetricFu.flog[:dirs_to_flog].each do |directory|
+        directory = "." if directory=='./'
         files = Dir.glob("#{directory}/**/*.rb")
         files = remove_excluded_files(files)
         files.each do |filename|
@@ -24,8 +25,9 @@ module MetricFu
           mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
           pathname         = Pathname.new(filename)
           if MetricFu::MD5Tracker.file_changed?(filename, metric_dir) 
-            editted_filename = (pathname.dirname + pathname.basename(pathname.extname)).to_s + ".txt"
-            `flog -ad #{filename} > #{metric_dir}/#{editted_filename}`
+		base_name = pathname.basename.to_s.gsub(/\..*$/,'.txt')
+                editted_filename = File.join(pathname.dirname.to_s, base_name)
+         `flog -ad #{filename} > #{metric_dir}/#{editted_filename}`
           end
         end
       end
@@ -61,7 +63,7 @@ module MetricFu
         if page
           page.path = path.sub(metric_directory, "").sub(".txt", ".rb") 
           #don't include old cached flog results for files that no longer exist.
-          if is_file_current?(page.path.to_s)
+	  if is_file_current?(page.path.to_s)
             @pages << page
           end
         end
@@ -80,11 +82,14 @@ module MetricFu
     private
 
     def is_file_current?(pathname)
-      pathname = pathname.gsub(/^\//,'')
+      pathname        = pathname.gsub(/^\//,'')
+      local_pathname  = "./#{pathname}"
       exists = false
+
       MetricFu.flog[:dirs_to_flog].each do |directory|
+      	directory = "." if directory=='./'
         files = Dir.glob("#{directory}/**/*.rb")
-        if files.include?(pathname)
+        if files.include?(pathname) || files.include?(local_pathname)
           exists = true
           break
         end
