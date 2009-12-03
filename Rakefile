@@ -19,7 +19,7 @@ MetricFu::Configuration.run do |config|
   config.metrics  = [:churn]
   config.graphs   = []
   
-  #config.churn    = { :start_date => "3 months ago", :minimum_churn_count => 10}
+  config.churn    = { :start_date => "6 months ago", :minimum_churn_count => 10}
 end
 
 task :default => [:"metrics:all"]

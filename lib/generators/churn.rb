@@ -1,6 +1,7 @@
 require 'chronic'
 require 'sexp_processor'
 require 'ruby_parser'
+require 'json'
 
 module MetricFu
   
@@ -68,50 +69,82 @@ end
     
     def emit
       @changes       = parse_log_for_changes.reject {|file, change_count| change_count < @minimum_churn_count}
-      @changed_files = parse_logs_for_updated_files  
-      
+      @revisions     = parse_log_for_revision_changes  
     end 
 
     def analyze
-      @changes         = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
-      @changes         = @changes.map {|change| {:file_path => change[0], :times_changed => change[1] }}
-      @changed_classes = @changed_files.map { |change| get_classes(change) } 
-      @changed_methods = @changed_files.map { |change| get_methods(change) } 
+      @changes          = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
+      @changes          = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
+      @revision_changes = {}
+      @revisions.each do |revision|
+        if revision == @revisions.first
+          #can't iterate through all the changes and tally them up as it only has the current files not the files at the time of the revision
+          #parsing requires the files
+          changed_files   = parse_logs_for_updated_files(revision, @revisions)
+          changed_classes = changed_files.map { |change| get_classes(change) } 
+          changed_methods = changed_files.map { |change| get_methods(change) } 
+          changed_files   = changed_files.map { |file, lines| file }
+        else
+          #load revision data from scratch folder if it exists
+          filename = "tmp/#{revision}.json"
+          if File.exists?(filename)
+            json_data = File.read(filename)
+            data      = JSON.parse(json_data)
+            changed_files   = data[:churn][:files]
+            changed_classes = data[:churn][:classes]
+            changed_methods = data[:churn][:methods]
+          end
+        end
+        @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
+      end
     end
 
     def to_h
       hash = {:churn => {:changes => @changes}}
-      hash[:churn][:changed_files] = @changed_files if @changed_files
-      hash[:churn][:changed_classes] = @changed_classes if @changed_classes
-      hash[:churn][:changed_methods] = @changed_methods if @changed_methods
-      #puts hash[:churn][:changed_files]
-      #puts hash[:churn][:changed_classes]
-      #puts hash[:churn][:changed_methods]
+      #detail the most recent changes made this revision
+      if @revision_changes[@revisions.first]
+        changes = @revision_changes[@revisions.first]
+        hash[:churn][:changed_files]   = changes[:files]
+        hash[:churn][:changed_classes] = changes[:classes]
+        hash[:churn][:changed_methods] = changes[:methods]
+      end
       puts hash[:churn].inspect
+      #TODO crappy place to do this but save hash to revision file
+      store_hash(hash)
       hash
     end
 
     private
 
+    def store_hash(hash)
+      revision = @revisions.first
+      File.open("tmp/#{revision}.json", 'w') {|f| f.write(hash.to_json) }
+    end
+
     #TODO get_classes and get_methods are to much dup. Also they both process everything so we do it twice, bad!
     def get_classes(file)
-      breakdown = ParseBreakDown.new
-      breakdown.get_info(file.first)
-      klass_collection = breakdown.klasses_collection
-      changed_klasses  = []
-      changes = file.last
-      klass_collection.each_pair do |klass, klass_lines|
-        klass_lines = klass_lines[0].to_a
-        changes.each do |change_range|
-          klass_lines.each do |line|
-            changed_klasses << klass if change_range.include?(line) && !changed_klasses.include?(klass)
+      begin
+        breakdown = ParseBreakDown.new
+        breakdown.get_info(file.first)
+        klass_collection = breakdown.klasses_collection
+        changed_klasses  = []
+        changes = file.last
+        klass_collection.each_pair do |klass, klass_lines|
+          klass_lines = klass_lines[0].to_a
+          changes.each do |change_range|
+            klass_lines.each do |line|
+              changed_klasses << klass if change_range.include?(line) && !changed_klasses.include?(klass)
+            end
           end
         end
+        changed_klasses
+      rescue
+        []
       end
-      changed_klasses
     end
 
     def get_methods(file)
+      begin
       breakdown = ParseBreakDown.new
       breakdown.get_info(file.first)
       method_collection = breakdown.methods_collection
@@ -125,12 +158,15 @@ end
           end
         end
       end
-      changed_methods
+        changed_methods
+      rescue  
+        []
+      end
     end
   
     def parse_log_for_changes
       changes = {}
-
+      
       logs = @source_control.get_logs
       logs.each do |line|
         changes[line] ? changes[line] += 1 : changes[line] = 1
@@ -138,12 +174,16 @@ end
       changes
     end
 
-   def parse_logs_for_updated_files
-     updated     = {}
-     recent_file = nil
+    def parse_log_for_revision_changes
+      @source_control.get_revisions
+    end
+    
+    def parse_logs_for_updated_files(revision, revisions)
+      updated     = {}
+      recent_file = nil
 
      #TODO look up how to only call a method if it exists @source_control.supports(:parse_logs_for_updated_files) else return empty
-     logs = @source_control.get_updated_files_from_log
+     logs = @source_control.get_updated_files_from_log(revision, revisions)
      logs.each do |line|
        if line.match(/^---/) || line.match(/^\+\+\+/)
          line = line.gsub(/^--- /,'').gsub(/^\+\+\+ /,'').gsub(/^a\//,'').gsub(/^b\//,'')
@@ -192,9 +232,21 @@ end
         `git log #{date_range} --name-only --pretty=format:`.split(/\n/).reject{|line| line == ""}
       end
 
-      def get_updated_files_from_log
-        `git diff --unified=0`.split(/\n/).select{|line| line.match(/^@@/) || line.match(/^---/) || line.match(/^\+\+\+/) }
-        #`git log --name-only --pretty=format: -1`.split(/\n/).reject{|line| line == ""}
+      def get_revisions
+        `git log #{date_range} --pretty=format:"%H"`.split(/\n/).reject{|line| line == ""}
+      end
+
+      def get_updated_files_from_log(revision, revisions)
+        current_index = revisions.index(revision)
+        previous_index = current_index+1
+        previous_revision = revisions[previous_index] unless revisions.length < previous_index
+        #require 'ruby-debug'; debugger
+        if revision && previous_revision
+          puts "git diff #{revision} #{previous_revision} --unified=0"
+          `git diff #{revision} #{previous_revision} --unified=0`.split(/\n/).select{|line| line.match(/^@@/) || line.match(/^---/) || line.match(/^\+\+\+/) }
+        else
+          []
+        end
       end
 
       private
