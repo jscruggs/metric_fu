@@ -90,9 +90,10 @@ end
           if File.exists?(filename)
             json_data = File.read(filename)
             data      = JSON.parse(json_data)
-            changed_files   = data[:churn][:files]
-            changed_classes = data[:churn][:classes]
-            changed_methods = data[:churn][:methods]
+#            require 'ruby-debug'; debugger
+            changed_files   = data['churn']['files']
+            changed_classes = data['churn']['classes']
+            changed_methods = data['churn']['methods']
           end
         end
         @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
