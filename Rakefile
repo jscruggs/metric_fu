@@ -11,8 +11,15 @@ Spec::Rake::SpecTask.new(:spec) do |t|
    t.rcov_dir = File.join(File.dirname(__FILE__), "tmp")
 end
 
+#MetricFu::Configuration.run do |config|
+#  config.template_class = AwesomeTemplate
+#end
+
 MetricFu::Configuration.run do |config|
-  config.template_class = AwesomeTemplate
+  config.metrics  = [:churn]
+  config.graphs   = []
+  
+  #config.churn    = { :start_date => "3 months ago", :minimum_churn_count => 10}
 end
 
 task :default => [:"metrics:all"]
