@@ -113,16 +113,7 @@ module MetricFu
           #can't iterate through all the changes and tally them up
           #it only has the current files not the files at the time of the revision
           #parsing requires the files
-          changed_files   = parse_logs_for_updated_files(revision, @revisions)
-          
-          changed_classes = []
-          changed_methods = []
-          changed_files.each do |file|
-            classes, methods = get_changes(file)
-            changed_classes += classes
-            changed_methods += methods
-          end
-          changed_files   = changed_files.map { |file, lines| file }
+          changed_files, changed_classes, changed_methods = calculate_revision_data(revision)
         else
           changed_files, changed_classes, changed_methods = load_revision_data(revision)
         end
@@ -131,6 +122,19 @@ module MetricFu
         
         @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
       end
+    end
+
+    def calculate_revision_data(revision)
+      changed_files   = parse_logs_for_updated_files(revision, @revisions)
+      
+      changed_classes = []
+      changed_methods = []
+      changed_files.each do |file|
+        classes, methods = get_changes(file)
+        changed_classes += classes
+        changed_methods += methods
+      end
+      changed_files   = changed_files.map { |file, lines| file }
     end
 
     def load_revision_data(revision)
