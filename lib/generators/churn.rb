@@ -27,8 +27,8 @@ module MetricFu
       start_line     = exp.line
       last_line      = exp.last.line
       @current_class = name
-      @klasses_collection[name] = [] unless @klasses_collection.include?(name)
-      @klasses_collection[name] << (start_line..last_line)
+      @klasses_collection[name.to_s] = [] unless @klasses_collection.include?(name)
+      @klasses_collection[name.to_s] << (start_line..last_line)
       analyze_list exp
       s()
     end
@@ -129,7 +129,6 @@ module MetricFu
         end
         calculate_changes!(changed_methods, @method_changes) if changed_methods
         puts changed_classes.inspect
-        #require 'ruby-debug'; debugger
         calculate_changes!(changed_classes, @class_changes) if changed_classes
         
         @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
@@ -271,7 +270,6 @@ module MetricFu
         current_index = revisions.index(revision)
         previous_index = current_index+1
         previous_revision = revisions[previous_index] unless revisions.length < previous_index
-        #require 'ruby-debug'; debugger
         if revision && previous_revision
           puts "git diff #{revision} #{previous_revision} --unified=0"
           `git diff #{revision} #{previous_revision} --unified=0`.split(/\n/).select{|line| line.match(/^@@/) || line.match(/^---/) || line.match(/^\+\+\+/) }
