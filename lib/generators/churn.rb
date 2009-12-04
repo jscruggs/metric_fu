@@ -84,8 +84,8 @@ module MetricFu
           #can't iterate through all the changes and tally them up as it only has the current files not the files at the time of the revision
           #parsing requires the files
           changed_files   = parse_logs_for_updated_files(revision, @revisions)
-          changed_classes = changed_files.map { |change| get_classes(change) } 
-          changed_methods = changed_files.map { |change| get_methods(change) } 
+          changed_classes = changed_files.map { |change| get_changes(change, :classes) } 
+          changed_methods = changed_files.map { |change| get_changes(change, :methods) } 
           changed_files   = changed_files.map { |file, lines| file }
         else
           #load revision data from scratch folder if it exists
@@ -144,45 +144,28 @@ module MetricFu
       File.open("tmp/#{revision}.json", 'w') {|f| f.write(hash.to_json) }
     end
 
-    #TODO get_classes and get_methods are to much dup. Also they both process everything so we do it twice, bad!
-    def get_classes(file)
+#process twice if called twice bad
+    def get_changes(file, type)
       begin
         breakdown = ParseBreakDown.new
         breakdown.get_info(file.first)
-        klass_collection = breakdown.klasses_collection
-        changed_klasses  = []
+        item_collection = if type == :classes
+                            breakdown.klasses_collection
+                          elsif type == :methods
+                            breakdown.methods_collection
+                          end
+        changed_items  = []
         changes = file.last
-        klass_collection.each_pair do |klass, klass_lines|
-          klass_lines = klass_lines[0].to_a
+        item_collection.each_pair do |item, item_lines|
+          item_lines = item_lines[0].to_a
           changes.each do |change_range|
-            klass_lines.each do |line|
-              changed_klasses << klass if change_range.include?(line) && !changed_klasses.include?(klass)
+            item_lines.each do |line|
+              changed_items << item if change_range.include?(line) && !changed_items.include?(item)
             end
           end
         end
-        changed_klasses
+        changed_items
       rescue
-        []
-      end
-    end
-
-    def get_methods(file)
-      begin
-      breakdown = ParseBreakDown.new
-      breakdown.get_info(file.first)
-      method_collection = breakdown.methods_collection
-      changed_methods   = []
-      changes = file.last
-      method_collection.each_pair do |method, method_lines|
-        method_lines = method_lines[0].to_a
-        changes.each do |change_range|
-          method_lines.each do |line|
-            changed_methods << method if change_range.include?(line) && !changed_methods.include?(method)
-          end
-        end
-      end
-        changed_methods
-      rescue  
         []
       end
     end
