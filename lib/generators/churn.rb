@@ -47,7 +47,7 @@ module MetricFu
       return s(:defn, name, process(exp.shift), process(exp.shift))
     end
 
-end
+  end
 
   class Churn < Generator
 
@@ -72,10 +72,13 @@ end
       @revisions     = parse_log_for_revision_changes  
     end 
 
+    #TODO DONT WE NEED ALL THE METHODS AND CLASSES TO INCLUDE THEIR FILE / CLASS / METHOD Data? so we have a full location object
     def analyze
       @changes          = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
       @changes          = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
       @revision_changes = {}
+      @method_changes   = {}
+      @class_changes   = {}
       @revisions.each do |revision|
         if revision == @revisions.first
           #can't iterate through all the changes and tally them up as it only has the current files not the files at the time of the revision
@@ -90,14 +93,22 @@ end
           if File.exists?(filename)
             json_data = File.read(filename)
             data      = JSON.parse(json_data)
-#            require 'ruby-debug'; debugger
             changed_files   = data['churn']['files']
             changed_classes = data['churn']['classes']
             changed_methods = data['churn']['methods']
           end
         end
+
+        @method_changes = calculate_changes(changed_methods, @method_changes)
+        @class_changes  = calculate_changes(changed_classes, @class_changes)
+
         @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
       end
+
+      @method_changes.to_a.sort {|x,y| y[1] <=> x[1]}
+      @method_changes          = @method_changes.map {|method, times_changed| {:method => method, :times_changed => times_changed }}
+      @class_changes.to_a.sort {|x,y| y[1] <=> x[1]}
+      @class_changes          = @class_changes.map {|klass, times_changed| {:klass => klass, :times_changed => times_changed }}
     end
 
     def to_h
@@ -108,6 +119,8 @@ end
         hash[:churn][:changed_files]   = changes[:files]
         hash[:churn][:changed_classes] = changes[:classes]
         hash[:churn][:changed_methods] = changes[:methods]
+        hash[:churn][:method_churn]    = @method_changes
+        hash[:churn][:class_churn]     = @class_changes
       end
       puts hash[:churn].inspect
       #TODO crappy place to do this but save hash to revision file
@@ -116,6 +129,15 @@ end
     end
 
     private
+
+    def calculate_changes(changed, total_changes)
+      if changed
+        changed.each do |change|
+          total_changes[change] ? total_changes[change] += 1 : total_changes[change] = 1
+        end
+      end
+      total_changes
+    end
 
     def store_hash(hash)
       revision = @revisions.first
@@ -279,34 +301,6 @@ end
       end
     end
 
-  end
-
-#todo move to its own class
-  #require 'rubygems'
-  require 'ruby_parser'
-
-  class Parser
-    def parse(content, filename)
-      silence_stream(STDERR) do 
-        return silent_parse(content, filename)
-      end
-    end
-    
-    private
-    
-    def silence_stream(stream)
-      old_stream = stream.dup
-      stream.reopen(RUBY_PLATFORM =~ /mswin/ ? 'NUL:' : '/dev/null')
-      stream.sync = true
-      yield
-    ensure
-      stream.reopen(old_stream)
-    end
-    
-    def silent_parse(content, filename)
-      @parser ||= RubyParser.new
-      @parser.parse(content, filename)
-    end
   end
 
 end
