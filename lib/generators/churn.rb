@@ -135,6 +135,7 @@ module MetricFu
         changed_methods += methods
       end
       changed_files   = changed_files.map { |file, lines| file }
+      [changed_files, changed_classes, changed_methods]
     end
 
     def load_revision_data(revision)
