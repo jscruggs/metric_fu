@@ -78,32 +78,9 @@ module MetricFu
       @changes          = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
       @revision_changes = {}
       @method_changes   = {}
-      @class_changes   = {}
-      @revisions.each do |revision|
-        if revision == @revisions.first
-          #can't iterate through all the changes and tally them up as it only has the current files not the files at the time of the revision
-          #parsing requires the files
-          changed_files   = parse_logs_for_updated_files(revision, @revisions)
-          changed_classes = changed_files.map { |change| get_changes(change, :classes) } 
-          changed_methods = changed_files.map { |change| get_changes(change, :methods) } 
-          changed_files   = changed_files.map { |file, lines| file }
-        else
-          #load revision data from scratch folder if it exists
-          filename = "tmp/#{revision}.json"
-          if File.exists?(filename)
-            json_data = File.read(filename)
-            data      = JSON.parse(json_data)
-            changed_files   = data['churn']['files']
-            changed_classes = data['churn']['classes']
-            changed_methods = data['churn']['methods']
-          end
-        end
+      @class_changes    = {}
 
-        @method_changes = calculate_changes(changed_methods, @method_changes)
-        @class_changes  = calculate_changes(changed_classes, @class_changes)
-
-        @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
-      end
+      calculate_revision_changes
 
       @method_changes.to_a.sort {|x,y| y[1] <=> x[1]}
       @method_changes          = @method_changes.map {|method, times_changed| {:method => method, :times_changed => times_changed }}
@@ -123,17 +100,60 @@ module MetricFu
         hash[:churn][:class_churn]     = @class_changes
       end
       puts hash[:churn].inspect
-      #TODO crappy place to do this but save hash to revision file
+      #TODO crappy place to do this but save hash to revision file but while entirely under metric_fu only choice
       store_hash(hash)
       hash
     end
 
     private
 
-    def calculate_changes(changed, total_changes)
+    def calculate_revision_changes
+      puts @revisions.length
+      @revisions.each do |revision|
+        if revision == @revisions.first
+          #can't iterate through all the changes and tally them up
+          #it only has the current files not the files at the time of the revision
+          #parsing requires the files
+          changed_files   = parse_logs_for_updated_files(revision, @revisions)
+          
+          changed_classes = []
+          changed_methods = []
+          changed_files.each do |file|
+            classes, methods = get_changes(file)
+            changed_classes += classes
+            changed_methods += methods
+          end
+          changed_files   = changed_files.map { |file, lines| file }
+        else
+          changed_files, changed_classes, changed_methods = load_revision_data(revision)
+        end
+        calculate_changes!(changed_methods, @method_changes) if changed_methods
+        puts changed_classes.inspect
+        #require 'ruby-debug'; debugger
+        calculate_changes!(changed_classes, @class_changes) if changed_classes
+        
+        @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
+      end
+    end
+
+    def load_revision_data(revision)
+      #load revision data from scratch folder if it exists
+      filename = "tmp/#{revision}.json"
+      if File.exists?(filename)
+        json_data = File.read(filename)
+        data      = JSON.parse(json_data)
+        changed_files   = data['churn']['changed_files']
+        changed_classes = data['churn']['changed_classes']
+        changed_methods = data['churn']['changed_methods']
+      end
+      [changed_files, changed_classes, changed_methods]
+    end
+
+    def calculate_changes!(changed, total_changes)
       if changed
         changed.each do |change|
-          total_changes[change] ? total_changes[change] += 1 : total_changes[change] = 1
+          #require 'ruby-debug'; debugger if change==:Churn
+          total_changes.include?(change) ? total_changes[change] = total_changes[change]+1 : total_changes[change] = 1
         end
       end
       total_changes
@@ -144,32 +164,37 @@ module MetricFu
       File.open("tmp/#{revision}.json", 'w') {|f| f.write(hash.to_json) }
     end
 
-#process twice if called twice bad
-    def get_changes(file, type)
+    def get_changes(change)
       begin
         breakdown = ParseBreakDown.new
-        breakdown.get_info(file.first)
-        item_collection = if type == :classes
-                            breakdown.klasses_collection
-                          elsif type == :methods
-                            breakdown.methods_collection
-                          end
-        changed_items  = []
-        changes = file.last
-        item_collection.each_pair do |item, item_lines|
-          item_lines = item_lines[0].to_a
-          changes.each do |change_range|
-            item_lines.each do |line|
-              changed_items << item if change_range.include?(line) && !changed_items.include?(item)
-            end
-          end
-        end
-        changed_items
-      rescue
-        []
+        breakdown.get_info(change.first)
+        changes = change.last
+        classes = changes_for_type(changes, breakdown, :classes)
+        methods = changes_for_type(changes, breakdown, :methods)
+        [classes, methods]
+      rescue => error
+        [[],[]]
       end
     end
-  
+
+    def changes_for_type(changes, breakdown, type)
+      item_collection = if type == :classes
+                          breakdown.klasses_collection
+                        elsif type == :methods
+                          breakdown.methods_collection
+                        end
+      changed_items  = []
+      item_collection.each_pair do |item, item_lines|
+        item_lines = item_lines[0].to_a
+        changes.each do |change_range|
+          item_lines.each do |line|
+            changed_items << item if change_range.include?(line) && !changed_items.include?(item)
+          end
+        end
+      end
+      changed_items
+    end
+    
     def parse_log_for_changes
       changes = {}
       
@@ -188,43 +213,43 @@ module MetricFu
       updated     = {}
       recent_file = nil
 
-     #TODO look up how to only call a method if it exists @source_control.supports(:parse_logs_for_updated_files) else return empty
-     logs = @source_control.get_updated_files_from_log(revision, revisions)
-     logs.each do |line|
-       if line.match(/^---/) || line.match(/^\+\+\+/)
-         line = line.gsub(/^--- /,'').gsub(/^\+\+\+ /,'').gsub(/^a\//,'').gsub(/^b\//,'')
-         unless updated.include?(line)
-           updated[line] = [] 
-         end
-         recent_file = line
-       elsif line.match(/^@@/)
-         #TODO cleanup / refactor
-         #puts "#{recent_file}: #{line}"
-         removed        = line.match(/-[0-9]+/)
-         removed_length = line.match(/-[0-9]+,[0-9]+/)
-         removed        = removed.to_s.gsub(/-/,'')
-         removed_length = removed_length.to_s.gsub(/.*,/,'')
-         added          = line.match(/\+[0-9]+/)
-         added_length   = line.match(/\+[0-9]+,[0-9]+/)
-         added          = added.to_s.gsub(/\+/,'')
-         added_length   = added_length.to_s.gsub(/.*,/,'')
-         removed_range  = if removed_length && removed_length!=''
-                            (removed.to_i..(removed.to_i+removed_length.to_i))
-                          else
-                            (removed.to_i..removed.to_i)
-                          end
-         added_range    = if added_length && added_length!=''
-                            (added.to_i..(added.to_i+added_length.to_i))
-                          else
-                            (added.to_i..added.to_i)
-                          end
-         updated[recent_file] << removed_range
-         updated[recent_file] << added_range
-       else
-         raise "git diff lines that don't match the two patterns aren't expected"
-       end
-     end
-     updated
+      #TODO look up how to only call a method if it exists @source_control.supports(:parse_logs_for_updated_files) else return empty
+      logs = @source_control.get_updated_files_from_log(revision, revisions)
+      logs.each do |line|
+        if line.match(/^---/) || line.match(/^\+\+\+/)
+          line = line.gsub(/^--- /,'').gsub(/^\+\+\+ /,'').gsub(/^a\//,'').gsub(/^b\//,'')
+          unless updated.include?(line)
+            updated[line] = [] 
+          end
+          recent_file = line
+        elsif line.match(/^@@/)
+          #TODO cleanup / refactor
+          #puts "#{recent_file}: #{line}"
+          removed        = line.match(/-[0-9]+/)
+          removed_length = line.match(/-[0-9]+,[0-9]+/)
+          removed        = removed.to_s.gsub(/-/,'')
+          removed_length = removed_length.to_s.gsub(/.*,/,'')
+          added          = line.match(/\+[0-9]+/)
+          added_length   = line.match(/\+[0-9]+,[0-9]+/)
+          added          = added.to_s.gsub(/\+/,'')
+          added_length   = added_length.to_s.gsub(/.*,/,'')
+          removed_range  = if removed_length && removed_length!=''
+                             (removed.to_i..(removed.to_i+removed_length.to_i))
+                           else
+                             (removed.to_i..removed.to_i)
+                           end
+          added_range    = if added_length && added_length!=''
+                             (added.to_i..(added.to_i+added_length.to_i))
+                           else
+                             (added.to_i..added.to_i)
+                           end
+          updated[recent_file] << removed_range
+          updated[recent_file] << added_range
+        else
+          raise "git diff lines that don't match the two patterns aren't expected"
+        end
+      end
+      updated
     end
 
     class SourceControl
