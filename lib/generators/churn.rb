@@ -61,6 +61,9 @@ module MetricFu
         raise "Churning requires a subversion or git repo"
       end
       @minimum_churn_count = MetricFu.churn[:minimum_churn_count] || 5
+      @revision_changes = {}
+      @method_changes   = {}
+      @class_changes    = {}
     end
 
     def self.git?
@@ -76,9 +79,6 @@ module MetricFu
     def analyze
       @changes          = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
       @changes          = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
-      @revision_changes = {}
-      @method_changes   = {}
-      @class_changes    = {}
 
       calculate_revision_changes
 
@@ -108,7 +108,6 @@ module MetricFu
     private
 
     def calculate_revision_changes
-      puts @revisions.length
       @revisions.each do |revision|
         if revision == @revisions.first
           #can't iterate through all the changes and tally them up
@@ -128,7 +127,6 @@ module MetricFu
           changed_files, changed_classes, changed_methods = load_revision_data(revision)
         end
         calculate_changes!(changed_methods, @method_changes) if changed_methods
-        puts changed_classes.inspect
         calculate_changes!(changed_classes, @class_changes) if changed_classes
         
         @revision_changes[revision] = { :files => changed_files, :classes => changed_classes, :methods => changed_methods }
@@ -270,7 +268,6 @@ module MetricFu
         previous_index = current_index+1
         previous_revision = revisions[previous_index] unless revisions.length < previous_index
         if revision && previous_revision
-          puts "git diff #{revision} #{previous_revision} --unified=0"
           `git diff #{revision} #{previous_revision} --unified=0`.split(/\n/).select{|line| line.match(/^@@/) || line.match(/^---/) || line.match(/^\+\+\+/) }
         else
           []
