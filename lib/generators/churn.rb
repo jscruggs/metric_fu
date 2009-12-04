@@ -151,7 +151,6 @@ module MetricFu
     def calculate_changes!(changed, total_changes)
       if changed
         changed.each do |change|
-          #require 'ruby-debug'; debugger if change==:Churn
           total_changes.include?(change) ? total_changes[change] = total_changes[change]+1 : total_changes[change] = 1
         end
       end
