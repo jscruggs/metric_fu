@@ -77,7 +77,7 @@ module MetricFu
 
     def analyze
       @changes = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
-      @changes = @changes.map {|file_path, times_changed| {'file_path' => file_path, 'times_changed' => times_changed }}
+      @changes = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
 
       calculate_revision_changes
 
