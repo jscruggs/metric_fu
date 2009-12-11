@@ -99,7 +99,10 @@ module MetricFu
         hash[:churn][:method_churn]    = @method_changes
         hash[:churn][:class_churn]     = @class_changes
       end
-      puts hash[:churn].inspect
+      #puts hash[:churn].inspect
+      puts hash[:churn][:changed_classes].inspect
+      puts hash[:churn][:changed_methods].inspect
+      puts hash[:churn][:method_churn].inspect
       #TODO crappy place to do this but save hash to revision file but while entirely under metric_fu only choice
       store_hash(hash)
       hash
@@ -167,15 +170,23 @@ module MetricFu
 
     def get_changes(change)
       begin
+        file = change.first
         breakdown = ParseBreakDown.new
-        breakdown.get_info(change.first)
+        breakdown.get_info(file)
         changes = change.last
         classes = changes_for_type(changes, breakdown, :classes)
         methods = changes_for_type(changes, breakdown, :methods)
+        #todo move to method
+        classes = classes.map{ |klass| {:file => file, :klass => klass} }
+        methods = methods.map{ |method| {:file => file, :klass => get_klass_for(method), :method => method} }
         [classes, methods]
       rescue => error
         [[],[]]
       end
+    end
+
+    def get_klass_for(method)
+      method.gsub(/(#|\.).*/,'')
     end
 
     def changes_for_type(changes, breakdown, type)
