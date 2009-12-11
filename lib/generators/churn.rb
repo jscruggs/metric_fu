@@ -177,8 +177,8 @@ module MetricFu
         classes = changes_for_type(changes, breakdown, :classes)
         methods = changes_for_type(changes, breakdown, :methods)
         #todo move to method
-        classes = classes.map{ |klass| {:file => file, :klass => klass} }
-        methods = methods.map{ |method| {:file => file, :klass => get_klass_for(method), :method => method} }
+        classes = classes.map{ |klass| {'file' => file, 'klass' => klass} }
+        methods = methods.map{ |method| {'file' => file, 'klass' => get_klass_for(method), 'method' => method} }
         [classes, methods]
       rescue => error
         [[],[]]
