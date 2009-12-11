@@ -75,17 +75,16 @@ module MetricFu
       @revisions     = parse_log_for_revision_changes  
     end 
 
-    #TODO DONT WE NEED ALL THE METHODS AND CLASSES TO INCLUDE THEIR FILE / CLASS / METHOD Data? so we have a full location object
     def analyze
-      @changes          = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
-      @changes          = @changes.map {|file_path, times_changed| {:file_path => file_path, :times_changed => times_changed }}
+      @changes = @changes.to_a.sort {|x,y| y[1] <=> x[1]}
+      @changes = @changes.map {|file_path, times_changed| {'file_path' => file_path, 'times_changed' => times_changed }}
 
       calculate_revision_changes
 
       @method_changes.to_a.sort {|x,y| y[1] <=> x[1]}
-      @method_changes          = @method_changes.map {|method, times_changed| {:method => method, :times_changed => times_changed }}
+      @method_changes          = @method_changes.map {|method, times_changed| {'method' => method, 'times_changed' => times_changed }}
       @class_changes.to_a.sort {|x,y| y[1] <=> x[1]}
-      @class_changes          = @class_changes.map {|klass, times_changed| {:klass => klass, :times_changed => times_changed }}
+      @class_changes          = @class_changes.map {|klass, times_changed| {'klass' => klass, 'times_changed' => times_changed }}
     end
 
     def to_h
