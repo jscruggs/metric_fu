@@ -100,9 +100,9 @@ module MetricFu
         hash[:churn][:class_churn]     = @class_changes
       end
       #puts hash[:churn].inspect
-      puts hash[:churn][:changed_classes].inspect
-      puts hash[:churn][:changed_methods].inspect
-      puts hash[:churn][:method_churn].inspect
+      puts "classes: #{hash[:churn][:changed_classes].inspect}"
+      puts "methods: #{hash[:churn][:changed_methods].inspect}"
+      puts "method churn: #{hash[:churn][:method_churn].inspect}"
       #TODO crappy place to do this but save hash to revision file but while entirely under metric_fu only choice
       store_hash(hash)
       hash
