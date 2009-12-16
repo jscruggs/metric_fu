@@ -131,6 +131,8 @@ module MetricFu
                                    "--profile",
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
+
+      @file_globs_to_ignore = []
                                    
       @graph_engine = :bluff # can be :bluff or :gchart
     end

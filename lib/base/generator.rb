@@ -97,6 +97,13 @@ module MetricFu
       self.class.metric_directory
     end
 
+    def remove_excluded_files(paths, globs_to_remove = MetricFu.file_globs_to_ignore)
+      files_to_remove = []
+      globs_to_remove.each do |glob|
+        files_to_remove.concat(Dir[glob])
+      end
+      paths - files_to_remove
+    end
    
     # Defines some hook methods for the concrete classes to hook into.
     %w[emit analyze].each do |meth|

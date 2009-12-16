@@ -184,6 +184,7 @@ describe Flog do
       File.stub!(:directory?).and_return(true)
       flog = MetricFu::Flog.new('base_dir')
       flog.should_receive(:open).and_return(@text)
+      flog.stub!(:is_file_current?).and_return(true)
       Dir.should_receive(:glob).and_return(["tmp/metric_fu/scratch/flog/app/controllers/user_controller.txt"])
       flog.analyze
       @flog_hash = flog.to_h
@@ -204,6 +205,24 @@ describe Flog do
     it "should put the filename into the hash" do
       @flog_hash[:flog][:pages].first[:path].should == "/app/controllers/user_controller.rb"
     end
+  end
+  
+  describe "to_h function ignore files not current" do
+    before :each do
+      MetricFu::Configuration.run {}
+      File.stub!(:directory?).and_return(true)
+      flog = MetricFu::Flog.new('base_dir')
+      flog.should_receive(:open).and_return(@text)
+      flog.stub!(:is_file_current?).and_return(false)
+      Dir.should_receive(:glob).and_return(["tmp/metric_fu/scratch/flog/app/controllers/user_controller.txt"])
+      flog.analyze
+      @flog_hash = flog.to_h
+    end
+    
+    it "should put the total in the hash" do
+      @flog_hash.should == {:flog=>{:total=>0, :pages=>[], :average=>0}}
+    end
+  
   end
   
   describe "to_h function with zero total" do

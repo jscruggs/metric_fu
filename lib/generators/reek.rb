@@ -10,7 +10,34 @@ module MetricFu
 
     def emit
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      @output = `reek #{files_to_reek.join(" ")}`
+      files = remove_excluded_files(files_to_reek.flatten)
+      @output = `reek #{files.join(" ")}`
+      @output = massage_for_reek_12 if reek_12?
+    end
+
+    def reek_12?
+      return false if @output.length == 0
+      (@output =~ /^"/) != 0
+    end
+
+    def massage_for_reek_12
+      section_break = ''
+      @output.split("\n").map do |line|
+        case line
+        when /^  /
+          "#{line.gsub(/^  /, '')}\n"
+        else
+          parts = line.split(" -- ")
+          if parts[1].nil?
+            "#{line}\n"
+          else
+            warnings = parts[1].gsub(/ \(.*\):/, ':')
+            result = "#{section_break}\"#{parts[0]}\" -- #{warnings}\n"
+            section_break = "\n"
+            result
+          end
+        end
+      end.join
     end
 
     def analyze
