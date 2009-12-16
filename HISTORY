@@ -1,3 +1,8 @@
+=== MetricFu 1.1.6 / 2009-12-14
+
+* Now compatible with Reek 1.2x thanks to Kevin Rutherford
+* Fixed problem with deleted files still showing up in Flog reports thanks to Dan Mayer
+
 === MetricFu 1.1.5 / 2009-8-13
 
 * Previous Ruby 1.9 fix was not quite fix-y enough
