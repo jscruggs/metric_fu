@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.1.5</h1>
+            <h1>About metric_fu 1.1.6</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -72,11 +72,7 @@
   New in metric_fu 1.0.0 is yaml serialization of the metrics.  Running metric_fu now generates, in addition to html reports, a report.yml file.  You can consume this file to mash up metrics, track them, or whatever you desire.  Many thanks go to <a href="http://github.com/gmcinnes">Grant McInnes</a> for his work on this feature.
 </p>
 <h2>Installation:</h2>
-<p>If you haven't added github to your gem sources do this:</p>
-<pre>sudo gem sources -a http://gems.github.com</pre>
-<br/>
-<p>Now install the gem:</p>
-<pre>sudo gem install jscruggs-metric_fu</pre>
+<pre>sudo gem install metric_fu</pre>
 <br/>
 <p>Then in your Rakefile:</p>
 <br/>
@@ -86,13 +82,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.1.5', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'</pre>
+<pre>config.gem 'metric_fu', :version => '1.1.6', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -103,7 +99,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem jscruggs-metric_fu-1.1.5 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.1.6 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
