@@ -13,7 +13,7 @@ module MetricFu
     end
     
     def add(graph_type, graph_engine)
-      grapher_name = graph_type.to_s.capitalize + graph_engine.to_s.capitalize + "Grapher"
+      grapher_name = graph_type.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase } + graph_engine.to_s.capitalize + "Grapher"
       self.clazz.push MetricFu.const_get(grapher_name).new
     end
     

@@ -8,14 +8,13 @@ module MetricFu
 
     
     def emit
-      files_to_analyze = MetricFu.rails_best_practices[:dirs_to_rails_best_practices].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      files = remove_excluded_files(files_to_analyze.flatten)
-      @output = `rails_best_practices #{files.join(" ")}`
+      @output = `rails_best_practices .`
     end
 
     def analyze
       @matches = @output.chomp.split("\n").map{|m| m.split(" - ") }
       total = @matches.pop
+      2.times { @matches.pop } # ignore wiki link
       @matches.reject! {|array| array.empty? }
       @matches.map! do |match|
         file, line = match[0].split(':')
