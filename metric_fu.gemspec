@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang"]
 
   s.files = [
-    "README",
+    "README.textile",
     "HISTORY",
     "TODO",
     "MIT-LICENSE",
@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   s.test_files = ["spec/base/base_template_spec.rb", "spec/base/configuration_spec.rb", "spec/base/generator_spec.rb", "spec/base/graph_spec.rb", "spec/base/md5_tracker_spec.rb", "spec/base/report_spec.rb", "spec/generators/churn_spec.rb", "spec/generators/flay_spec.rb", "spec/generators/flog_spec.rb", "spec/generators/reek_spec.rb", "spec/generators/saikuro_spec.rb", "spec/generators/stats_spec.rb", "spec/graphs/engines/bluff_spec.rb", "spec/graphs/engines/gchart_spec.rb", "spec/graphs/flay_grapher_spec.rb", "spec/graphs/flog_grapher_spec.rb", "spec/graphs/rcov_grapher_spec.rb", "spec/graphs/reek_grapher_spec.rb", "spec/graphs/roodi_grapher_spec.rb", "spec/resources/saikuro/app/controllers/sessions_controller.rb_cyclo.html", "spec/resources/saikuro/app/controllers/users_controller.rb_cyclo.html", "spec/resources/saikuro/index_cyclo.html", "spec/resources/saikuro_sfiles/thing.rb_cyclo.html", "spec/resources/yml/20090630.yml", "spec/spec.opts", "spec/spec_helper.rb"]
   
   s.has_rdoc = true
-  s.rdoc_options = ["--main", "README"]
-  s.extra_rdoc_files = ["HISTORY", "Manifest.txt", "README"]
+  s.rdoc_options = ["--main", "README.textile"]
+  s.extra_rdoc_files = ["HISTORY", "Manifest.txt", "README.textile"]
 
   s.add_dependency("flay", [">= 1.2.1"])
   s.add_dependency("flog", ["= 2.2.0"])
