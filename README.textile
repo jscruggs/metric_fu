@@ -1,6 +1,6 @@
 h1. flyerhzm-metric_fu
 
-flyerhzm-metric_fu gem combines metric_fu gem with rails_best_practices gem
+flyerhzm-metric_fu gem combines "metric_fu":http://github.com/flyerhzm/metric_fu gem with "rails_best_practices":http://github.com/flyerhzm/rails_best_practices gem
 
 ***********************************************************************
 
