@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.1.6</h1>
+            <h1>About metric_fu 1.2.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -62,6 +62,10 @@
     built-in stats task to create a series of reports.  It's designed to integrate easily with 
     <a href="http://cruisecontrolrb.thoughtworks.com/">CruiseControl.rb</a> 
     by placing files in the Custom Build Artifacts folder.
+</p>
+<br/>
+<p>
+  New in metric_fu 1.2.0 is the ability to use Google Charts (which doesn't need ImageMagick) to make your graphs.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
 </p>
 <br/>
 <p>
@@ -82,13 +86,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.2.0', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'metric_fu', :version => '1.1.6', :lib => 'metric_fu'</pre>
+<pre>config.gem 'metric_fu', :version => '1.2.0', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -99,7 +103,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem metric_fu-1.1.6 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.2.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
@@ -171,6 +175,11 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
     end
     </pre>
     Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.  Set config.graphs to an empty array (config.graphs = []) if you want no graphing at all.
+</p>
+
+<p><br/>
+    <h2>Graphing</h2>
+    MetricFu uses Gruff for graphing by default.  If you hate ImageMagick (which gruff needs) or just like Google Charts you can set 'config.graph_engine = :gchart' in the config.  You'll have to install the googlecharts gem, of course.
 </p>
 
 <p><br/>
