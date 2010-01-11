@@ -1,7 +1,7 @@
 === MetricFu 1.2.0 / 2010-01-09
 
 * ftools isn't supported by 1.9 so moved to fileutils.
-* Added support for Google Charts thanks to Carl Youngblood.
+* Overhauled the graphing to use Gruff or Google Charts so we no longer depend on ImageMagick/rmagick -- thanks to Carl Youngblood.
 * Stopped relying on Github gems as they will be going away.
 
 === MetricFu 1.1.6 / 2009-12-14

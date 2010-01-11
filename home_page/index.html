@@ -65,11 +65,11 @@
 </p>
 <br/>
 <p>
-  New in metric_fu 1.2.0 is the ability to use Google Charts (which doesn't need ImageMagick) to make your graphs.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
+  In metric_fu 1.2.0 the graphing has been overhauled.  Now you can use either Bluff (the default) or Google Charts to make your graphs.  An upside of moving away from Gruff is that metric_fu no longer depends on ImageMagick/rmagick.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
 </p>
 <br/>
 <p>
-  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  Graphing requires the gems 'gruff' and 'rmagick' (and rmagick requires ImageMagick).  If that's too much installation to bear, then see configuration section below for how to turn off graphing of the metrics. 
+  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  If you don't want graphs, then see configuration section below for how to turn off graphing of the metrics. 
 </p>
 <br/>
 <p>
@@ -172,6 +172,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
                                            "--profile",
                                            "--rails",
                                            "--exclude /gems/,/Library/,spec"]}
+        config.graph_engine = :bluff
     end
     </pre>
     Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.  Set config.graphs to an empty array (config.graphs = []) if you want no graphing at all.
@@ -179,7 +180,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 
 <p><br/>
     <h2>Graphing</h2>
-    MetricFu uses Gruff for graphing by default.  If you hate ImageMagick (which gruff needs) or just like Google Charts you can set 'config.graph_engine = :gchart' in the config.  You'll have to install the googlecharts gem, of course.
+    MetricFu uses Bluff for graphing (a Javascript library) by default.  If you'd rather use Google Charts you can set 'config.graph_engine = :gchart' in the config.  You'll have to install the googlecharts gem, of course.
 </p>
 
 <p><br/>
