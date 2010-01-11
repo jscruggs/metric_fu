@@ -15,11 +15,15 @@ module MetricFu
     def emit
       @output = `churn --yaml`
       yaml_start = @output.index("---")
-      @output = @output[yaml_start...@output.length]
+      @output = @output[yaml_start...@output.length] if yaml_start
     end
 
     def analyze
-      @churn = YAML::load(@output)
+      if @output.match(/fatal: Not a git repository/)
+        @churn = [:churn => {}]
+      else
+        @churn = YAML::load(@output)
+      end
     end
 
     def to_h
