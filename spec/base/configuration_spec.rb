@@ -125,7 +125,8 @@ describe MetricFu::Configuration do
                                               "--rails",           
                                               "--exclude /gems/,/Library/,/usr/,spec"]}' do
       @config.instance_variable_get(:@rcov).
-              should ==  { :test_files => ['test/**/*_test.rb', 
+              should ==  { :environment => 'test',
+                           :test_files => ['test/**/*_test.rb', 
                                            'spec/**/*_spec.rb'],
                            :rcov_opts => ["--sort coverage", 
                                          "--no-html", 

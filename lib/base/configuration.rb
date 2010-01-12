@@ -122,7 +122,8 @@ module MetricFu
                     :formater => "text"}
       @churn    = {}
       @stats    = {}
-      @rcov     = { :test_files => ['test/**/*_test.rb', 
+      @rcov     = { :environment => 'test',
+                    :test_files => ['test/**/*_test.rb', 
                                     'spec/**/*_spec.rb'],
                     :rcov_opts => ["--sort coverage", 
                                    "--no-html", 
