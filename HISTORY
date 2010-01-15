@@ -2,6 +2,8 @@
 
 * Upgrade Bluff to 0.3.6
 * Add tooltips to graphs
+* Fix `activesupport` deprecation
+* Vendor Saikuro as a gem dependency
 
 === MetricFu 1.2.0 / 2010-01-09
 

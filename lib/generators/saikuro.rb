@@ -3,17 +3,13 @@ module MetricFu
   class Saikuro < Generator
 
     def emit
-      relative_path = [File.dirname(__FILE__), '..', '..',
-                       'vendor', 'saikuro', 'saikuro.rb']
-      saikuro = File.expand_path(File.join(relative_path))
- 
       MetricFu.saikuro[:input_directory] = format_directories
  
       options_string = MetricFu.saikuro.inject("") do |options, option|
         options + "--#{option.join(' ')} "
       end
  
-      sh %{ruby "#{saikuro}" #{options_string}} do |ok, response|
+      sh %{saikuro #{options_string}} do |ok, response|
         unless ok
           puts "Saikuro failed with exit status: #{response.exitstatus}"
           exit 1
