@@ -21,7 +21,7 @@ describe ReekGrapher do
   describe "responding to #get_metrics" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "01022003"
+      @date = "1/2"
     end
     
     it "should set a hash of code smells to reek_count" do
@@ -39,15 +39,8 @@ describe ReekGrapher do
     end
     
     it "should update labels with the date" do
-      @reek_grapher.labels.should_receive(:update).with({ 0 => "01022003" })
+      @reek_grapher.labels.should_receive(:update).with({ 0 => "1/2" })
       @reek_grapher.get_metrics(@metrics, @date)
-    end
-  end
-  
-  describe "responding to #graph!" do
-    it "should write reek.png" do
-      @reek_grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, 'reek.png')) }.should_not raise_error
     end
   end
 end

@@ -125,7 +125,8 @@ describe MetricFu::Configuration do
                                               "--rails",           
                                               "--exclude /gems/,/Library/,/usr/,spec"]}' do
       @config.instance_variable_get(:@rcov).
-              should ==  { :test_files => ['test/**/*_test.rb', 
+              should ==  { :environment => 'test',
+                           :test_files => ['test/**/*_test.rb', 
                                            'spec/**/*_spec.rb'],
                            :rcov_opts => ["--sort coverage", 
                                          "--no-html", 
@@ -151,37 +152,6 @@ describe MetricFu::Configuration do
                     :warn_cyclo => "5",
                     :error_cyclo => "7",
                     :formater => "text"}
-    end
-    
-    it 'should set @graph_theme to { 
-                    :colors => %w(orange purple green white red blue pink yellow),
-                    :marker_color => "blue",
-                    :background_colors => %w(white white)}' do
-      @config.instance_variable_get(:@graph_theme).
-              should ==  { :colors => %w(orange purple green white red blue pink yellow),
-              :marker_color => "blue",
-              :background_colors => %w(white white) }
-    end
-    
-    it 'should set @graph_font to the path to the font directory' do
-      @config.instance_variable_get(:@graph_font).
-              should include(File.join('vendor', '_fonts', 'monaco.ttf'))
-    end
-    
-    it 'should set @graph_title_font_size to 12' do
-      @config.instance_variable_get(:@graph_title_font_size).should eql(12)
-    end
-    
-    it 'should set @graph_legend_box_size to 12' do
-      @config.instance_variable_get(:@graph_legend_box_size).should eql(12)
-    end
-    
-    it 'should set @graph_legend_box_size to 10' do
-      @config.instance_variable_get(:@graph_legend_font_size).should eql(10)
-    end
-    
-    it 'should set @graph_marker_font_size to 10' do
-      @config.instance_variable_get(:@graph_marker_font_size).should eql(10)
     end
     
     describe 'if #rails? is true ' do

@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.1.5</h1>
+            <h1>About metric_fu 1.2.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -65,18 +65,18 @@
 </p>
 <br/>
 <p>
-  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  Graphing requires the gems 'gruff' and 'rmagick' (and rmagick requires ImageMagick).  If that's too much installation to bear, then see configuration section below for how to turn off graphing of the metrics. 
+  In metric_fu 1.2.0 the graphing has been overhauled.  Now you can use either Bluff (the default) or Google Charts to make your graphs.  An upside of moving away from Gruff is that metric_fu no longer depends on ImageMagick/rmagick.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
+</p>
+<br/>
+<p>
+  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  If you don't want graphs, then see configuration section below for how to turn off graphing of the metrics. 
 </p>
 <br/>
 <p>
   New in metric_fu 1.0.0 is yaml serialization of the metrics.  Running metric_fu now generates, in addition to html reports, a report.yml file.  You can consume this file to mash up metrics, track them, or whatever you desire.  Many thanks go to <a href="http://github.com/gmcinnes">Grant McInnes</a> for his work on this feature.
 </p>
 <h2>Installation:</h2>
-<p>If you haven't added github to your gem sources do this:</p>
-<pre>sudo gem sources -a http://gems.github.com</pre>
-<br/>
-<p>Now install the gem:</p>
-<pre>sudo gem install jscruggs-metric_fu</pre>
+<pre>sudo gem install metric_fu</pre>
 <br/>
 <p>Then in your Rakefile:</p>
 <br/>
@@ -86,13 +86,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.1.5', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.2.0', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'</pre>
+<pre>config.gem 'metric_fu', :version => '1.2.0', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -103,7 +103,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem jscruggs-metric_fu-1.1.5 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.2.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
@@ -172,9 +172,15 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
                                            "--profile",
                                            "--rails",
                                            "--exclude /gems/,/Library/,spec"]}
+        config.graph_engine = :bluff
     end
     </pre>
     Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.  Set config.graphs to an empty array (config.graphs = []) if you want no graphing at all.
+</p>
+
+<p><br/>
+    <h2>Graphing</h2>
+    MetricFu uses Bluff for graphing (a Javascript library) by default.  If you'd rather use Google Charts you can set 'config.graph_engine = :gchart' in the config.  You'll have to install the googlecharts gem, of course.
 </p>
 
 <p><br/>

@@ -36,7 +36,8 @@ module MetricFu
         test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
         rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
         output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
-        `rcov #{test_files} #{rcov_opts} #{output}`
+        puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
+        `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
       rescue LoadError
         if RUBY_PLATFORM =~ /java/
           puts 'running in jruby - rcov tasks not available'
