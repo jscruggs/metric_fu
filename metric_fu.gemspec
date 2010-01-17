@@ -28,4 +28,5 @@ Gem::Specification.new do |s|
   s.add_dependency("flog", ["= 2.2.0"])
   s.add_dependency("rcov", [">= 0.8.3.3"])
   s.add_dependency("chronic", [">= 0.2.3"])
+  s.add_dependency("churn", [">= 0.0.7"])
 end
