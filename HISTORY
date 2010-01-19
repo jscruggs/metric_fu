@@ -1,3 +1,10 @@
+=== Edge
+
+* Upgrade Bluff to 0.3.6
+* Add tooltips to graphs
+* Fix `activesupport` deprecation
+* Vendor Saikuro as a gem dependency
+
 === MetricFu 1.2.0 / 2010-01-09
 
 * ftools isn't supported by 1.9 so moved to fileutils.
