@@ -11,6 +11,7 @@
 <% end %>
 
 <h4>Total Score (lower is better): <%= @flay[:total_score] %></h4>
+<h5>Scores less than <%= MetricFu.flay[:minimum_score] %> are not shown or part of the total</h5>
 
 <table>
   <tr>

@@ -10,7 +10,8 @@ module MetricFu
     def emit
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
       files = remove_excluded_files(files_to_flay.flatten)
-      @output = `flay #{files.join(" ")}`
+      mimimum_score_parameter = MetricFu.flay[:minimum_score] ? "--mass #{MetricFu.flay[:minimum_score]} " : ""
+      @output = `flay #{mimimum_score_parameter}#{files.join(" ")}`
     end
 
     def analyze

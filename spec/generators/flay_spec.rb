@@ -5,17 +5,23 @@ describe Flay do
     MetricFu::Flay.stub!(:verify_dependencies!).and_return(true)
   end
   describe "emit method" do
-    before :each do
+    it "should look at the dirs" do
       MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib']  } }
       File.stub!(:directory?).and_return(true)
-      @flay = MetricFu::Flay.new('base_dir')
-      
-    end
+      @flay = MetricFu::Flay.new('base_dir')    
     
-    it "should look at the dirs" do
       Dir.should_receive(:[]).with(File.join("app", "**/*.rb")).and_return("path/to/app")
       Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib")
       @flay.should_receive(:`).with("flay path/to/app path/to/lib")
+      output = @flay.emit
+    end
+    
+    it "should limit flay scores by the minimum_score" do
+      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => [], :minimum_score => 99 } }
+      File.stub!(:directory?).and_return(true)
+      @flay = MetricFu::Flay.new('base_dir')
+
+      @flay.should_receive(:`).with("flay --mass 99 ")
       output = @flay.emit
     end
   end
