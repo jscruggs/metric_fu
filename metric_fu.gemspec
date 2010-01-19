@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_dependency("chronic", [">= 0.2.3"])
   s.add_dependency("churn", [">= 0.0.7"])
   s.add_dependency("Saikuro", [">= 1.1.0"])
+  s.add_dependency("activesupport", [">= 2.2.3"])
 end
