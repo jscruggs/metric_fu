@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency("Saikuro", [">= 1.1.0"])
   s.add_dependency("activesupport", [">= 2.2.3"])
   s.add_development_dependency("rspec", [">= 1.2.0"])
-  s.add_development_dependency("devver-construct", [">= 1.1.0"])
+  s.add_development_dependency("test-construct", [">= 1.2.0"])
 end
