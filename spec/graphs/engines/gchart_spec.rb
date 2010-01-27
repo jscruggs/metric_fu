@@ -1,13 +1,108 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
+describe MetricFu::GchartGrapher do
+  describe "determine_y_axis_scale" do
+    it "should set defaults when empty array" do
+      grapher = Object.new.extend(MetricFu::GchartGrapher)
+      grapher.determine_y_axis_scale([])
+      grapher.instance_variable_get(:@max_value).should == 10
+      grapher.instance_variable_get(:@yaxis).should == [0, 2, 4, 6, 8, 10]
+    end
+    
+    it "should set max value of the graph above largest value" do
+      grapher = Object.new.extend(MetricFu::GchartGrapher)
+      grapher.determine_y_axis_scale([19])
+      grapher.instance_variable_get(:@max_value).should == 20
+      
+      grapher.determine_y_axis_scale([20])
+      grapher.instance_variable_get(:@max_value).should == 25
+    end
+  end
+end
 
-describe "Gchart graphers responding to #graph!" do
-  MetricFu::AVAILABLE_GRAPHS.each do |metric|
-    it "should write chart file for #{metric}" do
-      MetricFu.configuration
-      grapher = MetricFu.const_get("#{metric.to_s.capitalize}GchartGrapher").new
-      grapher.flog_average, grapher.top_five_percent_average = [7.0],[20.0] if metric == :flog #googlecharts gem has problems with [[],[]] as data
+describe "Gchart graphers" do
+  before :each do
+    MetricFu.configuration
+  end
+  
+  describe "FlayGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = FlayGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Flay: duplication"),
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'flay.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
       grapher.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, "#{metric.to_s.downcase}.png")) }.should_not raise_error
+    end
+  end
+  
+  describe "FlogGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = FlogGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Flog: code complexity"),
+        :stacked => false,
+        :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
+        :legend => ['average', 'top 5%25 average'],
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'flog.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
+    end
+  end
+  
+  describe "RcovGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = RcovGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Rcov: code coverage"),
+        :max_value => 101,
+        :axis_with_labels => 'x,y',
+        :axis_labels => [grapher.labels.values, [0,20,40,60,80,100]],
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'rcov.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
+    end
+  end
+  
+  describe "ReekGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = ReekGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Reek: code smells"),
+        :stacked => false,
+        :bar_colors => MetricFu::GchartGrapher::COLORS,
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'reek.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
+    end
+  end
+  
+  describe "RoodiGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = RoodiGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Roodi: potential design problems"),
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'roodi.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
     end
   end
 end
