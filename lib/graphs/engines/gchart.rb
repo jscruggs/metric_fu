@@ -66,7 +66,6 @@ module MetricFu
   
   class RcovGchartGrapher < RcovGrapher
     def graph!
-      determine_y_axis_scale(self.rcov_percent)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
         :title => URI.escape("Rcov: code coverage"),
