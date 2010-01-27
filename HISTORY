@@ -1,9 +1,14 @@
-=== Edge
+=== MetricFu 1.3.0 / 2010-01-26
 
-* Upgrade Bluff to 0.3.6
-* Add tooltips to graphs
-* Fix `activesupport` deprecation
-* Vendor Saikuro as a gem dependency
+* Flay can be configured to ignore scores below a threshold (by default it ignores scores less than 100)
+* When running Rcov you can configure the RAILS_ENV (defaults to 'test') so running metric_fu doesn't interfere with other environments
+* Changed devver-construct (a gem hosted by GitHub) development dependency to test-construct dependency (on Gemcutter) - Dan Mayer
+* Upgrade Bluff to 0.3.6 and added tooltips to graphs - Édouard Brière
+* Removed Saikuro from vendor and added it as a gem dependency - Édouard Brière
+* Churn has moved outside metric_fu and is now a gem and a dependency - Dan Mayer
+* Fix 'activesupport' deprecation (it should be 'active_support') - Bryan Helmkamp
+* Declared development dependencies
+* Cleaned and sped up specs
 
 === MetricFu 1.2.0 / 2010-01-09
 

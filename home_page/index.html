@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.2.0</h1>
+            <h1>About metric_fu 1.3.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -54,8 +54,9 @@
     <a href="http://ruby.sadi.st/Flog.html">Flog</a>, 
     <a href="http://ruby.sadi.st/Flay.html">Flay</a>, 
     <a href="http://eigenclass.org/hiki.rb?rcov">Rcov</a>, 
-    <a href="http://github.com/kevinrutherford/reek/tree/master">Reek</a>, 
-    <a href="http://github.com/martinjandrews/roodi/tree/master">Roodi</a>, 
+    <a href="http://github.com/kevinrutherford/reek">Reek</a>, 
+    <a href="http://github.com/martinjandrews/roodi">Roodi</a>, 
+    <a href="http://github.com/danmayer/churn">Churn</a>, 
     <a href="http://subversion.tigris.org/">Subversion</a>, 
     <a href="http://git.or.cz/">Git</a>, and 
     <a href="http://www.rubyonrails.org/">Rails</a> 
@@ -65,16 +66,13 @@
 </p>
 <br/>
 <p>
+  New in metric_fu 1.3.0 is the ability to configure what RAILS_ENV you what Rcov to run under so it won't clobber any other tests that might be running (in continuous integration).  You can also configure the minimum Flay score to record (the default minimum score 100).  There's now some cool tooltip hover info in the graphs (thanks Édouard Brière).
+</p>
+<br/>
+<p>
   In metric_fu 1.2.0 the graphing has been overhauled.  Now you can use either Bluff (the default) or Google Charts to make your graphs.  An upside of moving away from Gruff is that metric_fu no longer depends on ImageMagick/rmagick.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
 </p>
 <br/>
-<p>
-  New in metric_fu 1.1.0 is integration of the 'Awesome' template and graphs -- which graph your metric performance over time!  Big thanks go to <a href="http://litanyagainstfear.com/">Nick Quaranto</a> and <a href="http://www.nanalegumene.net/">Edouard Brière</a> for their work on this feature.  If you're used to the non-awesome reports then this will be quite a treat.  If you don't want graphs, then see configuration section below for how to turn off graphing of the metrics. 
-</p>
-<br/>
-<p>
-  New in metric_fu 1.0.0 is yaml serialization of the metrics.  Running metric_fu now generates, in addition to html reports, a report.yml file.  You can consume this file to mash up metrics, track them, or whatever you desire.  Many thanks go to <a href="http://github.com/gmcinnes">Grant McInnes</a> for his work on this feature.
-</p>
 <h2>Installation:</h2>
 <pre>sudo gem install metric_fu</pre>
 <br/>
@@ -86,13 +84,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.2.0', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.3.0', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'metric_fu', :version => '1.2.0', :lib => 'metric_fu'</pre>
+<pre>config.gem 'metric_fu', :version => '1.3.0', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -103,7 +101,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem metric_fu-1.2.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.3.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
@@ -151,7 +149,8 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
         #define which metrics you want to use
         config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :reek, :roodi, :rcov]
         config.graphs   = [:flog, :flay, :reek, :roodi, :rcov]
-        config.flay     = { :dirs_to_flay => ['app', 'lib']  } 
+        config.flay     = { :dirs_to_flay => ['app', 'lib'],
+                            :minimum_score => 100  } 
         config.flog     = { :dirs_to_flog => ['app', 'lib']  }
         config.reek     = { :dirs_to_reek => ['app', 'lib']  }
         config.roodi    = { :dirs_to_roodi => ['app', 'lib'] }
@@ -163,7 +162,8 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
                             :error_cyclo => "7",
                             :formater => "text"} #this needs to be set to "text"
         config.churn    = { :start_date => "1 year ago", :minimum_churn_count => 10}
-        config.rcov     = { :test_files => ['test/**/*_test.rb', 
+        config.rcov     = { :environment => 'test',
+                            :test_files => ['test/**/*_test.rb', 
                                             'spec/**/*_spec.rb'],
                             :rcov_opts => ["--sort coverage", 
                                            "--no-html", 
@@ -185,7 +185,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 
 <p><br/>
     <h2>Notes on metrics:coverage</h2>
-    When creating a coverage report, metric_fu runs all the tests in the test folder and specs in spec folder using Rcov.
+    When creating a coverage report, metric_fu runs all the tests in the test folder and specs in spec folder using Rcov.  You can configure what files it should run and the RAILS_ENV (by setting 'environment') it runs under.  See the configuration section above for details.
 </p>
 <p><br/>
     <h2>Notes on metrics:saikuro</h2>
@@ -197,6 +197,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
     Flay analyzes ruby code for structural similarities. 
     You can configure which directories need to be flayed.
     The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
+    By default, metric_fu ignores scores under 100.  You can configure the minimum_score (see configuration section above).
 </p>
 
 <p><br/>
