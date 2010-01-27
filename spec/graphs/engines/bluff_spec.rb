@@ -9,7 +9,8 @@ describe "Bluff graphers responding to #graph!" do
     end
     graphs.each do |key, val|
       val.graph!
-      lambda{ File.open(File.join(MetricFu.output_directory, "#{key.to_s.downcase}.js")) }.should_not raise_error
+      output_dir = File.expand_path(File.join(MetricFu.output_directory))
+      lambda{ File.open(File.join(output_dir, "#{key.to_s.downcase}.js")) }.should_not raise_error
     end
   end
 end
