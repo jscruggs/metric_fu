@@ -1,8 +1,6 @@
 --colour
---format
-specdoc
 --reverse
---timeout
-20
+--format
+profile
 --loadby
 mtime
