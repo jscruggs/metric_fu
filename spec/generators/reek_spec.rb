@@ -61,6 +61,7 @@ end
 
 describe Reek do
   before :each do
+    MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
     MetricFu::Configuration.run {}
     @reek = MetricFu::Reek.new
     @lines11 = <<-HERE
