@@ -61,6 +61,7 @@ end
 
 describe Reek do
   before :each do
+    MetricFu::Configuration.run {}
     @reek = MetricFu::Reek.new
     @lines11 = <<-HERE
 "app/controllers/activity_reports_controller.rb" -- 4 warnings:
@@ -110,9 +111,6 @@ app/controllers/newline_controller.rb -- 1 warnings:
   end
 
   context 'with Reek 1.2 output format' do
-    before :each do
-      @reek = MetricFu::Reek.new
-    end
     it 'detects 1.2 format output' do
       @reek.instance_variable_set(:@output, @lines12)
       @reek.should be_reek_12
