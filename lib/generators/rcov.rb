@@ -5,17 +5,6 @@ module MetricFu
   class Rcov < Generator
     NEW_FILE_MARKER =  ("=" * 80) + "\n"
 
-    def self.verify_dependencies!
-      `rcov --help`
-      unless $?.success?
-        if RUBY_PLATFORM =~ /java/
-          raise 'running in jruby - rcov tasks not available'
-        else
-          raise 'sudo gem install rcov # if you want the rcov tasks'
-        end
-      end
-    end
-
     class Line
       attr_accessor :content, :was_run
 
@@ -30,21 +19,13 @@ module MetricFu
     end
 
     def emit
-      begin
-        FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
-        Dir.mkdir(MetricFu::Rcov.metric_directory)
-        test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
-        rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
-        output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
-        puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
-        `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
-      rescue LoadError
-        if RUBY_PLATFORM =~ /java/
-          puts 'running in jruby - rcov tasks not available'
-        else
-          puts 'sudo gem install rcov # if you want the rcov tasks'
-        end
-      end
+      FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
+      Dir.mkdir(MetricFu::Rcov.metric_directory)
+      test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
+      rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
+      output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
+      puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
+      `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
     end
 
 
