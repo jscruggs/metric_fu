@@ -8,18 +8,39 @@ module MetricFu
 
     def analyze
       output = File.open(metric_directory + '/stats.txt').read
-      output = output.split("\n")
-      output = output.find_all {|line| line[0].chr != "+" }
-      output = output.find_all {|line| line[0].chr != "(" }
-      output.shift
-      totals = output.pop
-      totals = totals.split("  ").find_all {|el| ! el.empty? }
+      lines = remove_noise(output)
+
       @stats = {}
+      
+      set_global_stats(lines.pop)
+      set_granular_stats(lines)
+
+      @stats
+    end
+
+    def to_h
+      {:stats => @stats}
+    end
+    
+    private
+    
+    def remove_noise(output)
+      lines = output.split("\n")
+      lines = lines.find_all {|line| line[0].chr != "+" }
+      lines = lines.find_all {|line| line[0].chr != "(" }
+      lines.shift
+      lines
+    end
+    
+    def set_global_stats(totals)
+      totals = totals.split("  ").find_all {|el| ! el.empty? }
       @stats[:codeLOC] = totals[0].match(/\d.*/)[0].to_i
       @stats[:testLOC] = totals[1].match(/\d.*/)[0].to_i
       @stats[:code_to_test_ratio] = totals[2].match(/1\:(\d.*)/)[1].to_f
-      
-      @stats[:lines] = output.map do |line|
+    end
+    
+    def set_granular_stats(lines)
+      @stats[:lines] = lines.map do |line|
         elements = line.split("|")
         elements.map! {|el| el.strip }
         elements = elements.find_all {|el| ! el.empty? }
@@ -32,11 +53,6 @@ module MetricFu
         end
         info_line
       end
-      @stats
-    end
-
-    def to_h
-      {:stats => @stats}
     end
 
   end
