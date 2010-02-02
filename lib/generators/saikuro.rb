@@ -23,36 +23,9 @@ module MetricFu
     end
  
     def analyze
-      @files = []
-      saikuro_results.each do |path|
-        if Saikuro::SFile.is_valid_text_file?(path)
-          file = Saikuro::SFile.new(path)
-          if file
-            @files << file
-          end
-        end
-      end
-      @files = @files.sort_by do |file|
-        file.elements.
-             max {|a,b| a.complexity.to_i <=> b.complexity.to_i}.
-             complexity.to_i
-      end
-      @files.reverse!
-      klasses = []
-      @files.each {|f| klasses << f.elements}
-      klasses.flatten!
-      @classes = klasses.sort_by {|k| k.complexity.to_i}
-      @classes.reverse!
-      meths = []
-      @files.each {|f|
-        f.elements.each {|el|
-          el.defs.each {|defn|
-            defn.name = "#{el.name}##{defn.name}"
-            meths << defn}
-        }
-      }
-      meths = meths.sort_by {|meth| meth.complexity.to_i}
-      @meths = meths.reverse
+      @files = sort_files(assemble_files)
+      @classes = sort_classes(assemble_classes(@files))
+      @meths = sort_methods(assemble_methods(@files))
     end
  
     def to_h
@@ -67,10 +40,54 @@ module MetricFu
                    }
       }
     end
- 
-    def saikuro_results
-      Dir.glob("#{metric_directory}/**/*.html")
+    
+    private
+    def sort_methods(methods)
+      methods.sort_by {|method| method.complexity.to_i}.reverse
     end
+    
+    def assemble_methods(files)
+      methods = []
+      files.each do |file|
+        file.elements.each do |element|
+          element.defs.each do |defn|
+            defn.name = "#{element.name}##{defn.name}"
+            methods << defn
+          end
+        end
+      end
+      methods
+    end
+    
+    def sort_classes(classes)
+      classes.sort_by {|k| k.complexity.to_i}.reverse
+    end
+    
+    def assemble_classes(files)
+      files.map {|f| f.elements}.flatten
+    end
+    
+    def sort_files(files)
+      files.sort_by do |file|
+        file.elements.
+             max {|a,b| a.complexity.to_i <=> b.complexity.to_i}.
+             complexity.to_i
+      end.reverse
+    end
+    
+    def assemble_files
+      files = []
+      Dir.glob("#{metric_directory}/**/*.html").each do |path|
+        if Saikuro::SFile.is_valid_text_file?(path)
+          file = Saikuro::SFile.new(path)
+          if file
+            files << file
+          end
+        end
+      end
+      files
+    end
+    
   end
  
   class Saikuro::SFile
