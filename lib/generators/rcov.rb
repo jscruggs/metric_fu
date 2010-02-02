@@ -32,8 +32,25 @@ module MetricFu
     def analyze
       output = File.open(MetricFu::Rcov.metric_directory + '/rcov.txt').read
       output = output.split(NEW_FILE_MARKER)
-      # Throw away the first entry - it's the execution time etc.
-      output.shift
+      
+      output.shift # Throw away the first entry - it's the execution time etc.
+      
+      files = assemble_files(output)
+
+      @global_total_lines = 0
+      @global_total_lines_run = 0
+      
+      @rcov = add_coverage_percentage(files)
+    end
+
+    def to_h
+      global_percent_run = ((@global_total_lines_run.to_f / @global_total_lines.to_f) * 100)
+      {:rcov => @rcov.merge({:global_percent_run => round_to_tenths(global_percent_run) })}   
+    end
+    
+    private
+    
+    def assemble_files(output)
       files = {}
       output.each_slice(2) {|out| files[out.first.strip] = out.last}
       files.each_pair {|fname, content| files[fname] = content.split("\n") }
@@ -48,10 +65,10 @@ module MetricFu
         content.reject! {|line| line[:content].blank? }
         files[fname] = {:lines => content}
       end
-
-      # Calculate the percentage of lines run in each file
-      @global_total_lines = 0
-      @global_total_lines_run = 0
+      files
+    end
+    
+    def add_coverage_percentage(files)
       files.each_pair do |fname, content|
         lines = content[:lines]
         @global_total_lines_run += lines_run = lines.find_all {|line| line[:was_run] == true }.length
@@ -59,12 +76,7 @@ module MetricFu
         percent_run = ((lines_run.to_f / total_lines.to_f) * 100).round
         files[fname][:percent_run] = percent_run 
       end
-      @rcov = files
     end
-
-    def to_h
-      global_percent_run = ((@global_total_lines_run.to_f / @global_total_lines.to_f) * 100)
-      {:rcov => @rcov.merge({:global_percent_run => round_to_tenths(global_percent_run) })}   
-    end
+    
   end
 end
