@@ -12,4 +12,4 @@ MetricFu::Configuration.run do |config|
   config.template_class = AwesomeTemplate
 end
  
-task :default => [:"metrics:all"]
+task :default => :spec
