@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = "metric_fu"
+  s.name        = "devver-metric_fu"
   s.version     = "1.3.3"
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "jake.scruggs@gmail.com"
