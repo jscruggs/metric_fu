@@ -8,7 +8,7 @@ module MetricFu
   AVAILABLE_METRICS = [:churn, :flog, :flay, :reek, 
                        :roodi, :saikuro, :rcov]
 
-  AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov]
+  AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov, :rails_best_practices]
   AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
 
   # The @@configuration class variable holds a global type configuration
@@ -133,6 +133,7 @@ module MetricFu
                                    "--profile",
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
+      @rails_best_practices = {}
 
       @file_globs_to_ignore = []
                                    
@@ -151,7 +152,7 @@ module MetricFu
     # running within rails.
     def set_metrics
       if rails?
-        @metrics = MetricFu::AVAILABLE_METRICS + [:stats]
+        @metrics = MetricFu::AVAILABLE_METRICS + [:stats, :rails_best_practices]
       else
         @metrics = MetricFu::AVAILABLE_METRICS
       end 
