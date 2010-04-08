@@ -7842,3 +7842,72 @@
     :score: 25.4
   :average: 9.9
   :total: 1491.1
+:stats:
+  :codeLOC: 15935
+  :testLOC: 7438
+  :lines:
+  - :methods_per_class: 7
+    :methods: 722
+    :loc_per_method: 7
+    :classes: 98
+    :lines: 8796
+    :name: Controllers
+    :loc: 7184
+  - :methods_per_class: 0
+    :methods: 135
+    :loc_per_method: 8
+    :classes: 0
+    :lines: 1800
+    :name: Helpers
+    :loc: 1413
+  - :methods_per_class: 5
+    :methods: 491
+    :loc_per_method: 6
+    :classes: 95
+    :lines: 5571
+    :name: Models
+    :loc: 4033
+  - :methods_per_class: 6
+    :methods: 305
+    :loc_per_method: 8
+    :classes: 49
+    :lines: 4108
+    :name: Libraries
+    :loc: 3305
+  - :methods_per_class: 0
+    :methods: 4
+    :loc_per_method: 876
+    :classes: 0
+    :lines: 4386
+    :name: Model specs
+    :loc: 3514
+  - :methods_per_class: 4
+    :methods: 8
+    :loc_per_method: 390
+    :classes: 2
+    :lines: 3895
+    :name: Controller specs
+    :loc: 3137
+  - :methods_per_class: 0
+    :methods: 0
+    :loc_per_method: 0
+    :classes: 0
+    :lines: 326
+    :name: Helper specs
+    :loc: 258
+  - :methods_per_class: 0
+    :methods: 2
+    :loc_per_method: 262
+    :classes: 0
+    :lines: 649
+    :name: Library specs
+    :loc: 529
+  - :methods_per_class: 6
+    :methods: 1667
+    :loc_per_method: 12
+    :classes: 244
+    :lines: 29531
+    :name: Total
+    :loc: 23373
+  :code_to_test_ratio: 0.5
+
