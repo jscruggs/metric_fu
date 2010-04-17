@@ -1,0 +1,7 @@
+README.rdoc
+lib/**/*.rb
+bin/*
+features/**/*.feature
+MIT-LICENSE
+HISTORY
+TODO

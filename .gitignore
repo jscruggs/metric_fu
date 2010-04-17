@@ -1,4 +1,24 @@
+## MAC OS
 .DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
+*~
+\#*
+.\#*
+
+## VIM
+*.swp
+
+## PROJECT::GENERAL
+coverage
+rdoc
+pkg
+
+## PROJECT::SPECIFIC
+yabawock-metric_fu-*.gem
 previous_failures.txt
-tmp/*
-metric_fu-*.gem
+tmp
