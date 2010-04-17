@@ -18,7 +18,7 @@ require File.join(base_dir, 'graph')
 # prevent the task from being run multiple times.
 unless Rake::Task.task_defined? "metrics:all"
   # Load the rakefile so users of the gem get the default metric_fu task
-  load File.join(MetricFu::LIB_ROOT, '..', 'tasks', 'metric_fu.rake')
+  load File.join(MetricFu::LIB_ROOT, 'tasks', 'metric_fu.rake')
 end
 
 # Now load everything else that's in the directory
