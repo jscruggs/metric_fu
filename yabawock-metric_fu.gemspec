@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{yabawock-metric_fu}
-  s.version = "1.3.0"
+  s.version = "1.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Morton Jonuschat", "Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood"]
@@ -122,7 +122,8 @@ Gem::Specification.new do |s|
      "spec/resources/saikuro_sfiles/thing.rb_cyclo.html",
      "spec/resources/yml/20090630.yml",
      "spec/spec.opts",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "yabawock-metric_fu.gemspec"
   ]
   s.homepage = %q{http://metric-fu.rubyforge.org/}
   s.rdoc_options = ["--charset=UTF-8"]
