@@ -1,5 +1,6 @@
 require 'rake'
 require 'yaml'
+require File.join(File.dirname(__FILE__), *%w[metric_fu railtie]) if defined?(::Rails::Railtie)
 # Load a few things to make our lives easier elsewhere.
 module MetricFu
   LIB_ROOT = File.dirname(__FILE__)
