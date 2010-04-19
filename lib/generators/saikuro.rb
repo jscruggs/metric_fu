@@ -2,20 +2,21 @@ module MetricFu
  
   class Saikuro < Generator
 
-    def emit
-      MetricFu.saikuro[:input_directory] = format_directories
- 
-      options_string = MetricFu.saikuro.inject("") do |options, option|
-        options + "--#{option.join(' ')} "
-      end
- 
-      sh %{saikuro #{options_string}} do |ok, response|
-        unless ok
-          puts "Saikuro failed with exit status: #{response.exitstatus}"
-          exit 1
-        end
-      end
-    end
+    def emit 
+      options_string = MetricFu.saikuro.inject("") do |options, option| 
+        options + "--#{option.join(' ')} " unless option == :input_directory 
+      end 
+      
+      MetricFu.saikuro[:input_directory].each do |input_dir| 
+        options_string += "--input_directory #{input_dir} " 
+      end 
+      sh %{saikuro #{options_string}} do |ok, response| 
+        unless ok 
+          puts "Saikuro failed with exit status: #{response.exitstatus}" 
+          exit 1 
+        end 
+      end 
+    end 
 
     def format_directories
       dirs = MetricFu.saikuro[:input_directory].join(" | ")

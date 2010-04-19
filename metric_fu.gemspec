@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 Gem::Specification.new do |s|
-  s.name        = "devver-metric_fu"
-  s.version     = "1.3.3"
+  s.name        = "metric_fu"
+  s.version     = "1.3.4"
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "jake.scruggs@gmail.com"
   s.homepage    = "http://metric-fu.rubyforge.org/"
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency("rcov", [">= 0.8.3.3"])
   s.add_dependency("chronic", [">= 0.2.3"])
   s.add_dependency("churn", [">= 0.0.7"])
-  s.add_dependency("devver-Saikuro", [">= 1.1.0"])
+  s.add_dependency("Saikuro", [">= 1.1.0"])
   s.add_dependency("activesupport", [">= 2.2.3"])
   s.add_development_dependency("rspec", [">= 1.2.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
