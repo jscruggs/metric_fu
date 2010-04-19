@@ -170,6 +170,30 @@ describe Flog do
         flog_page.scanned_methods.first.name.should == "SomeNamespace::UsersController#create"
     end
 
+    it "should find the line number for the method" do
+      text = <<-HERE
+      157.9: flog total
+       11.3: flog/method average
+
+       34.8: SomeNamespace::UsersController#create lib/blah/file.rb:37
+      HERE
+      flog = MetricFu::Flog.new('base_dir')
+      flog_page = flog.parse(text)
+      flog_page.scanned_methods.first.line.should == "37"
+    end
+
+    it "should not add a line number, when none is found" do
+      text = <<-HERE
+      157.9: flog total
+       11.3: flog/method average
+
+       34.8: UsersController#none lib/blah/file.rb
+      HERE
+      flog = MetricFu::Flog.new('base_dir')
+      flog_page = flog.parse(text)
+      flog_page.scanned_methods.first.line.should == nil
+    end
+
     it "should parse empty flog files" do
       text = ""
       flog = MetricFu::Flog.new('base_dir')
