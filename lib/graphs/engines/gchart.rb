@@ -1,7 +1,7 @@
 module MetricFu
   module GchartGrapher
     COLORS = %w{009999 FF7400 A60000 008500 E6399B 344AD7 00B860 D5CCB9}    
-    GCHART_GRAPH_SIZE = "1000x300" # maximum permitted image size is 300000 pixels
+    GCHART_GRAPH_SIZE = "945x317" # maximum permitted image size is 300000 pixels
     
     NUMBER_OF_TICKS = 6
     def determine_y_axis_scale(values)
