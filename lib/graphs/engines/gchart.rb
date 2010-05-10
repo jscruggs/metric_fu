@@ -1,7 +1,7 @@
 module MetricFu
   module GchartGrapher
     COLORS = %w{009999 FF7400 A60000 008500 E6399B 344AD7 00B860 D5CCB9}    
-    GCHART_GRAPH_SIZE = "1000x300" # maximum permitted image size is 300000 pixels
+    GCHART_GRAPH_SIZE = "945x317" # maximum permitted image size is 300000 pixels
     
     NUMBER_OF_TICKS = 6
     def determine_y_axis_scale(values)
@@ -55,7 +55,8 @@ module MetricFu
         :data => [@flog_average, @top_five_percent_average],
         :stacked => false,
         :bar_colors => COLORS[0..1],
-        :legend => ['average', 'top 5%25 average'],
+        :legend => ['average', 'top 5% average'],
+        :custom => "chdlp=t",
         :max_value => @max_value,
         :axis_with_labels => 'x,y',
         :axis_labels => [@labels.values, @yaxis],
@@ -93,6 +94,7 @@ module MetricFu
         :stacked => false,
         :bar_colors => COLORS,
         :legend => legend,
+        :custom => "chdlp=t",
         :max_value => @max_value,
         :axis_with_labels => 'x,y',
         :axis_labels => [@labels.values, @yaxis],
