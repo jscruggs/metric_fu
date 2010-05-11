@@ -158,7 +158,11 @@ module MetricFu
     end
     
     def set_graphs
-      @graphs = MetricFu::AVAILABLE_GRAPHS 
+      if rails?
+        @graphs = MetricFu::AVAILABLE_GRAPHS + [:stats]
+      else
+        @graphs = MetricFu::AVAILABLE_GRAPHS 
+      end
     end
 
     # Add the 'app' directory if we're running within rails.
