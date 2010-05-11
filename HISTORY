@@ -1,5 +1,11 @@
 === MetricFu 1.3.0 / 2010-01-26
 
+* Added rails stats graphing -- Josh Cronemeyer
+* Fix some problems with the google charts - Chris Griego
+* Stop showing the googlecharts warning if you are not using google charts.
+
+=== MetricFu 1.3.0 / 2010-01-26
+
 * Flay can be configured to ignore scores below a threshold (by default it ignores scores less than 100)
 * When running Rcov you can configure the RAILS_ENV (defaults to 'test') so running metric_fu doesn't interfere with other environments
 * Changed devver-construct (a gem hosted by GitHub) development dependency to test-construct dependency (on Gemcutter) - Dan Mayer
