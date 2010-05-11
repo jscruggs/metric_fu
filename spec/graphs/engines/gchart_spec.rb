@@ -1,4 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
+describe MetricFu::Grapher do
+  describe "require_graphing_gem" do
+    it "should give a warning if trying to use gchart but gem is not installed" do
+      MetricFu::Configuration.run {|config| config.graph_engine = :gchart}
+      MetricFu::Grapher.should_receive(:require).with('gchart').and_raise(LoadError)
+      MetricFu::Grapher.should_receive(:puts).with(/If you want to use google charts/)
+      MetricFu::Grapher.require_graphing_gem
+    end
+  end
+end
+
 describe MetricFu::GchartGrapher do
   describe "determine_y_axis_scale" do
     it "should set defaults when empty array" do
@@ -21,7 +32,7 @@ end
 
 describe "Gchart graphers" do
   before :each do
-    MetricFu.configuration
+    MetricFu::Configuration.run {|config| config.graph_engine = :gchart}
   end
   
   describe "FlayGchartGrapher graph! method" do
