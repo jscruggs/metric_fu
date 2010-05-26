@@ -110,7 +110,8 @@ module MetricFu
       set_graphs
       set_code_dirs
       @flay     = { :dirs_to_flay => @code_dirs,
-                    :minimum_score => 100 } 
+                    :minimum_score => 100,
+                    :filetypes => ['rb'] } 
       @flog     = { :dirs_to_flog => @code_dirs  }
       @reek     = { :dirs_to_reek => @code_dirs  }
       @roodi    = { :dirs_to_roodi => @code_dirs }
