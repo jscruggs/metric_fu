@@ -19,18 +19,21 @@ module MetricFu
     end
 
     def emit
-      FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
-      Dir.mkdir(MetricFu::Rcov.metric_directory)
-      test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
-      rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
-      output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
-      puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
-      `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
+      unless MetricFu.rcov[:external]
+        FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
+        Dir.mkdir(MetricFu::Rcov.metric_directory)
+        test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
+        rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
+        output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
+        puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
+        `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
+      end
     end
 
 
     def analyze
-      output = File.open(MetricFu::Rcov.metric_directory + '/rcov.txt').read
+      output_file = MetricFu.rcov[:external] ? MetricFu.rcov[:external] : MetricFu::Rcov.metric_directory + '/rcov.txt'
+      output = File.open(output_file).read
       output = output.split(NEW_FILE_MARKER)
       
       output.shift # Throw away the first entry - it's the execution time etc.
