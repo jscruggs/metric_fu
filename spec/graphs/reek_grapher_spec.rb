@@ -43,4 +43,5 @@ describe ReekGrapher do
       @reek_grapher.get_metrics(@metrics, @date)
     end
   end
+  
 end

@@ -4,7 +4,8 @@ describe "Bluff graphers responding to #graph!" do
   it "should write chart file" do
     MetricFu.configuration
     graphs = {}
-    MetricFu::AVAILABLE_GRAPHS.each do |graph|
+    available_graphs = MetricFu::AVAILABLE_GRAPHS + [:stats]
+    available_graphs.each do |graph|
       graphs[graph] = MetricFu.const_get("#{graph.to_s.capitalize}BluffGrapher").new
     end
     graphs.each do |key, val|
