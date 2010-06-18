@@ -117,4 +117,23 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
+  
+  describe "StatsGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = StatsGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Stats: LOC & LOT"),
+        :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
+        :legend => ['Lines of code', 'Lines of test'],
+        :custom => "chdlp=t",
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'stats.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
+    end
+  end
+ 
 end
