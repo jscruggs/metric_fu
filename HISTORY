@@ -1,12 +1,12 @@
 === MetricFu +1 / ???
 
 * Added support for rails_best_practices gem - Richard Huang
+* Added rails stats graphing -- Josh Cronemeyer
+* Parameterize the filetypes for flay. By default flay supports haml as well as rb and has a plugin ability for other filetypes. - bfabry
 * Support for Flog 2.4.0 line numbers - Dan Mayer
 * Saikuro multi input directory patch - Spencer Dillard and Dan Mayer
-* Parameterize the filetypes for flay. By default flay supports haml as well as rb and has a plugin ability for other filetypes. - bfabry
 * Can now parse rcov analysis file coming from multiple sources with an rcov :external option in the config. - Tarsoly András
 * Fixed open file handles problem in the Saikuro analyzer - aselder, erebor
-* Added rails stats graphing -- Josh Cronemeyer
 * Fix some problems with the google charts - Chris Griego
 * Stop showing the googlecharts warning if you are not using google charts.
 
