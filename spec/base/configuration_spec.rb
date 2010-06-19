@@ -134,7 +134,8 @@ describe MetricFu::Configuration do
                                          "--no-color",
                                          "--profile",
                                          "--rails",
-                                         "--exclude /gems/,/Library/,/usr/,spec"]}
+                                         "--exclude /gems/,/Library/,/usr/,spec"],
+                          :external => nil}
     end
 
     it 'should set @saikuro to { :output_directory => @scratch_directory + "/saikuro",

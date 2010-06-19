@@ -132,7 +132,9 @@ module MetricFu
                                    "--no-color",
                                    "--profile",
                                    "--rails",
-                                   "--exclude /gems/,/Library/,/usr/,spec"]}
+                                   "--exclude /gems/,/Library/,/usr/,spec"],
+                    :external => nil
+                  }
 
       @file_globs_to_ignore = []
                                    

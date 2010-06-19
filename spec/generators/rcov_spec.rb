@@ -11,8 +11,9 @@ describe MetricFu::Rcov do
   describe "emit" do
     before :each do
       @rcov.stub!(:puts)
+      MetricFu.rcov[:external] = nil
     end
-    
+
     it "should clear out previous output and make output folder" do
       @rcov.stub!(:`)
       FileUtils.should_receive(:rm_rf).with(MetricFu::Rcov.metric_directory, :verbose => false)
@@ -31,6 +32,7 @@ describe MetricFu::Rcov do
   
   describe "with RCOV_OUTPUT fed into" do
     before :each do
+      MetricFu.rcov[:external] = nil
       File.should_receive(:open).
             with(MetricFu::Rcov.metric_directory + '/rcov.txt').
             and_return(mock("io", :read => RCOV_OUTPUT))
@@ -59,6 +61,25 @@ describe MetricFu::Rcov do
         @rcov.to_h[:rcov][:global_percent_run].should == 13.7
       end
     end
+  end
+  describe "with external configuration option set" do
+    before :each do
+      @rcov.stub!(:puts)
+      MetricFu.rcov[:external] = "coverage/rcov.txt"
+    end
+
+    it "should emit nothing if external configuration option is set" do
+      FileUtils.should_not_receive(:rm_rf)
+      @rcov.emit
+    end
+    
+    it "should open the external rcov analysis file" do
+      File.should_receive(:open).
+            with(MetricFu.rcov[:external]).
+            and_return(mock("io", :read => RCOV_OUTPUT))
+      @files = @rcov.analyze
+    end
+    
   end
 
 
