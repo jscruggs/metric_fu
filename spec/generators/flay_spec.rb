@@ -15,6 +15,17 @@ describe Flay do
       @flay.should_receive(:`).with("flay path/to/app path/to/lib")
       output = @flay.emit
     end
+
+    it "should look at the filetypes" do
+      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['lib'], :filetypes => ['rb','haml']  } }
+      File.stub!(:directory?).and_return(true)
+      @flay = MetricFu::Flay.new('base_dir')    
+    
+      Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib")
+      Dir.should_receive(:[]).with(File.join("lib", "**/*.haml")).and_return("path/to/lib")
+      @flay.should_receive(:`).with("flay path/to/app path/to/lib")
+      output = @flay.emit
+    end
     
     it "should limit flay scores by the minimum_score" do
       MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => [], :minimum_score => 99 } }
