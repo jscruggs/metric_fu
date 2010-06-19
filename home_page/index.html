@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.3.0</h1>
+            <h1>About metric_fu 1.4.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -57,6 +57,7 @@
     <a href="http://github.com/kevinrutherford/reek">Reek</a>, 
     <a href="http://github.com/martinjandrews/roodi">Roodi</a>, 
     <a href="http://github.com/danmayer/churn">Churn</a>, 
+    <a href="http://rubygems.org/gems/rails_best_practices">RailsBestPractices</a>, 
     <a href="http://subversion.tigris.org/">Subversion</a>, 
     <a href="http://git.or.cz/">Git</a>, and 
     <a href="http://www.rubyonrails.org/">Rails</a> 
@@ -66,7 +67,11 @@
 </p>
 <br/>
 <p>
-  New in metric_fu 1.3.0 is the ability to configure what RAILS_ENV you what Rcov to run under so it won't clobber any other tests that might be running (in continuous integration).  You can also configure the minimum Flay score to record (the default minimum score 100).  There's now some cool tooltip hover info in the graphs (thanks Édouard Brière).
+  New in metric_fu 1.4.0 is integration with the rails_best_practices gem (Richard Huang), Rails stats now have graphing (Josh Cronemeyer), parameterized filetypes for flay so it can look at other file types (bfabry), along with many bug fixes.  Check the <a href="http://github.com/jscruggs/metric_fu/blob/master/HISTORY">HISTORY</a> file for complete details.
+</p>
+<br/>
+<p>
+  In metric_fu 1.3.0 is the ability to configure what RAILS_ENV you what Rcov to run under so it won't clobber any other tests that might be running (in continuous integration).  You can also configure the minimum Flay score to record (the default minimum score 100).  There's now some cool tooltip hover info in the graphs (thanks Édouard Brière).
 </p>
 <br/>
 <p>
@@ -84,13 +89,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.3.0', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.4.0', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'metric_fu', :version => '1.3.0', :lib => 'metric_fu'</pre>
+<pre>config.gem 'metric_fu', :version => '1.4.0', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -101,7 +106,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem metric_fu-1.3.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.4.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>
@@ -143,36 +148,14 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <br/>
 
     <h2>Configuration:</h2>
+    <p>The definitive source for configuration is, of course, the source: <a href="http://github.com/jscruggs/metric_fu/blob/master/lib/base/configuration.rb#L99">lib/base/configuration.rb</a>
     <p>Metric_fu can be customized to your liking by altering the defaults in your Rakefile:</p>
     <pre>
       MetricFu::Configuration.run do |config|
         #define which metrics you want to use
-        config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :reek, :roodi, :rcov]
-        config.graphs   = [:flog, :flay, :reek, :roodi, :rcov]
-        config.flay     = { :dirs_to_flay => ['app', 'lib'],
-                            :minimum_score => 100  } 
-        config.flog     = { :dirs_to_flog => ['app', 'lib']  }
-        config.reek     = { :dirs_to_reek => ['app', 'lib']  }
-        config.roodi    = { :dirs_to_roodi => ['app', 'lib'] }
-        config.saikuro  = { :output_directory => 'scratch_directory/saikuro', 
-                            :input_directory => ['app', 'lib'],
-                            :cyclo => "",
-                            :filter_cyclo => "0",
-                            :warn_cyclo => "5",
-                            :error_cyclo => "7",
-                            :formater => "text"} #this needs to be set to "text"
-        config.churn    = { :start_date => "1 year ago", :minimum_churn_count => 10}
-        config.rcov     = { :environment => 'test',
-                            :test_files => ['test/**/*_test.rb', 
-                                            'spec/**/*_spec.rb'],
-                            :rcov_opts => ["--sort coverage", 
-                                           "--no-html", 
-                                           "--text-coverage",
-                                           "--no-color",
-                                           "--profile",
-                                           "--rails",
-                                           "--exclude /gems/,/Library/,spec"]}
-        config.graph_engine = :bluff
+        config.metrics  = [:churn, :saikuro, :stats, :flog, :flay]
+        config.graphs   = [:flog, :flay, :stats]
+        # ...
     end
     </pre>
     Note: if you don't want one of the metrics to run (like rcov), make sure you don't try to graph it (which will explode).  Set config.graphs to exactly the graphs you want.  Set config.graphs to an empty array (config.graphs = []) if you want no graphing at all.
@@ -185,11 +168,34 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 
 <p><br/>
     <h2>Notes on metrics:coverage</h2>
-    When creating a coverage report, metric_fu runs all the tests in the test folder and specs in spec folder using Rcov.  You can configure what files it should run and the RAILS_ENV (by setting 'environment') it runs under.  See the configuration section above for details.
+    When creating a coverage report, metric_fu runs all the tests in the test folder and specs in spec folder using Rcov.  You can configure what files it should run and the RAILS_ENV (by setting 'environment') it runs under. Default config for rcov:
+    <pre>
+      config.rcov = { :environment => 'test',
+                      :test_files => ['test/**/*_test.rb', 
+                                      'spec/**/*_spec.rb'],
+                      :rcov_opts => ["--sort coverage", 
+                                     "--no-html", 
+                                     "--text-coverage",
+                                     "--no-color",
+                                     "--profile",
+                                     "--rails",
+                                     "--exclude /gems/,/Library/,/usr/,spec"],
+                      :external => nil
+                    }
+    </pre>
 </p>
 <p><br/>
     <h2>Notes on metrics:saikuro</h2>
-    Saikuro is bundled with metric_fu so you don't have to install it.  Look at the SAIKURO_README (or the internet) for more documentation on Saikuro.
+    Saikuro measures cyclomatic complexity for Ruby.  Default config for Saikuro:
+    <pre>
+      config.saikuro  = { :output_directory => 'tmp/metirc_fu/saikuro', 
+                          :input_directory => ['app', 'lib'],
+                          :cyclo => "",
+                          :filter_cyclo => "0",
+                          :warn_cyclo => "5",
+                          :error_cyclo => "7",
+                          :formater => "text"}
+    </pre>
 <br/><br/>
 </p>
 <p><br/>
@@ -197,27 +203,44 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
     Flay analyzes ruby code for structural similarities. 
     You can configure which directories need to be flayed.
     The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
-    By default, metric_fu ignores scores under 100.  You can configure the minimum_score (see configuration section above).
+    By default, metric_fu ignores scores under 100.  You can configure the minimum_score. Default config for Flay:
+    <pre>
+      config.flay ={:dirs_to_flay => ['app', 'lib'],
+                    :minimum_score => 100,
+                    :filetypes => ['rb'] }
+    </pre>
 </p>
 
 <p><br/>
     <h2>Notes on metrics:flog</h2>
-    Note:  Flog 2.1.2 has some issues with Ruby 1.8.6 -- try using Flog 2.1.0 (Flog 2.1.2 does, however, work fine with Ruby 1.9.1)
     <br/>
-    Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  You should check out the awesome, and a little scary, <a href="http://ruby.sadi.st/Flog.html">Flog website</a> for more info.
+    Flog is another way of measuring complexity (or tortured code as the Flog authors like to put it).  You should check out the awesome, and a little scary, <a href="http://ruby.sadi.st/Flog.html">Flog website</a> for more info. Default config for Flog:
+    <pre>
+      config.flog = { :dirs_to_flog => ['app', 'lib'] }
+    </pre>
 </p>
 <p><br/>
     <h2>Notes on metrics:reek</h2>
     Reek detects common code smells in ruby code.
     You can configure which directories need to be checked.
-    The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
+    The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects. Default config for Reek:
+    <pre>
+      config.reek = { :dirs_to_reek => ['app', 'lib'] }
+    </pre>
 </p>
 
 <p><br/>
     <h2>Notes on metrics:roodi</h2>
     Roodi parses your Ruby code and warns you about design issues you have based on the checks that is has configured.
     You can configure which directories need to be checked.
-    The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.
+    The defaults are 'lib' for non Rails projects and ['app', 'lib'] for Rails projects.  Default config for Roodi:
+    <pre>
+      config.roodi = { :dirs_to_roodi => ['app', 'lib'] }
+    </pre>
+</p>
+<p><br/>
+    <h2>Notes on metrics:rails_best_practices</h2>
+    Rails Best Practices checks your rails files for violations of... Well the name says it all. The gem was inspired by ihower's presentation <a href="http://www.slideshare.net/ihower/rails-best-practices">Rails Best Practices</a>
 </p>
 <p><br/>
     <h2>Notes on metrics:stats</h2>
