@@ -99,6 +99,8 @@ module MetricFu
       @file_handle = File.open(@path, "r")
       @elements = []
       get_elements
+    ensure
+      @file_handle.close if @file_handle
     end
  
     def self.is_valid_text_file?(path)
