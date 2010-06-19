@@ -120,9 +120,13 @@ module MetricFu
     end  
 
     class ScannedMethod
-      attr_accessor :name, :score, :operators
+      attr_accessor :name, :score, :operators, :line
 
       def initialize(name, score, operators = [])
+        if name.match(/\.rb:\d*/)
+          @line = name.match(/\.rb:\d*/).to_s.sub('.rb:','')
+          name = name.match(/\S*/)
+        end
         @name = name
         @score = score.to_f
         @operators = operators
@@ -130,8 +134,9 @@ module MetricFu
 
       def to_h
         {:name => @name,
-         :score => @score,
-         :operators => @operators.map {|o| o.to_h}}
+          :score => @score,
+          :operators => @operators.map {|o| o.to_h},
+          :line => @line}
       end
     end  
   

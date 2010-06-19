@@ -6,7 +6,9 @@ describe "Bluff graphers responding to #graph!" do
     graphs = {}
     available_graphs = MetricFu::AVAILABLE_GRAPHS + [:stats]
     available_graphs.each do |graph|
-      graphs[graph] = MetricFu.const_get("#{graph.to_s.capitalize}BluffGrapher").new
+      grapher_name = graph.to_s.gsub("MetricFu::",'').gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      grapher_name =  grapher_name+"BluffGrapher"
+      graphs[graph] = MetricFu.const_get(grapher_name).new
     end
     graphs.each do |key, val|
       val.graph!

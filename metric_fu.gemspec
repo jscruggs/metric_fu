@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = "metric_fu"
   s.version     = "1.3.0"
@@ -5,7 +6,7 @@ Gem::Specification.new do |s|
   s.email       = "jake.scruggs@gmail.com"
   s.homepage    = "http://metric-fu.rubyforge.org/"
   s.description = "Code metrics from Flog, Flay, RCov, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices"
-  s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang"]
+  s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer"]
 
   s.files = ["README","HISTORY","TODO","MIT-LICENSE","Rakefile"]
     
@@ -18,7 +19,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["HISTORY", "Manifest.txt", "README.textile"]
 
   s.add_dependency("flay", [">= 1.2.1"])
-  s.add_dependency("flog", ["= 2.2.0"])
+  s.add_dependency("flog", [">= 2.2.0"])
   s.add_dependency("rcov", [">= 0.8.3.3"])
   s.add_dependency("reek", [">=1.2.6"])
   s.add_dependency("roodi", [">=2.1.0"])
@@ -27,8 +28,8 @@ Gem::Specification.new do |s|
   s.add_dependency("churn", [">= 0.0.7"])
   s.add_dependency("Saikuro", [">= 1.1.0"])
   s.add_dependency("activesupport", [">= 2.0.0"])
+  
   s.add_development_dependency("rspec", [">= 1.2.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
   s.add_development_dependency("googlecharts")
-
 end

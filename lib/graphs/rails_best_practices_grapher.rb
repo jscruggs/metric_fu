@@ -11,7 +11,12 @@ module MetricFu
     end
     
     def get_metrics(metrics, date)
-      @rails_best_practices_count.push(metrics[:rails_best_practices][:problems].size)
+      if metrics[:rails_best_practices] && metrics[:rails_best_practices][:problems]
+        size = metrics[:rails_best_practices][:problems].size
+      else
+        size = 0
+      end
+      @rails_best_practices_count.push(size)
       @labels.update( { @labels.size => date })
     end
     
