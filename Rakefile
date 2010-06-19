@@ -1,3 +1,4 @@
+$LOAD_PATH << '.'
 require 'rake'
 require 'rake/rdoctask'
 require 'spec/rake/spectask'
