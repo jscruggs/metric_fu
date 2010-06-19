@@ -1,5 +1,6 @@
 === MetricFu +1 / ???
 
+* Fixed open file handles problem in the Saikuro analyzer - aselder
 * Added rails stats graphing -- Josh Cronemeyer
 * Fix some problems with the google charts - Chris Griego
 * Stop showing the googlecharts warning if you are not using google charts.
