@@ -6,7 +6,7 @@ describe Flay do
   end
   describe "emit method" do
     it "should look at the dirs" do
-      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib']  } }
+      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib'], :filetypes => ['rb']  } }
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')    
     
@@ -21,9 +21,9 @@ describe Flay do
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')    
     
-      Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib")
-      Dir.should_receive(:[]).with(File.join("lib", "**/*.haml")).and_return("path/to/lib")
-      @flay.should_receive(:`).with("flay path/to/app path/to/lib")
+      Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib/stuff.rb")
+      Dir.should_receive(:[]).with(File.join("lib", "**/*.haml")).and_return("path/to/lib/view/blah.html.haml")
+      @flay.should_receive(:`).with("flay path/to/lib/stuff.rb path/to/lib/view/blah.html.haml")
       output = @flay.emit
     end
     

@@ -87,7 +87,7 @@ describe MetricFu::Configuration do
 
     it 'should set @flay to {:dirs_to_flay => @code_dirs}' do
       @config.instance_variable_get(:@flay).
-              should == {:dirs_to_flay => ['lib'], :minimum_score => 100}
+              should == {:dirs_to_flay => ['lib'], :filetypes=>["rb"], :minimum_score => 100}
     end
     
     it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
