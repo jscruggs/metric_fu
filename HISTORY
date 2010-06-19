@@ -1,5 +1,6 @@
 === MetricFu +1 / ???
 
+* Can now parse rcov analysis file coming from multiple sources with an rcov :external option in the config. - Tarsoly András
 * Fixed open file handles problem in the Saikuro analyzer - aselder
 * Added rails stats graphing -- Josh Cronemeyer
 * Fix some problems with the google charts - Chris Griego
