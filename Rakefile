@@ -10,6 +10,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 end
  
 MetricFu::Configuration.run do |config|
+  config.roodi = config.roodi.merge(:roodi_config => 'config/roodi_config.yml')
   config.template_class = AwesomeTemplate
 end
  
