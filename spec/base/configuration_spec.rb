@@ -102,7 +102,7 @@ describe MetricFu::Configuration do
 
     it 'should set @roodi to {:dirs_to_roodi => @code_dirs}' do
       @config.instance_variable_get(:@roodi).
-              should == {:dirs_to_roodi => ['lib']}
+              should == {:roodi_config=>nil, :dirs_to_roodi => ['lib']}
     end
    
     it 'should set @churn to {}' do

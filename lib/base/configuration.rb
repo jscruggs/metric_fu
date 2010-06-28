@@ -115,7 +115,8 @@ module MetricFu
       @flog     = { :dirs_to_flog => @code_dirs  }
       @reek     = { :dirs_to_reek => @code_dirs,
                     :config_file_pattern => nil}
-      @roodi    = { :dirs_to_roodi => @code_dirs }
+      @roodi    = { :dirs_to_roodi => @code_dirs,
+                    :roodi_config => nil}
       @saikuro  = { :output_directory => @scratch_directory + '/saikuro', 
                     :input_directory => @code_dirs,
                     :cyclo => "",
