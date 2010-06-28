@@ -1,6 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe Reek do
+  describe "emit" do
+    it "should include config parameters" do
+      MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
+      MetricFu::Configuration.run do |config|
+        config.reek = {:config_file_pattern => 'lib/config/*.reek', :dirs_to_reek => []}
+      end
+      reek = MetricFu::Reek.new
+      reek.should_receive(:`).with(/--config lib\/config\/\*\.reek/).and_return("")
+      reek.emit
+    end
+  end
+  
   describe "analyze method" do
     before :each do
       MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)

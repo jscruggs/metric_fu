@@ -97,7 +97,7 @@ describe MetricFu::Configuration do
     
     it 'should set @reek to {:dirs_to_reek => @code_dirs}' do
       @config.instance_variable_get(:@reek).
-              should == {:dirs_to_reek => ['lib']}
+              should == {:config_file_pattern=>nil, :dirs_to_reek => ['lib']}
     end
 
     it 'should set @roodi to {:dirs_to_roodi => @code_dirs}' do

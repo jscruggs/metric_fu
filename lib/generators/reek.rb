@@ -11,7 +11,8 @@ module MetricFu
     def emit
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
       files = remove_excluded_files(files_to_reek.flatten)
-      @output = `reek #{files.join(" ")}`
+      config_file_param = MetricFu.reek[:config_file_pattern] ? "--config #{MetricFu.reek[:config_file_pattern]}" : ''
+      @output = `reek #{config_file_param} #{files.join(" ")}`
       @output = massage_for_reek_12 if reek_12?
     end
 

@@ -113,7 +113,8 @@ module MetricFu
                     :minimum_score => 100,
                     :filetypes => ['rb'] } 
       @flog     = { :dirs_to_flog => @code_dirs  }
-      @reek     = { :dirs_to_reek => @code_dirs  }
+      @reek     = { :dirs_to_reek => @code_dirs,
+                    :config_file_pattern => nil}
       @roodi    = { :dirs_to_roodi => @code_dirs }
       @saikuro  = { :output_directory => @scratch_directory + '/saikuro', 
                     :input_directory => @code_dirs,
