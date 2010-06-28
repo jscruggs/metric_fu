@@ -1,3 +1,8 @@
+=== MetricFu +1 / ???
+
+* Added support for using config files in Reek and Roodi (roodi support was already there but undocumented).
+* Removed verify_dependencies! as it caused too much confusion to justify the limited set of problems it solved. In the post Bundler world it just didn't seem necessary to limit metric_fu dependencies.
+
 === MetricFu 1.4.0 / 2010-06-19
 
 * Added support for rails_best_practices gem - Richard Huang
