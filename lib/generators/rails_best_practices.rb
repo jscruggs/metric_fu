@@ -1,11 +1,5 @@
 module MetricFu
   class RailsBestPractices < Generator
-
-    def self.verify_dependencies!
-      `rails_best_practices --help`
-      raise 'sudo gem install rails_best_practices # if you want the rails_best_practices tasks' unless $?.success?
-    end
-
     
     def emit
       @output = `rails_best_practices .`

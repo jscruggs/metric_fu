@@ -156,28 +156,7 @@ describe MetricFu::Generator do
       @concrete_class.should_receive(:to_h)
       @concrete_class.generate_report
     end
-    
-    it "should raise error if the concrete class is missing a required dependency" do
-      concrete_class_with_missing_gem = Class.new(MetricFu::Generator) do
-        def self.verify_dependencies!
-          raise 'gem install something # if you want these tasks'
-        end
-      end
-      lambda { concrete_class_with_missing_gem.generate_report }.should raise_error("gem install something # if you want these tasks")
-    end
 
-  end
-  
-  describe "instantiation" do
-    it "should fail is dependencies not verified" do
-      ConcreteClass.should_receive(:verify_dependencies!).and_raise("Missing a required gem. Please 'gem install something'")      
-      lambda { ConcreteClass.new() }.should raise_error("Missing a required gem. Please 'gem install something'")
-    end
-
-    it "should succeed when dependencies verified" do
-      ConcreteClass.should_receive(:verify_dependencies!).and_return(true)
-      ConcreteClass.new()
-    end
   end
 
   describe "path filter" do

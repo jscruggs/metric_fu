@@ -2,12 +2,7 @@ module MetricFu
   
   class Reek < Generator
     REEK_REGEX = /^(\S+) (.*) \((.*)\)$/
-
-    def self.verify_dependencies!
-      `reek --help`
-      raise 'sudo gem install reek # if you want the reek tasks' unless $?.success?
-    end
-
+    
     def emit
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
       files = remove_excluded_files(files_to_reek.flatten)

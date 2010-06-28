@@ -6,7 +6,6 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
-      MetricFu::Churn.should_receive(:verify_dependencies!).and_return(true)
       @changes = {"lib/generators/flog.rb"=>2, "lib/metric_fu.rb"=>3}
     end
     
@@ -30,7 +29,6 @@ describe Churn do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
-      MetricFu::Churn.should_receive(:verify_dependencies!).and_return(true)
     end
     
     it "should put the changes into a hash" do

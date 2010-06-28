@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe Roodi do 
   describe "emit" do
     it "should add config options when present" do
-      MetricFu::Roodi.stub!(:verify_dependencies!).and_return(true)
       MetricFu::Configuration.run do |config|
         config.roodi = {:roodi_config => 'lib/config/roodi_config.yml', :dirs_to_roodi => []}
       end
@@ -13,7 +12,6 @@ describe Roodi do
     end
     
     it "should NOT add config options when NOT present" do
-      MetricFu::Roodi.stub!(:verify_dependencies!).and_return(true)
       MetricFu::Configuration.run do |config|
         config.roodi = {:dirs_to_roodi => []}
       end

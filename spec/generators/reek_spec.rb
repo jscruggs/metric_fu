@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe Reek do
   describe "emit" do
     it "should include config parameters" do
-      MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
       MetricFu::Configuration.run do |config|
         config.reek = {:config_file_pattern => 'lib/config/*.reek', :dirs_to_reek => []}
       end
@@ -15,7 +14,6 @@ describe Reek do
   
   describe "analyze method" do
     before :each do
-      MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
       @lines = <<-HERE
 "app/controllers/activity_reports_controller.rb" -- 4 warnings:
 ActivityReportsController#authorize_user calls current_user.primary_site_ids multiple times (Duplication)
@@ -73,7 +71,6 @@ end
 
 describe Reek do
   before :each do
-    MetricFu::Reek.stub!(:verify_dependencies!).and_return(true)
     MetricFu::Configuration.run {}
     @reek = MetricFu::Reek.new
     @lines11 = <<-HERE

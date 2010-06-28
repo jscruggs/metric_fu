@@ -2,11 +2,6 @@ module MetricFu
   
   class Flay < Generator
 
-    def self.verify_dependencies!
-      `flay --help`
-      raise 'sudo gem install flay # if you want the flay tasks' unless $?.success?
-    end
-
     def emit
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| 
         MetricFu.flay[:filetypes].map {|type|

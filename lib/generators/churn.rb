@@ -5,12 +5,6 @@ module MetricFu
     def initialize(options={})
       super
     end
-
-    def self.verify_dependencies!
-      result = `churn --help`
-      raise 'sudo gem install churn # if you want the churn tasks' unless result.match(/churn/)
-    end
-
     
     def emit
       @output = `churn --yaml`
