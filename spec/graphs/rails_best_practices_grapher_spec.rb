@@ -1,4 +1,4 @@
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe RailsBestPracticesGrapher do
   before :each do
@@ -32,6 +32,13 @@ describe RailsBestPracticesGrapher do
     it "should update labels with the date" do
       @stats_grapher.labels.should_receive(:update).with({ 0 => "01022003" })
       @stats_grapher.get_metrics(@metrics, @date)
+    end
+
+    context "when no metrics have been collected" do
+      it "should push 0 to rails_best_practices_count" do
+        @stats_grapher.rails_best_practices_count.should_receive(:push).with(0)
+        @stats_grapher.get_metrics({}, @date)
+      end
     end
   end
 end
