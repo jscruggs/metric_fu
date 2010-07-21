@@ -7910,4 +7910,13 @@
     :name: Total
     :loc: 23373
   :code_to_test_ratio: 0.5
-
+:rails_best_practices: 
+  :problems: 
+  - :line: "17"
+    :file: ./app/views/admin/testimonials/_form.html.erb
+    :problem: replace instance variable with local variable
+  - :line: "24,45,68,85"
+    :file: ./app/controllers/admin/campaigns_controller.rb
+    :problem: use before_filter for show,edit,update,destroy
+  :total: 
+  - Found 2 errors.
