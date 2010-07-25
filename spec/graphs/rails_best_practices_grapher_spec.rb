@@ -19,25 +19,42 @@ describe RailsBestPracticesGrapher do
   end
 
   describe "responding to #get_metrics" do
-    before(:each) do
-      @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
-      @date = "01022003"
+    context "when metrics were not generated" do
+      before(:each) do
+        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "metric_missing.yml")))
+        @date = "01022003"
+      end
+
+      it "should not push to rails_best_practices_count" do
+        @stats_grapher.rails_best_practices_count.should_not_receive(:push)
+        @stats_grapher.get_metrics(@metrics, @date)
+      end
+
+      it "should not update labels with the date" do
+        @stats_grapher.labels.should_not_receive(:update)
+        @stats_grapher.get_metrics(@metrics, @date)
+      end
     end
 
-    it "should push 100 to rails_best_practices_count" do
-      @stats_grapher.rails_best_practices_count.should_receive(:push).with(2)
-      @stats_grapher.get_metrics(@metrics, @date)
-    end
+    context "when metrics have been generated" do
+      before(:each) do
+        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
+        @date = "01022003"
+      end
 
-    it "should update labels with the date" do
-      @stats_grapher.labels.should_receive(:update).with({ 0 => "01022003" })
-      @stats_grapher.get_metrics(@metrics, @date)
-    end
+      it "should push to rails_best_practices_count" do
+        @stats_grapher.rails_best_practices_count.should_receive(:push).with(2)
+        @stats_grapher.get_metrics(@metrics, @date)
+      end
 
-    context "when no metrics have been collected" do
-      it "should push 0 to rails_best_practices_count" do
+      it "should push 0 to rails_best_practices_count when no problems were found" do
         @stats_grapher.rails_best_practices_count.should_receive(:push).with(0)
-        @stats_grapher.get_metrics({}, @date)
+        @stats_grapher.get_metrics({ :rails_best_practices => {} }, @date)
+      end
+
+      it "should update labels with the date" do
+        @stats_grapher.labels.should_receive(:update).with({ 0 => "01022003" })
+        @stats_grapher.get_metrics(@metrics, @date)
       end
     end
   end
