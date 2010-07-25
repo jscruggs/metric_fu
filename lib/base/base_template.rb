@@ -103,6 +103,10 @@ module MetricFu
       "<a href='#{file_url(name, line)}'>#{link_content(name, line, link_content)}</a>"
     end
     
+    def round_to_tenths(decimal)
+      (decimal * 10).round / 10.0 
+    end
+    
     def link_content(name, line=nil, link_content=nil) # :nodoc:
       if link_content
         link_content
@@ -114,6 +118,7 @@ module MetricFu
     end
     
     def file_url(name, line) # :nodoc:
+      return '' unless name
       filename = File.expand_path(name.gsub(/^\//, ''))
       if MetricFu.configuration.platform.include?('darwin')
         "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")

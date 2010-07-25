@@ -9,8 +9,8 @@
 <script language="javascript" src="<%= graph_name %>.js?<%= Time.now.to_i %>" type="text/javascript"></script>
 <% end %>
 
-<h2>Total Flog score for all methods: <%= @flog[:total]%></h2>
-<h2>Average Flog score for all methods: <%= @flog[:average]%></h2>
+<h2>Total Flog score for all methods: <%= round_to_tenths @flog[:total]%></h2>
+<h2>Average Flog score for all methods: <%= round_to_tenths @flog[:average]%></h2>
 
 <table>
   <tr>
@@ -20,31 +20,33 @@
     <th>Average score</th>
     <th>Highest score</th>
   </tr>
-    <% @flog[:pages].each do |page| %>
+    <% @flog[:method_containers].each do |method_container| %>
     <tr>
-      <td><a href="#<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= page[:path] %></a></td>
-      <td><%= page[:score].round %></td>
-      <td><%= page[:scanned_methods].length %></td>
-      <td><%= page[:average_score].round %></td>
-      <td><%= page[:highest_score].round %></td>
+      <td><a href="#<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= method_container[:path] %></a></td>
+      <td><%= round_to_tenths  method_container[:total_score] %></td>
+      <td><%= method_container[:methods].size %></td>
+      <td><%= round_to_tenths method_container[:average_score] %></td>
+      <td><%= round_to_tenths method_container[:highest_score] %></td>
     </tr>
   <% end %>
 </table>
 
-<% @flog[:pages].each do |page| %>
-  <h2 id="<%= page[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename page[:path] %></h2>
-    <% page[:scanned_methods].each do |sm| %>
-      <p><%= link_to_filename(page[:path],sm[:line],sm[:name]) %></p>
-      <p>Total Score: <%=sm[:score]%></p>
+<% @flog[:method_containers].each do |method_container| %>
+  <h2 id="<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename(method_container[:path]) %></h2>
+  
+    <% method_container[:methods].each do |full_method_name, method_info| %>
+      <% path, line = method_info[:path].split(":") if method_info[:path] %>
+      <p><%= link_to_filename(path, line, full_method_name) %></p>
+      <p>Total Score: <%= round_to_tenths method_info[:score]%></p>
       <table>
         <tr>
           <th>Score</th>
           <th>Operator</th>
         </tr>
-        <% sm[:operators].each do |operator| %>
+        <% method_info[:operators].each do |operator, score| %>
           <tr>
-            <td><%= operator[:score] %></td>
-            <td><%= operator[:operator] %></td>
+            <td><%= round_to_tenths score %></td>
+            <td><%= operator %></td>
           </tr>
         <% end %>
       </table>
