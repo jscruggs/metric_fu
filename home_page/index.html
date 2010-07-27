@@ -46,7 +46,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 1.4.0</h1>
+            <h1>About metric_fu 1.5.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -67,15 +67,15 @@
 </p>
 <br/>
 <p>
-  New in metric_fu 1.4.0 is integration with the rails_best_practices gem (Richard Huang), Rails stats now have graphing (Josh Cronemeyer), parameterized filetypes for flay so it can look at other file types (bfabry), along with many bug fixes.  Check the <a href="http://github.com/jscruggs/metric_fu/blob/master/HISTORY">HISTORY</a> file for complete details.
+  In 1.5.0 I re-wrote the Flog parsing engine to use Flog programmatically instead of parsing the command line output.  This will hopefully stop minor changes in Flog's output from breaking metric_fu. Check the <a href="http://github.com/jscruggs/metric_fu/blob/master/HISTORY">HISTORY</a> file for complete details.
+</p>
+<br/>
+<p>
+  New in metric_fu 1.4.0 is integration with the rails_best_practices gem (Richard Huang), Rails stats now have graphing (Josh Cronemeyer), parameterized filetypes for flay so it can look at other file types (bfabry), along with many bug fixes.
 </p>
 <br/>
 <p>
   In metric_fu 1.3.0 is the ability to configure what RAILS_ENV you what Rcov to run under so it won't clobber any other tests that might be running (in continuous integration).  You can also configure the minimum Flay score to record (the default minimum score 100).  There's now some cool tooltip hover info in the graphs (thanks Édouard Brière).
-</p>
-<br/>
-<p>
-  In metric_fu 1.2.0 the graphing has been overhauled.  Now you can use either Bluff (the default) or Google Charts to make your graphs.  An upside of moving away from Gruff is that metric_fu no longer depends on ImageMagick/rmagick.  Carl Youngblood submitted this feature so thank him if you like it.  See the Graphing section below for how to configure.
 </p>
 <br/>
 <h2>Installation:</h2>
@@ -89,13 +89,13 @@
 If you like to vendor gems, you can unpack metric_fu into vendor/gems and require it like so:
 </p>
 <br/>
-<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.4.0', 'lib', 'metric_fu'))</pre>
+<pre>require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.5.0', 'lib', 'metric_fu'))</pre>
 <br/>
 <p>Then you don't have to install it on every box you run it on.</p>
 <br/>
 <p>Later versions of Rails like to manage your gems for you, so you can put this in your test.rb file:</p>
 <br/>
-<pre>config.gem 'metric_fu', :version => '1.4.0', :lib => 'metric_fu'</pre>
+<pre>config.gem 'metric_fu', :version => '1.5.0', :lib => 'metric_fu'</pre>
 <br/>
 <p>And then issue this command:</p>
 <br/>
@@ -106,7 +106,7 @@ If you like to vendor gems, you can unpack metric_fu into vendor/gems and requir
 <p>That way Rails won't yell at you every time you run a Rake task:</p>
 <br/>
 <pre>
-  config.gem: Unpacked gem metric_fu-1.4.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+  config.gem: Unpacked gem metric_fu-1.5.0 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
 </pre>
 <br/>
 <p>

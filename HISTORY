@@ -1,4 +1,4 @@
-=== MetricFu 1.5.0 / 2010-4-27
+=== MetricFu 1.5.0 / 2010-7-27
 
 * Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).  
 * Rewrote Flog parsing/processing to use Flog programmatically. Note: the yaml output for Flog has changed significantly - Pages have now become MethodContainers.  This probably doesn't matter to you if you are not consuming the metric_fu yaml output.  
