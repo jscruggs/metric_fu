@@ -1,7 +1,10 @@
-=== MetricFu +1 / ???
+=== MetricFu 1.5.0 / 2010-4-27
 
+* Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).  
+* Rewrote Flog parsing/processing to use Flog programmatically. Note: the yaml output for Flog has changed significantly - Pages have now become MethodContainers.  This probably doesn't matter to you if you are not consuming the metric_fu yaml output.  
 * Added support for using config files in Reek and Roodi (roodi support was already there but undocumented).
 * Removed verify_dependencies! as it caused too much confusion to justify the limited set of problems it solved. In the post Bundler world it just didn't seem necessary to limit metric_fu dependencies.
+* Deal with Rails 3 activesupport vs active_support problems. -  jinzhu
 
 === MetricFu 1.4.0 / 2010-06-19
 
