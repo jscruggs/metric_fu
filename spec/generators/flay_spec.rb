@@ -6,21 +6,8 @@ describe Flay do
       MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib'], :filetypes => ['rb']  } }
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')    
-    
-      Dir.should_receive(:[]).with(File.join("app", "**/*.rb")).and_return("path/to/app")
-      Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib")
-      @flay.should_receive(:`).with("flay path/to/app path/to/lib")
-      output = @flay.emit
-    end
 
-    it "should look at the filetypes" do
-      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['lib'], :filetypes => ['rb','haml']  } }
-      File.stub!(:directory?).and_return(true)
-      @flay = MetricFu::Flay.new('base_dir')    
-    
-      Dir.should_receive(:[]).with(File.join("lib", "**/*.rb")).and_return("path/to/lib/stuff.rb")
-      Dir.should_receive(:[]).with(File.join("lib", "**/*.haml")).and_return("path/to/lib/view/blah.html.haml")
-      @flay.should_receive(:`).with("flay path/to/lib/stuff.rb path/to/lib/view/blah.html.haml")
+      @flay.should_receive(:`).with("flay  app lib")
       output = @flay.emit
     end
     
@@ -29,7 +16,7 @@ describe Flay do
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')
 
-      @flay.should_receive(:`).with("flay --mass 99 ")
+      @flay.should_receive(:`).with("flay --mass 99  ")
       output = @flay.emit
     end
   end
