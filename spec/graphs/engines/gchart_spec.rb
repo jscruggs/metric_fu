@@ -135,5 +135,22 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
- 
+
+  describe "RailsBestPracticesGchartGrapher graph! method" do
+    it "should set static values for graph" do
+      grapher = RailsBestPracticesGchartGrapher.new
+      expected = {
+        :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
+        :title => URI.escape("Rails Best Practices: design problems"),
+        :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
+        :legend => ['Problems'],
+        :custom => "chdlp=t",
+        :axis_with_labels => 'x,y',
+        :format => 'file',
+        :filename => File.join(MetricFu.output_directory, 'rails_best_practices.png'),
+      }
+      Gchart.should_receive(:line).with(hash_including(expected))
+      grapher.graph!
+    end
+  end
 end

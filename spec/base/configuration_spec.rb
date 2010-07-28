@@ -115,6 +115,11 @@ describe MetricFu::Configuration do
               should == {}
     end
 
+    it 'should set @rails_best_practices to {}' do
+      @config.instance_variable_get(:@rails_best_practices).
+              should == {}
+    end
+
     it 'should set @rcov to { :test_files => ["test/**/*_test.rb", 
                                               "spec/**/*_spec.rb"] 
                               :rcov_opts  => ["--sort coverage",   
