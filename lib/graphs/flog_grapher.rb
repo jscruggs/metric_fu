@@ -1,24 +1,24 @@
 module MetricFu
-  
   class FlogGrapher < Grapher
-    
     attr_accessor :flog_average, :labels, :top_five_percent_average
-    
+
     def initialize
       super
       @flog_average = []
       @labels = {}
       @top_five_percent_average =[]
     end
-    
+
     def get_metrics(metrics, date)
-      @top_five_percent_average.push(calc_top_five_percent_average(metrics))
-      @flog_average.push(metrics[:flog][:average])
-      @labels.update( { @labels.size => date })
+      if metrics && metrics[:flog]
+        @top_five_percent_average.push(calc_top_five_percent_average(metrics))
+        @flog_average.push(metrics[:flog][:average])
+        @labels.update( { @labels.size => date })
+      end
     end
-    
+
     private
-    
+
     def calc_top_five_percent_average(metrics)
       return calc_top_five_percent_average_legacy(metrics) if metrics[:flog][:pages]
       
@@ -54,5 +54,4 @@ module MetricFu
       end
     end
   end
-  
 end
