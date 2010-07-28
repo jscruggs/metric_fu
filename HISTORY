@@ -1,3 +1,8 @@
+=== MetricFu ??? 
+
+* Patch that allows graphers to skip dates that didn't generate metrics for that graph (GitHub Issue #20). - Chris Griego
+* Fixed bug where if you try and use the gchart grapher with the rails_best_practices metric, it blows up (GitHub Issue #23). - Chris Griego
+
 === MetricFu 1.5.0 / 2010-7-27
 
 * Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).  
