@@ -6,7 +6,8 @@ module MetricFu
   # course, in order to use these metrics, their respective gems must
   # be installed on the system.
   AVAILABLE_METRICS = [:churn, :flog, :flay, :reek, 
-                       :roodi, :saikuro, :rcov]
+                       :roodi, :saikuro, :rcov,
+                      :hotspots]
 
   AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov, :rails_best_practices]
   AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
@@ -134,7 +135,7 @@ module MetricFu
                                    "--rails",
                                    "--exclude /gems/,/Library/,/usr/,spec"]}
       @rails_best_practices = {}
-
+      @hotspots = {}
       @file_globs_to_ignore = []
                                    
       @graph_engine = :bluff # can be :bluff or :gchart
@@ -155,7 +156,7 @@ module MetricFu
         @metrics = MetricFu::AVAILABLE_METRICS + [:stats, :rails_best_practices]
       else
         @metrics = MetricFu::AVAILABLE_METRICS
-      end 
+      end
     end
     
     def set_graphs

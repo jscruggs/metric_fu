@@ -1,5 +1,7 @@
 require 'rake'
 require 'yaml'
+require 'lib/base/scoring_strategies'
+
 # Load a few things to make our lives easier elsewhere.
 module MetricFu
   LIB_ROOT = File.dirname(__FILE__)
