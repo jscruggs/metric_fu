@@ -1,12 +1,7 @@
 class FlayAnalyzer
   include ScoringStrategies
 
-  GRAPH_HEADINGS = ['Flay Duplication']
   COLUMNS = %w{flay_reason flay_matching_reason}
-
-  def self.get_graph_headings(source, api, github_login, github_token, revisions_count)
-    GRAPH_HEADINGS
-  end
 
   def columns
     COLUMNS

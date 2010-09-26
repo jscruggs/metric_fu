@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class ReekAnalyzer
   include ScoringStrategies
 
@@ -25,19 +24,6 @@ class ReekAnalyzer
   # This was a partially implemented idea to avoid column name collisions
   # but it is only done in the ReekAnalyzer
   COLUMNS = %w{type_name message value value_description comparable_message}
-
-  def self.get_graph_headings(uri, api, github_login, github_token, revisions_count)
-    project           = ProjectResource.new(uri.to_s,
-                                            api.url,
-                                            {:github_login => github_login,
-                                              :github_token => github_token}
-                                            )
-    revisions         = project.cached_reverse_revisions(revisions_count)
-    revisions_metrics = project.get_revision_metrics(revisions, 'reek')
-    reek_data         = Graph.get_reek_data_for_revisions(revisions, revisions_metrics)
-    types             = reek_data[:types].to_a.map{ |type| type.to_s}
-    types
-  end
 
   def self.issue_link(issue)
     REEK_ISSUE_INFO[issue]

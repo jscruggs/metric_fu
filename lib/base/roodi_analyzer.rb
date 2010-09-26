@@ -1,7 +1,6 @@
 class RoodiAnalyzer
   include ScoringStrategies
 
-  GRAPH_HEADINGS = ['Design Problems']
   COLUMNS = %w{problems}
 
   def columns
@@ -10,10 +9,6 @@ class RoodiAnalyzer
   
   def name
     :roodi
-  end
-
-  def self.get_graph_headings(source, api, github_login, github_token, revisions_count)
-    GRAPH_HEADINGS
   end
 
   def map(row)

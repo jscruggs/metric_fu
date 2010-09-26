@@ -1,31 +1,54 @@
-<html>
-<head>
-	<title>Source Control Churn Results</title>
-	<style>
-	<%= inline_css("default.css") %>	
-	</style>
-</head>
+<h3>Hotspot Results</h3>
+<p>Meta analysis of your metrics to find hotspots in your code.</p>
+<br/>
 
-<body>
-	<h1>Source Control Churn Results</h1>
-  <a href="index.html">back to menu</a>
-	<p>Files that change a lot in your project may be bad a sign.
-	  This task uses your source control log to identify those files.
-	  </p>
-	<table>
-    <tr>
-      <th>File Path</th>
-      <th>Times Changed</th>
-    </tr>
-    <% count = 0 %>
-    <% @churn[:changes].each do |change| %>
-      <tr>
-        <td><%= change[:file_path] %></td>
-        <td><%= change[:times_changed] %></td>
+<% if !@hotspots || @hotspots.size == 0 %>
+No Hotspots were found.
+<% elsif @hotspots && @hotspots.size > 0 %>
+
+<% granularities = [:files, :classes, :methods] %>
+<table>
+<tr valign="top">
+<% granularities.each do |granularity| %>  
+   <th width='33%'> 
+<%= granularity.to_s.capitalize %></th>
+<% end %>
+</tr>
+
+<% items = [] %>
+<% granularities.each_index do |index| %>
+  <% granularity = granularities[index] %>
+  <% items << @hotspots[granularity] %>
+<% end %>
+
+<% items_length = 0 %>
+<% columns = [0, 1, 2] %>
+<% while (items_length < items[0].length || items_length < items[1].length || items_length < items[2].length) do %>
+    <tr  valign="top"> 
+       <% columns.each do |column| %>
+       <% item = items[column].length >= items_length ? items[column][items_length] : nil %>
+       <% if item %>
+       <td>
+       <b>
+          <%= display_location(item[:location], nil) %>
+        </b>
+        <br/><br/>
+        <!-- TODO HOTSPOTS for metric fu nice metric_link method -->
+        <% item[:details].each do |metric, info| %>
+          <%#= metric_link(@stat, metric, h(metric.to_s.capitalize)) + ": " + h(info)%><br/>
+          <%= "#{metric.to_s.capitalize}: #{info}" %><br/>
+          <% end %>
+          </td>
+      <% else %>
+      <td> &nbsp; </td>
+      <% end %>
+      <% end %>
+      <% items_length += 1 %>
       </tr>
-      <% count += 1 %>
-		<% end %>
-	</table>
-	<p>Generated on <%= Time.now.localtime %></p>	
-</body>
-</html>
+    <% end %>
+
+</table>
+<% end %>
+
+
+<p>Generated on <%= Time.now.localtime %></p>	

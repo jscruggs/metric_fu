@@ -35,34 +35,6 @@ class ChurnAnalyzer
     end
   end
 
-  def self.churn_history(source, api_url, github_login, github_token, revision_count)
-    project = ProjectResource.new(
-                                  source.uri, 
-                                  api_url,
-                                  :github_login => github_login,
-                                  :github_token => github_token)
-    revisions         = project.cached_reverse_revisions(revision_count)
-    revisions_metrics = project.get_revision_metrics(revisions, 'churn')
-    revisions_changes = { :klasses => {}, :methods => {}}
-    
-    revisions_metrics.each do |metric|
-      revision = metric.first
-      metric_data = metric.last
-      metric_data = metric_data[:churn] if metric_data
-      if metric_data
-        changed_classes = metric_data[:changed_classes]
-        changed_methods = metric_data[:changed_methods]
-        klasses = revisions_changes[:klasses]
-        methods = revisions_changes[:methods]
-        klasses = update_changes(klasses, changed_classes) if changed_classes
-        methods = update_changes(methods, changed_methods) if changed_methods
-      end
-    end
-
-    churn_data_points = revisions_metrics.length
-    [revisions_changes, churn_data_points]
-  end
-
   private 
 
   def self.update_changes(total, changed)

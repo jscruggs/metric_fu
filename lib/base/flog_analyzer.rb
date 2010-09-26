@@ -1,7 +1,6 @@
 class FlogAnalyzer
   include ScoringStrategies
 
-  GRAPH_HEADINGS = ['Flog average', 'Top 5% average']
   COLUMNS = %w{score}
 
   def columns
@@ -10,10 +9,6 @@ class FlogAnalyzer
   
   def name
     :flog
-  end
-
-  def self.get_graph_headings(source, api, github_login, github_token, revisions_count)
-    GRAPH_HEADINGS
   end
   
   def map(row)

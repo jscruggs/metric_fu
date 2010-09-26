@@ -1,6 +1,3 @@
-#TODO HOTSPOTS just implement the mean function to remove the statarray requirements
-require 'statarray'
-
 module ScoringStrategies
 
   def percentile(ranking, item)
@@ -20,11 +17,12 @@ module ScoringStrategies
   end
 
   def average(scores)
-    begin
-      scores.to_statarray.mean
-    rescue => error
-      error
-    end
+    # remove dependency on statarray
+    # scores.to_statarray.mean
+    score_length = scores.length
+    sum = 0
+    sum = scores.inject( nil ) { |sum,x| sum ? sum+x : x }
+    (sum.to_f / score_length.to_f)
   end
   
   extend self

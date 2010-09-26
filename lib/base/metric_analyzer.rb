@@ -237,10 +237,10 @@ class MetricAnalyzer
     when :churn
       "detected high level of churn (changed #{group[0].times_changed} times)"
     when :flog
-      complexity = group.column("score").to_statarray.mean
+      complexity = get_mean(group.column("score"))
       "#{"average " if occurences > 1}complexity is %.1f" % complexity
     when :saikuro
-      complexity = group.column("complexity").to_statarray.mean
+      complexity = get_mean(group.column("complexity"))
       "#{"average " if occurences > 1}complexity is %.1f" % complexity
     when :flay
       "found #{occurences} code duplications"
@@ -270,10 +270,10 @@ class MetricAnalyzer
     when :churn
       "detected high level of churn (changed #{group[0].times_changed} times)"
     when :flog
-      complexity = group.column("score").to_statarray.mean
+      complexity = get_mean(group.column("score"))
       "#{"average " if occurences > 1}complexity is %.1f" % complexity
     when :saikuro
-      complexity = group.column("complexity").to_statarray.mean
+      complexity = get_mean(group.column("complexity"))
       "#{"average " if occurences > 1}complexity is %.1f" % complexity
     when :flay
       message = "found #{occurences} code duplications<br/>"
@@ -309,6 +309,13 @@ class MetricAnalyzer
       raise ArgumentError, "Item must be :class, :method, or :file"
     end
     tables[value]
+  end
+
+  def get_mean(collection)
+    collection_length = collection.length
+    sum = 0
+    sum = collection.inject( nil ) { |sum,x| sum ? sum+x : x }
+    (sum.to_f / collection_length.to_f)
   end
   
 end

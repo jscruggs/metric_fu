@@ -1,11 +1,10 @@
 <h3>Hotspot Results</h3>
 <p>Meta analysis of your metrics to find hotspots in your code.</p>
 <br/>
-<% @worst_items = @hotspots %>
 
-<% if !@worst_items || @worst_items.size == 0 %>
+<% if !@hotspots || @hotspots.size == 0 %>
 No Hotspots were found.
-<% elsif @worst_items && @worst_items.size > 0 %>
+<% elsif @hotspots && @hotspots.size > 0 %>
 
 <% granularities = [:files, :classes, :methods] %>
 <table>
@@ -19,7 +18,7 @@ No Hotspots were found.
 <% items = [] %>
 <% granularities.each_index do |index| %>
   <% granularity = granularities[index] %>
-  <% items << @worst_items[granularity] %>
+  <% items << @hotspots[granularity] %>
 <% end %>
 
 <% items_length = 0 %>
