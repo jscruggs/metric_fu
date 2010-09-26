@@ -53,7 +53,7 @@ module MetricFu
     end
 
     def to_h
-      {:hotspots => @worst_items}
+      {:hotspots => @hotspots}
     end
   end
 
