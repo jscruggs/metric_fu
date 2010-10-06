@@ -117,6 +117,22 @@ module MetricFu
         name
       end
     end
+
+    def display_location(location, stat)
+      file_path, class_name, method_name = location.file_path, location.class_name, location.method_name
+      str = ""
+      str += link_to_filename(file_path)
+      str += " : " if method_name || class_name
+      if(method_name)
+        str += "#{method_name}"
+      else
+        #TODO HOTSPOTS BUG ONLY exists on move over to metric_fu
+        if class_name.is_a?(String)
+          str+= "#{class_name}"
+        end
+      end
+      str
+    end
     
     def file_url(name, line) # :nodoc:
       return '' unless name

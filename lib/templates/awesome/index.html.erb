@@ -27,5 +27,8 @@
 <% if @rails_best_practices %>
   <li class='even failure'><a href="rails_best_practices.html">Rails Best Practices report</a></li>
 <% end %>
+<% if @hotspots %>
+  <li class='even failure'><a href="hotspots.html">Hotspots</a></li>
+<% end %>
 </ul>
 <p>Generated on <%= Time.now.localtime %></p>	

@@ -5,6 +5,7 @@ begin
 rescue LoadError
   require 'active_support'
 end
+require 'lib/base/scoring_strategies'
 
 # Load a few things to make our lives easier elsewhere.
 module MetricFu
