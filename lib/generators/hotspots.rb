@@ -10,16 +10,8 @@ module MetricFu
       true
     end
 
-    
     def emit
-      #TODO HOTSPOTS since this runs before metric_fu has written the file it currently runs hotspots
-      #against the previous metric_fu run, not the current. Have it get the yaml from mememory of the 
-      #current run in progress... Ensure that hotspots runs last of all metric_fu metrics.
-      report_file = 'tmp/metric_fu/report.yml'
-      if File.exists?(report_file)
-        yaml = File.read(report_file)
-        @analyzer = MetricAnalyzer.new(yaml)
-      end
+      @analyzer = MetricAnalyzer.new(MetricFu.report.report_hash)
     end
 
     def analyze
