@@ -74,15 +74,15 @@ module MetricFu
             method_coverage_map[method_name] ||= {}
             method_coverage_map[method_name][:total] ||= 0
             method_coverage_map[method_name][:total] += 1
-            method_coverage_map[method_name][:covered] ||= 0
-            method_coverage_map[method_name][:covered] += 1 if covered
+            method_coverage_map[method_name][:uncovered] ||= 0
+            method_coverage_map[method_name][:uncovered] += 1 if !covered
           end
         end
         
         @rcov[file_path][:methods] = {}
         
         method_coverage_map.each do |method_name, coverage_data|
-          @rcov[file_path][:methods][method_name] = (coverage_data[:covered] / coverage_data[:total].to_f) * 100.0
+          @rcov[file_path][:methods][method_name] = (coverage_data[:uncovered] / coverage_data[:total].to_f) * 100.0
         end
         
       end

@@ -20,7 +20,7 @@ class MetricAnalyzer
 
     tool_analyzers = [ReekAnalyzer.new, RoodiAnalyzer.new,
     FlogAnalyzer.new, ChurnAnalyzer.new, SaikuroAnalyzer.new,
-    FlayAnalyzer.new, StatsAnalyzer.new]
+    FlayAnalyzer.new, StatsAnalyzer.new, RcovAnalyzer.new]
     # TODO There is likely a clash that will happen between
     # column names eventually. We should probably auto-prefix
     # them (e.g. "roodi_problem")
@@ -244,6 +244,9 @@ class MetricAnalyzer
       "#{"average " if occurences > 1}complexity is %.1f" % complexity
     when :flay
       "found #{occurences} code duplications"
+    when :rcov
+      average_code_uncoverage = get_mean(group.column("percentage_uncovered"))
+      "#{"average " if occurences > 1}uncovered code is %.1f" % average_code_uncoverage      
     else
       raise AnalysisError, "Unknown metric #{metric}"
     end
