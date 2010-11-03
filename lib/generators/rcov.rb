@@ -48,10 +48,45 @@ module MetricFu
 
     def to_h
       global_percent_run = ((@global_total_lines_run.to_f / @global_total_lines.to_f) * 100)
+      add_method_data
       {:rcov => @rcov.merge({:global_percent_run => round_to_tenths(global_percent_run) })}   
     end
     
     private
+    
+    def add_method_data
+      @rcov.each_pair do |file_path, info|
+        file_contents = ""
+        coverage = []
+        
+        info[:lines].each_with_index do |line, index|
+          file_contents << "#{line[:content]}\n"
+          coverage << line[:was_run]
+        end
+        
+        line_numbers = LineNumbers.new(file_contents)
+        
+        method_coverage_map = {}
+        coverage.each_with_index do |covered, index|
+          line_number = index + 1
+          if line_numbers.in_method?(line_number)
+            method_name = line_numbers.method_at_line(line_number)
+            method_coverage_map[method_name] ||= {}
+            method_coverage_map[method_name][:total] ||= 0
+            method_coverage_map[method_name][:total] += 1
+            method_coverage_map[method_name][:covered] ||= 0
+            method_coverage_map[method_name][:covered] += 1 if covered
+          end
+        end
+        
+        @rcov[file_path][:methods] = {}
+        
+        method_coverage_map.each do |method_name, coverage_data|
+          @rcov[file_path][:methods][method_name] = (coverage_data[:covered] / coverage_data[:total].to_f) * 100.0
+        end
+        
+      end
+    end
     
     def assemble_files(output)
       files = {}
