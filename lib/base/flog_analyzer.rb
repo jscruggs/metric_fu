@@ -25,13 +25,13 @@ class FlogAnalyzer
   
   def generate_records(data, table)
     return if data==nil
-    Array(data[:pages]).each do |page|
-      file_path = page[:path].sub(%r{^/},'')
-      Array(page[:scanned_methods]).each do |entry|
-        location = Location.for(entry[:name])
+    Array(data[:method_containers]).each do |method_container|
+      Array(method_container[:methods]).each do |entry|
+        file_path = entry[1][:path].sub(%r{^/},'') if entry[1][:path]
+        location = Location.for(entry.first)
         table << {
           "metric" => name,
-          "score" => entry[:score],
+          "score" => entry[1][:score],
           "file_path" => file_path,
           "class_name" => location.class_name,
           "method_name" => location.method_name
