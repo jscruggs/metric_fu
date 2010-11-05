@@ -64,7 +64,13 @@ module MetricFu
           coverage << line[:was_run]
         end
         
-        line_numbers = LineNumbers.new(file_contents)
+        begin
+          line_numbers = LineNumbers.new(file_contents)
+        rescue StandardError => e
+          raise e unless e.message =~ /you shouldn't be able to get here/
+          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Rcov information for this file."
+          next
+        end
         
         method_coverage_map = {}
         coverage.each_with_index do |covered, index|
