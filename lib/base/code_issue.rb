@@ -1,10 +1,10 @@
 require 'delegate'
-require 'lib/base/metric_analyzer'
-require 'lib/base/flog_analyzer'
-require 'lib/base/saikuro_analyzer'
-require 'lib/base/churn_analyzer'
-require 'lib/base/reek_analyzer'
-require 'lib/base/flay_analyzer'
+require MetricFu::LIB_ROOT + '/base/metric_analyzer'
+require MetricFu::LIB_ROOT + '/base/flog_analyzer'
+require MetricFu::LIB_ROOT + '/base/saikuro_analyzer'
+require MetricFu::LIB_ROOT + '/base/churn_analyzer'
+require MetricFu::LIB_ROOT + '/base/reek_analyzer'
+require MetricFu::LIB_ROOT + '/base/flay_analyzer'
 
 module CarefulArray
 

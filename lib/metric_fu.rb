@@ -5,13 +5,12 @@ begin
 rescue LoadError
   require 'active_support'
 end
-require 'lib/base/scoring_strategies'
 
 # Load a few things to make our lives easier elsewhere.
 module MetricFu
   LIB_ROOT = File.dirname(__FILE__)
 end
-base_dir = File.join(MetricFu::LIB_ROOT, 'base')
+base_dir         = File.join(MetricFu::LIB_ROOT, 'base')
 generator_dir    = File.join(MetricFu::LIB_ROOT, 'generators')
 template_dir     = File.join(MetricFu::LIB_ROOT, 'templates')
 graph_dir        = File.join(MetricFu::LIB_ROOT, 'graphs')
@@ -21,6 +20,7 @@ graph_dir        = File.join(MetricFu::LIB_ROOT, 'graphs')
 require File.join(base_dir, 'report') 
 require File.join(base_dir, 'generator')
 require File.join(base_dir, 'graph')
+require File.join(base_dir, 'scoring_strategies')
 
 # prevent the task from being run multiple times.
 unless Rake::Task.task_defined? "metrics:all"
