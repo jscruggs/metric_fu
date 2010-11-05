@@ -246,7 +246,7 @@ class MetricAnalyzer
       "found #{occurences} code duplications"
     when :rcov
       average_code_uncoverage = get_mean(group.column("percentage_uncovered"))
-      "#{"average " if occurences > 1}uncovered code is %.1f" % average_code_uncoverage      
+      "#{"average " if occurences > 1}uncovered code is %.1f%" % average_code_uncoverage      
     else
       raise AnalysisError, "Unknown metric #{metric}"
     end
