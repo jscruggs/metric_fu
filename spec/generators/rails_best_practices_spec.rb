@@ -35,7 +35,7 @@ describe RailsBestPractices do
       @results[:problems].first.should == { :line => "17",
         :problem => "replace instance variable with local variable",
         :file => "./app/views/admin/testimonials/_form.html.erb" }
-      @results[:problems].second.should == { :line => "24,45,68,85",
+      @results[:problems][1].should == { :line => "24,45,68,85",
         :problem => "use before_filter for show,edit,update,destroy",
         :file => "./app/controllers/admin/campaigns_controller.rb" }
     end
