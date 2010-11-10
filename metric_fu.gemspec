@@ -20,12 +20,12 @@ Gem::Specification.new do |s|
   s.add_dependency("reek", [">=1.2.6"])
   s.add_dependency("roodi", [">=2.1.0"])
   s.add_dependency("rails_best_practices", [">=0.3.16"])
-  s.add_dependency("chronic", [">= 0.2.3"])
+  s.add_dependency("chronic", ["~> 0.2.3"])
   s.add_dependency("churn", [">= 0.0.7"])
   s.add_dependency("Saikuro", [">= 1.1.0"])
   s.add_dependency("activesupport", [">= 2.0.0"])
   
-  s.add_development_dependency("rspec", [">= 1.2.0"])
+  s.add_development_dependency("rspec", ["= 1.3.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
   s.add_development_dependency("googlecharts")
 end
