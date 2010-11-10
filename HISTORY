@@ -1,3 +1,8 @@
+=== MetricFu 2.0.0 / 2010-11-10
+
+* Hotspots - Dan Mayer, Ben Brinckerhoff, Jake Scruggs
+* Rcov integration with Hotspots - Jake Scruggs, Tony Castiglione, Rob Meyer
+
 === MetricFu 1.5.1 / 2010-7-28 
 
 * Patch that allows graphers to skip dates that didn't generate metrics for that graph (GitHub Issue #20). - Chris Griego

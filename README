@@ -3,12 +3,13 @@ See http://metric-fu.rubyforge.org/ for documentation, or the HISTORY file for a
 How to contribute:
 
 1. Fork metric_fu on github.
-2. 'gem install metric_fu --development'  #to get development dependencies
-3. Run the tests ('rake')
-4. Run metric_fu on itself ('rake metrics:all')
-5. Make the changes you want and back them up with tests.
-6. Make sure two important rake tests still run ('rake' and 'rake metrics:all')
-7. Commit and send me a pull request with details as to what has been changed.
+2. 'gem install metric_fu'  #to get gem dependencies
+3. Install the gems RSpec 1.3.0, test-construct, and googlecharts
+4. Run the tests ('rake')
+5. Run metric_fu on itself ('rake metrics:all')
+6. Make the changes you want and back them up with tests.
+7. Make sure two important rake tests still run ('rake' and 'rake metrics:all')
+8. Commit and send me a pull request with details as to what has been changed.
 
 Extra Credit:  
 1. Make sure your changes work in 1.8.7, Ruby Enterprise Edition, and 1.9.1 (Hint use 'rvm' to help install multiple rubies)
