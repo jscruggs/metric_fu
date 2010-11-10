@@ -1,8 +1,8 @@
 require 'rake'
 require 'yaml'
 begin
-  require 'active_support/core_ext'
-  require 'active_support/json'
+  require 'active_support/core_ext/object/to_json'
+  require 'active_support/core_ext/object/blank'
 rescue LoadError  
   require 'activesupport'
 end
