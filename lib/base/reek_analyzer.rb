@@ -1,7 +1,7 @@
 class ReekAnalyzer
   include ScoringStrategies
 
-  REEK_ISSUE_INFO = {'Uncommunicative Name' => 
+  REEK_ISSUE_INFO = {'Uncommunicative Name' =>
     {'link' => 'http://wiki.github.com/kevinrutherford/reek/uncommunicative-name', 'info' => 'An Uncommunicative Name is a name that doesn’t communicate its intent well enough.'},
     'Class Variable' =>
     {'link' => 'http://wiki.github.com/kevinrutherford/reek/class-variable', 'info' => 'Class variables form part of the global runtime state, and as such make it easy for one part of the system to accidentally or inadvertently depend on another part of the system.'},
@@ -32,7 +32,7 @@ class ReekAnalyzer
   def columns
     COLUMNS.map{|column| "#{name}__#{column}"}
   end
-  
+
   def name
     :reek
   end
@@ -48,7 +48,7 @@ class ReekAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.percentile(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
     return if data==nil
     data[:matches].each do |match|
@@ -101,7 +101,7 @@ class ReekAnalyzer
       nil
     end
   end
-  
+
   def parse_value(message)
     match = message.match(/\d+/)
     if(match)

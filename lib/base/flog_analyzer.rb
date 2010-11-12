@@ -6,11 +6,11 @@ class FlogAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :flog
   end
-  
+
   def map(row)
     row.score
   end
@@ -22,7 +22,7 @@ class FlogAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.identity(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
     return if data==nil
     Array(data[:method_containers]).each do |method_container|

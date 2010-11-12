@@ -6,7 +6,7 @@ class SaikuroAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :saikuro
   end
@@ -22,7 +22,7 @@ class SaikuroAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.identity(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
     return if data == nil
     data[:files].each do |file|

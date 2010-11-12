@@ -9,7 +9,7 @@ table {
 	border-collapse: collapse;
 	border: 1px solid #666;
 	background: #fff;
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
 }
 
 	table tr.light {
@@ -27,7 +27,7 @@ table {
 	table th {
 		text-align: center;
 		color: #fc0;
-		background: #336;		
+		background: #336;
 		font-weight: bold;
 		border: #d0d0d0 1px solid;
 	}
@@ -35,10 +35,10 @@ table {
 	table td {
 		border: #d0d0d0 1px solid;
 	}
-	
+
 		table td.score {
 			text-align: right;
-		}	
+		}
 
 .warning {
 	background: yellow;

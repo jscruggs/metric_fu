@@ -1,8 +1,8 @@
 module MetricFu
   module GchartGrapher
-    COLORS = %w{009999 FF7400 A60000 008500 E6399B 344AD7 00B860 D5CCB9}    
+    COLORS = %w{009999 FF7400 A60000 008500 E6399B 344AD7 00B860 D5CCB9}
     GCHART_GRAPH_SIZE = "945x317" # maximum permitted image size is 300000 pixels
-    
+
     NUMBER_OF_TICKS = 6
     def determine_y_axis_scale(values)
       values.collect! {|val| val || 0.0 }
@@ -18,10 +18,10 @@ module MetricFu
       end
     end
   end
-  
+
   class Grapher
     include MetricFu::GchartGrapher
-    
+
     def self.require_graphing_gem
       require 'gchart' if MetricFu.graph_engine == :gchart
     rescue LoadError
@@ -64,7 +64,7 @@ module MetricFu
         :filename => File.join(MetricFu.output_directory, 'flog.png'))
     end
   end
-  
+
   class RcovGchartGrapher < RcovGrapher
     def graph!
       url = Gchart.line(
@@ -86,7 +86,7 @@ module MetricFu
       values = []
       legend = @reek_count.keys.sort
       legend.collect {|k| values << @reek_count[k]}
-    
+
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
         :title => URI.escape("Reek: code smells"),
@@ -102,7 +102,7 @@ module MetricFu
         :filename => File.join(MetricFu.output_directory, 'reek.png'))
     end
   end
-  
+
   class RoodiGchartGrapher < RoodiGrapher
     def graph!
       determine_y_axis_scale(@roodi_count)

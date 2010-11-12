@@ -3,7 +3,7 @@ module ScoringStrategies
   def percentile(ranking, item)
     ranking.percentile(item)
   end
-  
+
   def identity(ranking, item)
     ranking[item]
   end
@@ -24,6 +24,6 @@ module ScoringStrategies
     sum = scores.inject( nil ) { |sum,x| sum ? sum+x : x }
     (sum.to_f / score_length.to_f)
   end
-  
+
   extend self
 end

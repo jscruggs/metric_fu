@@ -1,6 +1,6 @@
 module MetricFu
   class RailsBestPractices < Generator
-    
+
     def emit
       @output = `rails_best_practices .`
     end

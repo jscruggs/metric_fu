@@ -34,19 +34,19 @@ class Location
   end
 
   # END we need these methods as a temporary hack where we're using Location as a hash key
-  
+
   def self.for(class_or_method_name)
     class_or_method_name = strip_modules(class_or_method_name)
     if(class_or_method_name)
       begin
         match = class_or_method_name.match(/(.*)((\.|\#|\:\:[a-z])(.+))/)
       rescue => error
-        #new error during port to metric_fu occasionally a unintialized 
+        #new error during port to metric_fu occasionally a unintialized
         #MatchData object shows up here. Not expected.
         match = nil
       end
 
-      # reek reports the method with :: not # on modules like 
+      # reek reports the method with :: not # on modules like
       # module ApplicationHelper \n def signed_in?, convert it so it records correctly
       # but classes have to start with a capital letter... HACK for REEK bug, reported underlying issue to REEK
       if(match)
@@ -70,7 +70,7 @@ class Location
   private
 
   def self.strip_modules(class_or_method_name)
-    # reek reports the method with :: not # on modules like 
+    # reek reports the method with :: not # on modules like
     # module ApplicationHelper \n def signed_in?, convert it so it records correctly
     # but classes have to start with a capital letter... HACK for REEK bug, reported underlying issue to REEK
     if(class_or_method_name=~/\:\:[A-Z]/)

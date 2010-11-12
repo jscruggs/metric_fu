@@ -6,7 +6,7 @@ class RoodiAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :roodi
   end
@@ -22,7 +22,7 @@ class RoodiAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.percentile(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
     return if data==nil
     Array(data[:problems]).each do |problem|

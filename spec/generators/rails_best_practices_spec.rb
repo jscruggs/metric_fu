@@ -9,15 +9,15 @@ describe RailsBestPractices do
       practices.emit
     end
   end
-  
+
   describe "analyze method" do
     before :each do
       output = <<-HERE.gsub(/^[^\S\n]*/, "")
       ./app/views/admin/testimonials/_form.html.erb:17 - replace instance variable with local variable
       ./app/controllers/admin/campaigns_controller.rb:24,45,68,85 - use before_filter for show,edit,update,destroy
-      
+
       go to http://wiki.github.com/flyerhzm/rails_best_practices to see how to solve these errors.
-      
+
       Found 2 errors.
       HERE
       MetricFu::Configuration.run {}
@@ -25,11 +25,11 @@ describe RailsBestPractices do
       practices.instance_variable_set(:@output, output)
       @results = practices.analyze
     end
-    
+
     it "should get the total" do
       @results[:total].should == ["Found 2 errors."]
     end
-    
+
     it "should get the problems" do
       @results[:problems].size.should == 2
       @results[:problems].first.should == { :line => "17",
@@ -40,7 +40,7 @@ describe RailsBestPractices do
         :file => "./app/controllers/admin/campaigns_controller.rb" }
     end
   end
-  
+
   describe "to_h method" do
     it "should put things into a hash" do
       MetricFu::Configuration.run {}

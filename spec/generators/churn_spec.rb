@@ -1,14 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe Churn do
-  
+
   describe "analyze method" do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
       @changes = {"lib/generators/flog.rb"=>2, "lib/metric_fu.rb"=>3}
     end
-    
+
     it "should be empty on error" do
       churn = MetricFu::Churn.new
       churn.instance_variable_set(:@output, "fatal: Not a git repository")
@@ -24,13 +24,13 @@ describe Churn do
     end
 
   end
-  
+
   describe "to_h method" do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
     end
-    
+
     it "should put the changes into a hash" do
       churn = MetricFu::Churn.new
       churn.instance_variable_set(:@churn, {:churn => 'results'})

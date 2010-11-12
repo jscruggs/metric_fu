@@ -11,9 +11,9 @@ How to contribute:
 7. Make sure two important rake tests still run ('rake' and 'rake metrics:all')
 8. Commit and send me a pull request with details as to what has been changed.
 
-Extra Credit:  
+Extra Credit:
 1. Make sure your changes work in 1.8.7, Ruby Enterprise Edition, and 1.9.1 (Hint use 'rvm' to help install multiple rubies)
-2. Post to the Google group explaining what you did and why you did it (I don't merge things in immediately so others might want to use what you've done). 
+2. Post to the Google group explaining what you did and why you did it (I don't merge things in immediately so others might want to use what you've done).
 3. Update the documentation (web page inside the 'home_page' folder)
 4. Update the History and give yourself credit.
 

@@ -3,7 +3,7 @@ require 'yaml'
 begin
   require 'active_support/core_ext/object/to_json'
   require 'active_support/core_ext/object/blank'
-rescue LoadError  
+rescue LoadError
   require 'activesupport'
 end
 
@@ -18,7 +18,7 @@ graph_dir        = File.join(MetricFu::LIB_ROOT, 'graphs')
 
 # We need to require these two things first because our other classes
 # depend on them.
-require File.join(base_dir, 'report') 
+require File.join(base_dir, 'report')
 require File.join(base_dir, 'generator')
 require File.join(base_dir, 'graph')
 require File.join(base_dir, 'scoring_strategies')

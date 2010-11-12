@@ -3,7 +3,7 @@
 * Hotspots - Dan Mayer, Ben Brinckerhoff, Jake Scruggs
 * Rcov integration with Hotspots - Jake Scruggs, Tony Castiglione, Rob Meyer
 
-=== MetricFu 1.5.1 / 2010-7-28 
+=== MetricFu 1.5.1 / 2010-7-28
 
 * Patch that allows graphers to skip dates that didn't generate metrics for that graph (GitHub Issue #20). - Chris Griego
 * Fixed bug where if you try and use the gchart grapher with the rails_best_practices metric, it blows up (GitHub Issue #23). - Chris Griego
@@ -11,8 +11,8 @@
 
 === MetricFu 1.5.0 / 2010-7-27
 
-* Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).  
-* Rewrote Flog parsing/processing to use Flog programmatically. Note: the yaml output for Flog has changed significantly - Pages have now become MethodContainers.  This probably doesn't matter to you if you are not consuming the metric_fu yaml output.  
+* Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).
+* Rewrote Flog parsing/processing to use Flog programmatically. Note: the yaml output for Flog has changed significantly - Pages have now become MethodContainers.  This probably doesn't matter to you if you are not consuming the metric_fu yaml output.
 * Added support for using config files in Reek and Roodi (roodi support was already there but undocumented).
 * Removed verify_dependencies! as it caused too much confusion to justify the limited set of problems it solved. In the post Bundler world it just didn't seem necessary to limit metric_fu dependencies.
 * Deal with Rails 3 activesupport vs active_support problems. -  jinzhu
@@ -159,7 +159,7 @@
 
 === MetricFu 0.7.0 / 2008-09-11
 
-* Merged in Sean Soper's changes to metric_fu.  
+* Merged in Sean Soper's changes to metric_fu.
 * Metric_fu is now a gem.
 * Flogging now uses a MD5 hash to figure out if it should re-flog a file (if it's changed)
 * Flogging also has a cool new output screen(s)
@@ -194,7 +194,7 @@
     === Metricks 0.1.0 / 2008-06-10
 
     * Initial integration of metric_fu and my enhancements to flog
-    * Metrics are generated but are all over the place  
+    * Metrics are generated but are all over the place
 
 === MetricFu 0.6.0 / 2008-05-11
 
