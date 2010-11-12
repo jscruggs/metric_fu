@@ -7,3 +7,4 @@
 * Convert readme to markdown and rename to README.mkdn so github will render it
 * Saikuro.rb falls over if tries to parse an empty file.  Fair enough.  We shouldn't feed it empty files
 * Make running metric_fu on metric_fu less embarrassing 
+* Load all gems at config time so you fail fast if one is missing
