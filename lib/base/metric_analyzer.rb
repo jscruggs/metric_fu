@@ -147,7 +147,7 @@ class MetricAnalyzer
 
   def fix_row_file_path!(row)
     # We know that Saikuro rows are broken
-    next unless row['metric'] == :saikuro
+    # next unless row['metric'] == :saikuro
     key = [row['class_name'], row['method_name']]
     current_file_path = row['file_path'].to_s
     correct_file_path = @class_and_method_to_file[key]
