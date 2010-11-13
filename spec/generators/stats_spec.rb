@@ -10,7 +10,7 @@ describe Stats do
       stats.emit
     end
   end
-  
+
   describe "analyze method" do
     before :each do
       @lines =  <<-HERE.gsub(/^\s*/, "")
@@ -38,19 +38,19 @@ describe Stats do
       File.should_receive(:open).and_return(mock("file", :read => @lines))
       @results = stats.analyze
     end
-    
+
     it "should get code Lines Of Code" do
       @results[:codeLOC].should == 915
     end
-    
+
     it "should get test Lines Of Code" do
       @results[:testLOC].should == 2226
     end
-    
+
     it "should get code to test ratio" do
       @results[:code_to_test_ratio].should == 2.4
     end
-    
+
     it "should get data on models" do
       model_data = @results[:lines].find {|line| line[:name] == "Models"}
       model_data[:classes].should == 9
@@ -61,7 +61,7 @@ describe Stats do
       model_data[:loc_per_method].should == 7
     end
   end
-  
+
   describe "to_h method" do
     it "should put things into a hash" do
       MetricFu::Configuration.run {}

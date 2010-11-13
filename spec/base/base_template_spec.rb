@@ -82,7 +82,7 @@ describe MetricFu::Template do
       result.should == 'css contents'
     end
   end
-  
+
   describe "#link_to_filename " do
     describe "when on OS X" do
       before(:each) do

@@ -5,7 +5,7 @@ class StatsAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :stats
   end
@@ -13,7 +13,7 @@ class StatsAnalyzer
   def map(row)
     0
   end
-  
+
   def reduce(scores)
     0
   end

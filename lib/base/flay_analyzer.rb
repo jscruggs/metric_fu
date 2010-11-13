@@ -6,7 +6,7 @@ class FlayAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :flay
   end
@@ -22,7 +22,7 @@ class FlayAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.percentile(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
     return if data==nil
     Array(data[:matches]).each do |match|

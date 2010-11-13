@@ -6,7 +6,7 @@ class RcovAnalyzer
   def columns
     COLUMNS
   end
-  
+
   def name
     :rcov
   end
@@ -22,7 +22,7 @@ class RcovAnalyzer
   def score(metric_ranking, item)
     ScoringStrategies.identity(metric_ranking, item)
   end
-  
+
   def generate_records(data, table)
    return if data==nil
    data.each do |file_name, info|

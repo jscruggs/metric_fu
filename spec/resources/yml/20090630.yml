@@ -1,15 +1,15 @@
---- 
-:flay: 
+---
+:flay:
   :total_score: "476"
-  :matches: 
+  :matches:
   - :reason: 1) Similar code found in :module (mass = 252)
-    :matches: 
+    :matches:
     - :line: "2"
       :name: lib/graphs/flay_grapher.rb
     - :line: "2"
       :name: lib/graphs/roodi_grapher.rb
   - :reason: 2) Similar code found in :defn (mass = 90)
-    :matches: 
+    :matches:
     - :line: "11"
       :name: lib/generators/flay.rb
     - :line: "11"
@@ -17,7 +17,7 @@
     - :line: "10"
       :name: lib/generators/roodi.rb
   - :reason: 3) Similar code found in :defn (mass = 54)
-    :matches: 
+    :matches:
     - :line: "76"
       :name: lib/base/generator.rb
     - :line: "82"
@@ -25,7 +25,7 @@
     - :line: "88"
       :name: lib/base/generator.rb
   - :reason: 4) Similar code found in :attrasgn (mass = 48)
-    :matches: 
+    :matches:
     - :line: "18"
       :name: lib/generators/stats.rb
     - :line: "19"
@@ -33,15 +33,15 @@
     - :line: "20"
       :name: lib/generators/stats.rb
   - :reason: 5) Similar code found in :lasgn (mass = 32)
-    :matches: 
+    :matches:
     - :line: "12"
       :name: lib/generators/stats.rb
     - :line: "13"
       :name: lib/generators/stats.rb
-:rcov: 
-  lib/generators/reek.rb: 
+:rcov:
+  lib/generators/reek.rb:
     :percent_run: 32
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -116,9 +116,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/graphs/roodi_grapher.rb: 
+  lib/graphs/roodi_grapher.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'gruff'"
     - :was_run: true
@@ -187,9 +187,9 @@
       :content: "     "
     - :was_run: false
       :content: "   end"
-  lib/generators/saikuro.rb: 
+  lib/generators/saikuro.rb:
     :percent_run: 23
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -606,9 +606,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/generators/churn.rb: 
+  lib/generators/churn.rb:
     :percent_run: 42
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'chronic'"
     - :was_run: true
@@ -791,9 +791,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/graphs/reek_grapher.rb: 
+  lib/graphs/reek_grapher.rb:
     :percent_run: 27
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'gruff'"
     - :was_run: true
@@ -882,9 +882,9 @@
       :content: "     "
     - :was_run: false
       :content: "   end"
-  lib/generators/stats.rb: 
+  lib/generators/stats.rb:
     :percent_run: 21
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -971,9 +971,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/base/report.rb: 
+  lib/base/report.rb:
     :percent_run: 76
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -1174,9 +1174,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/generators/rcov.rb: 
+  lib/generators/rcov.rb:
     :percent_run: 25
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'enumerator'"
     - :was_run: true
@@ -1351,9 +1351,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/generators/roodi.rb: 
+  lib/generators/roodi.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -1416,9 +1416,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/generators/flay.rb: 
+  lib/generators/flay.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'generator'"
     - :was_run: true
@@ -1487,9 +1487,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/base/configuration.rb: 
+  lib/base/configuration.rb:
     :percent_run: 91
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -1905,9 +1905,9 @@
     - :was_run: false
       :content: "   end"
   :global_percent_run: 49.6
-  tasks/metric_fu.rake: 
+  tasks/metric_fu.rake:
     :percent_run: 18
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'rake'"
     - :was_run: true
@@ -1952,9 +1952,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/graphs/flog_grapher.rb: 
+  lib/graphs/flog_grapher.rb:
     :percent_run: 32
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'gruff'"
     - :was_run: true
@@ -2029,9 +2029,9 @@
       :content: "     "
     - :was_run: false
       :content: "   end"
-  lib/base/graph.rb: 
+  lib/base/graph.rb:
     :percent_run: 38
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -2106,9 +2106,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/graphs/flay_grapher.rb: 
+  lib/graphs/flay_grapher.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'gruff'"
     - :was_run: true
@@ -2177,9 +2177,9 @@
       :content: "     "
     - :was_run: false
       :content: "   end"
-  lib/templates/standard/standard_template.rb: 
+  lib/templates/standard/standard_template.rb:
     :percent_run: 27
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   class StandardTemplate < MetricFu::Template"
     - :was_run: true
@@ -2232,9 +2232,9 @@
       :content: "   end"
     - :was_run: true
       :content: "   "
-  lib/base/md5_tracker.rb: 
+  lib/base/md5_tracker.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'digest/md5'"
     - :was_run: true
@@ -2339,9 +2339,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/generators/flog.rb: 
+  lib/generators/flog.rb:
     :percent_run: 38
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -2622,9 +2622,9 @@
       :content: "     end  "
     - :was_run: false
       :content: "   end"
-  lib/base/generator.rb: 
+  lib/base/generator.rb:
     :percent_run: 70
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -2945,9 +2945,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/templates/awesome/awesome_template.rb: 
+  lib/templates/awesome/awesome_template.rb:
     :percent_run: 20
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   class AwesomeTemplate < MetricFu::Template"
     - :was_run: true
@@ -3008,9 +3008,9 @@
       :content: "   end"
     - :was_run: true
       :content: "   "
-  lib/graphs/rcov_grapher.rb: 
+  lib/graphs/rcov_grapher.rb:
     :percent_run: 35
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   require 'gruff'"
     - :was_run: true
@@ -3079,9 +3079,9 @@
       :content: "     "
     - :was_run: false
       :content: "   end"
-  lib/base/base_template.rb: 
+  lib/base/base_template.rb:
     :percent_run: 74
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   module MetricFu"
     - :was_run: true
@@ -3374,9 +3374,9 @@
       :content: "     end"
     - :was_run: false
       :content: "   end"
-  lib/metric_fu.rb: 
+  lib/metric_fu.rb:
     :percent_run: 100
-    :lines: 
+    :lines:
     - :was_run: true
       :content: "   # Load a few things to make our lives easier elsewhere."
     - :was_run: true
@@ -3425,9 +3425,9 @@
       :content: "   Dir[File.join(template_dir, 'awesome/*.rb')].each {|l| require l}"
     - :was_run: true
       :content: "   Dir[File.join(graph_dir, '*.rb')].each {|l| require l}"
-:reek: 
-  :matches: 
-  - :code_smells: 
+:reek:
+  :matches:
+  - :code_smells:
     - :type: Utility Function
       :method: MetricFu::Template#cycle
       :message: doesn't depend on instance state
@@ -3459,7 +3459,7 @@
       :method: MetricFu::Template#output_filename
       :message: refers to section more than self
     :file_path: lib/base/base_template.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Large Class
       :method: MetricFu::Configuration
       :message: has at least 26 instance variables
@@ -3473,7 +3473,7 @@
       :method: MetricFu::Configuration#reset
       :message: has approx 26 statements
     :file_path: lib/base/configuration.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Nested Iterators
       :method: MetricFu::Generator#block/block
       :message: is nested
@@ -3502,7 +3502,7 @@
       :method: MetricFu::Generator#round_to_tenths
       :message: refers to decimal more than self
     :file_path: lib/base/generator.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::Graph#generate
       :message: calls self.clazz multiple times
@@ -3516,7 +3516,7 @@
       :method: MetricFu::Graph#generate/block/block
       :message: is nested
     :file_path: lib/base/graph.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Utility Function
       :method: MetricFu::MD5Tracker#file_already_counted?
       :message: doesn't depend on instance state
@@ -3542,7 +3542,7 @@
       :method: MetricFu::MD5Tracker#track
       :message: has the variable name 'f'
     :file_path: lib/base/md5_tracker.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::Report#open_in_browser?
       :message: calls MetricFu.configuration multiple times
@@ -3553,7 +3553,7 @@
       :method: MetricFu::Report#save_output/block
       :message: has the variable name 'f'
     :file_path: lib/base/report.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Utility Function
       :method: MetricFu::Churn#Svn#clean_up_svn_line
       :message: doesn't depend on instance state
@@ -3582,7 +3582,7 @@
       :method: MetricFu::Churn#parse_log_for_changes
       :message: refers to changes more than self
     :file_path: lib/generators/churn.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Uncommunicative Name
       :method: MetricFu::Flay#analyze/block
       :message: has the variable name 'm'
@@ -3593,7 +3593,7 @@
       :method: MetricFu::Flay#to_h/block/block
       :message: is nested
     :file_path: lib/generators/flay.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Uncommunicative Name
       :method: MetricFu::Flog#ScannedMethod#to_h/block
       :message: has the variable name 'o'
@@ -3649,7 +3649,7 @@
       :method: MetricFu::Flog::Page#highest_score/block
       :message: has the variable name 'm'
     :file_path: lib/generators/flog.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::Rcov#analyze
       :message: calls files.each_pair multiple times
@@ -3669,7 +3669,7 @@
       :method: MetricFu::Rcov#emit
       :message: has approx 7 statements
     :file_path: lib/generators/rcov.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Long Method
       :method: MetricFu::Reek#analyze
       :message: has approx 9 statements
@@ -3680,7 +3680,7 @@
       :method: MetricFu::Reek#analyze/block/block
       :message: is nested
     :file_path: lib/generators/reek.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Long Method
       :method: MetricFu::Roodi#analyze
       :message: has approx 8 statements
@@ -3688,7 +3688,7 @@
       :method: MetricFu::Roodi#analyze/block
       :message: has the variable name 'm'
     :file_path: lib/generators/roodi.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::Saikuro#analyze
       :message: calls @files.each multiple times
@@ -3777,7 +3777,7 @@
       :method: MetricFu::Saikuro::SFile#self.is_valid_text_file?/block
       :message: has the variable name 'f'
     :file_path: lib/generators/saikuro.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::Stats#analyze
       :message: calls el.empty? multiple times
@@ -3803,7 +3803,7 @@
       :method: MetricFu::Stats#analyze/block/block
       :message: is nested
     :file_path: lib/generators/stats.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::FlayGrapher#get_metrics
       :message: calls self.labels multiple times
@@ -3817,7 +3817,7 @@
       :method: MetricFu::FlayGrapher#graph!
       :message: refers to g more than self
     :file_path: lib/graphs/flay_grapher.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::FlogGrapher#get_metrics
       :message: calls metrics[:flog] multiple times
@@ -3834,7 +3834,7 @@
       :method: MetricFu::FlogGrapher#graph!
       :message: refers to g more than self
     :file_path: lib/graphs/flog_grapher.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::RcovGrapher#get_metrics
       :message: calls self.labels multiple times
@@ -3848,7 +3848,7 @@
       :method: MetricFu::RcovGrapher#graph!
       :message: refers to g more than self
     :file_path: lib/graphs/rcov_grapher.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::ReekGrapher#get_metrics
       :message: calls code_smell[:type] multiple times
@@ -3874,7 +3874,7 @@
       :method: MetricFu::ReekGrapher#graph!
       :message: refers to g more than self
     :file_path: lib/graphs/reek_grapher.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Duplication
       :method: MetricFu::RoodiGrapher#get_metrics
       :message: calls self.labels multiple times
@@ -3888,12 +3888,12 @@
       :method: MetricFu::RoodiGrapher#graph!
       :message: refers to g more than self
     :file_path: lib/graphs/roodi_grapher.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Uncommunicative Name
       :method: block
       :message: has the variable name 'l'
     :file_path: lib/metric_fu.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Utility Function
       :method: AwesomeTemplate#this_directory
       :message: doesn't depend on instance state
@@ -3913,7 +3913,7 @@
       :method: AwesomeTemplate#write
       :message: has approx 12 statements
     :file_path: lib/templates/awesome/awesome_template.rb
-  - :code_smells: 
+  - :code_smells:
     - :type: Utility Function
       :method: StandardTemplate#this_directory
       :message: doesn't depend on instance state
@@ -3930,8 +3930,8 @@
       :method: StandardTemplate#write
       :message: has approx 9 statements
     :file_path: lib/templates/standard/standard_template.rb
-:roodi: 
-  :problems: 
+:roodi:
+  :problems:
   - :line: "110"
     :problem: Method name "get_elements" cyclomatic complexity is 9.  It should be 8 or less.
     :file: lib/generators/saikuro.rb
@@ -3971,10 +3971,10 @@
   - :line: "112"
     :problem: Found = in conditional.  It should probably be an ==
     :file: lib/generators/saikuro.rb
-  :total: 
+  :total:
   - Found 13 errors.
-:saikuro: 
-  :methods: 
+:saikuro:
+  :methods:
   - :complexity: 12
     :name: MetricFu::Saikuro#analyze
     :lines: 31
@@ -4383,15 +4383,15 @@
   - :complexity: 1
     :name: MetricFu::FlayGrapher#graph!
     :lines: 12
-  :files: 
+  :files:
   - :filename: flog.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 5
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 8
         :name: MetricFu::Flog#parse
         :lines: 15
@@ -4428,7 +4428,7 @@
       :complexity: 36
       :lines: 109
       :class_name: MetricFu::Flog
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::Flog::Operator#to_h
         :lines: 2
@@ -4438,7 +4438,7 @@
       :complexity: 2
       :lines: 11
       :class_name: MetricFu::Flog::Operator
-    - :methods: 
+    - :methods:
       - :complexity: 2
         :name: MetricFu::Flog::ScannedMethod#to_h
         :lines: 4
@@ -4449,13 +4449,13 @@
       :lines: 14
       :class_name: MetricFu::Flog::ScannedMethod
   - :filename: saikuro.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 7
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 12
         :name: MetricFu::Saikuro#analyze
         :lines: 31
@@ -4505,13 +4505,13 @@
       :lines: 200
       :class_name: MetricFu::Saikuro
   - :filename: generator.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 32
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 2
         :name: MetricFu::Generator#create_metric_dir_if_missing
         :lines: 4
@@ -4558,15 +4558,15 @@
       :lines: 115
       :class_name: MetricFu::Generator
   - :filename: configuration.rb
-    :classes: 
-    - :methods: 
+    :classes:
+    - :methods:
       - :complexity: 1
         :name: MetricFu#self.configuration
         :lines: 2
       :complexity: 1
       :lines: 51
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 5
         :name: MetricFu::Configuration#warn_about_deprecated_config_options
         :lines: 14
@@ -4607,13 +4607,13 @@
       :lines: 151
       :class_name: MetricFu::Configuration
   - :filename: base_template.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 10
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 3
         :name: MetricFu::Template#link_content
         :lines: 8
@@ -4648,13 +4648,13 @@
       :lines: 135
       :class_name: MetricFu::Template
   - :filename: rcov.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 3
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 8
         :name: MetricFu::Rcov#analyze
         :lines: 30
@@ -4670,7 +4670,7 @@
       :complexity: 15
       :lines: 70
       :class_name: MetricFu::Rcov
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::Rcov::Line#to_h
         :lines: 2
@@ -4681,13 +4681,13 @@
       :lines: 11
       :class_name: MetricFu::Rcov::Line
   - :filename: churn.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 3
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 3
         :name: MetricFu::Churn#parse_log_for_changes
         :lines: 8
@@ -4709,14 +4709,14 @@
       :complexity: 13
       :lines: 51
       :class_name: MetricFu::Churn
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::Churn::SourceControl#initialize
         :lines: 2
       :complexity: 1
       :lines: 4
       :class_name: MetricFu::Churn::SourceControl
-    - :methods: 
+    - :methods:
       - :complexity: 2
         :name: MetricFu::Churn::Git#date_range
         :lines: 5
@@ -4726,7 +4726,7 @@
       :complexity: 4
       :lines: 13
       :class_name: MetricFu::Churn::Git
-    - :methods: 
+    - :methods:
       - :complexity: 2
         :name: MetricFu::Churn::Svn#clean_up_svn_line
         :lines: 3
@@ -4740,13 +4740,13 @@
       :lines: 17
       :class_name: MetricFu::Churn::Svn
   - :filename: stats.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 3
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 9
         :name: MetricFu::Stats#analyze
         :lines: 27
@@ -4760,13 +4760,13 @@
       :lines: 39
       :class_name: MetricFu::Stats
   - :filename: reek.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 3
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 5
         :name: MetricFu::Reek#analyze
         :lines: 14
@@ -4783,13 +4783,13 @@
       :lines: 33
       :class_name: MetricFu::Reek
   - :filename: roodi.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 2
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 4
         :name: MetricFu::Roodi#analyze
         :lines: 10
@@ -4806,15 +4806,15 @@
       :lines: 28
       :class_name: MetricFu::Roodi
   - :filename: report.rb
-    :classes: 
-    - :methods: 
+    :classes:
+    - :methods:
       - :complexity: 1
         :name: MetricFu#self.report
         :lines: 2
       :complexity: 1
       :lines: 19
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 2
         :name: MetricFu::Report#show_in_browser
         :lines: 2
@@ -4840,13 +4840,13 @@
       :lines: 80
       :class_name: MetricFu::Report
   - :filename: flay.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 3
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 3
         :name: MetricFu::Flay#to_h
         :lines: 12
@@ -4863,13 +4863,13 @@
       :lines: 29
       :class_name: MetricFu::Flay
   - :filename: reek_grapher.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 4
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 5
         :name: MetricFu::ReekGrapher#get_metrics
         :lines: 11
@@ -4883,7 +4883,7 @@
       :lines: 38
       :class_name: MetricFu::ReekGrapher
   - :filename: md5_tracker.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
@@ -4894,7 +4894,7 @@
       :complexity: 0
       :lines: 5
       :class_name: MetricFu::MD5Tracker
-    - :methods: 
+    - :methods:
       - :complexity: 4
         :name: MetricFu::MD5Tracker::#file_changed?
         :lines: 16
@@ -4914,15 +4914,15 @@
       :lines: 41
       :class_name: "MetricFu::MD5Tracker::"
   - :filename: graph.rb
-    :classes: 
-    - :methods: 
+    :classes:
+    - :methods:
       - :complexity: 1
         :name: MetricFu#self.graph
         :lines: 2
       :complexity: 1
       :lines: 7
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 4
         :name: MetricFu::Graph#generate
         :lines: 14
@@ -4936,8 +4936,8 @@
       :lines: 29
       :class_name: MetricFu::Graph
   - :filename: awesome_template.rb
-    :classes: 
-    - :methods: 
+    :classes:
+    - :methods:
       - :complexity: 4
         :name: AwesomeTemplate#write
         :lines: 21
@@ -4948,8 +4948,8 @@
       :lines: 28
       :class_name: AwesomeTemplate
   - :filename: standard_template.rb
-    :classes: 
-    - :methods: 
+    :classes:
+    - :methods:
       - :complexity: 4
         :name: StandardTemplate#write
         :lines: 16
@@ -4960,13 +4960,13 @@
       :lines: 24
       :class_name: StandardTemplate
   - :filename: roodi_grapher.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 4
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::RoodiGrapher#graph!
         :lines: 12
@@ -4980,13 +4980,13 @@
       :lines: 28
       :class_name: MetricFu::RoodiGrapher
   - :filename: rcov_grapher.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 4
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::RcovGrapher#graph!
         :lines: 12
@@ -5000,13 +5000,13 @@
       :lines: 28
       :class_name: MetricFu::RcovGrapher
   - :filename: flog_grapher.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 4
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::FlogGrapher#graph!
         :lines: 13
@@ -5020,13 +5020,13 @@
       :lines: 31
       :class_name: MetricFu::FlogGrapher
   - :filename: flay_grapher.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 0
       :lines: 4
       :class_name: MetricFu
-    - :methods: 
+    - :methods:
       - :complexity: 1
         :name: MetricFu::FlayGrapher#graph!
         :lines: 12
@@ -5040,7 +5040,7 @@
       :lines: 28
       :class_name: MetricFu::FlayGrapher
   - :filename: metric_fu.rb
-    :classes: 
+    :classes:
     - :methods: []
 
       :complexity: 1
@@ -5051,8 +5051,8 @@
       :complexity: 0
       :lines: 2
       :class_name: MetricFu
-  :classes: 
-  - :defs: 
+  :classes:
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Flog#self.verify_dependencies!
       :lines: 3
@@ -5077,7 +5077,7 @@
     :complexity: 29
     :name: MetricFu::Flog
     :lines: 83
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Saikuro#initialize
       :lines: 5
@@ -5102,7 +5102,7 @@
     :complexity: 24
     :name: MetricFu::Saikuro
     :lines: 91
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Generator#initialize
       :lines: 5
@@ -5148,7 +5148,7 @@
     :complexity: 22
     :name: MetricFu::Generator
     :lines: 115
-  - :defs: 
+  - :defs:
     - :complexity: 4
       :name: MetricFu::Saikuro#emit
       :lines: 17
@@ -5167,7 +5167,7 @@
     :complexity: 22
     :name: MetricFu::Saikuro
     :lines: 75
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Configuration#initialize
       :lines: 5
@@ -5207,7 +5207,7 @@
     :complexity: 20
     :name: MetricFu::Configuration
     :lines: 151
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Template#erbify
       :lines: 4
@@ -5241,7 +5241,7 @@
     :complexity: 16
     :name: MetricFu::Template
     :lines: 135
-  - :defs: 
+  - :defs:
     - :complexity: 3
       :name: MetricFu::Rcov#self.verify_dependencies!
       :lines: 9
@@ -5257,7 +5257,7 @@
     :complexity: 15
     :name: MetricFu::Rcov
     :lines: 70
-  - :defs: 
+  - :defs:
     - :complexity: 3
       :name: MetricFu::Churn#initialize
       :lines: 10
@@ -5279,7 +5279,7 @@
     :complexity: 13
     :name: MetricFu::Churn
     :lines: 51
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Stats#emit
       :lines: 2
@@ -5292,7 +5292,7 @@
     :complexity: 11
     :name: MetricFu::Stats
     :lines: 39
-  - :defs: 
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Reek#self.verify_dependencies!
       :lines: 3
@@ -5308,7 +5308,7 @@
     :complexity: 10
     :name: MetricFu::Reek
     :lines: 33
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Report#to_yaml
       :lines: 2
@@ -5333,7 +5333,7 @@
     :complexity: 9
     :name: MetricFu::Report
     :lines: 80
-  - :defs: 
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Flay#self.verify_dependencies!
       :lines: 3
@@ -5349,7 +5349,7 @@
     :complexity: 9
     :name: MetricFu::Flay
     :lines: 29
-  - :defs: 
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Roodi#self.verify_dependencies!
       :lines: 3
@@ -5365,7 +5365,7 @@
     :complexity: 9
     :name: MetricFu::Roodi
     :lines: 28
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::ReekGrapher#initialize
       :lines: 3
@@ -5378,7 +5378,7 @@
     :complexity: 8
     :name: MetricFu::ReekGrapher
     :lines: 38
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::MD5Tracker::#md5_dir
       :lines: 3
@@ -5397,7 +5397,7 @@
     :complexity: 8
     :name: "MetricFu::MD5Tracker::"
     :lines: 41
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Flog#initialize
       :lines: 4
@@ -5413,7 +5413,7 @@
     :complexity: 7
     :name: MetricFu::Flog
     :lines: 26
-  - :defs: 
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Churn::Svn#get_logs
       :lines: 2
@@ -5426,7 +5426,7 @@
     :complexity: 6
     :name: MetricFu::Churn::Svn
     :lines: 17
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Graph#initialize
       :lines: 2
@@ -5439,7 +5439,7 @@
     :complexity: 6
     :name: MetricFu::Graph
     :lines: 29
-  - :defs: 
+  - :defs:
     - :complexity: 4
       :name: StandardTemplate#write
       :lines: 16
@@ -5449,7 +5449,7 @@
     :complexity: 5
     :name: StandardTemplate
     :lines: 24
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Saikuro#initialize
       :lines: 7
@@ -5462,7 +5462,7 @@
     :complexity: 5
     :name: MetricFu::Saikuro
     :lines: 34
-  - :defs: 
+  - :defs:
     - :complexity: 4
       :name: AwesomeTemplate#write
       :lines: 21
@@ -5472,7 +5472,7 @@
     :complexity: 5
     :name: AwesomeTemplate
     :lines: 28
-  - :defs: 
+  - :defs:
     - :complexity: 2
       :name: MetricFu::Churn::Git#get_logs
       :lines: 2
@@ -5482,7 +5482,7 @@
     :complexity: 4
     :name: MetricFu::Churn::Git
     :lines: 13
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::RoodiGrapher#initialize
       :lines: 3
@@ -5495,7 +5495,7 @@
     :complexity: 3
     :name: MetricFu::RoodiGrapher
     :lines: 28
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Flog::ScannedMethod#initialize
       :lines: 4
@@ -5505,7 +5505,7 @@
     :complexity: 3
     :name: MetricFu::Flog::ScannedMethod
     :lines: 14
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::FlayGrapher#initialize
       :lines: 3
@@ -5518,7 +5518,7 @@
     :complexity: 3
     :name: MetricFu::FlayGrapher
     :lines: 28
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::RcovGrapher#initialize
       :lines: 3
@@ -5531,7 +5531,7 @@
     :complexity: 3
     :name: MetricFu::RcovGrapher
     :lines: 28
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::FlogGrapher#initialize
       :lines: 4
@@ -5544,7 +5544,7 @@
     :complexity: 3
     :name: MetricFu::FlogGrapher
     :lines: 31
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Flog::Operator#initialize
       :lines: 3
@@ -5554,7 +5554,7 @@
     :complexity: 2
     :name: MetricFu::Flog::Operator
     :lines: 11
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Rcov::Line#initialize
       :lines: 3
@@ -5564,21 +5564,21 @@
     :complexity: 2
     :name: MetricFu::Rcov::Line
     :lines: 11
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu#self.report
       :lines: 2
     :complexity: 1
     :name: MetricFu
     :lines: 19
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu#self.graph
       :lines: 2
     :complexity: 1
     :name: MetricFu
     :lines: 7
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu::Churn::SourceControl#initialize
       :lines: 2
@@ -5588,7 +5588,7 @@
   - :complexity: 1
     :name: ""
     :lines: 0
-  - :defs: 
+  - :defs:
     - :complexity: 1
       :name: MetricFu#self.configuration
       :lines: 2
@@ -5649,8 +5649,8 @@
   - :complexity: 0
     :name: MetricFu
     :lines: 5
-:churn: 
-  :changes: 
+:churn:
+  :changes:
   - :times_changed: 79
     :file_path: metric_fu.gemspec
   - :times_changed: 30
@@ -5781,14 +5781,14 @@
     :file_path: lib/templates/churn.html.erb
   - :times_changed: 5
     :file_path: spec/flay_spec.rb
-:flog: 
-  :pages: 
+:flog:
+  :pages:
   - :average_score: 14.4
     :path: /lib/generators/saikuro.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 66.1
       :name: Saikuro#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 29.6
       - :operator: branch
@@ -5827,7 +5827,7 @@
         :score: 1.3
     - :score: 44.8
       :name: Saikuro::SFile#merge_classes
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 23.1
       - :operator: branch
@@ -5868,7 +5868,7 @@
         :score: 1.5
     - :score: 25.7
       :name: Saikuro::SFile#get_elements
-      :operators: 
+      :operators:
       - :operator: branch
         :score: 12.9
       - :operator: assignment
@@ -5885,7 +5885,7 @@
         :score: 1.8
     - :score: 25.0
       :name: Saikuro#emit
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 13.6
       - :operator: branch
@@ -5916,7 +5916,7 @@
         :score: 0.5
     - :score: 21.2
       :name: Saikuro::ParsingElement#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 7.8
       - :operator: match
@@ -5929,7 +5929,7 @@
         :score: 1.7
     - :score: 13.5
       :name: Saikuro#to_h
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 8.5
       - :operator: to_h
@@ -5942,7 +5942,7 @@
         :score: 1.5
     - :score: 12.0
       :name: Saikuro::ParsingElement#to_h
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 7.6
       - :operator: branch
@@ -5959,7 +5959,7 @@
         :score: 1.3
     - :score: 8.4
       :name: Saikuro::SFile#get_class_names
-      :operators: 
+      :operators:
       - :operator: name
         :score: 3.3
       - :operator: branch
@@ -5974,7 +5974,7 @@
         :score: 1.3
     - :score: 7.4
       :name: Saikuro::SFile#is_valid_text_file?
-      :operators: 
+      :operators:
       - :operator: branch
         :score: 4.1
       - :operator: readline
@@ -5989,7 +5989,7 @@
         :score: 1.3
     - :score: 4.7
       :name: Saikuro::SFile#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 3.9
       - :operator: get_elements
@@ -5998,7 +5998,7 @@
         :score: 1.3
     - :score: 4.7
       :name: Saikuro#format_directories
-      :operators: 
+      :operators:
       - :operator: saikuro
         :score: 1.7
       - :operator: "[]"
@@ -6009,48 +6009,48 @@
         :score: 1.3
     - :score: 2.8
       :name: Saikuro::ParsingElement#<<
-      :operators: 
+      :operators:
       - :operator: new
         :score: 1.5
       - :operator: "<<"
         :score: 1.3
     - :score: 2.8
       :name: Saikuro#saikuro_results
-      :operators: 
+      :operators:
       - :operator: metric_directory
         :score: 1.5
       - :operator: glob
         :score: 1.3
     - :score: 2.4
       :name: Saikuro::ParsingElement#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
       - :operator: attr_reader
         :score: 1.2
     - :score: 1.3
       :name: Saikuro::SFile#filename
-      :operators: 
+      :operators:
       - :operator: basename
         :score: 1.3
     - :score: 1.3
       :name: Saikuro::SFile#to_h
-      :operators: 
+      :operators:
       - :operator: merge_classes
         :score: 1.3
     - :score: 1.2
       :name: Saikuro::SFile#none
-      :operators: 
+      :operators:
       - :operator: attr_reader
         :score: 1.2
     :highest_score: 66.1
     :score: 245.2
   - :average_score: 9.7
     :path: /lib/generators/flog.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 44.1
       :name: Flog#parse
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 14.8
       - :operator: branch
@@ -6081,7 +6081,7 @@
         :score: 1.3
     - :score: 30.7
       :name: Flog#emit
-      :operators: 
+      :operators:
       - :operator: branch
         :score: 9.4
       - :operator: assignment
@@ -6110,7 +6110,7 @@
         :score: 1.5
     - :score: 28.5
       :name: Flog#to_h
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 18.1
       - :operator: branch
@@ -6137,7 +6137,7 @@
         :score: 1.3
     - :score: 17.6
       :name: Flog#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 7.7
       - :operator: branch
@@ -6160,7 +6160,7 @@
         :score: 1.3
     - :score: 9.9
       :name: Flog::Page#highest_score
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 4.2
       - :operator: score
@@ -6175,7 +6175,7 @@
         :score: 1.4
     - :score: 6.9
       :name: Flog::Page#to_h
-      :operators: 
+      :operators:
       - :operator: to_h
         :score: 1.4
       - :operator: assignment
@@ -6192,21 +6192,21 @@
         :score: 1.3
     - :score: 5.8
       :name: Flog::Page#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 5.2
       - :operator: to_f
         :score: 2.6
     - :score: 5.8
       :name: ScannedMethod#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 5.6
       - :operator: to_f
         :score: 1.4
     - :score: 4.3
       :name: Flog#average_score
-      :operators: 
+      :operators:
       - :operator: /
         :score: 1.5
       - :operator: branch
@@ -6217,7 +6217,7 @@
         :score: 1.3
     - :score: 3.6
       :name: ScannedMethod#to_h
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.5
       - :operator: to_h
@@ -6228,14 +6228,14 @@
         :score: 1.4
     - :score: 3.1
       :name: Operator#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.8
       - :operator: to_f
         :score: 1.4
     - :score: 3.0
       :name: Flog#verify_dependencies!
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.4
       - :operator: success?
@@ -6244,48 +6244,48 @@
         :score: 1.3
     - :score: 2.8
       :name: Flog::Page#filename
-      :operators: 
+      :operators:
       - :operator: path
         :score: 1.5
       - :operator: basename
         :score: 1.3
     - :score: 2.8
       :name: Flog#flog_results
-      :operators: 
+      :operators:
       - :operator: metric_directory
         :score: 1.5
       - :operator: glob
         :score: 1.3
     - :score: 2.4
       :name: Flog#none
-      :operators: 
+      :operators:
       - :operator: private
         :score: 1.2
       - :operator: attr_reader
         :score: 1.2
     - :score: 1.3
       :name: Operator#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.3
     - :score: 1.3
       :name: ScannedMethod#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.3
     - :score: 1.2
       :name: Flog::Page#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     :highest_score: 44.1
     :score: 175.1
   - :average_score: 15.0
     :path: /lib/generators/rcov.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 73.6
       :name: Rcov#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 44.0
       - :operator: branch
@@ -6342,7 +6342,7 @@
         :score: 0.9
     - :score: 23.8
       :name: Rcov#emit
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 5.3
       - :operator: metric_directory
@@ -6363,7 +6363,7 @@
         :score: 1.5
     - :score: 9.5
       :name: Rcov#to_h
-      :operators: 
+      :operators:
       - :operator: to_f
         :score: 3.4
       - :operator: round_to_tenths
@@ -6380,7 +6380,7 @@
         :score: 0.4
     - :score: 5.1
       :name: Rcov#verify_dependencies!
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 3.0
       - :operator: branch
@@ -6389,7 +6389,7 @@
         :score: 1.3
     - :score: 3.0
       :name: Rcov#none
-      :operators: 
+      :operators:
       - :operator: "*"
         :score: 1.4
       - :operator: +
@@ -6398,27 +6398,27 @@
         :score: 0.4
     - :score: 2.8
       :name: Line#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.8
     - :score: 1.3
       :name: Line#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.3
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 73.6
     :score: 120.1
   - :average_score: 7.7
     :path: /lib/base/generator.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 25.5
       :name: Generator#none
-      :operators: 
+      :operators:
       - :operator: define_method
         :score: 18.5
       - :operator: branch
@@ -6433,7 +6433,7 @@
         :score: 1.1
     - :score: 23.7
       :name: Generator#generate_report
-      :operators: 
+      :operators:
       - :operator: send
         :score: 12.6
       - :operator: to_sym
@@ -6454,7 +6454,7 @@
         :score: 1.2
     - :score: 6.6
       :name: Generator#metric_directory
-      :operators: 
+      :operators:
       - :operator: scratch_directory
         :score: 1.4
       - :operator: class
@@ -6467,7 +6467,7 @@
         :score: 1.2
     - :score: 6.3
       :name: Generator#initialize
-      :operators: 
+      :operators:
       - :operator: class
         :score: 1.4
       - :operator: assignment
@@ -6482,7 +6482,7 @@
         :score: 1.2
     - :score: 6.0
       :name: Generator#class_name
-      :operators: 
+      :operators:
       - :operator: to_s
         :score: 1.8
       - :operator: split
@@ -6493,7 +6493,7 @@
         :score: 1.2
     - :score: 5.5
       :name: Generator#create_output_dir_if_missing
-      :operators: 
+      :operators:
       - :operator: output_directory
         :score: 2.9
       - :operator: mkdir_p
@@ -6504,7 +6504,7 @@
         :score: 1.2
     - :score: 5.5
       :name: Generator#create_data_dir_if_missing
-      :operators: 
+      :operators:
       - :operator: data_directory
         :score: 2.9
       - :operator: mkdir_p
@@ -6515,7 +6515,7 @@
         :score: 1.2
     - :score: 5.5
       :name: Generator#create_metric_dir_if_missing
-      :operators: 
+      :operators:
       - :operator: metric_directory
         :score: 2.9
       - :operator: mkdir_p
@@ -6526,7 +6526,7 @@
         :score: 1.2
     - :score: 4.7
       :name: Generator#round_to_tenths
-      :operators: 
+      :operators:
       - :operator: "*"
         :score: 1.6
       - :operator: round
@@ -6537,27 +6537,27 @@
         :score: 0.5
     - :score: 1.2
       :name: Generator#emit
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.2
     - :score: 1.2
       :name: Generator#to_graph
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.2
     - :score: 1.2
       :name: Generator#analyze
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.2
     :highest_score: 25.5
     :score: 93.0
   - :average_score: 7.6
     :path: /lib/base/configuration.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 36.0
       :name: Configuration#reset
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 29.9
       - :operator: join
@@ -6582,7 +6582,7 @@
         :score: 1.3
     - :score: 14.3
       :name: Configuration#add_class_methods_to_metric_fu
-      :operators: 
+      :operators:
       - :operator: module_eval
         :score: 7.5
       - :operator: assignment
@@ -6599,7 +6599,7 @@
         :score: 1.3
     - :score: 11.0
       :name: Configuration#add_attr_accessors_to_self
-      :operators: 
+      :operators:
       - :operator: send
         :score: 4.5
       - :operator: assignment
@@ -6616,7 +6616,7 @@
         :score: 1.3
     - :score: 8.9
       :name: Configuration#warn_about_deprecated_config_options
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 5.6
       - :operator: branch
@@ -6625,7 +6625,7 @@
         :score: 1.6
     - :score: 5.2
       :name: Configuration#initialize
-      :operators: 
+      :operators:
       - :operator: warn_about_deprecated_config_options
         :score: 1.3
       - :operator: add_attr_accessors_to_self
@@ -6636,7 +6636,7 @@
         :score: 1.3
     - :score: 4.1
       :name: Configuration#set_metrics
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.8
       - :operator: +
@@ -6647,7 +6647,7 @@
         :score: 1.3
     - :score: 3.3
       :name: Configuration#set_code_dirs
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.8
       - :operator: rails?
@@ -6656,41 +6656,41 @@
         :score: 1.3
     - :score: 2.6
       :name: Configuration#run
-      :operators: 
+      :operators:
       - :operator: configuration
         :score: 1.3
       - :operator: yield
         :score: 1.3
     - :score: 1.8
       :name: Configuration#rails?
-      :operators: 
+      :operators:
       - :operator: exist?
         :score: 1.3
       - :operator: assignment
         :score: 1.3
     - :score: 1.3
       :name: Configuration#set_graphs
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.3
     - :score: 1.3
       :name: Configuration#is_cruise_control_rb?
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 1.3
     - :score: 1.2
       :name: MetricFu#configuration
-      :operators: 
+      :operators:
       - :operator: new
         :score: 1.2
     :highest_score: 36.0
     :score: 91.0
   - :average_score: 6.0
     :path: /lib/generators/churn.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 20.1
       :name: Churn#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 5.5
       - :operator: churn
@@ -6713,7 +6713,7 @@
         :score: 0.4
     - :score: 15.4
       :name: Churn#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 8.2
       - :operator: "[]"
@@ -6732,7 +6732,7 @@
         :score: 1.3
     - :score: 8.8
       :name: Svn#get_logs
-      :operators: 
+      :operators:
       - :operator: date_range
         :score: 2.0
       - :operator: split
@@ -6749,7 +6749,7 @@
         :score: 1.4
     - :score: 7.8
       :name: Churn#parse_log_for_changes
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 5.5
       - :operator: branch
@@ -6764,7 +6764,7 @@
         :score: 0.8
     - :score: 7.0
       :name: Churn#emit
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 5.5
       - :operator: parse_log_for_changes
@@ -6777,7 +6777,7 @@
         :score: 1.3
     - :score: 6.9
       :name: Svn#date_range
-      :operators: 
+      :operators:
       - :operator: strftime
         :score: 3.2
       - :operator: now
@@ -6790,7 +6790,7 @@
         :score: 1.4
     - :score: 6.6
       :name: Git#get_logs
-      :operators: 
+      :operators:
       - :operator: date_range
         :score: 1.8
       - :operator: split
@@ -6805,7 +6805,7 @@
         :score: 1.4
     - :score: 3.9
       :name: Svn#clean_up_svn_line
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 1.5
       - :operator: assignment
@@ -6818,7 +6818,7 @@
         :score: 0.4
     - :score: 3.8
       :name: Git#date_range
-      :operators: 
+      :operators:
       - :operator: parse
         :score: 1.6
       - :operator: strftime
@@ -6829,42 +6829,42 @@
         :score: 1.4
     - :score: 2.6
       :name: SourceControl#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
     - :score: 2.2
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 2.2
     - :score: 1.3
       :name: Svn#none
-      :operators: 
+      :operators:
       - :operator: private
         :score: 1.3
     - :score: 1.3
       :name: Churn#git?
-      :operators: 
+      :operators:
       - :operator: system
         :score: 1.3
     - :score: 1.3
       :name: Git#none
-      :operators: 
+      :operators:
       - :operator: private
         :score: 1.3
     - :score: 1.2
       :name: Churn#none
-      :operators: 
+      :operators:
       - :operator: private
         :score: 1.2
     :highest_score: 20.1
     :score: 90.3
   - :average_score: 15.5
     :path: /lib/graphs/reek_grapher.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 46.6
       :name: ReekGrapher#get_metrics
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 23.5
       - :operator: reek_count
@@ -6887,7 +6887,7 @@
         :score: 0.9
     - :score: 26.1
       :name: ReekGrapher#graph!
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 15.9
       - :operator: output_directory
@@ -6924,27 +6924,27 @@
         :score: 1.3
     - :score: 2.6
       :name: ReekGrapher#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
     - :score: 1.2
       :name: ReekGrapher#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 46.6
     :score: 77.5
   - :average_score: 35.5
     :path: /lib/generators/stats.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 68.5
       :name: Stats#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 31.5
       - :operator: "[]"
@@ -6991,7 +6991,7 @@
         :score: 1.2
     - :score: 2.6
       :name: Stats#emit
-      :operators: 
+      :operators:
       - :operator: metric_directory
         :score: 1.4
       - :operator: +
@@ -7000,10 +7000,10 @@
     :score: 71.1
   - :average_score: 9.8
     :path: /lib/graphs/flog_grapher.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 24.9
       :name: FlogGrapher#graph!
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 11.7
       - :operator: data
@@ -7038,7 +7038,7 @@
         :score: 1.3
     - :score: 18.0
       :name: FlogGrapher#get_metrics
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 6.4
       - :operator: labels
@@ -7055,27 +7055,27 @@
         :score: 1.3
     - :score: 3.9
       :name: FlogGrapher#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 3.9
     - :score: 1.2
       :name: FlogGrapher#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 24.9
     :score: 49.1
   - :average_score: 15.7
     :path: /lib/generators/reek.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 35.2
       :name: Reek#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 12.7
       - :operator: strip
@@ -7104,7 +7104,7 @@
         :score: 1.4
     - :score: 9.1
       :name: Reek#emit
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 3.7
       - :operator: "[]"
@@ -7119,7 +7119,7 @@
         :score: 1.2
     - :score: 2.8
       :name: Reek#verify_dependencies!
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.3
       - :operator: success?
@@ -7130,10 +7130,10 @@
     :score: 47.1
   - :average_score: 9.4
     :path: /lib/base/graph.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 32.4
       :name: Graph#generate
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 7.4
       - :operator: "[]"
@@ -7166,7 +7166,7 @@
         :score: 0.5
     - :score: 10.6
       :name: Graph#add
-      :operators: 
+      :operators:
       - :operator: to_s
         :score: 1.7
       - :operator: const_get
@@ -7185,29 +7185,29 @@
         :score: 1.3
     - :score: 1.7
       :name: MetricFu#graph
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.2
       - :operator: new
         :score: 1.2
     - :score: 1.3
       :name: Graph#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.3
     - :score: 1.2
       :name: Graph#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     :highest_score: 32.4
     :score: 47.1
   - :average_score: 9.4
     :path: /lib/generators/flay.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 26.4
       :name: Flay#to_h
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 13.7
       - :operator: strip
@@ -7232,7 +7232,7 @@
         :score: 1.3
     - :score: 9.8
       :name: Flay#emit
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 4.0
       - :operator: "[]"
@@ -7247,7 +7247,7 @@
         :score: 1.3
     - :score: 6.6
       :name: Flay#analyze
-      :operators: 
+      :operators:
       - :operator: split
         :score: 2.9
       - :operator: assignment
@@ -7260,7 +7260,7 @@
         :score: 1.3
     - :score: 3.0
       :name: Flay#verify_dependencies!
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.4
       - :operator: success?
@@ -7269,17 +7269,17 @@
         :score: 1.3
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 26.4
     :score: 46.9
   - :average_score: 4.2
     :path: /lib/base/base_template.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 8.6
       :name: Template#file_url
-      :operators: 
+      :operators:
       - :operator: branch
         :score: 2.7
       - :operator: configuration
@@ -7298,7 +7298,7 @@
         :score: 1.2
     - :score: 7.9
       :name: Template#erbify
-      :operators: 
+      :operators:
       - :operator: template
         :score: 1.4
       - :operator: new
@@ -7315,7 +7315,7 @@
         :score: 1.2
     - :score: 5.8
       :name: Template#inline_css
-      :operators: 
+      :operators:
       - :operator: this_directory
         :score: 1.6
       - :operator: join
@@ -7330,7 +7330,7 @@
         :score: 1.2
     - :score: 5.6
       :name: Template#template
-      :operators: 
+      :operators:
       - :operator: to_s
         :score: 1.6
       - :operator: +
@@ -7341,14 +7341,14 @@
         :score: 1.2
     - :score: 3.5
       :name: Template#link_content
-      :operators: 
+      :operators:
       - :operator: branch
         :score: 2.5
       - :operator: assignment
         :score: 2.4
     - :score: 3.4
       :name: Template#link_to_filename
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.4
       - :operator: link_content
@@ -7357,7 +7357,7 @@
         :score: 1.2
     - :score: 3.2
       :name: Template#cycle
-      :operators: 
+      :operators:
       - :operator: "%"
         :score: 1.4
       - :operator: branch
@@ -7368,38 +7368,38 @@
         :score: 0.4
     - :score: 2.6
       :name: Template#template_exists?
-      :operators: 
+      :operators:
       - :operator: template
         :score: 1.4
       - :operator: exist?
         :score: 1.2
     - :score: 2.6
       :name: Template#output_filename
-      :operators: 
+      :operators:
       - :operator: to_s
         :score: 1.4
       - :operator: +
         :score: 1.2
     - :score: 2.2
       :name: Template#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.1
       - :operator: private
         :score: 1.1
     - :score: 1.2
       :name: Template#create_instance_var
-      :operators: 
+      :operators:
       - :operator: instance_variable_set
         :score: 1.2
     :highest_score: 8.6
     :score: 46.6
   - :average_score: 21.2
     :path: /lib/metric_fu.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 41.2
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: join
         :score: 17.1
       - :operator: assignment
@@ -7416,17 +7416,17 @@
         :score: 1.1
     - :score: 1.1
       :name: MetricFu#none
-      :operators: 
+      :operators:
       - :operator: dirname
         :score: 1.1
     :highest_score: 41.2
     :score: 42.3
   - :average_score: 8.3
     :path: /lib/graphs/flay_grapher.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 22.5
       :name: FlayGrapher#graph!
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 11.7
       - :operator: output_directory
@@ -7459,7 +7459,7 @@
         :score: 1.3
     - :score: 13.9
       :name: FlayGrapher#get_metrics
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 3.6
       - :operator: labels
@@ -7476,27 +7476,27 @@
         :score: 1.3
     - :score: 2.6
       :name: FlayGrapher#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
     - :score: 1.2
       :name: FlayGrapher#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 22.5
     :score: 41.3
   - :average_score: 8.3
     :path: /lib/graphs/roodi_grapher.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 22.5
       :name: RoodiGrapher#graph!
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 11.7
       - :operator: output_directory
@@ -7529,7 +7529,7 @@
         :score: 1.3
     - :score: 13.9
       :name: RoodiGrapher#get_metrics
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 3.6
       - :operator: labels
@@ -7544,27 +7544,27 @@
         :score: 1.3
     - :score: 2.6
       :name: RoodiGrapher#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
     - :score: 1.2
       :name: RoodiGrapher#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 22.5
     :score: 41.3
   - :average_score: 7.9
     :path: /lib/graphs/rcov_grapher.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 22.5
       :name: RcovGrapher#graph!
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 11.7
       - :operator: output_directory
@@ -7597,7 +7597,7 @@
         :score: 1.3
     - :score: 12.0
       :name: RcovGrapher#get_metrics
-      :operators: 
+      :operators:
       - :operator: "[]"
         :score: 3.2
       - :operator: labels
@@ -7612,27 +7612,27 @@
         :score: 1.3
     - :score: 2.6
       :name: RcovGrapher#initialize
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
     - :score: 1.2
       :name: RcovGrapher#none
-      :operators: 
+      :operators:
       - :operator: attr_accessor
         :score: 1.2
     - :score: 1.1
       :name: main#none
-      :operators: 
+      :operators:
       - :operator: require
         :score: 1.1
     :highest_score: 22.5
     :score: 39.4
   - :average_score: 4.5
     :path: /lib/base/report.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 8.9
       :name: Report#add
-      :operators: 
+      :operators:
       - :operator: to_s
         :score: 1.7
       - :operator: report_hash
@@ -7649,7 +7649,7 @@
         :score: 1.3
     - :score: 7.9
       :name: Report#open_in_browser?
-      :operators: 
+      :operators:
       - :operator: configuration
         :score: 3.4
       - :operator: platform
@@ -7662,7 +7662,7 @@
         :score: 1.3
     - :score: 6.0
       :name: Report#save_templatized_report
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.6
       - :operator: template_class
@@ -7675,7 +7675,7 @@
         :score: 1.3
     - :score: 4.0
       :name: Report#save_output
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 2.7
       - :operator: puts
@@ -7686,7 +7686,7 @@
         :score: 1.3
     - :score: 3.0
       :name: Report#show_in_browser
-      :operators: 
+      :operators:
       - :operator: system
         :score: 1.4
       - :operator: open_in_browser?
@@ -7695,31 +7695,31 @@
         :score: 1.3
     - :score: 2.8
       :name: Report#to_yaml
-      :operators: 
+      :operators:
       - :operator: report_hash
         :score: 1.5
       - :operator: to_yaml
         :score: 1.3
     - :score: 1.7
       :name: MetricFu#report
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.2
       - :operator: new
         :score: 1.2
     - :score: 1.3
       :name: Report#report_hash
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 1.3
     :highest_score: 8.9
     :score: 35.6
   - :average_score: 16.8
     :path: /lib/templates/awesome/awesome_template.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 32.3
       :name: AwesomeTemplate#write
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 13.8
       - :operator: erbify
@@ -7748,17 +7748,17 @@
         :score: 1.2
     - :score: 1.2
       :name: AwesomeTemplate#this_directory
-      :operators: 
+      :operators:
       - :operator: dirname
         :score: 1.2
     :highest_score: 32.3
     :score: 33.5
   - :average_score: 10.7
     :path: /lib/generators/roodi.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 20.4
       :name: Roodi#analyze
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 13.1
       - :operator: split
@@ -7783,7 +7783,7 @@
         :score: 0.4
     - :score: 9.1
       :name: Roodi#emit
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 3.7
       - :operator: "[]"
@@ -7798,7 +7798,7 @@
         :score: 1.2
     - :score: 2.8
       :name: Roodi#verify_dependencies!
-      :operators: 
+      :operators:
       - :operator: raise
         :score: 1.3
       - :operator: success?
@@ -7809,10 +7809,10 @@
     :score: 32.2
   - :average_score: 12.7
     :path: /lib/templates/standard/standard_template.rb
-    :scanned_methods: 
+    :scanned_methods:
     - :score: 24.2
       :name: StandardTemplate#write
-      :operators: 
+      :operators:
       - :operator: assignment
         :score: 9.7
       - :operator: report
@@ -7835,7 +7835,7 @@
         :score: 1.2
     - :score: 1.2
       :name: StandardTemplate#this_directory
-      :operators: 
+      :operators:
       - :operator: dirname
         :score: 1.2
     :highest_score: 24.2
@@ -7910,13 +7910,13 @@
     :name: Total
     :loc: 23373
   :code_to_test_ratio: 0.5
-:rails_best_practices: 
-  :problems: 
+:rails_best_practices:
+  :problems:
   - :line: "17"
     :file: ./app/views/admin/testimonials/_form.html.erb
     :problem: replace instance variable with local variable
   - :line: "24,45,68,85"
     :file: ./app/controllers/admin/campaigns_controller.rb
     :problem: use before_filter for show,edit,update,destroy
-  :total: 
+  :total:
   - Found 2 errors.

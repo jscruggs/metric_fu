@@ -21,8 +21,8 @@ module MetricFu
 
     def calc_top_five_percent_average(metrics)
       return calc_top_five_percent_average_legacy(metrics) if metrics[:flog][:pages]
-      
-      method_scores = metrics[:flog][:method_containers].inject([]) do |method_scores, container| 
+
+      method_scores = metrics[:flog][:method_containers].inject([]) do |method_scores, container|
         method_scores += container[:methods].values.map {|v| v[:score]}
       end
       method_scores.sort!.reverse!
@@ -37,7 +37,7 @@ module MetricFu
         total_for_five_percent / number_of_methods_that_is_five_percent.to_f
       end
     end
-    
+
     def calc_top_five_percent_average_legacy(metrics)
       methods = metrics[:flog][:pages].inject([]) {|methods, page| methods << page[:scanned_methods]}
       methods.flatten!

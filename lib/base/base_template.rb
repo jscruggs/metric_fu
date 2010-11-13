@@ -9,12 +9,12 @@ module MetricFu
   # example.
   class Template
     attr_accessor :report
-    
+
     private
     # Creates a new erb evaluated result from the passed in section.
     #
     # @param section String
-    #   The section name of 
+    #   The section name of
     #
     # @return String
     #   The erb evaluated string
@@ -35,10 +35,10 @@ module MetricFu
     def template_exists?(section)
       File.exist?(template(section))
     end
-    
+
     # Copies an instance variable mimicing the name of the section
-    # we are trying to render, with a value equal to the passed in 
-    # constant.  Allows the concrete template classes to refer to 
+    # we are trying to render, with a value equal to the passed in
+    # constant.  Allows the concrete template classes to refer to
     # that instance variable from their ERB rendering
     #
     # @param section String
@@ -48,10 +48,10 @@ module MetricFu
     #   The value to set as the value of the created instance
     #   variable
     def create_instance_var(section, contents)
-      instance_variable_set("@#{section}", contents)        
+      instance_variable_set("@#{section}", contents)
     end
 
-    # Generates the filename of the template file to load and 
+    # Generates the filename of the template file to load and
     # evaluate.  In this case, the path to the template directory +
     # the section name + .html.erb
     #
@@ -76,7 +76,7 @@ module MetricFu
       section.to_s + ".html"
     end
 
-    # Returns the contents of a given css file in order to 
+    # Returns the contents of a given css file in order to
     # render it inline into a template.
     #
     # @param css String
@@ -85,14 +85,14 @@ module MetricFu
     # @return String
     #   The contents of the css file
     def inline_css(css)
-      open(File.join(this_directory, css)) { |f| f.read }      
+      open(File.join(this_directory, css)) { |f| f.read }
     end
-  
+
     # Provides a link to open a file through the textmate protocol
     # on Darwin, or otherwise, a simple file link.
     #
     # @param name String
-    #   
+    #
     # @param line Integer
     #   The line number to link to, if textmate is available.  Defaults
     #   to nil
@@ -102,12 +102,12 @@ module MetricFu
     def link_to_filename(name, line = nil, link_content = nil)
       "<a href='#{file_url(name, line)}'>#{link_content(name, line, link_content)}</a>"
     end
-    
+
     def round_to_tenths(decimal)
       decimal = 0.0 if decimal.to_s.eql?('NaN')
-      (decimal * 10).round / 10.0 
+      (decimal * 10).round / 10.0
     end
-    
+
     def link_content(name, line=nil, link_content=nil) # :nodoc:
       if link_content
         link_content
@@ -133,13 +133,13 @@ module MetricFu
       end
       str
     end
-    
+
     def file_url(name, line) # :nodoc:
       return '' unless name
       filename = File.expand_path(name.gsub(/^\//, ''))
       if MetricFu.configuration.platform.include?('darwin')
         "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
-      else 
+      else
        "file://#{filename}"
       end
     end

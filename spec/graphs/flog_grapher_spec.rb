@@ -4,7 +4,7 @@ describe MetricFu::FlogGrapher do
   before :each do
     MetricFu.configuration
     @flog_grapher = MetricFu::FlogGrapher.new
-    
+
   end
 
   it "should respond to flog_total, flog_average and labels" do
@@ -27,24 +27,24 @@ describe MetricFu::FlogGrapher do
       100.times do |i|
         methods["method_name_#{i}"] = {:score => i.to_f}
       end
-      
+
       @metrics = {:flog => {:total => 111.1,
                             :average => 7.7,
                             :method_containers => [ {:methods => methods } ] } }
       @date = "1/2"
     end
-    
+
     it "should push to top_five_percent_average" do
       average = (99.0 + 98.0 + 97.0 + 96.0 + 95.0) / 5.0
-      @flog_grapher.top_five_percent_average.should_receive(:push).with(average)      
+      @flog_grapher.top_five_percent_average.should_receive(:push).with(average)
       @flog_grapher.get_metrics(@metrics, @date)
     end
-    
+
     it "should push 9.9 to flog_average" do
       @flog_grapher.flog_average.should_receive(:push).with(7.7)
       @flog_grapher.get_metrics(@metrics, @date)
     end
-    
+
     context "when metrics were not generated" do
       before(:each) do
         @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "metric_missing.yml")))
@@ -90,7 +90,7 @@ describe MetricFu::FlogGrapher do
       end
     end
   end
-  
+
   describe "responding to #get_metrics with legacy data" do
     before(:each) do
       @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
@@ -100,7 +100,7 @@ describe MetricFu::FlogGrapher do
 
     it "should push to top_five_percent_average" do
       average = (73.6 + 68.5 + 66.1 + 46.6 + 44.8 + 44.1 + 41.2 + 36.0) / 8.0
-      @flog_grapher.top_five_percent_average.should_receive(:push).with(average)      
+      @flog_grapher.top_five_percent_average.should_receive(:push).with(average)
       @flog_grapher.get_metrics(@metrics, @date)
     end
   end

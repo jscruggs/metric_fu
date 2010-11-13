@@ -33,7 +33,7 @@
 
 <% @flog[:method_containers].each do |method_container| %>
   <h2 id="<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename(method_container[:path]) %></h2>
-  
+
     <% method_container[:methods].each do |full_method_name, method_info| %>
       <% path, line = method_info[:path].split(":") if method_info[:path] %>
       <p><%= link_to_filename(path, line, full_method_name) %></p>
@@ -52,4 +52,4 @@
       </table>
     <% end %>
 <% end %>
-<p>Generated on <%= Time.now.localtime %></p>	
+<p>Generated on <%= Time.now.localtime %></p>

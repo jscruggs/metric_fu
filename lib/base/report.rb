@@ -10,25 +10,25 @@ module MetricFu
   #
   # The Report class is responsible two things:
   #
-  # It adds information to the yaml report, produced by the system 
+  # It adds information to the yaml report, produced by the system
   # as a whole, for each of the generators used in this test run.
   #
   # It also handles passing the information from each generator used
-  # in this test run out to the template class set in 
+  # in this test run out to the template class set in
   # MetricFu::Configuration.
   class Report
-    
+
     # Renders the result of the report_hash into a yaml serialization
     # ready for writing out to a file.
     #
     # @return YAML
-    #   A YAML object containing the results of the report generation 
+    #   A YAML object containing the results of the report generation
     #   process
     def to_yaml
       report_hash.to_yaml
     end
 
-    
+
     def report_hash #:nodoc:
       @report_hash ||= {}
     end
@@ -43,7 +43,7 @@ module MetricFu
       @template.report = report_hash
       @template.write
     end
-   
+
     # Adds a hash from a passed report, produced by one of the Generator
     # classes to the aggregate report_hash managed by this hash.
     #
@@ -55,7 +55,7 @@ module MetricFu
     end
 
     # Saves the passed in content to the passed in directory.  If
-    # a filename is passed in it will be used as the name of the 
+    # a filename is passed in it will be used as the name of the
     # file, otherwise it will default to 'index.html'
     #
     # @param content String
@@ -76,7 +76,7 @@ module MetricFu
 
     # Checks to discover whether we should try and open the results
     # of the report in the browser on this system.  We only try and open
-    # in the browser if we're on OS X and we're not running in a 
+    # in the browser if we're on OS X and we're not running in a
     # CruiseControl.rb environment.  See MetricFu.configuration for more
     # details about how we make those guesses.
     #
@@ -91,7 +91,7 @@ module MetricFu
     # if we're able to open the browser on this platform.
     #
     # @param dir String
-    #   The directory path where the 'index.html' we want to open is  
+    #   The directory path where the 'index.html' we want to open is
     #   stored
     def show_in_browser(dir)
       system("open #{dir}/index.html") if open_in_browser?

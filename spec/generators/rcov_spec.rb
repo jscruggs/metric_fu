@@ -1,13 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu::Rcov do
-  
+
   before :each do
     MetricFu::Configuration.run {}
     File.stub!(:directory?).and_return(true)
     @rcov = MetricFu::Rcov.new('base_dir')
   end
-  
+
   describe "emit" do
     before :each do
       @rcov.stub!(:puts)
@@ -20,7 +20,7 @@ describe MetricFu::Rcov do
       Dir.should_receive(:mkdir).with(MetricFu::Rcov.metric_directory)
       @rcov.emit
     end
-    
+
     it "should set the RAILS_ENV" do
       FileUtils.stub!(:rm_rf)
       Dir.stub!(:mkdir)
@@ -29,7 +29,7 @@ describe MetricFu::Rcov do
       @rcov.emit
     end
   end
-  
+
   describe "with RCOV_OUTPUT fed into" do
     before :each do
       MetricFu.rcov[:external] = nil
@@ -38,7 +38,7 @@ describe MetricFu::Rcov do
             and_return(mock("io", :read => RCOV_OUTPUT))
       @files = @rcov.analyze
     end
-    
+
     describe "analyze" do
       it "should compute percent of lines run" do
         @files["lib/templates/awesome/awesome_template.rb"][:percent_run].should == 13
@@ -72,14 +72,14 @@ describe MetricFu::Rcov do
       FileUtils.should_not_receive(:rm_rf)
       @rcov.emit
     end
-    
+
     it "should open the external rcov analysis file" do
       File.should_receive(:open).
             with(MetricFu.rcov[:external]).
             and_return(mock("io", :read => RCOV_OUTPUT))
       @files = @rcov.analyze
     end
-    
+
   end
 
 
@@ -107,18 +107,18 @@ Finished in 2.517686 seconds
 lib/templates/awesome/awesome_template.rb
 ================================================================================
    require 'fileutils'
-   
+
    class AwesomeTemplate < MetricFu::Template
-   
+
      def write
 !!     # Getting rid of the crap before and after the project name from integrity
 !!     @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
-!! 
+!!
 !!     # Copy Bluff javascripts to output directory
 !!     Dir[File.join(this_directory, '..', 'javascripts', '*')].each do |f|
 !!       FileUtils.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
 !!     end
-!! 
+!!
 !!     report.each_pair do |section, contents|
 !!       if template_exists?(section)
 !!         create_instance_var(section, contents)
@@ -128,7 +128,7 @@ lib/templates/awesome/awesome_template.rb
 !!         MetricFu.report.save_output(html, MetricFu.output_directory, fn)
 !!       end
 !!     end
-!! 
+!!
 !!     # Instance variables we need should already be created from above
 !!     if template_exists?('index')
 !!       @html = erbify('index')
@@ -137,18 +137,18 @@ lib/templates/awesome/awesome_template.rb
 !!       MetricFu.report.save_output(html, MetricFu.output_directory, fn)
 !!     end
 !!   end
-   
+
      def this_directory
 !!     File.dirname(__FILE__)
 !!   end
 !! end
-   
+
 ================================================================================
 lib/templates/standard/standard_template.rb
 ================================================================================
    class StandardTemplate < MetricFu::Template
-   
-   
+
+
      def write
 !!     report.each_pair do |section, contents|
 !!       if template_exists?(section)
@@ -158,7 +158,7 @@ lib/templates/standard/standard_template.rb
 !!         MetricFu.report.save_output(html, MetricFu.output_directory, fn)
 !!       end
 !!     end
-!! 
+!!
 !!     # Instance variables we need should already be created from above
 !!     if template_exists?('index')
 !!       html = erbify('index')
@@ -166,7 +166,7 @@ lib/templates/standard/standard_template.rb
 !!       MetricFu.report.save_output(html, MetricFu.output_directory, fn)
 !!     end
 !!   end
-   
+
      def this_directory
 !!     File.dirname(__FILE__)
 !!   end

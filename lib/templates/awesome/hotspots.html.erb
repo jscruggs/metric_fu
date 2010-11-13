@@ -9,8 +9,8 @@ No Hotspots were found.
 <% granularities = [:files, :classes, :methods] %>
 <table>
 <tr valign="top">
-<% granularities.each do |granularity| %>  
-   <th width='33%'> 
+<% granularities.each do |granularity| %>
+   <th width='33%'>
 <%= granularity.to_s.capitalize %></th>
 <% end %>
 </tr>
@@ -24,7 +24,7 @@ No Hotspots were found.
 <% items_length = 0 %>
 <% columns = [0, 1, 2] %>
 <% while (items_length < items[0].length || items_length < items[1].length || items_length < items[2].length) do %>
-    <tr  valign="top"> 
+    <tr  valign="top">
        <% columns.each do |column| %>
        <% item = items[column].length >= items_length ? items[column][items_length] : nil %>
        <% if item %>
@@ -51,4 +51,4 @@ No Hotspots were found.
 <% end %>
 
 
-<p>Generated on <%= Time.now.localtime %></p>	
+<p>Generated on <%= Time.now.localtime %></p>

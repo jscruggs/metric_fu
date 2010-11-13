@@ -1,9 +1,9 @@
 class Table
-  
+
   def initialize(opts = {})
     @rows = []
     @columns = opts.fetch(:column_names)
-    
+
     @make_index = opts.fetch(:make_index) {true}
     @metric_index = {}
   end
@@ -44,7 +44,7 @@ class Table
     end
     arr
   end
-  
+
   def group_by_metric
     @metric_index.to_a
   end
@@ -64,7 +64,7 @@ class Table
   def to_a
     @rows
   end
-  
+
   def map
     new_table = Table.new(:column_names => @columns)
     @rows.map do |row|

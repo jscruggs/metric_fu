@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu do
-  
+
   describe "responding to #graph" do
     it "should return an instance of Graph" do
       MetricFu.graph.should be_a(Graph)
@@ -10,15 +10,15 @@ describe MetricFu do
 end
 
 describe MetricFu::Graph do
-  
+
   before(:each) do
     @graph = MetricFu::Graph.new
   end
-  
+
   describe "responding to #add with gchart enabled" do
     it 'should instantiate a grapher and push it to clazz' do
       @graph.clazz.should_receive(:push).with(an_instance_of(RcovGchartGrapher))
       @graph.add("rcov", 'gchart')
     end
-  end  
+  end
 end

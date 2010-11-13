@@ -1,7 +1,7 @@
 require 'flay'
 
 module MetricFu
-  
+
   class Flay < Generator
 
     def emit

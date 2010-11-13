@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe MetricFu do
-  
+
   describe "#report" do
     it 'should return an instance of Report' do
       MetricFu.report.instance_of?(Report).should be(true)
@@ -68,9 +68,9 @@ describe MetricFu::Report do
     before(:each) do
       @config = mock('configuration')
     end
-    
+
     describe 'when the platform is os x ' do
-      
+
       before(:each) do
         @config.should_receive(:platform).and_return('darwin')
       end
@@ -81,7 +81,7 @@ describe MetricFu::Report do
           @config.should_receive(:is_cruise_control_rb?).and_return(true)
           MetricFu.stub!(:configuration).and_return(@config)
         end
-        
+
         it 'should return false' do
           @report.open_in_browser?.should be_false
         end
@@ -99,12 +99,12 @@ describe MetricFu::Report do
         end
       end
     end
-    
+
     describe 'when the platform is not os x ' do
       before(:each) do
         @config.should_receive(:platform).and_return('other')
       end
-      
+
       describe 'and we are in cruise control' do
         before(:each) do
           MetricFu.stub!(:configuration).and_return(@config)
@@ -119,14 +119,14 @@ describe MetricFu::Report do
         before(:each) do
           MetricFu.stub!(:configuration).and_return(@config)
         end
-        
+
         it 'should return false' do
           @report.open_in_browser?.should be_false
         end
       end
     end
   end
-  
+
 
   describe '#show_in_browser' do
     it 'should call open with the passed directory' do
@@ -134,6 +134,6 @@ describe MetricFu::Report do
       @report.should_receive(:system).with("open my_dir/index.html")
       @report.show_in_browser('my_dir')
     end
-    
+
   end
 end

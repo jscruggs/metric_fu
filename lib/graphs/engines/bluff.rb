@@ -12,7 +12,7 @@ module MetricFu
       g.marker_font_size = "10px"
     EOS
   end
-  
+
   class FlayBluffGrapher < FlayGrapher
     def graph!
       content = <<-EOS

@@ -27,14 +27,14 @@ class MetricAnalyzer
     columns = COMMON_COLUMNS + GRANULARITIES + tool_analyzers.map{|analyzer| analyzer.columns}.flatten
 
     @table = make_table(columns)
-                                     
+
     # These tables are an optimization. They contain subsets of the master table.
     # TODO - these should be pushed into the Table class now
     @tool_tables   = make_table_hash(columns)
     @file_tables   = make_table_hash(columns)
     @class_tables  = make_table_hash(columns)
     @method_tables = make_table_hash(columns)
-                                     
+
     tool_analyzers.each do |analyzer|
       analyzer.generate_records(@yaml[analyzer.name], @table)
     end
@@ -147,7 +147,7 @@ class MetricAnalyzer
 
   def fix_row_file_path!(row)
     # We know that Saikuro rows are broken
-    next unless row['metric'] == :saikuro
+    # next unless row['metric'] == :saikuro
     key = [row['class_name'], row['method_name']]
     current_file_path = row['file_path'].to_s
     correct_file_path = @class_and_method_to_file[key]
@@ -155,7 +155,7 @@ class MetricAnalyzer
       row['file_path'] = correct_file_path
     else
       # There wasn't an exact match, so we can do a substring match
-      matching_file_path = file_paths.detect {|file_path| 
+      matching_file_path = file_paths.detect {|file_path|
         file_path!=nil && file_path.include?(current_file_path)
       }
       if(matching_file_path)
@@ -180,7 +180,7 @@ class MetricAnalyzer
       raise ArgumentError, "Invalid column name #{column_name}"
     end
   end
-  
+
   def calculate_metric_scores(granularity, analyzer)
     metric_ranking = MetricFu::Ranking.new
     metric_violations = @tool_tables[analyzer.name]
@@ -189,11 +189,11 @@ class MetricAnalyzer
       metric_ranking[location] ||= []
       metric_ranking[location] << analyzer.map(row)
     end
-    
+
     metric_ranking.each do |item, scores|
       metric_ranking[item] = analyzer.reduce(scores)
     end
-    
+
     metric_ranking
   end
 
@@ -205,7 +205,7 @@ class MetricAnalyzer
   end
 
   def most_common_column(column_name, size)
-    #grouping = Ruport::Data::Grouping.new(@table, 
+    #grouping = Ruport::Data::Grouping.new(@table,
     #                                      :by => column_name,
     #                                      :order => lambda { |g| -g.size})
     get_grouping(@table, :by => column_name, :order => lambda {|g| -g.size})
@@ -223,7 +223,7 @@ class MetricAnalyzer
       return values
     end
   end
-  
+
   # TODO: As we get fancier, the presenter should
   # be its own class, not just a method with a long
   # case statement
@@ -246,7 +246,7 @@ class MetricAnalyzer
       "found #{occurences} code duplications"
     when :rcov
       average_code_uncoverage = get_mean(group.column("percentage_uncovered"))
-      "#{"average " if occurences > 1}uncovered code is %.1f%" % average_code_uncoverage      
+      "#{"average " if occurences > 1}uncovered code is %.1f%" % average_code_uncoverage
     else
       raise AnalysisError, "Unknown metric #{metric}"
     end
@@ -320,13 +320,13 @@ class MetricAnalyzer
     sum = collection.inject( nil ) { |sum,x| sum ? sum+x : x }
     (sum.to_f / collection_length.to_f)
   end
-  
+
 end
 
 class Record
 
   attr_reader :data
-  
+
   def initialize(data, columns)
     @data = data
     @columns = columns
@@ -380,7 +380,7 @@ class Grouping
       end
     end
     if order
-      @arr = hash.sort_by &order 
+      @arr = hash.sort_by &order
     else
       @arr = hash.to_a
     end

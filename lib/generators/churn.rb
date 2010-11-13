@@ -5,7 +5,7 @@ module MetricFu
     def initialize(options={})
       super
     end
-    
+
     def emit
       @output = `churn --yaml`
       yaml_start = @output.index("---")

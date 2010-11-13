@@ -19,17 +19,17 @@ end
 class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
   include Comparable
 
-  # TODO: Yuck! 'stat_value' is a column for StatAnalyzer  
+  # TODO: Yuck! 'stat_value' is a column for StatAnalyzer
   EXCLUDED_COLUMNS = FlogAnalyzer::COLUMNS + SaikuroAnalyzer::COLUMNS + ['stat_value'] + ChurnAnalyzer::COLUMNS + ReekAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['reek__type_name', 'reek__comparable_message']) + FlayAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['flay_matching_reason'])
 
   def <=>(other)
     spaceship_for_columns(self.attributes, other)
   end
-  
+
   def ===(other)
     self.hash_for(included_columns_hash, included_columns) == other.hash_for(included_columns_hash, included_columns)
   end
-  
+
   def spaceship_for_columns(columns, other)
     columns.each do |column|
       equality = self[column].to_s <=> other[column].to_s
@@ -41,7 +41,7 @@ class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
   def hash_for(column_hash, columns)
     @hashes ||= {}
     # fetch would be cleaner, but slower
-    if @hashes.has_key?(column_hash) 
+    if @hashes.has_key?(column_hash)
       @hashes[column_hash]
     else
       values = columns.map {|column| self[column]}
@@ -54,7 +54,7 @@ class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
   def included_columns_hash
     @included_columns_hash ||= included_columns.hash
   end
-  
+
   def included_columns
     @included_columns ||= self.attributes.extend(CarefulArray).carefully_remove(EXCLUDED_COLUMNS)
   end
@@ -78,10 +78,10 @@ class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
       self.reek__value != other.reek__value
     when :flog
       self.score != other.score
-    when :saikuro 
+    when :saikuro
       self.complexity != other.complexity
     when :stats
-      self.stat_value != other.stat_value     
+      self.stat_value != other.stat_value
     when :churn
       self.times_changed != other.times_changed
     when :flay
@@ -93,5 +93,5 @@ class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
       raise ArgumentError, "Invalid metric type #{self.metric}"
     end
   end
-  
+
 end

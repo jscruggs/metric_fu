@@ -19,7 +19,7 @@ describe MetricFu::Generator do
   end
 
   before(:each) do
-    @concrete_class = ConcreteClass.new 
+    @concrete_class = ConcreteClass.new
   end
 
   describe "ConcreteClass#class_name" do
@@ -91,7 +91,7 @@ describe MetricFu::Generator do
       ConcreteClass.generate_report
     end
   end
-  
+
   describe '@concrete_class should have hook methods for '\
            +'[before|after]_[emit|analyze|to_h]' do
 
@@ -105,7 +105,7 @@ describe MetricFu::Generator do
         @concrete_class.respond_to?("after_#{meth}".to_sym).should be_true
       end
     end
-      
+
     it "should respond to #before_to_h" do
       @concrete_class.respond_to?("before_to_h".to_sym).should be_true
     end
@@ -129,7 +129,7 @@ describe MetricFu::Generator do
   end
 
   describe "#generate_report (in a concrete class)" do
-    
+
     %w[emit analyze].each do |meth|
       it "should call #before_#{meth}" do
         @concrete_class.should_receive("before_#{meth}")
@@ -146,12 +146,12 @@ describe MetricFu::Generator do
         @concrete_class.generate_report
       end
     end
-    
+
     it "should call #before_to_h" do
       @concrete_class.should_receive("before_to_h")
       @concrete_class.generate_report
     end
-    
+
     it "should call #to_h" do
       @concrete_class.should_receive(:to_h)
       @concrete_class.generate_report
@@ -160,7 +160,7 @@ describe MetricFu::Generator do
   end
 
   describe "path filter" do
-    
+
     context "given a list of paths" do
 
       before do
@@ -173,14 +173,14 @@ describe MetricFu::Generator do
                   lib/bad/two.rb
                   lib/bad/three.rb
                   lib/worse/four.rb)
-        @container = create_construct 
+        @container = create_construct
         @paths.each do |path|
           @container.file(path)
         end
         @old_dir = Dir.pwd
         Dir.chdir(@container)
       end
-      
+
       after do
         Dir.chdir(@old_dir)
         @container.destroy!
@@ -219,5 +219,5 @@ describe MetricFu::Generator do
 
 
   end
-  
+
 end

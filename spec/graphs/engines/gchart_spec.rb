@@ -18,12 +18,12 @@ describe MetricFu::GchartGrapher do
       grapher.instance_variable_get(:@max_value).should == 10
       grapher.instance_variable_get(:@yaxis).should == [0, 2, 4, 6, 8, 10]
     end
-    
+
     it "should set max value of the graph above largest value" do
       grapher = Object.new.extend(MetricFu::GchartGrapher)
       grapher.determine_y_axis_scale([19])
       grapher.instance_variable_get(:@max_value).should == 20
-      
+
       grapher.determine_y_axis_scale([20])
       grapher.instance_variable_get(:@max_value).should == 25
     end
@@ -34,7 +34,7 @@ describe "Gchart graphers" do
   before :each do
     MetricFu::Configuration.run {|config| config.graph_engine = :gchart}
   end
-  
+
   describe "FlayGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = FlayGchartGrapher.new
@@ -49,7 +49,7 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
-  
+
   describe "FlogGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = FlogGchartGrapher.new
@@ -68,7 +68,7 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
-  
+
   describe "RcovGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = RcovGchartGrapher.new
@@ -85,7 +85,7 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
-  
+
   describe "ReekGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = ReekGchartGrapher.new
@@ -102,7 +102,7 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
-  
+
   describe "RoodiGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = RoodiGchartGrapher.new
@@ -117,7 +117,7 @@ describe "Gchart graphers" do
       grapher.graph!
     end
   end
-  
+
   describe "StatsGchartGrapher graph! method" do
     it "should set static values for graph" do
       grapher = StatsGchartGrapher.new
