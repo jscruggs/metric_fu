@@ -30,6 +30,10 @@ describe MetricFu::Graph do
   end 
 
   describe "setting the date on the graph" do
+    before(:each) do
+      @graph.stub!(:puts)
+    end
+
     it "should set the date once for one data point" do
       Dir.should_receive(:[]).and_return(["metric_fu/tmp/_data/20101105.yml"])
       File.should_receive(:join)
