@@ -1,3 +1,10 @@
+=== MetricFu 2.0.1 / ???
+
+* Delete trailing whitespaces - Delwyn de Villiers
+* Stop Ubuntu choking on invalid multibyte char (US-ASCII) - Delwyn de Villiers
+* Fix invalid next in lib/base/metric_analyzer.rb - Delwyn de Villiers
+* Don't load Saikuro for Ruby 1.9.2 - Delwyn de Villiers
+
 === MetricFu 2.0.0 / 2010-11-10
 
 * Hotspots - Dan Mayer, Ben Brinckerhoff, Jake Scruggs
