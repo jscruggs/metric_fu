@@ -13,9 +13,9 @@ class MetricAnalyzer
      else
        @yaml = yaml
      end
-    @file_ranking = Ranking.new
-    @class_ranking = Ranking.new
-    @method_ranking = Ranking.new
+    @file_ranking = MetricFu::Ranking.new
+    @class_ranking = MetricFu::Ranking.new
+    @method_ranking = MetricFu::Ranking.new
     rankings = [@file_ranking, @class_ranking, @method_ranking]
 
     tool_analyzers = [ReekAnalyzer.new, RoodiAnalyzer.new,
@@ -182,7 +182,7 @@ class MetricAnalyzer
   end
   
   def calculate_metric_scores(granularity, analyzer)
-    metric_ranking = Ranking.new
+    metric_ranking = MetricFu::Ranking.new
     metric_violations = @tool_tables[analyzer.name]
     metric_violations.each do |row|
       location = row[granularity]
