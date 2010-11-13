@@ -46,7 +46,7 @@ class ReekAnalyzer
   end
 
   def score(metric_ranking, item)
-    ScoringStrategies.percentile(metric_ranking, item)
+    ScoringStrategies.percentile(metric_ranking, item) 
   end
   
   def generate_records(data, table)
@@ -54,12 +54,12 @@ class ReekAnalyzer
     data[:matches].each do |match|
       file_path = match[:file_path]
       match[:code_smells].each do |smell|
-        location = Location.for(smell[:method])
+        location = MetricFu::Location.for(smell[:method])
         smell_type = smell[:type]
         message = smell[:message]
         table << {
-          "metric" => name,
-          "file_path" => file_path,
+          "metric" => name, # important
+          "file_path" => file_path, # important
           # NOTE: ReekAnalyzer is currently different than other analyzers with regard
           # to column name. Note the COLUMNS constant and #columns method
           "reek__message" => message,
@@ -67,8 +67,8 @@ class ReekAnalyzer
           "reek__value" => parse_value(message),
           "reek__value_description" => build_value_description(smell_type, message),
           "reek__comparable_message" => comparable_message(smell_type, message),
-          "class_name" => location.class_name,
-          "method_name" => location.method_name,
+          "class_name" => location.class_name, # important
+          "method_name" => location.method_name, # important
         }
       end
     end

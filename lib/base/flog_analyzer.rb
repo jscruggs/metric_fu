@@ -28,7 +28,7 @@ class FlogAnalyzer
     Array(data[:method_containers]).each do |method_container|
       Array(method_container[:methods]).each do |entry|
         file_path = entry[1][:path].sub(%r{^/},'') if entry[1][:path]
-        location = Location.for(entry.first)
+        location = MetricFu::Location.for(entry.first)
         table << {
           "metric" => name,
           "score" => entry[1][:score],

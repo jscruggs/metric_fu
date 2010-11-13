@@ -62,11 +62,11 @@ class MetricAnalyzer
       first_row = sub_table[0]
       case item
       when :class
-        Location.get(first_row.file_path, first_row.class_name, nil)
+        MetricFu::Location.get(first_row.file_path, first_row.class_name, nil)
       when :method
-        Location.get(first_row.file_path, first_row.class_name, first_row.method_name)
+        MetricFu::Location.get(first_row.file_path, first_row.class_name, first_row.method_name)
       when :file
-        Location.get(first_row.file_path, nil, nil)
+        MetricFu::Location.get(first_row.file_path, nil, nil)
       else
         raise ArgumentError, "Item must be :class, :method, or :file"
       end
@@ -200,7 +200,7 @@ class MetricAnalyzer
   def add_to_master_ranking(master_ranking, metric_ranking, analyzer)
     metric_ranking.each do |item, _|
       master_ranking[item] ||= 0
-      master_ranking[item] += analyzer.score(metric_ranking, item)
+      master_ranking[item] += analyzer.score(metric_ranking, item) # scaling? Do we just add in the raw score?
     end
   end
 

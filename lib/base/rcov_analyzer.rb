@@ -28,7 +28,7 @@ class RcovAnalyzer
    data.each do |file_name, info|
      next if (file_name == :global_percent_run) || (info[:methods].nil?)
      info[:methods].each do |method_name, percentage_uncovered|
-       location = Location.for(method_name)
+       location = MetricFu::Location.for(method_name)
        table << {
          "metric" => :rcov,
          'file_path' => file_name,

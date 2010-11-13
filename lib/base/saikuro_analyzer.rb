@@ -28,10 +28,10 @@ class SaikuroAnalyzer
     data[:files].each do |file|
       file_name = file[:filename]
       file[:classes].each do |klass|
-        location = Location.for(klass[:class_name])
+        location = MetricFu::Location.for(klass[:class_name])
         offending_class = location.class_name
         klass[:methods].each do |match|
-          offending_method = Location.for(match[:name]).method_name
+          offending_method = MetricFu::Location.for(match[:name]).method_name
           table << {
             "metric" => name,
             "lines" => match[:lines],
