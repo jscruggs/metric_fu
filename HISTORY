@@ -4,6 +4,7 @@
 * Stop Ubuntu choking on invalid multibyte char (US-ASCII) - Delwyn de Villiers
 * Fix invalid next in lib/base/metric_analyzer.rb - Delwyn de Villiers
 * Don't load Saikuro for Ruby 1.9.2 - Delwyn de Villiers
+* Fixed a bug reported by Andrew Davis on the mailing list where configuring the data directory causes dates to be 0/0 - Joshua Cronemeyer
 
 === MetricFu 2.0.0 / 2010-11-10
 
