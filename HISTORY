@@ -1,4 +1,4 @@
-=== MetricFu 2.0.1 / ???
+=== MetricFu 2.0.1 / 2010-11-13
 
 * Delete trailing whitespaces - Delwyn de Villiers
 * Stop Ubuntu choking on invalid multibyte char (US-ASCII) - Delwyn de Villiers
