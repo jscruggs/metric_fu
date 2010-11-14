@@ -1,3 +1,7 @@
+=== MetricFu 2.0.2 / ???
+
+* Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed too >= 2.3.0 -  Chris Griego
+
 === MetricFu 2.0.1 / 2010-11-13
 
 * Delete trailing whitespaces - Delwyn de Villiers

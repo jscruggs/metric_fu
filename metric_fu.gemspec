@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files = ["spec/base/base_template_spec.rb", "spec/base/configuration_spec.rb", "spec/base/generator_spec.rb", "spec/base/graph_spec.rb", "spec/base/line_numbers_spec.rb", "spec/base/md5_tracker_spec.rb", "spec/base/report_spec.rb", "spec/generators/churn_spec.rb", "spec/generators/flay_spec.rb", "spec/generators/flog_spec.rb", "spec/generators/rails_best_practices_spec.rb", "spec/generators/rcov_spec.rb", "spec/generators/reek_spec.rb", "spec/generators/roodi_spec.rb", "spec/generators/saikuro_spec.rb", "spec/generators/stats_spec.rb", "spec/graphs/engines/bluff_spec.rb", "spec/graphs/engines/gchart_spec.rb", "spec/graphs/flay_grapher_spec.rb", "spec/graphs/flog_grapher_spec.rb", "spec/graphs/rails_best_practices_grapher_spec.rb", "spec/graphs/rcov_grapher_spec.rb", "spec/graphs/reek_grapher_spec.rb", "spec/graphs/roodi_grapher_spec.rb", "spec/graphs/stats_grapher_spec.rb", "spec/resources/line_numbers/foo.rb", "spec/resources/line_numbers/module.rb", "spec/resources/line_numbers/module_surrounds_class.rb", "spec/resources/line_numbers/two_classes.rb", "spec/resources/saikuro/app/controllers/sessions_controller.rb_cyclo.html", "spec/resources/saikuro/app/controllers/users_controller.rb_cyclo.html", "spec/resources/saikuro/index_cyclo.html", "spec/resources/saikuro_sfiles/thing.rb_cyclo.html", "spec/resources/yml/20090630.yml", "spec/resources/yml/metric_missing.yml", "spec/spec.opts", "spec/spec_helper.rb"]
 
   s.add_dependency("flay", [">= 1.2.1"])
-  s.add_dependency("flog", [">= 2.2.0"])
+  s.add_dependency("flog", [">= 2.3.0"])
   s.add_dependency("rcov", [">= 0.8.3.3"])
   s.add_dependency("reek", [">=1.2.6"])
   s.add_dependency("roodi", [">=2.1.0"])
