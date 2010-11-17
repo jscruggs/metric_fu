@@ -3,7 +3,7 @@ require 'enumerator'
 module MetricFu
 
   class Rcov < Generator
-    NEW_FILE_MARKER =  ("=" * 80) + "\n"
+    NEW_FILE_MARKER = /^={80}$/.freeze
 
     class Line
       attr_accessor :content, :was_run
