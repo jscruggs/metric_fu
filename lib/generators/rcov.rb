@@ -100,11 +100,7 @@ module MetricFu
       files.each_pair {|fname, content| files[fname] = content.split("\n") }
       files.each_pair do |fname, content|
         content.map! do |raw_line|
-          if raw_line.match(/^!!/)
-            line = Line.new(raw_line.gsub('!!', '  '), false).to_h
-          else
-            line = Line.new(raw_line, true).to_h
-          end
+          line = Line.new(raw_line[3..-1], !raw_line.match(/^!!/)).to_h
         end
         content.reject! {|line| line[:content].blank? }
         files[fname] = {:lines => content}
