@@ -47,12 +47,12 @@ describe MetricFu::Rcov do
 
       it "should know which lines were run" do
         @files["lib/templates/awesome/awesome_template.rb"][:lines].
-              should include({:content=>"   require 'fileutils'", :was_run=>true})
+              should include({:content=>"require 'fileutils'", :was_run=>true})
       end
 
       it "should know which lines NOT were run" do
         @files["lib/templates/awesome/awesome_template.rb"][:lines].
-              should include({:content=>"         if template_exists?(section)", :was_run=>false})
+              should include({:content=>"      if template_exists?(section)", :was_run=>false})
       end
     end
 
