@@ -8,9 +8,9 @@ module MetricFu
   AVAILABLE_METRICS = [:churn, :flog, :flay, :reek,
                        :roodi, :rcov,
                       :hotspots]
-                      
+
   AVAILABLE_METRICS << :saikuro unless RUBY_VERSION == '1.9.2'
-  
+
   AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov, :rails_best_practices]
   AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
 
@@ -146,6 +146,8 @@ module MetricFu
       @file_globs_to_ignore = []
 
       @graph_engine = :bluff # can be :bluff or :gchart
+
+      @darwin_txmt_protocol_no_thanks = false
     end
 
     # Perform a simple check to try and guess if we're running

@@ -88,6 +88,7 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.stub!(:platform).and_return('universal-darwin-9.0')
+        config.stub!(:darwin_txmt_protocol_no_thanks).and_return(false)
         MetricFu.stub!(:configuration).and_return(config)
       end
 
@@ -112,6 +113,22 @@ describe MetricFu::Template do
                          + "/expanded/filename&line=6'>filename:6</a>")
       end
 
+      describe "but no thanks for txtmt" do
+        before(:each) do
+          config = mock("configuration")
+          config.stub!(:platform).and_return('universal-darwin-9.0')
+          config.stub!(:darwin_txmt_protocol_no_thanks).and_return(true)
+          MetricFu.stub!(:configuration).and_return(config)
+          File.should_receive(:expand_path).and_return('filename')
+        end
+
+        it "should return a file protocol link" do
+          name = "filename"
+          result = @template.send(:link_to_filename, name)
+          result.should == "<a href='file://filename'>filename</a>"
+        end
+      end
+
       describe "and given link text" do
         it "should use the submitted link text" do
           File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
@@ -126,6 +143,7 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.should_receive(:platform).and_return('other')
+        config.stub!(:darwin_txmt_protocol_no_thanks).and_return(false)
         MetricFu.stub!(:configuration).and_return(config)
         File.should_receive(:expand_path).and_return('filename')
       end
@@ -157,5 +175,3 @@ describe MetricFu::Template do
   end
 
 end
-
-

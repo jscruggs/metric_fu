@@ -137,11 +137,17 @@ module MetricFu
     def file_url(name, line) # :nodoc:
       return '' unless name
       filename = File.expand_path(name.gsub(/^\//, ''))
-      if MetricFu.configuration.platform.include?('darwin')
+      if render_as_txmt_protocol?
         "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
       else
        "file://#{filename}"
       end
+    end
+
+    def render_as_txmt_protocol? # :nodoc:
+      config = MetricFu.configuration
+      return false unless config.platform.include?('darwin')
+      return !config.darwin_txmt_protocol_no_thanks
     end
 
     # Provides a brain dead way to cycle between two values during
