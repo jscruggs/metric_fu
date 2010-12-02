@@ -4,8 +4,8 @@ module MetricFu
 
     def initialize(contents)
       rp = RubyParser.new
-      file_sexp = rp.parse(contents)
       @locations = {}
+      file_sexp = rp.parse(contents)
       case file_sexp[0]
       when :class
         process_class(file_sexp)
@@ -15,6 +15,9 @@ module MetricFu
         file_sexp.each_of_type(:class) { |sexp| process_class(sexp) }
       else
       end
+    rescue Exception
+      #catch errors for files ruby_parser fails on
+      @locations
     end
 
     def in_method? line_number
