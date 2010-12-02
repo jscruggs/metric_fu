@@ -35,18 +35,4 @@ class ChurnAnalyzer
     end
   end
 
-  private
-
-  def self.update_changes(total, changed)
-    changed.each do |change|
-      #should work as has_key(change), but hash == doesn't work on 1.8.6 here for some reason it never matches
-      if total.has_key?(change.to_a.sort)
-        total[change.to_a.sort] += 1
-      else
-        total[change.to_a.sort] = 1
-      end
-    end
-    total
-  end
-
 end
