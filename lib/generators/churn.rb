@@ -13,7 +13,7 @@ module MetricFu
     end
 
     def analyze
-      if @output.match(/fatal: Not a git repository/)
+      if @output.match(/Churning requires a subversion or git repo/)
         @churn = [:churn => {}]
       else
         @churn = YAML::load(@output)
