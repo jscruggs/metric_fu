@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'syntax/convertors/html'
 
 class AwesomeTemplate < MetricFu::Template
 
@@ -27,6 +28,39 @@ class AwesomeTemplate < MetricFu::Template
       html = erbify('layout')
       fn = output_filename('index')
       MetricFu.report.save_output(html, MetricFu.output_directory, fn)
+    end
+
+    write_file_data
+  end
+
+  def write_file_data
+    convertor = Syntax::Convertors::HTML.for_syntax('ruby')
+
+    per_file_data.each_pair do |file, lines|
+      data = File.open(file, 'r').readlines
+      fn = "#{file.gsub(%r{/}, '_')}.html"
+
+      out = "<html><head><style>#{inline_css('css/syntax.css')}</style></head><body>"
+      out << "<table cellpadding='0' cellspacing='0' class='ruby'>"
+      data.each_with_index do |line, idx|
+        out << "<tr><td valign='top'><small>#{idx + 1}</small></td>"
+        out << "<td valign='top'>"
+        if lines.has_key?(idx.to_s)
+          out << "<ul>"
+          lines[idx.to_s].each do |problem|
+            out << "<li>#{problem[:description]} &raquo; #{problem[:type]}</li>"
+          end
+          out << "</ul>"
+        else
+          out << "&nbsp;"
+        end
+        out << "</td>"
+        out << "<td valign='top'>#{convertor.convert(line)}</td>"
+        out << "</tr>"
+      end
+      out << "<table></body></html>"
+
+      MetricFu.report.save_output(out, MetricFu.output_directory, fn)
     end
   end
 

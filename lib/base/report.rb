@@ -28,6 +28,9 @@ module MetricFu
       report_hash.to_yaml
     end
 
+    def per_file_data
+      @per_file_data ||= {}
+    end
 
     def report_hash #:nodoc:
       @report_hash ||= {}
@@ -41,6 +44,7 @@ module MetricFu
     def save_templatized_report
       @template = MetricFu.template_class.new
       @template.report = report_hash
+      @template.per_file_data = per_file_data
       @template.write
     end
 
@@ -51,7 +55,11 @@ module MetricFu
     #   The hash to add to the aggregate report_hash
     def add(report_type)
       clazz = MetricFu.const_get(report_type.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase })
-      report_hash.merge!(clazz.generate_report)
+      inst = clazz.new
+
+      report_hash.merge!(inst.generate_report)
+
+      inst.per_file_info(per_file_data) if inst.respond_to?(:per_file_info)
     end
 
     # Saves the passed in content to the passed in directory.  If

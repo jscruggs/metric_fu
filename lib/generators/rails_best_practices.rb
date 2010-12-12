@@ -19,6 +19,8 @@ module MetricFu
         cleanup_color_switches(file)
         cleanup_color_switches(problem)
 
+        file.gsub!(/^\.\//, '')
+
         {:file => file, :line => line, :problem => problem}
       end
       @rails_best_practices_results = {:total => total, :problems => @matches}
@@ -32,6 +34,20 @@ module MetricFu
 
     def to_h
       {:rails_best_practices => @rails_best_practices_results}
+    end
+
+    def per_file_info(out)
+      @rails_best_practices_results[:problems].each do |problem|
+        next if problem[:file] == '' || problem[:problem].nil?
+
+        out[problem[:file]] ||= {}
+
+        lines = problem[:line].split(/\s*,\s*/)
+        lines.each do |line|
+          out[problem[:file]][line] ||= []
+          out[problem[:file]][line] << {:type => :rails_best_practices, :description => problem[:problem]}
+        end
+      end
     end
   end
 end
