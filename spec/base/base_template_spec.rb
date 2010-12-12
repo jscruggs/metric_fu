@@ -88,6 +88,7 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.stub!(:platform).and_return('universal-darwin-9.0')
+        config.stub!(:link_prefix).and_return(nil)
         MetricFu.stub!(:configuration).and_return(config)
       end
 
@@ -126,6 +127,7 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.should_receive(:platform).and_return('other')
+        config.stub!(:link_prefix).and_return(nil)
         MetricFu.stub!(:configuration).and_return(config)
         File.should_receive(:expand_path).and_return('filename')
       end
@@ -134,6 +136,21 @@ describe MetricFu::Template do
         name = "filename"
         result = @template.send(:link_to_filename, name)
         result.should == "<a href='file://filename'>filename</a>"
+      end
+    end
+
+    describe "when configured with a link_prefix" do
+      before(:each) do
+        config = mock("configuration")
+        config.should_receive(:link_prefix).and_return('http://example.org/files')
+        MetricFu.stub!(:configuration).and_return(config)
+        File.should_receive(:expand_path).and_return('filename')
+      end
+
+      it 'should return a http protocol link' do
+        name = "filename"
+        result = @template.send(:link_to_filename, name)
+        result.should == "<a href='http://example.org/files/filename'>filename</a>"
       end
     end
   end
