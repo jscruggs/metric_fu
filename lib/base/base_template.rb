@@ -8,7 +8,7 @@ module MetricFu
   # to actually write out the template.  See StandardTemplate for an
   # example.
   class Template
-    attr_accessor :report
+    attr_accessor :report, :per_file_data
 
     private
     # Creates a new erb evaluated result from the passed in section.
@@ -168,6 +168,5 @@ module MetricFu
       return first_value if iteration % 2 == 0
       return second_value
     end
-
   end
 end

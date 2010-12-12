@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency("churn", [">= 0.0.7"])
   s.add_dependency("Saikuro", [">= 1.1.0"])
   s.add_dependency("activesupport", [">= 2.0.0"])
+  s.add_dependency("syntax")
 
   s.add_development_dependency("rspec", ["= 1.3.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
