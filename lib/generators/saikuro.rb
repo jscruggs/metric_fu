@@ -32,14 +32,42 @@ module MetricFu
     def to_h
       files = @files.map do |file|
         my_file = file.to_h
-        my_file[:filename] = file.filename
+
+        f = file.filepath
+        f.gsub!(%r{^#{metric_directory}/}, '')
+        f << "/#{file.filename}"
+
+        my_file[:filename] = f
         my_file
       end
-      {:saikuro => {:files => files,
-                    :classes => @classes.map {|c| c.to_h},
-                    :methods => @meths.map {|m| m.to_h}
-                   }
-      }
+      @saikuro_data = {:files => files,
+                       :classes => @classes.map {|c| c.to_h},
+                       :methods => @meths.map {|m| m.to_h}
+                      }
+      {:saikuro => @saikuro_data}
+    end
+
+    def per_file_info(out)
+      @saikuro_data[:files].each do |file_data|
+        next if File.extname(file_data[:filename]) == '.erb'
+        begin
+          line_numbers = MetricFu::LineNumbers.new(File.open(file_data[:filename], 'r').read)
+        rescue StandardError => e
+          raise e unless e.message =~ /you shouldn't be able to get here/
+          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
+          next
+        end
+
+        out[file_data[:filename]] ||= {}
+        file_data[:classes].each do |class_data|
+          class_data[:methods].each do |method_data|
+            line = line_numbers.start_line_for_method(method_data[:name])
+            out[file_data[:filename]][line.to_s] ||= []
+            out[file_data[:filename]][line.to_s] << {:type => :saikuro,
+                                                      :description => "Complexity #{method_data[:complexity]}"}
+          end
+        end
+      end
     end
 
     private
@@ -116,6 +144,10 @@ module MetricFu
 
     def filename
       File.basename(@path, '_cyclo.html')
+    end
+
+    def filepath
+      File.dirname(@path)
     end
 
     def to_h

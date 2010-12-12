@@ -31,6 +31,11 @@ module MetricFu
       found_method_and_range.first
     end
 
+    def start_line_for_method(method)
+      return nil unless @locations.has_key?(method)
+      @locations[method].first
+    end
+
     private
 
     def process_module(sexp)
