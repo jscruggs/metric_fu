@@ -56,5 +56,26 @@ module MetricFu
       {:reek => {:matches => @matches}}
     end
 
+    def per_file_info(out)
+      @matches.each do |file_data|
+        next if File.extname(file_data[:file_path]) == '.erb'
+        begin
+          line_numbers = MetricFu::LineNumbers.new(File.open(file_data[:file_path], 'r').read)
+        rescue StandardError => e
+          raise e unless e.message =~ /you shouldn't be able to get here/
+          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level reek information for this file."
+          next
+        end
+
+        out[file_data[:file_path]] ||= {}
+        file_data[:code_smells].each do |smell_data|
+          line = line_numbers.start_line_for_method(smell_data[:method])
+          out[file_data[:file_path]][line.to_s] ||= []
+          out[file_data[:file_path]][line.to_s] << {:type => :reek,
+                                                    :description => "#{smell_data[:type]} - #{smell_data[:message]}"}
+        end
+      end
+    end
+
   end
 end
