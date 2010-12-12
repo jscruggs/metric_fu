@@ -145,6 +145,8 @@ module MetricFu
       @hotspots = {}
       @file_globs_to_ignore = []
 
+      @verbose = false
+
       @graph_engine = :bluff # can be :bluff or :gchart
     end
 

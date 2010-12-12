@@ -121,6 +121,10 @@ module MetricFu
     # methods to allow extra hooks into the processing methods, and help
     # to keep the logic of your Generators clean.
     def generate_report
+      if MetricFu.configuration.verbose
+        puts "Executing #{self.class.to_s.gsub(/.*::/, '')}"
+      end
+
       %w[emit analyze].each do |meth|
         send("before_#{meth}".to_sym)
         send("#{meth}".to_sym)
