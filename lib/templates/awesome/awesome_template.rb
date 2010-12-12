@@ -45,9 +45,9 @@ class AwesomeTemplate < MetricFu::Template
       data.each_with_index do |line, idx|
         out << "<tr><td valign='top'><small>#{idx + 1}</small></td>"
         out << "<td valign='top'>"
-        if lines.has_key?(idx.to_s)
+        if lines.has_key?((idx + 1).to_s)
           out << "<ul>"
-          lines[idx.to_s].each do |problem|
+          lines[(idx + 1).to_s].each do |problem|
             out << "<li>#{problem[:description]} &raquo; #{problem[:type]}</li>"
           end
           out << "</ul>"
