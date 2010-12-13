@@ -32,6 +32,14 @@ No Hotspots were found.
        <b>
           <%= display_location(item[:location], nil) %>
         </b>
+        <% if item[:location].file_path %>
+          <% file, line = item[:location].file_path.split(/:/) %>
+          <% if per_file_data[file] %>
+            <small>&laquo;
+              <b><a href="<%= file.gsub(%r{/}, '_') %>.html<%= (line.nil? ? '' : "#line#{line}") %>">annotate</a></b>
+            &raquo;</small>
+          <% end %>
+        <% end %>
         <br/><br/>
         <!-- TODO HOTSPOTS for metric fu nice metric_link method -->
         <% item[:details].each do |metric, info| %>
