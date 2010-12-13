@@ -23,5 +23,13 @@ module MetricFu
     def to_h
       {:roodi => @roodi_results}
     end
+
+    def per_file_info(out)
+      @matches.each do |match|
+        out[match[:file]] ||= {}
+        out[match[:file]][match[:line]] ||= []
+        out[match[:file]][match[:line]] << {:type => :roodi, :description => match[:problem]}
+      end
+    end
   end
 end
