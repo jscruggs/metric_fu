@@ -15,6 +15,7 @@ class AwesomeTemplate < MetricFu::Template
     report.each_pair do |section, contents|
       if template_exists?(section)
         create_instance_var(section, contents)
+        create_instance_var(:per_file_data, per_file_data)
         @html = erbify(section)
         html = erbify('layout')
         fn = output_filename(section)
@@ -55,7 +56,7 @@ class AwesomeTemplate < MetricFu::Template
           out << "&nbsp;"
         end
         out << "</td>"
-        out << "<td valign='top'>#{convertor.convert(line)}</td>"
+        out << "<td valign='top'><a name='line#{idx + 1}'>#{convertor.convert(line)}</a></td>"
         out << "</tr>"
       end
       out << "<table></body></html>"
