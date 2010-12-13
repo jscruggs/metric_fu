@@ -34,6 +34,7 @@ describe MetricFu::Report do
       template_class.should_receive(:new).and_return(template_class)
       MetricFu.should_receive(:template_class).and_return(template_class)
       template_class.should_receive(:report=)
+      template_class.should_receive(:per_file_data=)
       template_class.should_receive(:write)
       @report.save_templatized_report
     end
@@ -43,7 +44,13 @@ describe MetricFu::Report do
     it 'should add a passed hash to the report_hash instance variable' do
       report_type = mock('report_type')
       report_type.should_receive(:to_s).and_return('type')
-      report_type.should_receive(:generate_report).and_return({:a => 'b'})
+
+      report_inst = mock('report_inst')
+      report_type.should_receive(:new).and_return(report_inst)
+
+      report_inst.should_receive(:generate_report).and_return({:a => 'b'})
+      report_inst.should_receive(:respond_to?).and_return(false)
+
       MetricFu.should_receive(:const_get).
                with('Type').and_return(report_type)
       report_hash = mock('report_hash')

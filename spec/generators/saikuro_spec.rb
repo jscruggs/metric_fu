@@ -12,7 +12,7 @@ describe Saikuro do
     end
 
     it "should find the filename of a file" do
-      @output[:saikuro][:files].first[:filename].should == 'users_controller.rb'
+      @output[:saikuro][:files].first[:filename].should == 'app/controllers/users_controller.rb'
     end
 
     it "should find the name of the classes" do
