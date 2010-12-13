@@ -48,6 +48,19 @@ module MetricFu
                   :method_containers => sorted_containers.map {|method_container| method_container.to_h}}}
     end
 
+    def per_file_info(out)
+      @method_containers.each_pair do |klass, container|
+        container.methods.each_pair do |method_name, data|
+          next if data[:path].nil?
+
+          file, line = data[:path].split(':')
+
+          out[file] ||= {}
+          out[file][line] ||= []
+          out[file][line] << {:type => :flog, :description => "Score of %.2f" % data[:score]}
+        end
+      end
+    end
   end
 
   class MethodContainer
