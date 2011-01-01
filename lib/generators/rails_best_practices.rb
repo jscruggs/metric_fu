@@ -2,7 +2,7 @@ module MetricFu
   class RailsBestPractices < Generator
 
     def emit
-      @output = `rails_best_practices .`
+      @output = `rails_best_practices --without-color .`
     end
 
     def analyze
