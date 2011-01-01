@@ -4,3 +4,4 @@ tmp/*
 *metric_fu-*.gem
 *.html_complexity.*
 scratch_directory/
+Gemfile.lock
