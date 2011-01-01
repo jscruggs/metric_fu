@@ -1,3 +1,0 @@
-h1. flyerhzm-metric_fu
-
-rails_best_practices gem has been merged into official metric_fu gem, please upgrade to metric_fu 1.4.0 to enjoy the rails_best_practices. "http://github.com/jscruggs/metric_fu":http://github.com/jscruggs/metric_fu

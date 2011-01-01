@@ -2,3 +2,5 @@
 previous_failures.txt
 tmp/*
 *metric_fu-*.gem
+*.html_complexity.*
+scratch_directory/

@@ -1,16 +1,13 @@
+require 'flay'
+
 module MetricFu
-  
+
   class Flay < Generator
 
-    def self.verify_dependencies!
-      `flay --help`
-      raise 'sudo gem install flay # if you want the flay tasks' unless $?.success?
-    end
-
     def emit
-      files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      files = remove_excluded_files(files_to_flay.flatten)
-      @output = `flay #{files.join(" ")}`
+      mimimum_score_parameter = MetricFu.flay[:minimum_score] ? "--mass #{MetricFu.flay[:minimum_score]} " : ""
+
+      @output = `flay #{mimimum_score_parameter} #{MetricFu.flay[:dirs_to_flay].join(" ")}`
     end
 
     def analyze

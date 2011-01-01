@@ -11,11 +11,12 @@
 <% end %>
 
 <h4>Total Score (lower is better): <%= @flay[:total_score] %></h4>
+<h5>Scores less than <%= MetricFu.flay[:minimum_score] %> are not shown or part of the total</h5>
 
 <table>
   <tr>
     <th>Files</th>
-    <th>Matches</th>		  
+    <th>Matches</th>
   </tr>
   <% count = 0 %>
   <% @flay[:matches].each do |match| %>
@@ -30,4 +31,4 @@
     <% count += 1 %>
   <% end %>
 </table>
-<p>Generated on <%= Time.now.localtime %></p>	
+<p>Generated on <%= Time.now.localtime %></p>

@@ -16,4 +16,43 @@
     <% count += 1 %>
   <% end %>
 </table>
-<p>Generated on <%= Time.now.localtime %></p>	
+
+<% if @churn[:class_churn] %>
+<p>Classes that change a lot in your project may be bad a sign.</p>
+<table>
+  <tr>
+    <th>File Path</th>
+    <th>Times Changed</th>
+  </tr>
+  <% count = 0 %>
+  <% @churn[:class_churn].each do |change| %>
+    <tr>
+      <td><%= link_to_filename(change['klass']['file']) %> <%= change['klass']['klass'] %></td>
+      <td><%= change['times_changed'] %></td>
+    </tr>
+    <% count += 1 %>
+  <% end %>
+</table>
+<% end %>
+
+<% if @churn[:method_churn] %>
+<p>Methods that change a lot in your project may be bad a sign.</p>
+<table>
+  <tr>
+    <th>File Path</th>
+    <th>Times Changed</th>
+  </tr>
+  <% count = 0 %>
+  <% @churn[:method_churn].each do |change| %>
+    <tr>
+      <td><%= link_to_filename(change['method']['file']) %> <%= change['method']['method'] %></td>
+      <td><%= change['times_changed'] %></td>
+    </tr>
+    <% count += 1 %>
+  <% end %>
+</table>
+<% end %>
+
+
+
+<p>Generated on <%= Time.now.localtime %></p>

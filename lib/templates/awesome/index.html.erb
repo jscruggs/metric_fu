@@ -23,9 +23,12 @@
 <% end %>
 <% if @stats %>
   <li class='even failure'><a href="stats.html">Stats</a></li>
-<% end %>  
+<% end %>
 <% if @rails_best_practices %>
   <li class='even failure'><a href="rails_best_practices.html">Rails Best Practices report</a></li>
 <% end %>
+<% if @hotspots %>
+  <li class='even failure'><a href="hotspots.html">Hotspots</a></li>
+<% end %>
 </ul>
-<p>Generated on <%= Time.now.localtime %></p>	
+<p>Generated on <%= Time.now.localtime %></p>

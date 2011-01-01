@@ -1,3 +1,64 @@
+=== MetricFu 2.0.2 / ???
+
+* Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed too >= 2.3.0 -  Chris Griego
+
+=== MetricFu 2.0.1 / 2010-11-13
+
+* Delete trailing whitespaces - Delwyn de Villiers
+* Stop Ubuntu choking on invalid multibyte char (US-ASCII) - Delwyn de Villiers
+* Fix invalid next in lib/base/metric_analyzer.rb - Delwyn de Villiers
+* Don't load Saikuro for Ruby 1.9.2 - Delwyn de Villiers
+* Fixed a bug reported by Andrew Davis on the mailing list where configuring the data directory causes dates to be 0/0 - Joshua Cronemeyer
+
+=== MetricFu 2.0.0 / 2010-11-10
+
+* Hotspots - Dan Mayer, Ben Brinckerhoff, Jake Scruggs
+* Rcov integration with Hotspots - Jake Scruggs, Tony Castiglione, Rob Meyer
+
+=== MetricFu 1.5.1 / 2010-7-28
+
+* Patch that allows graphers to skip dates that didn't generate metrics for that graph (GitHub Issue #20). - Chris Griego
+* Fixed bug where if you try and use the gchart grapher with the rails_best_practices metric, it blows up (GitHub Issue #23). - Chris Griego
+* Fixed 'If coverage is 0% metric_fu will explode' bug (GitHub Issue #6). - Stew Welbourne
+
+=== MetricFu 1.5.0 / 2010-7-27
+
+* Fixed bug where Flay results were not being reported.  Had to remove the ability to remove selected files from flay processing (undocumented feature that may go away soon if it keeps causing problems).
+* Rewrote Flog parsing/processing to use Flog programmatically. Note: the yaml output for Flog has changed significantly - Pages have now become MethodContainers.  This probably doesn't matter to you if you are not consuming the metric_fu yaml output.
+* Added support for using config files in Reek and Roodi (roodi support was already there but undocumented).
+* Removed verify_dependencies! as it caused too much confusion to justify the limited set of problems it solved. In the post Bundler world it just didn't seem necessary to limit metric_fu dependencies.
+* Deal with Rails 3 activesupport vs active_support problems. -  jinzhu
+
+=== MetricFu 1.4.0 / 2010-06-19
+
+* Added support for rails_best_practices gem - Richard Huang
+* Added rails stats graphing -- Josh Cronemeyer
+* Parameterize the filetypes for flay. By default flay supports haml as well as rb and has a plugin ability for other filetypes. - bfabry
+* Support for Flog 2.4.0 line numbers - Dan Mayer
+* Saikuro multi input directory patch - Spencer Dillard and Dan Mayer
+* Can now parse rcov analysis file coming from multiple sources with an rcov :external option in the config. - Tarsoly András
+* Fixed open file handles problem in the Saikuro analyzer - aselder, erebor
+* Fix some problems with the google charts - Chris Griego
+* Stop showing the googlecharts warning if you are not using google charts.
+
+=== MetricFu 1.3.0 / 2010-01-26
+
+* Flay can be configured to ignore scores below a threshold (by default it ignores scores less than 100)
+* When running Rcov you can configure the RAILS_ENV (defaults to 'test') so running metric_fu doesn't interfere with other environments
+* Changed devver-construct (a gem hosted by GitHub) development dependency to test-construct dependency (on Gemcutter) - Dan Mayer
+* Upgrade Bluff to 0.3.6 and added tooltips to graphs - Édouard Brière
+* Removed Saikuro from vendor and added it as a gem dependency - Édouard Brière
+* Churn has moved outside metric_fu and is now a gem and a dependency - Dan Mayer
+* Fix 'activesupport' deprecation (it should be 'active_support') - Bryan Helmkamp
+* Declared development dependencies
+* Cleaned and sped up specs
+
+=== MetricFu 1.2.0 / 2010-01-09
+
+* ftools isn't supported by 1.9 so moved to fileutils.
+* Overhauled the graphing to use Gruff or Google Charts so we no longer depend on ImageMagick/rmagick -- thanks to Carl Youngblood.
+* Stopped relying on Github gems as they will be going away.
+
 === MetricFu 1.1.6 / 2009-12-14
 
 * Now compatible with Reek 1.2x thanks to Kevin Rutherford
@@ -110,7 +171,7 @@
 
 === MetricFu 0.7.0 / 2008-09-11
 
-* Merged in Sean Soper's changes to metric_fu.  
+* Merged in Sean Soper's changes to metric_fu.
 * Metric_fu is now a gem.
 * Flogging now uses a MD5 hash to figure out if it should re-flog a file (if it's changed)
 * Flogging also has a cool new output screen(s)
@@ -145,7 +206,7 @@
     === Metricks 0.1.0 / 2008-06-10
 
     * Initial integration of metric_fu and my enhancements to flog
-    * Metrics are generated but are all over the place  
+    * Metrics are generated but are all over the place
 
 === MetricFu 0.6.0 / 2008-05-11
 
@@ -153,7 +214,7 @@
 
 === MetricFu 0.5.1 / 2008-04-25
 
-* Fixed bug with Saikuro report generation
+* Fixed bug with Saikuro report generation - thanks Toby Tripp
 
 === MetricFu 0.5.0 / 2008-04-25
 

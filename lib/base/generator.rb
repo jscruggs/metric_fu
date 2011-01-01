@@ -2,18 +2,18 @@ module MetricFu
 
   # = Generator
   #
-  # The Generator class is an abstract class that provides the 
+  # The Generator class is an abstract class that provides the
   # skeleton for producing different types of metrics.
   #
-  # It drives the production of the metrics through a template 
+  # It drives the production of the metrics through a template
   # method - #generate_report(options={}).  This method calls
   # #emit, #analyze and #to_h in order to produce the metrics.
   #
   # To implement a concrete class to generate a metric, therefore,
-  # the class must implement those three methods. 
+  # the class must implement those three methods.
   #
-  # * #emit should take care of running the metric tool and 
-  #   gathering its output.  
+  # * #emit should take care of running the metric tool and
+  #   gathering its output.
   # * #analyze should take care of manipulating the output from
   #   #emit and making it possible to store it in a programmatic way.
   # * #to_h should provide a hash representation of the output from
@@ -33,14 +33,13 @@ module MetricFu
     attr_reader :report, :template
 
     def initialize(options={})
-      self.class.verify_dependencies!
       create_metric_dir_if_missing
       create_output_dir_if_missing
       create_data_dir_if_missing
     end
-    
-    # Creates a new generator and returns the output of the 
-    # #generate_report method.  This is the typical way to 
+
+    # Creates a new generator and returns the output of the
+    # #generate_report method.  This is the typical way to
     # generate a new MetricFu report. For more information see
     # the #generate_report instance method.
     #
@@ -67,27 +66,27 @@ module MetricFu
     def self.class_name
       self.to_s.split('::').last.downcase
     end
-   
+
     # Returns the directory where the Generator will write any output
     def self.metric_directory
-      File.join(MetricFu.scratch_directory, class_name) 
+      File.join(MetricFu.scratch_directory, class_name)
     end
 
     def create_metric_dir_if_missing #:nodoc:
       unless File.directory?(metric_directory)
-        FileUtils.mkdir_p(metric_directory, :verbose => false) 
+        FileUtils.mkdir_p(metric_directory, :verbose => false)
       end
     end
-    
+
     def create_output_dir_if_missing #:nodoc:
       unless File.directory?(MetricFu.output_directory)
-        FileUtils.mkdir_p(MetricFu.output_directory, :verbose => false) 
+        FileUtils.mkdir_p(MetricFu.output_directory, :verbose => false)
       end
     end
-    
+
     def create_data_dir_if_missing #:nodoc:
       unless File.directory?(MetricFu.data_directory)
-        FileUtils.mkdir_p(MetricFu.data_directory, :verbose => false) 
+        FileUtils.mkdir_p(MetricFu.data_directory, :verbose => false)
       end
     end
 
@@ -104,7 +103,7 @@ module MetricFu
       end
       paths - files_to_remove
     end
-   
+
     # Defines some hook methods for the concrete classes to hook into.
     %w[emit analyze].each do |meth|
       define_method("before_#{meth}".to_sym) {}
@@ -132,18 +131,14 @@ module MetricFu
     end
 
     def round_to_tenths(decimal)
-      (decimal * 10).round / 10.0 
-    end
-    
-    # Allows subclasses to check for required gems
-    def self.verify_dependencies!
-      true
+      decimal = 0.0 if decimal.to_s.eql?('NaN')
+      (decimal * 10).round / 10.0
     end
 
     def emit #:nodoc:
       raise <<-EOF
         This method must be implemented by a concrete class descending
-        from Generator.  See generator class documentation for more 
+        from Generator.  See generator class documentation for more
         information.
       EOF
     end
@@ -151,15 +146,15 @@ module MetricFu
     def analyze #:nodoc:
       raise <<-EOF
         This method must be implemented by a concrete class descending
-        from Generator.  See generator class documentation for more 
+        from Generator.  See generator class documentation for more
         information.
       EOF
     end
-    
+
     def to_graph #:nodoc:
       raise <<-EOF
         This method must be implemented by a concrete class descending
-        from Generator.  See generator class documentation for more 
+        from Generator.  See generator class documentation for more
         information.
       EOF
     end

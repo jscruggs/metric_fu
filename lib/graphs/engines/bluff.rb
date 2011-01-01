@@ -1,4 +1,4 @@
-require 'activesupport'
+require 'active_support'
 
 module MetricFu
   class Grapher
@@ -6,12 +6,13 @@ module MetricFu
     BLUFF_DEFAULT_OPTIONS = <<-EOS
       var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
       g.theme_37signals();
+      g.tooltips = true;
       g.title_font_size = "24px"
       g.legend_font_size = "12px"
       g.marker_font_size = "10px"
     EOS
   end
-  
+
   class FlayBluffGrapher < FlayGrapher
     def graph!
       content = <<-EOS
@@ -80,6 +81,20 @@ module MetricFu
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'roodi.js'), 'w') {|f| f << content }
+    end
+  end
+
+  class StatsBluffGrapher < StatsGrapher
+    def graph!
+      content = <<-EOS
+        #{BLUFF_DEFAULT_OPTIONS}
+        g.title = 'Stats: LOC & LOT';
+        g.data('LOC', [#{@loc_counts.join(',')}]);
+        g.data('LOT', [#{@lot_counts.join(',')}])
+        g.labels = #{@labels.to_json};
+        g.draw();
+      EOS
+      File.open(File.join(MetricFu.output_directory, 'stats.js'), 'w') {|f| f << content }
     end
   end
 
