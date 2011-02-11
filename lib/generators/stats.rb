@@ -26,8 +26,7 @@ module MetricFu
 
     def remove_noise(output)
       lines = output.split("\n")
-      lines = lines.find_all {|line| line[0].chr != "+" }
-      lines = lines.find_all {|line| line[0].chr != "(" }
+      lines.reject! { |line| line.empty? || ['+', '('].include?(line[0].chr) }
       lines.shift
       lines
     end

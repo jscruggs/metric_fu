@@ -13,7 +13,17 @@ describe Stats do
 
   describe "analyze method" do
     before :each do
-      @lines =  <<-HERE.gsub(/^\s*/, "")
+      @lines =  <<-HERE
+      The 'run' provides a unified access point for all the default Rails' commands.
+
+      Usage: ./script/run <command> [OPTIONS]
+
+      Examples:
+        ./script/run generate controller Admin
+        ./script/run process reaper
+
+      Choose: about, console, dbconsole, destroy, generate, plugin, runner, server, update
+
       +----------------------+-------+-------+---------+---------+-----+-------+
       | Name                 | Lines |   LOC | Classes | Methods | M/C | LOC/M |
       +----------------------+-------+-------+---------+---------+-----+-------+
