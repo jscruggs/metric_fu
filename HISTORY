@@ -1,13 +1,14 @@
-=== MetricFu 2.0.2 / ???
+=== MetricFu 2.1.0 / 2011-03-1
 
 * Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed to >= 2.3.0 -  Chris Griego
 * RCov generator now uses a regex with begin and end line anchor to avoid splitting on comments with equal signs in source files - Andrew Selder
 * RCov generator now always strips the 3 leading characters from the lines when reconstruction source files so that heredocs and block comments parse successfully - Andrew Selder
 * Dan Mayer ported some specs for the Hotspots code into MetricFu from Caliper's code.
 * Stefan Huber fixed some problems with churn pretending not to support Svn.
-* Kakutani Shintaro added the ability to opt out of opening files with TextMate.
+* Kakutani Shintaro added the ability to opt out of opening files with TextMate (config.darwin_txmt_protocol_no_thanks = true).
 * Joel Nimety and Andrew Selder fixed a problem where Saikuro was parsing a dir twice.
 * Dan Sinclair added some awesome 'annotate' functionality to the Hotspots page. Click on it so see the file with problems in-line. 
+* Dan Sinclair added a verbose mode (config.verbose = true).
 
 === MetricFu 2.0.1 / 2010-11-13
 

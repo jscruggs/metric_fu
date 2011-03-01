@@ -50,7 +50,7 @@
     <!-- end #sidebar -->
     </div>
 <div id="left">
-            <h1>About metric_fu 2.0.1</h1>
+            <h1>About metric_fu 2.1.0</h1>
             <div>
 <p><br/>
     Metric_fu is a set of rake tasks that make it easy to generate metrics reports.  It uses 
@@ -71,6 +71,10 @@
 </p>
 <br/>
 <p>
+  In 2.1.0 there are a lot of bug fixes, Check the <a href="http://github.com/jscruggs/metric_fu/blob/master/HISTORY">HISTORY</a> file for complete details. There's a verbose mode (config.verbose = true) that's helpful for debugging (from Dan Sinclair), the ability to opt out of TextMate (from Kakutani Shintaro) opening your files (config.darwin_txmt_protocol_no_thanks = true), and super cool annotations on the Hotspots page so you can see your code problems in-line with the file contents (also from Dan Sinclair).
+</p>
+<br/>
+<p>
   In 2.0.0 the big new feature is Hotspots.  The Hotspots report combines Flog, Flay, Rcov, Reek, Roodi, and Churn numbers into one report so you see parts of your code that have multiple problems like so:
 </p>
 <img src="hotspot.gif" width="359">
@@ -81,13 +85,8 @@ Big thanks to Dan Mayer and Ben Brinckerhoff for the Hotspots code and for helpi
 <br/>
 
 <p>
-  In 1.5.0 I re-wrote the Flog parsing engine to use Flog programmatically instead of parsing the command line output.  This will hopefully stop minor changes in Flog's output from breaking metric_fu. Check the <a href="http://github.com/jscruggs/metric_fu/blob/master/HISTORY">HISTORY</a> file for complete details.
+  In 1.5.0 I re-wrote the Flog parsing engine to use Flog programmatically instead of parsing the command line output.  This will hopefully stop minor changes in Flog's output from breaking metric_fu.
 </p>
-<br/>
-<p>
-  New in metric_fu 1.4.0 is integration with the rails_best_practices gem (Richard Huang), Rails stats now have graphing (Josh Cronemeyer), parameterized filetypes for flay so it can look at other file types (bfabry), along with many bug fixes.
-</p>
-<br/>
 
 <h2>Installation:</h2>
 <pre>gem install metric_fu</pre>
@@ -157,14 +156,14 @@ Big thanks to Dan Mayer and Ben Brinckerhoff for the Hotspots code and for helpi
       require 'metric_fu'
       MetricFu::Configuration.run do |config|
         config.rcov[:test_files] = ['spec/**/*_spec.rb']  
-        config.rcov[:rcov_opts] << "-Ispec" # Needed to find spec_helper
+        config.rcov[:rcov_opts] &lt;&lt; "-Ispec" # Needed to find spec_helper
       end
     </pre>
     If you're using default Rails testing, then you can do this:
     <pre>
       require 'metric_fu'
       MetricFu::Configuration.run do |config|
-        config.rcov[:rcov_opts] << "-Itest" # Needed to find test_helper
+        config.rcov[:rcov_opts] &lt;&lt; "-Itest" # Needed to find test_helper
       end
     </pre>
 <br/>
