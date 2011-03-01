@@ -11,7 +11,7 @@ describe Churn do
 
     it "should be empty on error" do
       churn = MetricFu::Churn.new
-      churn.instance_variable_set(:@output, "fatal: Not a git repository")
+      churn.instance_variable_set(:@output, "Churning requires a subversion or git repo")
       result = churn.analyze
       result.should == [:churn => {}]
     end
