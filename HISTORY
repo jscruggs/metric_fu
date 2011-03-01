@@ -6,6 +6,7 @@
 * Dan Mayer ported some specs for the Hotspots code into MetricFu from Caliper's code.
 * Stefan Huber fixed some problems with churn pretending not to support Svn.
 * Kakutani Shintaro added the ability to opt out of opening files with TextMate.
+* Joel Nimety and Andrew Selder fixed a problem where Saikuro was parsing a dir twice.
 
 === MetricFu 2.0.1 / 2010-11-13
 
