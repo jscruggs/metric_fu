@@ -26,8 +26,7 @@ module MetricFu
 
     def remove_noise(output)
       lines = output.split("\n")
-      lines = lines.find_all {|line| line[0].chr != "+" }
-      lines = lines.find_all {|line| line[0].chr != "(" }
+      lines = lines.find_all {|line| line =~ /^\s*[C|]/ }
       lines.shift
       lines
     end
