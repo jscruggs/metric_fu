@@ -7,6 +7,7 @@
 * Stefan Huber fixed some problems with churn pretending not to support Svn.
 * Kakutani Shintaro added the ability to opt out of opening files with TextMate.
 * Joel Nimety and Andrew Selder fixed a problem where Saikuro was parsing a dir twice.
+* Dan Sinclair added some awesome 'annotate' functionality to the Hotspots page. Click on it so see the file with problems in-line. 
 
 === MetricFu 2.0.1 / 2010-11-13
 
