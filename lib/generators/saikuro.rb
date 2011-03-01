@@ -4,7 +4,7 @@ module MetricFu
 
     def emit
       options_string = MetricFu.saikuro.inject("") do |options, option|
-        options + "--#{option.join(' ')} " unless option == :input_directory
+        option[0] == :input_directory ? options : options + "--#{option.join(' ')} "
       end
 
       MetricFu.saikuro[:input_directory].each do |input_dir|
