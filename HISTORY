@@ -4,6 +4,7 @@
 * RCov generator now uses a regex with begin and end line anchor to avoid splitting on comments with equal signs in source files - Andrew Selder
 * RCov generator now always strips the 3 leading characters from the lines when reconstruction source files so that heredocs and block comments parse successfully - Andrew Selder
 * Dan Mayer ported some specs for the Hotspots code into MetricFu from Caliper's code.
+* Stefan Huber fixed some problems with churn pretending not to support Svn.
 
 === MetricFu 2.0.1 / 2010-11-13
 
