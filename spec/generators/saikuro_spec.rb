@@ -33,6 +33,22 @@ describe Saikuro do
       @output[:saikuro][:methods].first[:lines].should == 15
     end
   end
+  
+  describe "per_file_info method" do
+    before :all do
+      MetricFu::Configuration.run {}
+      File.stub!(:directory?).and_return(true)
+      @saikuro = MetricFu::Saikuro.new
+      @saikuro.stub!(:metric_directory).and_return(File.join(File.dirname(__FILE__), "..", "resources", "saikuro"))
+      @saikuro.analyze
+      @output = @saikuro.to_h
+    end
+    
+    it "doesn't try to get information if the file does not exist" do
+      File.should_receive(:exists?).at_least(:once).and_return(false)
+      @saikuro.per_file_info('ignore_me')
+    end
+  end
 
   describe "format_directories method" do
     it "should format the directories" do

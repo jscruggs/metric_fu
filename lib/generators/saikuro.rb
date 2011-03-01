@@ -49,7 +49,7 @@ module MetricFu
 
     def per_file_info(out)
       @saikuro_data[:files].each do |file_data|
-        next if File.extname(file_data[:filename]) == '.erb'
+        next if File.extname(file_data[:filename]) == '.erb' || !File.exists?(file_data[:filename])
         begin
           line_numbers = MetricFu::LineNumbers.new(File.open(file_data[:filename], 'r').read)
         rescue StandardError => e
