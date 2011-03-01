@@ -3,6 +3,7 @@ require 'yaml'
 begin
   require 'active_support/core_ext/object/to_json'
   require 'active_support/core_ext/object/blank'
+  require 'active_support/inflector'
 rescue LoadError
   require 'activesupport'
 end
