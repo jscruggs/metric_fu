@@ -1,6 +1,8 @@
 === MetricFu 2.0.2 / ???
 
-* Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed too >= 2.3.0 -  Chris Griego
+* Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed to >= 2.3.0 -  Chris Griego
+* RCov generator now uses a regex with begin and end line anchor to avoid splitting on comments with equal signs in source files - Andrew Selder
+* RCov generator now always strips the 3 leading characters from the lines when reconstruction source files so that heredocs and block comments parse successfully - Andrew Selder
 
 === MetricFu 2.0.1 / 2010-11-13
 
