@@ -1,3 +1,7 @@
+=== MetricFu 2.1.1 / 2011-03-2
+
+* Making syntax highlighting optional (config.syntax_highlighting = false) so Ruby 1.9.2 users don't get "invalid byte sequence in UTF-8" errors.
+
 === MetricFu 2.1.0 / 2011-03-1
 
 * Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed to >= 2.3.0 -  Chris Griego
