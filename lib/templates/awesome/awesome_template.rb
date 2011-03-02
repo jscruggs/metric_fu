@@ -56,7 +56,8 @@ class AwesomeTemplate < MetricFu::Template
           out << "&nbsp;"
         end
         out << "</td>"
-        out << "<td valign='top'><a name='line#{idx + 1}'>#{convertor.convert(line)}</a></td>"
+        line_for_display = MetricFu.configuration.syntax_highlighting ? convertor.convert(line) : line
+        out << "<td valign='top'><a name='line#{idx + 1}'>#{line_for_display}</a></td>"
         out << "</tr>"
       end
       out << "<table></body></html>"
