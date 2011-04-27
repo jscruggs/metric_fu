@@ -5,3 +5,4 @@ tmp/*
 *.html_complexity.*
 scratch_directory/
 Gemfile.lock
+.rvmrc
