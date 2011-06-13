@@ -1,5 +1,6 @@
 require 'rake'
 require 'yaml'
+YAML::ENGINE.yamler = 'psych'
 begin
   require 'active_support/core_ext/object/to_json'
   require 'active_support/core_ext/object/blank'
