@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
   s.add_dependency("activesupport", [">= 2.0.0"])
   s.add_dependency("syntax")
 
+  s.add_development_dependency("rake")
+  s.add_dependency("chronic", ["~> 0.3.0"])
   s.add_development_dependency("rspec", ["= 1.3.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
   s.add_development_dependency("googlecharts")
