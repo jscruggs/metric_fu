@@ -1,4 +1,5 @@
 require 'rake'
+require 'psych'
 require 'yaml'
 begin
   require 'active_support/core_ext/object/to_json'
