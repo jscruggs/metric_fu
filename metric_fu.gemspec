@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
     "churn"                 => ["= 0.0.7"],
     "Saikuro"               => ["= 1.1.0"], # check for ruby 1.9.2 version issues
     "activesupport"         => [">= 2.0.0"], # ok
-    "syntax"                => ["= 1.0.0"],
+    # "syntax"                => ["= 1.0.0"],
+    "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
     "arrayfields"           => [" =4.7.4"],
     "map"                   => [" =6.2.0"],

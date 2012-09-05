@@ -17,9 +17,8 @@ namespace :metrics do
     MetricFu.report.save_output(MetricFu.report.to_yaml,
                                 MetricFu.data_directory,
                                 "#{Time.now.strftime("%Y%m%d")}.yml")
-    mf_debug "** Skipping saving templatized report, freezing"
-    # mf_debug "** SAVING TEMPLATIZED REPORT"
-    # MetricFu.report.save_templatized_report
+    mf_debug "** SAVING TEMPLATIZED REPORT"
+    MetricFu.report.save_templatized_report
 
     mf_debug "** PREPARING TO GRAPH"
     MetricFu.graphs.each {|graph| 

@@ -1,11 +1,14 @@
 require 'fileutils'
-require 'syntax/convertors/html'
+# require 'syntax/convertors/html'
+require 'coderay'
+require 'pathname'
 
 class AwesomeTemplate < MetricFu::Template
 
   def write
     # Getting rid of the crap before and after the project name from integrity
-    @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
+    # @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
+    @name = Pathname.new(Dir.pwd).basename
 
     # Copy Bluff javascripts to output directory
     Dir[File.join(this_directory, '..', 'javascripts', '*')].each do |f|
@@ -34,8 +37,24 @@ class AwesomeTemplate < MetricFu::Template
     write_file_data
   end
 
+  def convert_ruby_to_html(ruby_text)
+    # convertor = Syntax::Convertors::HTML.for_syntax('ruby')
+    # convertor.convert(ruby_text)
+    tokens = CodeRay.scan(ruby_text, :ruby)
+    tokens.div( :line_numbers => :table, :css => :class, :style => :cycnus )
+    # :tab_width – tabulation width in spaces. Default: 8
+# :css – how to include the styles (:class и :style). Default: :class)
+# 
+# :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
+# 
+# :line_numbers – how render line numbers (:table, :inline, :list or nil)
+# 
+# :line_number_start – first line number
+# 
+# :bold_every – make every n-th line number bold. Default: 10
+# CodeRay, as Syntax may be used to analyze source code, because object Tokens is a list of tokens with specified types.
+  end
   def write_file_data
-    convertor = Syntax::Convertors::HTML.for_syntax('ruby')
 
     per_file_data.each_pair do |file, lines|
       data = File.open(file, 'r').readlines
@@ -56,7 +75,7 @@ class AwesomeTemplate < MetricFu::Template
           out << "&nbsp;"
         end
         out << "</td>"
-        line_for_display = MetricFu.configuration.syntax_highlighting ? convertor.convert(line) : line
+        line_for_display = MetricFu.configuration.syntax_highlighting ? convert_ruby_to_html(line) : line
         out << "<td valign='top'><a name='line#{idx + 1}'>#{line_for_display}</a></td>"
         out << "</tr>"
       end
