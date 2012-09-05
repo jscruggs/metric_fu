@@ -1,10 +1,17 @@
 require 'rake'
+require 'yaml'
 begin
   require 'psych'
+  YAML::ENGINE.yamler = 'syck'
 rescue LoadError
-  require 'syck'
+  #nothing to report
 end
-require 'yaml'
+# def with_syck(&block)
+#   current_engine = YAML::ENGINE.yamler
+#   YAML::ENGINE.yamler = 'syck'
+#   block.call
+#   YAML::ENGINE.yamler = current_engine
+# end
 begin
   require 'active_support'
   require 'active_support/core_ext/object/to_json'

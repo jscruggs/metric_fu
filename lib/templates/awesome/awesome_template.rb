@@ -41,7 +41,7 @@ class AwesomeTemplate < MetricFu::Template
     # convertor = Syntax::Convertors::HTML.for_syntax('ruby')
     # convertor.convert(ruby_text)
     tokens = CodeRay.scan(ruby_text, :ruby)
-    tokens.div( :line_numbers => :table, :css => :class, :style => :cycnus )
+    tokens.div( :line_numbers => :table, :css => :class, :style => :alpha )
     # :tab_width – tabulation width in spaces. Default: 8
 # :css – how to include the styles (:class и :style). Default: :class)
 # 

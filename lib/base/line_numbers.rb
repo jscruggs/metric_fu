@@ -14,9 +14,11 @@ module MetricFu
       when :block
         file_sexp.each_of_type(:class) { |sexp| process_class(sexp) }
       else
+        puts "Unexpected sexp_type #{file_sexp[0].inspect}"
       end
-    rescue Exception
+    rescue Exception => e
       #catch errors for files ruby_parser fails on
+      puts "#{e.class}\t#{e.message}\t#{class_name.inspect}\t#{sexp.inspect}\t#{e.backtrace}"
       @locations
     end
 
@@ -30,8 +32,11 @@ module MetricFu
       found_method_and_range = @locations.detect do |method_name, line_number_range|
         line_number_range.include?(line_number)
       end
-      return nil unless found_method_and_range
-      found_method_and_range.first
+      if found_method_and_range
+        found_method_and_range.first
+      else
+        nil
+      end
     end
 
     def start_line_for_method(method)

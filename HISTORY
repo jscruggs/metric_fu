@@ -1,6 +1,7 @@
 === MetricFu 2.1.2 / 2012-09-05
 
 * Getting it working on Rails 3, partly by going through the pull requests and setting gem dependencies to older, working versions - Benjamin Fleischer
+* It mostly works on Ruby 1.9, though there is an unresolved sexp_parser issue  - Benjamin Fleischer
 * Added link_prefix to configuration to allow URIs specified in config instead of file or txmt - dan sinclair
  
 === MetricFu 2.1.1 / 2011-03-2

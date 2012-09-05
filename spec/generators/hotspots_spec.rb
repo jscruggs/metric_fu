@@ -69,8 +69,8 @@ END
       analyzer = MetricAnalyzer.new(@yaml)
       hotspots.instance_variable_set(:@analyzer, analyzer)
       result = hotspots.analyze
-      #TODO better way to compare hashes? straight hash compare isn't in the same order so it fails?
-      JSON.parse(result.to_json).should == JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")
+      expected = JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")
+      compare_hashes(JSON.parse(hotspots.to_h[:hotspots].to_json), expected)
     end
 
     it "should put the changes into a hash" do
@@ -78,8 +78,27 @@ END
       analyzer = MetricAnalyzer.new(@yaml)
       hotspots.instance_variable_set(:@analyzer, analyzer)
       hotspots.analyze
-      JSON.parse(hotspots.to_h[:hotspots].to_json).should == JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")
+      expected =  JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")
+      compare_hashes(JSON.parse(hotspots.to_h[:hotspots].to_json), expected)
     end
   end
 end
-
+def compare_hashes(got,expected)
+  if is_hash?(got) && is_hash?(expected)
+    got.keys.should =~ expected.keys
+    got.each do |key,value|
+      expected.should have_key(key)
+      value2 = expected[key]
+      if is_hash?(value) && is_hash?(value2)
+        compare_hashes(value,value2)
+      else
+        value.should be == value
+      end
+    end
+  else
+    got.should be == expected
+  end
+end
+def is_hash?(hash)
+  hash.respond_to?(:key) && hash.respond_to?(:values)
+end
