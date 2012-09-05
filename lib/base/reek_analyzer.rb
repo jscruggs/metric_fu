@@ -152,6 +152,7 @@ class ReekAnalyzer
   end
 
   def parse_value(message)
+    # mf_debug "parsing #{message}"
     match = message.match(/\d+/)
     if(match)
       match[0].to_i

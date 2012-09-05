@@ -1,12 +1,41 @@
 require 'rake'
+begin
+  require 'psych'
+rescue LoadError
+  require 'syck'
+end
 require 'yaml'
 begin
+  require 'active_support'
   require 'active_support/core_ext/object/to_json'
   require 'active_support/core_ext/object/blank'
   require 'active_support/inflector'
 rescue LoadError
-  require 'activesupport'
+  require 'activesupport' unless defined?(ActiveSupport)
 end
+
+module MfDebugger
+  def self.debug_on=(true_false)
+    @mf_debug_on = true_false
+  end
+  def self.mf_debug(msg,&block)
+    if @mf_debug_on
+      if block_given?
+        block.call
+      end
+      STDOUT.puts msg
+    end
+  end
+  def mf_debug(msg,&block)
+    if block_given?
+      MfDebugger.mf_debug(msg,&block)
+    else
+      MfDebugger.mf_debug(msg)
+    end
+  end
+end
+include MfDebugger
+MfDebugger.debug_on = !!(ENV['MF_DEBUG'] =~ /true/i)
 
 # Load a few things to make our lives easier elsewhere.
 module MetricFu

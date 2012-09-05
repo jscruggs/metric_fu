@@ -5,13 +5,25 @@ module MetricFu
   # These are metrics which have been developed for the system.  Of
   # course, in order to use these metrics, their respective gems must
   # be installed on the system.
-  AVAILABLE_METRICS = [:churn, :flog, :flay, :reek,
-                       :roodi, :rcov,
-                      :hotspots]
+  AVAILABLE_METRICS = [:churn, 
+                      :flog, 
+                      :flay, 
+                      :reek,
+                      :roodi, 
+                      :rcov,
+                      :hotspots
+  ]
 
   AVAILABLE_METRICS << :saikuro unless RUBY_VERSION == '1.9.2'
 
-  AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov, :rails_best_practices]
+  AVAILABLE_GRAPHS = [
+    :flog, 
+    :flay, 
+    :reek,
+    :roodi, 
+    :rcov,
+    :rails_best_practices
+  ]
   AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
 
   # The @@configuration class variable holds a global type configuration
@@ -103,7 +115,7 @@ module MetricFu
       @base_directory = ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu'
       @scratch_directory = File.join(@base_directory, 'scratch')
       @output_directory = File.join(@base_directory, 'output')
-      @data_directory = File.join('tmp/metric_fu', '_data')
+      @data_directory = File.join(@base_directory,'_data')
       @metric_fu_root_directory = File.join(File.dirname(__FILE__),
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory,
@@ -131,6 +143,7 @@ module MetricFu
       @stats    = {}
       @rcov     = { :environment => 'test',
                     :test_files => ['test/**/*_test.rb',
+                                    'spec/spec_helper.rb',
                                     'spec/**/*_spec.rb'],
                     :rcov_opts => ["--sort coverage",
                                    "--no-html",
@@ -165,7 +178,10 @@ module MetricFu
     # running within rails.
     def set_metrics
       if rails?
-        @metrics = MetricFu::AVAILABLE_METRICS + [:stats, :rails_best_practices]
+        @metrics = MetricFu::AVAILABLE_METRICS + [
+          :stats,
+          :rails_best_practices
+        ]
       else
         @metrics = MetricFu::AVAILABLE_METRICS
       end
@@ -173,7 +189,9 @@ module MetricFu
 
     def set_graphs
       if rails?
-        @graphs = MetricFu::AVAILABLE_GRAPHS + [:stats]
+        @graphs = MetricFu::AVAILABLE_GRAPHS + [
+          :stats
+        ]
       else
         @graphs = MetricFu::AVAILABLE_GRAPHS
       end

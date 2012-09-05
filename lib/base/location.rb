@@ -31,7 +31,9 @@ module MetricFu
 
     # TODO - we need this method (and hash accessor above) as a temporary hack where we're using Location as a hash key
     def eql?(other)
-      [self.file_path.to_s, self.class_name.to_s, self.method_name.to_s] == [other.file_path.to_s, other.class_name.to_s, other.method_name.to_s]
+      # REMOVED per https://github.com/jscruggs/metric_fu/pull/67/files 
+      # [self.file_path.to_s, self.class_name.to_s, self.method_name.to_s] == [other.file_path.to_s, other.class_name.to_s, other.method_name.to_s]
+      @hash == other.hash
     end
     # END we need these methods as a temporary hack where we're using Location as a hash key
 

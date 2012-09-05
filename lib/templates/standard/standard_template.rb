@@ -2,7 +2,9 @@ class StandardTemplate < MetricFu::Template
 
 
   def write
+    mf_debug "writing"
     report.each_pair do |section, contents|
+      mf_debug section
       if template_exists?(section)
         create_instance_var(section, contents)
         html = erbify(section)
@@ -10,6 +12,7 @@ class StandardTemplate < MetricFu::Template
         MetricFu.report.save_output(html, MetricFu.output_directory, fn)
       end
     end
+    mf_debug "saving something else"
 
     # Instance variables we need should already be created from above
     if template_exists?('index')

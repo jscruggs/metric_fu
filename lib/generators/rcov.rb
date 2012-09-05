@@ -25,8 +25,10 @@ module MetricFu
         test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
         rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
         output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
-        puts "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
-        `RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output}`
+        mf_debug "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
+        command = %Q(RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output})
+        mf_debug "** #{command}"
+        `#{command}`
       end
     end
 
@@ -68,7 +70,7 @@ module MetricFu
           line_numbers = MetricFu::LineNumbers.new(file_contents)
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
-          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Rcov information for this file."
+          STDOUT.puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Rcov information for this file."
           next
         end
 
