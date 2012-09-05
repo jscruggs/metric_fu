@@ -143,7 +143,7 @@ module MetricFu
       @stats    = {}
       @rcov     = { :environment => 'test',
                     :test_files => ['test/**/*_test.rb',
-                                    'spec/spec_helper.rb',
+                                    'spec/spec_helper.rb', # NOTE: ensure it is loaded before the specs
                                     'spec/**/*_spec.rb'],
                     :rcov_opts => ["--sort coverage",
                                    "--no-html",

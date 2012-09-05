@@ -132,6 +132,7 @@ describe MetricFu::Configuration do
       @config.instance_variable_get(:@rcov).
               should ==  { :environment => 'test',
                            :test_files => ['test/**/*_test.rb',
+                                           'spec/spec_helper.rb',
                                            'spec/**/*_spec.rb'],
                            :rcov_opts => ["--sort coverage",
                                          "--no-html",
