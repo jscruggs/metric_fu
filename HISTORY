@@ -1,3 +1,7 @@
+=== MetricFu 2.1.2 / 2012-09-05
+
+* Getting it working on Rails 3, partly by going through the pull requests and setting gem dependencies to older, working versions - Benjamin Fleischer
+ 
 === MetricFu 2.1.1 / 2011-03-2
 
 * Making syntax highlighting optional (config.syntax_highlighting = false) so Ruby 1.9.2 users don't get "invalid byte sequence in UTF-8" errors.

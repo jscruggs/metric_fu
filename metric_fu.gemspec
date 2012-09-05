@@ -39,35 +39,6 @@ Gem::Specification.new do |s|
     "ripper"                => [" =1.0.5"],
     "bluff"                 => [],
     "googlecharts"          => []
-    # other gems that get installed implicitly
-    # "colored",
-    # "awesome_print",
-    # "hirb",
-    # "main"
-    # "json_pure"
-    # "progressbar"
-    # "ruby2ruby" => ["=1.2.5"],
-    # "ruby_parser"
-    # "sexp_processor"
-    # "syntax"
-    # "ripper_ruby_parser"
-    # "flay"                  => ["= 1.2.1"],
-    # "flog"                  => ["= 2.3.0"],
-    # "rcov"                  => ["= 0.8.1.2.0"], #["= 0.9.11"],
-    # "reek"                  => ["= 1.2.12"],
-    # "roodi"                 => ["= 2.1.0"],
-    # "rails_best_practices"  => ["= 0.6.7"],
-    # "churn"                 => ["= 0.0.13"], #0.0.7
-    # "Saikuro"               => ["= 1.1.0"], # check for ruby 1.9.2 version issues
-    # "activesupport"         => [">= 2.0.0"], # ok
-    # "syntax"                => ["= 1.0.0"],
-    # "fattr"                 => ["= 2.1.0"],
-    # "arrayfields"           => ['= 4.7.4'],
-    # "map"                   => ["= 6.2.0"],
-    # "ripper"                => ["= 1.0.5"],
-    # "bluff"                 => [],
-    # "googlecharts"          => []
-    
   }.each do |gem, version|
     if version == []
       s.add_dependency(gem)
