@@ -137,8 +137,13 @@ module MetricFu
     def file_url(name, line) # :nodoc:
       return '' unless name
       filename = File.expand_path(name.gsub(/^\//, ''))
-      if render_as_txmt_protocol?
+      link_prefix = MetricFu.configuration.link_prefix
+      if link_prefix
+        "#{link_prefix}/#{name.gsub(/:.*$/, '')}"
+      elsif render_as_txmt_protocol?
         "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
+      # elsif render_as_mvim_protocol?
+      #   "mvim://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
       else
        "file://#{filename}"
       end
@@ -148,6 +153,11 @@ module MetricFu
       config = MetricFu.configuration
       return false unless config.platform.include?('darwin')
       return !config.darwin_txmt_protocol_no_thanks
+    end
+    def render_as_mvim_protocol? # :nodoc:
+      config = MetricFu.configuration
+      return false unless config.platform.include?('darwin')
+      return !config.darwin_mvim_protocol_no_thanks
     end
 
     # Provides a brain dead way to cycle between two values during

@@ -157,6 +157,8 @@ module MetricFu
       @rails_best_practices = {}
       @hotspots = {}
       @file_globs_to_ignore = []
+      @link_prefix = nil
+      
 
       @verbose = false
 
