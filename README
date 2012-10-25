@@ -3,6 +3,12 @@ This fork is intended to be a maintained version of metric_fu, as [the original 
 The japgolly-Saikuro fork is a part of an attempt to get metric_fu working in a modern
 Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
 
+__CI Build Status__
+
+[![Build Status](https://secure.travis-ci.org/bf4/metric_fu.png)](http://travis-ci.org/bf4/metric_fu)
+
+This project runs [travis-ci.org](http://travis-ci.org)
+
 ===============================================================================
 
 See http://metric-fu.rubyforge.org/ for documentation, or the HISTORY file for a change log.
