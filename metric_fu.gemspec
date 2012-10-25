@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
     "roodi"                 => ["= 2.1.0"],
     "rails_best_practices"  => ["~> 0.6"],
     "churn"                 => ["= 0.0.7"],
-    "Saikuro"               => ["= 1.1.0"], # check for ruby 1.9.2 version issues
     "activesupport"         => [">= 2.0.0"], # ok
     # "syntax"                => ["= 1.0.0"],
     "coderay"               => [],
@@ -41,8 +40,10 @@ Gem::Specification.new do |s|
   if RUBY_VERSION < '1.9'
     s.add_dependency("ripper",[" =1.0.5"])
     s.add_dependency("rcov", ["~> 0.8"])
+    s.add_dependency("Saikuro", ["= 1.1.0"])
   else
     s.add_dependency("rcov", ["~> 0.8"])
+    s.add_dependency("japgolly-Saikuro", ">= 1.1.1.0")
     # still using rcov in ruby 1.9 till some errors are fleshed out
     # s.add_dependency("simplecov", [">= 0.5.4"])
     # s.add_dependency("simplecov-rcov", [">= 0.2.3"])
