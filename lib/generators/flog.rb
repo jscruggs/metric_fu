@@ -15,6 +15,8 @@ module MetricFu
         files += dir_files
       end
       options = ::Flog.parse_options ["--all", "--details"]
+      # TODO determine if flogging should continue despite errors
+      # options = ::Flog.parse_options ["--all", "--details", "--continue"]
 
       @flogger = ::Flog.new options
       @flogger.flog files
