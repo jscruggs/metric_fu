@@ -11,12 +11,9 @@ module MetricFu
                       :reek,
                       :roodi,
                       :rcov,
-                      :hotspots
+                      :hotspots,
+                      :saikuro
   ]
-
-  if RUBY_VERSION < '1.9'
-    AVAILABLE_METRICS << :saikuro
-  end
 
   AVAILABLE_GRAPHS = [
     :flog,
