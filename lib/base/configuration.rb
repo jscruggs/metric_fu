@@ -5,11 +5,11 @@ module MetricFu
   # These are metrics which have been developed for the system.  Of
   # course, in order to use these metrics, their respective gems must
   # be installed on the system.
-  AVAILABLE_METRICS = [:churn, 
-                      :flog, 
-                      :flay, 
+  AVAILABLE_METRICS = [:churn,
+                      :flog,
+                      :flay,
                       :reek,
-                      :roodi, 
+                      :roodi,
                       :rcov,
                       :hotspots
   ]
@@ -19,10 +19,10 @@ module MetricFu
   end
 
   AVAILABLE_GRAPHS = [
-    :flog, 
-    :flay, 
+    :flog,
+    :flay,
     :reek,
-    :roodi, 
+    :roodi,
     :rcov,
     :rails_best_practices
   ]
@@ -160,7 +160,7 @@ module MetricFu
       @hotspots = {}
       @file_globs_to_ignore = []
       @link_prefix = nil
-      
+
 
       @verbose = false
 
