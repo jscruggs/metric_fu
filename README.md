@@ -1,4 +1,6 @@
-This fork is intended to be a maintained version of metric_fu, as [the original version by Jake Scruggs has been abandoned.](http://jakescruggs.blogspot.com/2012/08/why-i-abandoned-metricfu.html)
+This fork is intended to be a maintained version of metric_fu, as [the original version by Jake Scruggs has been abandoned.](http://jakescruggs.blogspot.com/2012/08/why-i-abandoned-metricfu.html). It is currently testing on MRI 1.8.7 and 1.9.3
+
+At this time, the gem is published on rubygems.org as bf4-metric_fu
 
 The japgolly-Saikuro fork is a part of an attempt to get metric_fu working in a modern
 Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.

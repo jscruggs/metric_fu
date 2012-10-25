@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 Gem::Specification.new do |s|
-  s.name        = "metric_fu"
+  s.name        = "bf4-metric_fu"
   s.version     = "2.1.3"
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
-  s.email       = "jake.scruggs@gmail.com"
-  s.homepage    = "http://metric-fu.rubyforge.org/"
+  s.email       = "github@benjaminfleischer.com"
+  s.homepage    = "http://github.com/bf4/metric_fu"
   s.description = "Code metrics from Flog, Flay, Simplecov-RCov, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices"
   s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
 
-  s.files = ["README","HISTORY","TODO","MIT-LICENSE","Rakefile"]
+  s.files = ["README.md","HISTORY","TODO","MIT-LICENSE","Rakefile"]
 
   # Dir['lib/**/*.*'] + Dir['tasks/*.*']
   s.files += ["lib/base/base_template.rb", "lib/base/churn_analyzer.rb", "lib/base/code_issue.rb", "lib/base/configuration.rb", "lib/base/flay_analyzer.rb", "lib/base/flog_analyzer.rb", "lib/base/generator.rb", "lib/base/graph.rb", "lib/base/line_numbers.rb", "lib/base/location.rb", "lib/base/md5_tracker.rb", "lib/base/metric_analyzer.rb", "lib/base/ranking.rb", "lib/base/rcov_analyzer.rb", "lib/base/reek_analyzer.rb", "lib/base/report.rb", "lib/base/roodi_analyzer.rb", "lib/base/saikuro_analyzer.rb", "lib/base/scoring_strategies.rb", "lib/base/stats_analyzer.rb", "lib/base/table.rb", "lib/generators/churn.rb", "lib/generators/flay.rb", "lib/generators/flog.rb", "lib/generators/hotspots.rb", "lib/generators/rails_best_practices.rb", "lib/generators/rcov.rb", "lib/generators/reek.rb", "lib/generators/roodi.rb", "lib/generators/saikuro.rb", "lib/generators/stats.rb", "lib/graphs/engines/bluff.rb", "lib/graphs/engines/gchart.rb", "lib/graphs/flay_grapher.rb", "lib/graphs/flog_grapher.rb", "lib/graphs/grapher.rb", "lib/graphs/rails_best_practices_grapher.rb", "lib/graphs/rcov_grapher.rb", "lib/graphs/reek_grapher.rb", "lib/graphs/roodi_grapher.rb", "lib/graphs/stats_grapher.rb", "lib/metric_fu.rb", "lib/templates/awesome/awesome_template.rb", "lib/templates/awesome/churn.html.erb", "lib/templates/awesome/css/buttons.css", "lib/templates/awesome/css/default.css", "lib/templates/awesome/css/integrity.css", "lib/templates/awesome/css/reset.css", "lib/templates/awesome/css/syntax.css", "lib/templates/awesome/flay.html.erb", "lib/templates/awesome/flog.html.erb", "lib/templates/awesome/hotspots.html.erb", "lib/templates/awesome/index.html.erb", "lib/templates/awesome/layout.html.erb", "lib/templates/awesome/rails_best_practices.html.erb", "lib/templates/awesome/rcov.html.erb", "lib/templates/awesome/reek.html.erb", "lib/templates/awesome/roodi.html.erb", "lib/templates/awesome/saikuro.html.erb", "lib/templates/awesome/stats.html.erb", "lib/templates/javascripts/bluff-min.js", "lib/templates/javascripts/excanvas.js", "lib/templates/javascripts/js-class.js", "lib/templates/standard/churn.html.erb", "lib/templates/standard/default.css", "lib/templates/standard/flay.html.erb", "lib/templates/standard/flog.html.erb", "lib/templates/standard/hotspots.html.erb", "lib/templates/standard/index.html.erb", "lib/templates/standard/rails_best_practices.html.erb", "lib/templates/standard/rcov.html.erb", "lib/templates/standard/reek.html.erb", "lib/templates/standard/roodi.html.erb", "lib/templates/standard/saikuro.html.erb", "lib/templates/standard/standard_template.rb", "lib/templates/standard/stats.html.erb", "tasks/metric_fu.rake"]
