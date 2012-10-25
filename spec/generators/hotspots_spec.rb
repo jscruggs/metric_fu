@@ -84,21 +84,5 @@ END
   end
 end
 def compare_hashes(got,expected)
-  if is_hash?(got) && is_hash?(expected)
-    got.keys.should =~ expected.keys
-    got.each do |key,value|
-      expected.should have_key(key)
-      value2 = expected[key]
-      if is_hash?(value) && is_hash?(value2)
-        compare_hashes(value,value2)
-      else
-        value.should be == value
-      end
-    end
-  else
-    got.should be == expected
-  end
-end
-def is_hash?(hash)
-  hash.respond_to?(:key) && hash.respond_to?(:values)
+  got.hash == expected.hash
 end
