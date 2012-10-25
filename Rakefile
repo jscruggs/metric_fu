@@ -1,10 +1,4 @@
 $LOAD_PATH << '.'
-require 'rake'
-begin
-  require 'rdoc/task'
-rescue LoadError
-  require 'rake/rdoctask'
-end
 begin
   require 'spec/rake/spectask'
   desc "Run all specs in spec directory"
