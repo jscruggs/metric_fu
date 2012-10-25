@@ -1,3 +1,12 @@
+=== MetricFu 2.1.3 / 2012-10-25
+
+* Added to rubygems.org as bf-metric_fu -Benjamin Fleischer
+* Added to travis-ci -Benjamin Fleischer
+* Re-enabling Saikuro for ruby 1.9 with jpgolly's gem jpgolly-Saikuro -Benjamin Fleischer
+* Ensured files are only loaded once -Benjamin Fleischer
+* Looked at moving to simplecov-rcov, but was unsuccessful -Benjamin Fleischer
+* Fixed breaking tests, deprecation warnings -Benjamin Fleischer
+
 === MetricFu 2.1.2 / 2012-09-05
 
 * Getting it working on Rails 3, partly by going through the pull requests and setting gem dependencies to older, working versions - Benjamin Fleischer
