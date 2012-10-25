@@ -14,7 +14,7 @@ module MetricFu
                       :hotspots
   ]
 
-  if RUBY_VERSION.to_f < 1.9
+  if RUBY_VERSION < '1.9'
     AVAILABLE_METRICS << :saikuro
   end
 

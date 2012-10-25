@@ -1,10 +1,13 @@
 require 'delegate'
-require MetricFu::LIB_ROOT + '/base/metric_analyzer'
-require MetricFu::LIB_ROOT + '/base/flog_analyzer'
-require MetricFu::LIB_ROOT + '/base/saikuro_analyzer'
-require MetricFu::LIB_ROOT + '/base/churn_analyzer'
-require MetricFu::LIB_ROOT + '/base/reek_analyzer'
-require MetricFu::LIB_ROOT + '/base/flay_analyzer'
+
+[ '/base/metric_analyzer',
+  '/base/flog_analyzer',
+  '/base/saikuro_analyzer',
+  '/base/churn_analyzer',
+  '/base/reek_analyzer',
+  '/base/flay_analyzer'].each do |path|
+  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+end
 
 module CarefulArray
 
@@ -16,7 +19,7 @@ module CarefulArray
 
 end
 
-class CodeIssue < DelegateClass(Record) #DelegateClass(Ruport::Data::Record)
+class CodeIssue < DelegateClass(MetricFu::Record) #DelegateClass(Ruport::Data::Record)
   include Comparable
 
   # TODO: Yuck! 'stat_value' is a column for StatAnalyzer

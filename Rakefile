@@ -11,7 +11,7 @@ rescue LoadError
   RSpec::Core::RakeTask.new(:spec)
 end
 
-require 'lib/metric_fu'
+require File.expand_path File.join(File.dirname(__FILE__),'lib/metric_fu')
 
 MetricFu::Configuration.run do |config|
   config.roodi    = config.roodi.merge(:roodi_config => 'config/roodi_config.yml')

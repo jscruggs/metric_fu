@@ -1,5 +1,10 @@
 class AnalysisError < RuntimeError; end;
 
+[ '/base/record',
+  '/base/grouping'].each do |path|
+  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+end
+
 class MetricAnalyzer
 
   COMMON_COLUMNS = %w{metric}
@@ -107,7 +112,7 @@ class MetricAnalyzer
 
   def get_grouping(table, opts)
     #Ruport::Data::Grouping.new(table, opts)
-    Grouping.new(table, opts)
+    MetricFu::Grouping.new(table, opts)
     #@grouping_cache ||= {}
     #@grouping_cache.fetch(grouping_key(table,opts)) do
     #  @grouping_cache[grouping_key(table,opts)] = Ruport::Data::Grouping.new(table, opts)
@@ -319,84 +324,6 @@ class MetricAnalyzer
     sum = 0
     sum = collection.inject( nil ) { |sum,x| sum ? sum+x : x }
     (sum.to_f / collection_length.to_f)
-  end
-
-end
-
-class Record
-
-  attr_reader :data
-
-  def initialize(data, columns)
-    @data = data
-    @columns = columns
-  end
-
-  def method_missing(name, *args, &block)
-    key = name.to_s
-    if @data.has_key?(key)
-      @data[key]
-    elsif @columns.member?(key)
-      nil
-    else
-      super(name, *args, &block)
-    end
-  end
-
-  def []=(key, value)
-     @data[key]=value
-  end
-
-  def [](key)
-    @data[key]
-  end
-
-  def keys
-    @data.keys
-  end
-
-  def has_key?(key)
-    @data.has_key?(key)
-  end
-
-  def attributes
-    @columns
-  end
-
-end
-
-class Grouping
-
-  def initialize(table, opts)
-    column_name = opts.fetch(:by)
-    order = opts.fetch(:order) { nil }
-    hash = {}
-    if column_name.to_sym == :metric # special optimized case
-      hash = table.group_by_metric
-    else
-      table.each do |row|
-        hash[row[column_name]] ||= Table.new(:column_names => row.attributes)
-        hash[row[column_name]] << row
-      end
-    end
-    if order
-      @arr = hash.sort_by &order
-    else
-      @arr = hash.to_a
-    end
-  end
-
-  def [](key)
-    @arr.each do |group_key, table|
-      return table if group_key == key
-    end
-    return nil
-  end
-
-  def each
-    @arr.each do |value, rows|
-      yield value, rows
-    end
   end
 
 end

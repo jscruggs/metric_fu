@@ -1,3 +1,9 @@
+[
+  '/base/record'
+  ].each do |path|
+  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+end
+
 class Table
 
   def initialize(opts = {})
@@ -10,10 +16,10 @@ class Table
 
   def <<(row)
     record = nil
-    if row.is_a?(Record) || row.is_a?(CodeIssue)
+    if row.is_a?(MetricFu::Record) || row.is_a?(CodeIssue)
       record = row
     else
-      record = Record.new(row, @columns)
+      record = MetricFu::Record.new(row, @columns)
     end
     @rows << record
     updated_key_index(record) if @make_index
