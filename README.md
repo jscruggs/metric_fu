@@ -24,6 +24,7 @@ How to contribute:
 7. Commit and send me a pull request with details as to what has been changed.
 
 Extra Credit:
+
 1. Make sure your changes work in 1.8.7, Ruby Enterprise Edition, and 1.9.3 (Hint use 'rvm' to help install multiple rubies)
 2. Update the documentation (web page inside the 'home_page' folder)
 3. Update the History and give yourself credit.
@@ -32,11 +33,13 @@ Extra Credit:
 The more of the above steps you do the easier it will be for me to merge in which will greatly increase you chances of getting your changes accepted.
 
 Resources:
+
 Github: http://github.com/bf4/metric_fu
 Issue Tracker: http://github.com/bf4/metric_fu/issues
 My Blog: http://benjaminfleischer.com
 
 Original Resources:
+
 Homepage: http://metric-fu.rubyforge.org/
 Github: http://github.com/jscruggs/metric_fu
 Google Group: http://groups.google.com/group/metric_fu
