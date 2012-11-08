@@ -11,6 +11,13 @@ __CI Build Status__
 
 This project runs [travis-ci.org](http://travis-ci.org)
 
+__Code Quality__
+
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/bf4/metric_fu)
+
+This project runs [https://codeclimate.com/](https://codeclimate.com/)
+
+
 ===============================================================================
 
 See http://metric-fu.rubyforge.org/ for documentation, or the HISTORY file for a change log.
