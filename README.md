@@ -2,6 +2,8 @@ This fork is intended to be a maintained version of metric_fu, as [the original 
 
 At this time, the gem is published on rubygems.org as bf4-metric_fu
 
+There is also a related bf4-metrical gem published
+
 The japgolly-Saikuro fork is a part of an attempt to get metric_fu working in a modern
 Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
 
