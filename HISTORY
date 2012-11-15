@@ -1,3 +1,8 @@
+=== MetricFu 2.1.3.2 / 2012-11-14
+
+* Don't raise an exception in the LineNumbers rescue block. Issue https://github.com/bf4/metric_fu/issues/6 by joonty -Benjamin Fleischer
+ tmp/metric_fu/output/flog.js
+
 === MetricFu 2.1.3 / 2012-10-25
 
 * Added to rubygems.org as bf-metric_fu -Benjamin Fleischer

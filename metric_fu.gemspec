@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 Gem::Specification.new do |s|
   s.name        = "bf4-metric_fu"
   s.platform    = Gem::Platform::RUBY
-  s.version     = "2.1.3.1"
+  s.version     = "2.1.3.2"
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "github@benjaminfleischer.com"
   s.homepage    = "http://github.com/bf4/metric_fu"
