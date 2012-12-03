@@ -114,10 +114,15 @@ module MetricFu
     # TODO review if these code is functionally duplicated in the 
     # base generator initialize
     def reset
-      @base_directory = FileUtils.mkdir_p(ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu').to_s
-      @scratch_directory = FileUtils.mkdir_p(File.join(@base_directory, 'scratch')).to_s
-      @output_directory =FileUtils.mkdir_p(File.join(@base_directory, 'output')).to_s
-      @data_directory = FileUtils.mkdir_p(File.join(@base_directory,'_data')).to_s
+      @base_directory    = (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+      @scratch_directory = File.join(@base_directory, 'scratch')
+      @output_directory  = File.join(@base_directory, 'output')
+      @data_directory    = File.join(@base_directory,'_data')
+      # due to behavior differences between ruby 1.8.7 and 1.9.3
+      # this is good enough for now
+      [@base_directory, @scratch_directory, @output_directory].each do |dir|
+        FileUtils.mkdir_p dir
+      end
       @metric_fu_root_directory = File.join(File.dirname(__FILE__),
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory,
