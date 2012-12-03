@@ -16,7 +16,6 @@ module MetricFu
       sh %{#{saikuro_bin} #{options_string}} do |ok, response|
         unless ok
           puts "Saikuro failed with exit status: #{response.exitstatus}"
-          exit 1
         end
       end
     end
