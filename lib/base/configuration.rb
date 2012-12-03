@@ -134,7 +134,7 @@ module MetricFu
                     :config_file_pattern => nil}
       @roodi    = { :dirs_to_roodi => @code_dirs,
                     :roodi_config => nil}
-      @saikuro  = { :output_directory => @scratch_directory + '/saikuro',
+      @saikuro  = { :output_directory => "#{@scratch_directory}/saikuro",
                     :input_directory => @code_dirs,
                     :cyclo => "",
                     :filter_cyclo => "0",
