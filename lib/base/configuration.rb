@@ -114,10 +114,10 @@ module MetricFu
     # TODO review if these code is functionally duplicated in the 
     # base generator initialize
     def reset
-      @base_directory = FileUtils.mkdir_p(ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
-      @scratch_directory = FileUtils.mkdir_p File.join(@base_directory, 'scratch')
-      @output_directory =FileUtils.mkdir_p  File.join(@base_directory, 'output')
-      @data_directory = FileUtils.mkdir_p File.join(@base_directory,'_data')
+      @base_directory = FileUtils.mkdir_p(ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu').to_s
+      @scratch_directory = FileUtils.mkdir_p(File.join(@base_directory, 'scratch')).to_s
+      @output_directory =FileUtils.mkdir_p(File.join(@base_directory, 'output')).to_s
+      @data_directory = FileUtils.mkdir_p(File.join(@base_directory,'_data')).to_s
       @metric_fu_root_directory = File.join(File.dirname(__FILE__),
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory,
