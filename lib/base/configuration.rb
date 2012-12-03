@@ -1,3 +1,4 @@
+require 'fileutils'
 module MetricFu
 
   # A list of metrics which are available in the MetricFu system.
@@ -110,11 +111,13 @@ module MetricFu
     # This does the real work of the Configuration class, by setting
     # up a bunch of instance variables to represent the configuration
     # of the MetricFu app.
+    # TODO review if these code is functionally duplicated in the 
+    # base generator initialize
     def reset
-      @base_directory = ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu'
-      @scratch_directory = File.join(@base_directory, 'scratch')
-      @output_directory = File.join(@base_directory, 'output')
-      @data_directory = File.join(@base_directory,'_data')
+      @base_directory = FileUtils.mkdir_p(ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+      @scratch_directory = FileUtils.mkdir_p File.join(@base_directory, 'scratch')
+      @output_directory =FileUtils.mkdir_p  File.join(@base_directory, 'output')
+      @data_directory = FileUtils.mkdir_p File.join(@base_directory,'_data')
       @metric_fu_root_directory = File.join(File.dirname(__FILE__),
                                                         '..', '..')
       @template_directory =  File.join(@metric_fu_root_directory,
