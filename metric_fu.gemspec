@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 Gem::Specification.new do |s|
   s.name        = "bf4-metric_fu"
   s.platform    = Gem::Platform::RUBY
-  s.version     = "2.1.3.2"
+  s.version     = "2.1.3.3"
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "github@benjaminfleischer.com"
   s.homepage    = "http://github.com/bf4/metric_fu"
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "roodi"                 => ["= 2.1.0"],
     "rails_best_practices"  => ["~> 0.6"],
     "churn"                 => ["= 0.0.7"],
+    "sexp_processor"        => ["~> 3.0.3"], # required because of churn.
     "chronic"               => ["= 0.2.3"], # required by churn
     "main"                  => ["= 4.7.1"], # required by churn
     "activesupport"         => [">= 2.0.0"], # ok
