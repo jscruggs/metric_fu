@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
+# -*- encoding: utf-8 -*-
+require File.expand_path('../lib/metric_fu/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "bf4-metric_fu"
   s.platform    = Gem::Platform::RUBY
-  s.version     = "2.1.3.4"
+  s.version     = MetricFu::VERSION
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "github@benjaminfleischer.com"
   s.homepage    = "http://github.com/bf4/metric_fu"
@@ -13,15 +12,11 @@ Gem::Specification.new do |s|
   s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
   s.required_ruby_version     = ">= 1.8.7"
   s.required_rubygems_version = ">= 1.3.6"
-  # git_files            = `git ls-files`.split("\n").reject {|path| path =~ /\.gitignore$/ } rescue ''
-  # s.files              = git_files
-  # s.test_files         = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files              = `git ls-files`.split($\)
+  s.test_files         =  s.files.grep(%r{^(test|spec|features)/})
+  s.executables        =  s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
   s.license     = 'MIT'
-
-  s.files = ["README.md","HISTORY","TODO","MIT-LICENSE","Rakefile"]
-
-  s.files +=     Dir['lib/**/*.*']
-  s.test_files = Dir['spec/**/*.*']
 
   {
     "flay"                  => ["= 1.2.1"],
@@ -66,6 +61,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rspec", ["= 1.3.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
   s.add_development_dependency("googlecharts")
-  s.require_paths = ["lib"]
 end
 
