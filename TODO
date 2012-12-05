@@ -1,5 +1,7 @@
 == TODO list
 
+* Determine how to test metric_fu against codebases that are not metric_fu, to ensure it works on most applications
+* Add configurable logger to all output streams
 * Color code flog results with scale from: http://jakescruggs.blogspot.com/2008/08/whats-good-flog-score.html
 * Make running metric_fu on metric_fu less embarrassing
 * Load all gems at config time so you fail fast if one is missing
