@@ -1,4 +1,3 @@
-require 'metric_fu/version'
 module MetricFu
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
   LIB_ROOT = File.join(APP_ROOT,'lib')
@@ -53,6 +52,7 @@ module MetricFu
   #
   # end
 end
+MetricFu.lib_require { 'version' }
 MetricFu.lib_require { 'initial_requires' }
 # Load a few things to make our lives easier elsewhere.
 MetricFu.lib_require { 'load_files' }
