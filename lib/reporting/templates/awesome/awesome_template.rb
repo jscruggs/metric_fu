@@ -1,6 +1,5 @@
 require 'fileutils'
 require 'coderay'
-require 'pathname'
 MetricFu.metrics_require { 'base_template' }
 
 class AwesomeTemplate < MetricFu::Template
@@ -11,7 +10,7 @@ class AwesomeTemplate < MetricFu::Template
     @name = Pathname.new(Dir.pwd).basename
 
     # Copy Bluff javascripts to output directory
-    Dir[File.join(this_directory, '..', 'javascripts', '*')].each do |f|
+    Dir[File.join(template_directory, '..', 'javascripts', '*')].each do |f|
       FileUtils.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
     end
 
@@ -23,6 +22,8 @@ class AwesomeTemplate < MetricFu::Template
         html = erbify('layout')
         fn = output_filename(section)
         MetricFu.report.save_output(html, MetricFu.output_directory, fn)
+      else
+        mf_debug  "no template for section #{section} with #{template(section)} for report #{report.class}"
       end
     end
 
@@ -32,6 +33,8 @@ class AwesomeTemplate < MetricFu::Template
       html = erbify('layout')
       fn = output_filename('index')
       MetricFu.report.save_output(html, MetricFu.output_directory, fn)
+    else
+      mf_debug  "no template for section index for report #{report.class}"
     end
 
     write_file_data
@@ -84,8 +87,7 @@ class AwesomeTemplate < MetricFu::Template
       MetricFu.report.save_output(out, MetricFu.output_directory, fn)
     end
   end
-
-  def this_directory
+  def template_directory
     File.dirname(__FILE__)
   end
 end

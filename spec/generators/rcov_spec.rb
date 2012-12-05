@@ -115,7 +115,7 @@ lib/templates/awesome/awesome_template.rb
 !!     @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
 !!
 !!     # Copy Bluff javascripts to output directory
-!!     Dir[File.join(this_directory, '..', 'javascripts', '*')].each do |f|
+!!     Dir[File.join(template_directory, '..', 'javascripts', '*')].each do |f|
 !!       FileUtils.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
 !!     end
 !!
@@ -138,7 +138,7 @@ lib/templates/awesome/awesome_template.rb
 !!     end
 !!   end
 
-     def this_directory
+     def template_directory
 !!     File.dirname(__FILE__)
 !!   end
 !! end
@@ -167,7 +167,7 @@ lib/templates/standard/standard_template.rb
 !!     end
 !!   end
 
-     def this_directory
+     def template_directory
 !!     File.dirname(__FILE__)
 !!   end
 !! end
