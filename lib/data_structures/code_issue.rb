@@ -1,29 +1,27 @@
 require 'delegate'
 
-[ '/base/metric_analyzer',
-  '/base/flog_analyzer',
-  '/base/saikuro_analyzer',
-  '/base/churn_analyzer',
-  '/base/reek_analyzer',
-  '/base/flay_analyzer'].each do |path|
-  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+[ 'metric_analyzer',
+  'flog/flog_analyzer',
+  'saikuro/saikuro_analyzer',
+  'churn/churn_analyzer',
+  'reek/reek_analyzer',
+  'flay/flay_analyzer'].each do |path|
+  MetricFu.metrics_require { path }
 end
-
-module CarefulArray
-
-  def carefully_remove(elements)
-    missing_elements = elements - self
-    raise "Cannot delete missing elements: #{missing_elements.inspect}" unless missing_elements.empty?
-    (self - elements).extend(CarefulArray)
-  end
-
-end
+MetricFu.data_structures_require { 'careful_array' }
 
 class CodeIssue < DelegateClass(MetricFu::Record) #DelegateClass(Ruport::Data::Record)
   include Comparable
 
   # TODO: Yuck! 'stat_value' is a column for StatAnalyzer
-  EXCLUDED_COLUMNS = FlogAnalyzer::COLUMNS + SaikuroAnalyzer::COLUMNS + ['stat_value'] + ChurnAnalyzer::COLUMNS + ReekAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['reek__type_name', 'reek__comparable_message']) + FlayAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['flay_matching_reason'])
+  EXCLUDED_COLUMNS =
+    FlogAnalyzer::COLUMNS +
+    SaikuroAnalyzer::COLUMNS +
+    ['stat_value'] +
+    ChurnAnalyzer::COLUMNS +
+    ReekAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['reek__type_name',
+    'reek__comparable_message']) +
+    FlayAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['flay_matching_reason'])
 
   def <=>(other)
     spaceship_for_columns(self.attributes, other)

@@ -1,80 +1,57 @@
-require 'rake'
-require 'yaml'
-begin
-  require 'psych'
-  YAML::ENGINE.yamler = 'syck'
-rescue LoadError
-  #nothing to report
-end
-# def with_syck(&block)
-#   current_engine = YAML::ENGINE.yamler
-#   YAML::ENGINE.yamler = 'syck'
-#   block.call
-#   YAML::ENGINE.yamler = current_engine
-# end
-begin
-  require 'active_support'
-  require 'active_support/core_ext/object/to_json'
-  require 'active_support/core_ext/object/blank'
-  require 'active_support/inflector'
-rescue LoadError
-  require 'activesupport' unless defined?(ActiveSupport)
-end
-
-module MfDebugger
-  class Logger
-    class << self
-      attr_accessor :debug_on
-      @debug_on = false
-    end
-  end
-
-  def self.mf_debug(msg,&block)
-    if MfDebugger::Logger.debug_on
-      if block_given?
-        block.call
-      end
-      STDOUT.puts msg
-    end
-  end
-  def mf_debug(msg,&block)
-    if block_given?
-      MfDebugger.mf_debug(msg,&block)
-    else
-      MfDebugger.mf_debug(msg)
-    end
-  end
-end
-include MfDebugger
-MfDebugger::Logger.debug_on = !!(ENV['MF_DEBUG'] =~ /true/i)
-
-# Load a few things to make our lives easier elsewhere.
 module MetricFu
-  LIB_ROOT = File.dirname(__FILE__)
+  APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
+  LIB_ROOT = File.join(APP_ROOT,'lib')
+  @loaded_files = []
+  class << self
+    attr_reader :loaded_files
+  end
+  def self.lib_require(base='',&block)
+    paths = []
+    base_path = File.join(LIB_ROOT, base)
+    Array((yield paths, base_path)).each do |path|
+      file = File.join(base_path, *Array(path))
+      require file
+      if @loaded_files.include?(file)
+        puts "!!!\tAlready loaded #{file}" if !!(ENV['MF_DEBUG'] =~ /true/i)
+      else
+        @loaded_files << file
+      end
+    end
+  end
+  def self.root_dir
+    APP_ROOT
+  end
+  def self.lib_dir
+    LIB_ROOT
+  end
+  class << self
+    %w(metrics reporting logging errors data_structures tasks).each do |dir|
+      define_method("#{dir}_dir") do
+        File.join(lib_dir,dir)
+      end
+      module_eval(%Q(def #{dir}_require(&block); lib_require('#{dir}', &block); end))
+    end
+  end
+  def self.tasks_load(tasks_relative_path)
+    load File.join(LIB_ROOT, 'tasks', *Array(tasks_relative_path))
+  end
+  # path is relative to where the task is being run,
+  # not to the metric_fu library
+  def self.artifact_dir
+    (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+  end
+  class << self
+    %w(scratch output _data).each do |dir|
+      define_method("#{dir.gsub(/[^A-Za-z0-9]/,'')}_dir") do
+        File.join(artifact_dir,dir)
+      end
+    end
+
+  end
+  # def const_missing(name)
+  #
+  # end
 end
-base_dir         = File.join(MetricFu::LIB_ROOT, 'base')
-generator_dir    = File.join(MetricFu::LIB_ROOT, 'generators')
-template_dir     = File.join(MetricFu::LIB_ROOT, 'templates')
-graph_dir        = File.join(MetricFu::LIB_ROOT, 'graphs')
-
-# We need to require these two (sic?) things first because our other classes
-# depend on them.
-require File.expand_path File.join(base_dir, 'report')
-require File.expand_path File.join(base_dir, 'generator')
-require File.expand_path File.join(base_dir, 'graph')
-require File.expand_path File.join(base_dir, 'scoring_strategies')
-
-# prevent the task from being run multiple times.
-unless Rake::Task.task_defined? "metrics:all"
-  # Load the rakefile so users of the gem get the default metric_fu task
-  load File.expand_path File.join(MetricFu::LIB_ROOT, 'tasks', 'metric_fu.rake')
-end
-
-# Now load everything else that's in the directory
-Dir[File.expand_path File.join(base_dir, '*.rb')].each{|l| require l }
-Dir[File.expand_path File.join(generator_dir, '*.rb')].each {|l| require l }
-Dir[File.expand_path File.join(template_dir, 'standard/*.rb')].each {|l| require l}
-Dir[File.expand_path File.join(template_dir, 'awesome/*.rb')].each {|l| require l}
-require graph_dir + "/grapher"
-Dir[File.expand_path File.join(graph_dir, '*.rb')].each {|l| require l}
-Dir[File.expand_path File.join(graph_dir, 'engines', '*.rb')].each {|l| require l}
+MetricFu.lib_require { 'initial_requires' }
+# Load a few things to make our lives easier elsewhere.
+MetricFu.lib_require { 'load_files' }

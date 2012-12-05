@@ -1,8 +1,5 @@
-class AnalysisError < RuntimeError; end;
-
-[ '/base/record',
-  '/base/grouping'].each do |path|
-  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+%w(record grouping).each do |path|
+  MetricFu.data_structures_require { path }
 end
 
 class MetricAnalyzer

@@ -1,4 +1,5 @@
 require 'fileutils'
+MetricFu.reporting_require { 'templates/awesome/awesome_template' }
 module MetricFu
 
   # A list of metrics which are available in the MetricFu system.
@@ -111,20 +112,19 @@ module MetricFu
     # This does the real work of the Configuration class, by setting
     # up a bunch of instance variables to represent the configuration
     # of the MetricFu app.
-    # TODO review if these code is functionally duplicated in the 
+    # TODO review if these code is functionally duplicated in the
     # base generator initialize
     def reset
-      @base_directory    = (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
-      @scratch_directory = File.join(@base_directory, 'scratch')
-      @output_directory  = File.join(@base_directory, 'output')
-      @data_directory    = File.join(@base_directory,'_data')
+      @base_directory    = MetricFu.artifact_dir
+      @scratch_directory = MetricFu.scratch_dir
+      @output_directory  = MetricFu.output_dir
+      @data_directory    = MetricFu.data_dir
       # due to behavior differences between ruby 1.8.7 and 1.9.3
       # this is good enough for now
       [@base_directory, @scratch_directory, @output_directory].each do |dir|
         FileUtils.mkdir_p dir
       end
-      @metric_fu_root_directory = File.join(File.dirname(__FILE__),
-                                                        '..', '..')
+      @metric_fu_root_directory = MetricFu.root_dir
       @template_directory =  File.join(@metric_fu_root_directory,
                                        'lib', 'templates')
       @template_class = AwesomeTemplate

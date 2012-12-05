@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
   end
 
 
-  s.add_development_dependency("rake")
+  s.add_development_dependency("rake", '<=0.9.2')
   s.add_development_dependency("rspec", ["= 1.3.0"])
   s.add_development_dependency("test-construct", [">= 1.2.0"])
   s.add_development_dependency("googlecharts")

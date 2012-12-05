@@ -1,7 +1,5 @@
-[
-  '/base/table'
-  ].each do |path|
-  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+%w(table).each do |path|
+  MetricFu.data_structures_require { path }
 end
 module MetricFu
   class Grouping

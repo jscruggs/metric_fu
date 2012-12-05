@@ -39,7 +39,7 @@ describe MetricFu::Configuration do
 
       it 'should return the CC_BUILD_ARTIFACTS environment variable' do
         get_new_config
-        base_directory.should == ENV['CC_BUILD_ARTIFACTS']
+        compare_paths(base_directory, ENV['CC_BUILD_ARTIFACTS'])
       end
     end
 
@@ -71,13 +71,13 @@ describe MetricFu::Configuration do
 
     it 'should set @scratch_directory to scratch relative '+
     'to @base_directory' do
-      scratch_dir = File.join(base_directory, 'scratch')
+      scratch_dir = MetricFu.scratch_dir
       scratch_directory.should == scratch_dir
     end
 
     it 'should set @output_directory to output relative '+
     'to @base_directory' do
-      output_dir = File.join(base_directory, 'output')
+      output_dir = MetricFu.output_dir
       output_directory.should == output_dir
     end
 

@@ -1,7 +1,7 @@
 require 'fileutils'
-# require 'syntax/convertors/html'
 require 'coderay'
 require 'pathname'
+MetricFu.metrics_require { 'base_template' }
 
 class AwesomeTemplate < MetricFu::Template
 
