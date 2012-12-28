@@ -16,13 +16,13 @@ Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
 
 __CI Build Status__
 
-[![Build Status](https://secure.travis-ci.org/bf4/metric_fu.png)](http://travis-ci.org/bf4/metric_fu)
+[![Build Status](https://secure.travis-ci.org/metricfu/metric_fu.png)](http://travis-ci.org/metricfu/metric_fu)
 
 This project runs [travis-ci.org](http://travis-ci.org)
 
 __Code Quality__
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/bf4/metric_fu)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/metricfu/metric_fu)
 
 This project runs [https://codeclimate.com/](https://codeclimate.com/)
 
@@ -52,8 +52,8 @@ The more of the above steps you do the easier it will be for me to merge in whic
 
 Resources:
 
-Github: http://github.com/bf4/metric_fu
-Issue Tracker: http://github.com/bf4/metric_fu/issues
+Github: http://github.com/metricfu/metric_fu
+Issue Tracker: http://github.com/metricfu/metric_fu/issues
 My Blog: http://benjaminfleischer.com
 
 Original Resources:
