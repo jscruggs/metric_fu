@@ -1,3 +1,5 @@
+require 'pathname'
+require 'erb'
 module MetricFu
 
   # The Template class is intended as an abstract class for concrete
@@ -19,21 +21,8 @@ module MetricFu
     # @return String
     #   The erb evaluated string
     def erbify(section)
-      require 'erb'
       erb_doc = File.read(template(section))
       ERB.new(erb_doc).result(binding)
-    end
-
-    # Determines whether a template file exists for a given section
-    # of the full template.
-    #
-    # @param section String
-    #   The section of the template to check against
-    #
-    # @return Boolean
-    #   Does a template file exist for this section or not?
-    def template_exists?(section)
-      File.exist?(template(section))
     end
 
     # Copies an instance variable mimicing the name of the section
@@ -61,7 +50,31 @@ module MetricFu
     # @return String
     #   A file path
     def template(section)
-      File.join(this_directory,  section.to_s + ".html.erb")
+      if MetricFu::AVAILABLE_METRICS.include?(section) # expects a symbol
+        File.join(template_dir(section.to_s), "#{section}.html.erb")
+      else
+        File.join(template_directory,  section.to_s + ".html.erb")
+      end
+    end
+    def template_dir(metric)
+      File.join(MetricFu.metrics_dir, metric, metric_template_dir)
+    end
+    # e.g. template_awesome, template_standard
+    def metric_template_dir
+      template_name = self.class.name.sub('Template', '')[/^([A-Z][a-z]+)+/].downcase
+      "template_#{template_name}"
+    end
+
+    # Determines whether a template file exists for a given section
+    # of the full template.
+    #
+    # @param section String
+    #   The section of the template to check against
+    #
+    # @return Boolean
+    #   Does a template file exist for this section or not?
+    def template_exists?(section)
+      File.exist?(template(section))
     end
 
     # Returns the filename that the template will render into for
@@ -85,7 +98,7 @@ module MetricFu
     # @return String
     #   The contents of the css file
     def inline_css(css)
-      open(File.join(this_directory, css)) { |f| f.read }
+      open(File.join(template_directory, css)) { |f| f.read }
     end
 
     # Provides a link to open a file through the textmate protocol
@@ -177,6 +190,14 @@ module MetricFu
     def cycle(first_value, second_value, iteration)
       return first_value if iteration % 2 == 0
       return second_value
+    end
+    # belive me, I tried to meta program this with an inherited hook
+    # I couldn't get it working
+    def template_directory
+      raise "you need to define this method in each subclass with File.dirname(__FILE__)"
+      # def template_directory
+      #   File.dirname(__FILE__)
+      # end
     end
   end
 end

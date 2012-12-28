@@ -1,7 +1,5 @@
-[
-  '/base/record'
-  ].each do |path|
-  require File.expand_path(File.join(MetricFu::LIB_ROOT,path))
+%w(record).each do |path|
+  MetricFu.data_structures_require { path }
 end
 
 class Table

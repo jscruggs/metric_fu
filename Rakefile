@@ -1,4 +1,6 @@
-$LOAD_PATH << '.'
+#!/usr/bin/env rake
+require 'bundler/gem_tasks'
+# $LOAD_PATH << '.'
 begin
   require 'spec/rake/spectask'
   desc "Run all specs in spec directory"

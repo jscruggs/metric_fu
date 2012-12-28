@@ -19,9 +19,8 @@ class StandardTemplate < MetricFu::Template
       MetricFu.report.save_output(html, MetricFu.output_directory, fn)
     end
   end
-
-  def this_directory
+  def template_directory
     File.dirname(__FILE__)
   end
-end
 
+end

@@ -57,7 +57,7 @@ describe MetricFu::Template do
     it 'should generate the filename of the template file' do
       section = mock('section')
       section.should_receive(:to_s).and_return('section')
-      @template.should_receive(:this_directory).and_return('dir')
+      @template.should_receive(:template_directory).and_return('dir')
       result = @template.send(:template, section)
       result.should == "dir/section.html.erb"
     end
@@ -75,7 +75,7 @@ describe MetricFu::Template do
   describe "#inline_css" do
     it 'should return the contents of a css file' do
       css = 'mycss.css'
-      @template.should_receive(:this_directory).and_return('dir')
+      @template.should_receive(:template_directory).and_return('dir')
       io = mock('io', :read => "css contents")
       @template.should_receive(:open).and_yield(io)
       result = @template.send(:inline_css, css)

@@ -2,23 +2,27 @@ require 'ruby_parser'
 module MetricFu
   class LineNumbers
 
-    def initialize(contents)
-      rp = RubyParser.new
-      @locations = {}
-      file_sexp = rp.parse(contents)
-      case file_sexp[0]
-      when :class
-        process_class(file_sexp)
-      when :module
-        process_module(file_sexp)
-      when :block
-        file_sexp.each_of_type(:class) { |sexp| process_class(sexp) }
+    def initialize(contents,file_path='')
+      if contents.to_s.size.zero?
+        puts "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
       else
-        puts "Unexpected sexp_type #{file_sexp[0].inspect}"
+        rp = RubyParser.new
+        @locations = {}
+        file_sexp = rp.parse(contents)
+        case file_sexp[0]
+        when :class
+          process_class(file_sexp)
+        when :module
+          process_module(file_sexp)
+        when :block
+          file_sexp.each_of_type(:class) { |sexp| process_class(sexp) }
+        else
+          puts "Unexpected sexp_type #{file_sexp[0].inspect}"
+        end
       end
     rescue Exception => e
       #catch errors for files ruby_parser fails on
-      puts "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\t#{file_sexp.inspect}\t#{contents.inspect}\t#{e.backtrace}"
+      puts "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tCONTENT:#{contents.inspect}\SEXP:#{file_sexp.inspect}\tn#{e.backtrace}"
       @locations
     end
 
