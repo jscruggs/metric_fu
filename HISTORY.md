@@ -1,3 +1,9 @@
+=== MetricFu 2.1.3.4 / 2012-12-28
+
+* Restructuring of the project layout
+* Project is now at https://github.com/metricfu/metric_fu and gem is again metric_fu
+* Can run tasks as `metric_fu` command
+
 === MetricFu 2.1.3.2 / 2012-11-14
 
 * Don't raise an exception in the LineNumbers rescue block. Issue https://github.com/bf4/metric_fu/issues/6 by joonty -Benjamin Fleischer
