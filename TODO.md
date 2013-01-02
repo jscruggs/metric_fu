@@ -3,7 +3,11 @@
 
 ## Features
 
-* Look into removing rcov and churn, and adding laser, brakeman, and/or cane
+* Look into removing rcov and churn, and adding 
+  * https://github.com/metricfu/code_statistics
+  * brakeman https://github.com/metricfu/brakeman
+  * cane https://github.com/square/cane
+  * laser https://github.com/metricfu/laser
 * Add configurable logger to all output streams
 * Color code flog results with scale from: http://jakescruggs.blogspot.com/2008/08/whats-good-flog-score.html
 * Make running metric_fu on metric_fu less embarrassing
@@ -27,4 +31,9 @@
 ## Misc
 
 * Update the homepage http://metric-fu.rubyforge.org/
-
+* Other intersting libraries to consider:
+  * https://github.com/vinibaggio/discover-unused-partials
+  * https://github.com/metricfu/heckle
+  * https://github.com/metricfu/gauntlet
+  * https://github.com/metricfu/repodepot-ruby
+  * https://github.com/eladmeidar/rails_indexes
