@@ -3,7 +3,7 @@ MetricFu.reporting_require { 'report' }
 MetricFu.metrics_require   { 'generator' }
 MetricFu.metrics_require   { 'graph' }
 MetricFu.reporting_require { 'graphs/grapher' }
-MetricFu.lib_require       { 'scoring_strategies' }
+MetricFu.metrics_require   { 'hotspots/analysis/scoring_strategies' }
 
 # prevent the task from being run multiple times.
 unless Rake::Task.task_defined? "metrics:all"

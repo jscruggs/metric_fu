@@ -1,5 +1,5 @@
 %w(table).each do |path|
-  MetricFu.data_structures_require { path }
+  MetricFu.metrics_require   { "hotspots/analysis/#{path}" }
 end
 module MetricFu
   class Grouping

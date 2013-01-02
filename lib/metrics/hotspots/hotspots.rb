@@ -1,3 +1,4 @@
+MetricFu.metrics_require   { 'hotspots/hotspot_analyzer' }
 module MetricFu
 
   class Hotspots < Generator
