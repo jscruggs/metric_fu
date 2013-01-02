@@ -301,7 +301,7 @@ class MetricAnalyzer
   end
 
   def make_table(columns)
-    Table.new(:column_names => columns)
+    MetricFu::Table.new(:column_names => columns)
   end
 
   def get_sub_table(item, value)
