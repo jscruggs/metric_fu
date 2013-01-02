@@ -1,1 +1,4 @@
-class AnalysisError < RuntimeError; end;
+module MetricFu
+  class AnalysisError < RuntimeError
+  end
+end

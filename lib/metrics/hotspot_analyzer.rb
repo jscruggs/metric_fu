@@ -60,7 +60,7 @@ module MetricFu
     def location(item, value)
       sub_table = get_sub_table(item, value)
       if(sub_table.length==0)
-        raise AnalysisError, "The #{item.to_s} '#{value.to_s}' does not have any rows in the analysis table"
+        raise MetricFu::AnalysisError, "The #{item.to_s} '#{value.to_s}' does not have any rows in the analysis table"
       else
         first_row = sub_table[0]
         case item
@@ -251,7 +251,7 @@ module MetricFu
         average_code_uncoverage = get_mean(group.column("percentage_uncovered"))
         "#{"average " if occurences > 1}uncovered code is %.1f%" % average_code_uncoverage
       else
-        raise AnalysisError, "Unknown metric #{metric}"
+        raise MetricFu::AnalysisError, "Unknown metric #{metric}"
       end
     end
 
@@ -291,7 +291,7 @@ module MetricFu
         end
         message
       else
-        raise AnalysisError, "Unknown metric #{metric}"
+        raise MetricFu::AnalysisError, "Unknown metric #{metric}"
       end
     end
 
