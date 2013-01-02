@@ -1,3 +1,12 @@
+=== MetricFu 2.1.3.6 / 2013-01-02
+
+* Fixed bug that wasn't show stats or rails_best_practices graphs
+* Updated churn and rails_best_practices gems
+* Move the metrics code in the rake task into its own file
+* Remove executable metric_fu dependency on rake
+* TODO: some unclear dependency issues may make metrics in 1.9 crash, esp Flog, Flay, Stats
+
+
 === MetricFu 2.1.3.5 / 2013-01-01
 
 * Issue #35, Namespace MetricFu::Table. -Benjamin Fleischer
