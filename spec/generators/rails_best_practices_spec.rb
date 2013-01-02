@@ -16,7 +16,7 @@ describe RailsBestPractices do
       ./app/views/admin/testimonials/_form.html.erb:17 - replace instance variable with local variable
       ./app/controllers/admin/campaigns_controller.rb:24,45,68,85 - use before_filter for show,edit,update,destroy
 
-      go to http://wiki.github.com/flyerhzm/rails_best_practices to see how to solve these errors.
+      go to http://wiki.github.com/railsbp/rails_best_practices to see how to solve these errors.
 
       Found 2 errors.
       HERE

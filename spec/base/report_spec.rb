@@ -43,7 +43,7 @@ describe MetricFu::Report do
   describe "#add" do
     it 'should add a passed hash to the report_hash instance variable' do
       report_type = mock('report_type')
-      report_type.should_receive(:to_s).and_return('type')
+      report_type.should_receive(:to_s).any_number_of_times.and_return('type')
 
       report_inst = mock('report_inst')
       report_type.should_receive(:new).and_return(report_inst)

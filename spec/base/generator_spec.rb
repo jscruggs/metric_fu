@@ -30,8 +30,8 @@ describe MetricFu::Generator do
 
   describe "ConcreteClass#metric_directory" do
     it "should be 'tmp/metric_fu/scratch/concreteclass'" do
-      ConcreteClass.metric_directory.
-                    should == "tmp/metric_fu/scratch/concreteclass"
+      compare_paths(ConcreteClass.metric_directory,
+                    "tmp/metric_fu/scratch/concreteclass")
     end
   end
 

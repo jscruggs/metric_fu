@@ -37,7 +37,7 @@ describe MetricFu::LineNumbers do
 
     it "should know the name of a class method defined in a 'class << self block at a particular line" do
       ln = MetricFu::LineNumbers.new(File.read(File.dirname(__FILE__) + "/../resources/line_numbers/foo.rb"))
-      ln.method_at_line(23).should == "Foo::neat"
+      ln.method_at_line(22).should == "Foo::neat"
     end
 
     it "should know the name of an instance method at a particular line in a file with two classes" do
