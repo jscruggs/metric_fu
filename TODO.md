@@ -3,7 +3,7 @@
 
 ## Features
 
-* Look into removing rcov and churn, and adding 
+* Look into removing rcov and churn, and adding
   * https://github.com/metricfu/code_statistics
   * brakeman https://github.com/metricfu/brakeman
   * cane https://github.com/square/cane
@@ -16,6 +16,8 @@
 ## Testing
 
 * Determine how to test metric_fu against codebases that are not metric_fu, to ensure it works on most applications
+* Re-organize test files structure to align with changed structure of library files
+* Remove / Modify Devver code from the generators/hotspots_spec and base/hotspot_analzyer_spec
 
 ## Bugs / Fixes
 
@@ -25,11 +27,12 @@
 
 ## Ruby 1.9 compatibility
 
-* Consider RUBYOPT='-rpsych' e.g. from https://github.com/jscruggs/metric_fu/pull/77
+* Consider `RUBYOPT='-rpsych'` e.g. from https://github.com/jscruggs/metric_fu/pull/77
 * Look into using the sexp_processor for ruby parsing in brakeman https://github.com/presidentbeef/brakeman/blob/cdc85962d589fb37e37ed53333bb0b7bd913e028/lib/ruby_parser/bm_sexp_processor.rb
 
 ## Misc
 
+* Determine if CodeIssue is used, else remove it
 * Update the homepage http://metric-fu.rubyforge.org/
 * Other intersting libraries to consider:
   * https://github.com/vinibaggio/discover-unused-partials
