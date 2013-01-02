@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/metricfu/metric_fu"
   s.description = "Code metrics from Flog, Flay, Simplecov-RCov, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices"
   s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
+  s.rubyforge_project = 'metric_fu'
   s.required_ruby_version     = ">= 1.8.7"
   s.required_rubygems_version = ">= 1.3.6"
   s.files              = `git ls-files`.split($\)
