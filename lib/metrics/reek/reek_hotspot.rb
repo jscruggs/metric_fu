@@ -1,7 +1,7 @@
 # coding: utf-8
 
 class ReekHotspot
-  include ScoringStrategies
+  include MetricFu::HotspotScoringStrategies
 
   REEK_ISSUE_INFO = {
     'Uncommunicative Name' =>
@@ -87,15 +87,15 @@ class ReekHotspot
   end
 
   def map(row)
-    ScoringStrategies.present(row)
+    MetricFu::HotspotScoringStrategies.present(row)
   end
 
   def reduce(scores)
-    ScoringStrategies.sum(scores)
+    MetricFu::HotspotScoringStrategies.sum(scores)
   end
 
   def score(metric_ranking, item)
-    ScoringStrategies.percentile(metric_ranking, item) 
+    MetricFu::HotspotScoringStrategies.percentile(metric_ranking, item)
   end
 
   def generate_records(data, table)

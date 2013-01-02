@@ -1,5 +1,5 @@
 class SaikuroHotspot
-  include ScoringStrategies
+  include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{lines complexity}
 
@@ -16,11 +16,11 @@ class SaikuroHotspot
   end
 
   def reduce(scores)
-    ScoringStrategies.average(scores)
+    MetricFu::HotspotScoringStrategies.average(scores)
   end
 
   def score(metric_ranking, item)
-    ScoringStrategies.identity(metric_ranking, item)
+    MetricFu::HotspotScoringStrategies.identity(metric_ranking, item)
   end
 
   def generate_records(data, table)
