@@ -26,6 +26,11 @@ __Code Quality__
 
 This project runs [https://codeclimate.com/](https://codeclimate.com/)
 
+__Gem Dependencies__
+
+[![Dependency Status](https://gemnasium.com/metricfu/metric_fu.png)](https://gemnasium.com/metricfu/metric_fu)
+
+This project runs [https://gemnasium.com/metricfu](https://gemnasium.com/metricfu)
 
 ===============================================================================
 
