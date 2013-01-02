@@ -25,10 +25,9 @@ Gem::Specification.new do |s|
     "reek"                  => ["= 1.2.12"],
     "metric_fu-roodi"       => [">= 2.2.0"],
     "rails_best_practices"  => ["~> 0.10.1"],
-    "churn"                 => ["= 0.0.7"],
-    "sexp_processor"        => ["~> 3.0.3"], # required because of churn.
-    "chronic"               => ["= 0.2.3"], # required by churn
-    "main"                  => ["= 4.7.1"], # required by churn
+    "churn"                 => ["= 0.0.25"],
+    "sexp_processor"        => ["~> 3.0.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
+    # "ruby_parser"           => ["~> 2.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
     "activesupport"         => [">= 2.0.0"], # ok
     # "syntax"                => ["= 1.0.0"],
     "coderay"               => [],
