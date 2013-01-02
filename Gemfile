@@ -6,4 +6,5 @@ group :development, :test do
   gem "test-construct", ">= 1.2.0"
   gem "googlecharts"
 end
+gem 'metric_fu-roodi', :git => 'git://github.com/metricfu/roodi.git'
 gemspec
