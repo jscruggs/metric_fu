@@ -1,4 +1,4 @@
-class FlogAnalyzer
+class FlogHotspot
   include ScoringStrategies
 
   COLUMNS = %w{score}

@@ -1,4 +1,4 @@
-class RcovAnalyzer
+class RcovHotspot
   include ScoringStrategies
 
   COLUMNS = %w{percentage_uncovered}

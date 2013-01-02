@@ -1,4 +1,4 @@
-class RoodiAnalyzer
+class RoodiHotspot
   include ScoringStrategies
 
   COLUMNS = %w{problems}

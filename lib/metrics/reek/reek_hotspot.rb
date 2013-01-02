@@ -1,6 +1,6 @@
 # coding: utf-8
 
-class ReekAnalyzer
+class ReekHotspot
   include ScoringStrategies
 
   REEK_ISSUE_INFO = {
@@ -71,7 +71,7 @@ class ReekAnalyzer
 
   # Note that in practice, the prefix reek__ is appended to each one
   # This was a partially implemented idea to avoid column name collisions
-  # but it is only done in the ReekAnalyzer
+  # but it is only done in the ReekHotspot
   COLUMNS = %w{type_name message value value_description comparable_message}
 
   def self.issue_link(issue)
@@ -109,7 +109,7 @@ class ReekAnalyzer
         table << {
           "metric" => name, # important
           "file_path" => file_path, # important
-          # NOTE: ReekAnalyzer is currently different than other analyzers with regard
+          # NOTE: ReekHotspot is currently different than other hotspots with regard
           # to column name. Note the COLUMNS constant and #columns method
           "reek__message" => message,
           "reek__type_name" => smell_type,

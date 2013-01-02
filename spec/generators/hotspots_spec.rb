@@ -66,7 +66,7 @@ END
 
     it "should return yaml results" do
       hotspots = MetricFu::Hotspots.new
-      analyzer = MetricAnalyzer.new(@yaml)
+      analyzer = HotspotAnalyzer.new(@yaml)
       hotspots.instance_variable_set(:@analyzer, analyzer)
       result = hotspots.analyze
       expected = JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")
@@ -75,7 +75,7 @@ END
 
     it "should put the changes into a hash" do
       hotspots = MetricFu::Hotspots.new
-      analyzer = MetricAnalyzer.new(@yaml)
+      analyzer = HotspotAnalyzer.new(@yaml)
       hotspots.instance_variable_set(:@analyzer, analyzer)
       hotspots.analyze
       expected =  JSON.parse("{\"methods\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":\"Client#client_requested_sync\",\"file_path\":\"lib/client/client.rb\",\"hash\":7919384682,\"simple_method_name\":\"#client_requested_sync\"},\"details\":{\"reek\":\"found 1 code smells\",\"flog\":\"complexity is 37.9\"}}],\"classes\":[{\"location\":{\"class_name\":\"Client\",\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":7995629750},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\"}}],\"files\":[{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/client.rb\",\"hash\":-5738801681},\"details\":{\"reek\":\"found 2 code smells\",\"flog\":\"complexity is 37.9\",\"churn\":\"detected high level of churn (changed 54 times)\"}},{\"location\":{\"class_name\":null,\"method_name\":null,\"file_path\":\"lib/client/foo.rb\",\"hash\":-7081271905},\"details\":{\"churn\":\"detected high level of churn (changed 52 times)\"}}]}")

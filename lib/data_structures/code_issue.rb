@@ -1,28 +1,30 @@
 require 'delegate'
 
-[ 'metric_analyzer',
-  'flog/flog_analyzer',
-  'saikuro/saikuro_analyzer',
-  'churn/churn_analyzer',
-  'reek/reek_analyzer',
-  'flay/flay_analyzer'].each do |path|
+[ 'hotspot_analyzer',
+  'flog/flog_hotspot',
+  'saikuro/saikuro_hotspot',
+  'churn/churn_hotspot',
+  'reek/reek_hotspot',
+  'flay/flay_hotspot'].each do |path|
   MetricFu.metrics_require { path }
 end
-MetricFu.data_structures_require { 'careful_array' }
+%w(careful_array record).each do |path|
+  MetricFu.data_structures_require { path }
+end
 
 module MetricFu
   class CodeIssue < DelegateClass(MetricFu::Record) #DelegateClass(Ruport::Data::Record)
     include Comparable
 
-    # TODO: Yuck! 'stat_value' is a column for StatAnalyzer
+    # TODO: Yuck! 'stat_value' is a column for StatHotspot
     EXCLUDED_COLUMNS =
-      FlogAnalyzer::COLUMNS +
-      SaikuroAnalyzer::COLUMNS +
+      FlogHotspot::COLUMNS +
+      SaikuroHotspot::COLUMNS +
       ['stat_value'] +
-      ChurnAnalyzer::COLUMNS +
-      ReekAnalyzer.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['reek__type_name',
+      ChurnHotspot::COLUMNS +
+      ReekHotspot.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['reek__type_name',
       'reek__comparable_message']) +
-      FlayAnalyzer.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['flay_matching_reason'])
+      FlayHotspot.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['flay_matching_reason'])
 
     def <=>(other)
       spaceship_for_columns(self.attributes, other)

@@ -1,4 +1,4 @@
-class SaikuroAnalyzer
+class SaikuroHotspot
   include ScoringStrategies
 
   COLUMNS = %w{lines complexity}

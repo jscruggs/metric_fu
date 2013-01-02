@@ -1,4 +1,4 @@
-class ChurnAnalyzer
+class ChurnHotspot
   include ScoringStrategies
 
   COLUMNS = %w{times_changed}

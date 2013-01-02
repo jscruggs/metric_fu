@@ -1,4 +1,4 @@
-class FlayAnalyzer
+class FlayHotspot
   include ScoringStrategies
 
   COLUMNS = %w{flay_reason flay_matching_reason}

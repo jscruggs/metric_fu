@@ -3,7 +3,7 @@
 end
 
 module MetricFu
-  class MetricAnalyzer
+  class HotspotAnalyzer
 
     COMMON_COLUMNS = %w{metric}
     GRANULARITIES =  %w{file_path class_name method_name}
@@ -21,9 +21,9 @@ module MetricFu
       @method_ranking = MetricFu::Ranking.new
       rankings = [@file_ranking, @class_ranking, @method_ranking]
 
-      tool_analyzers = [ReekAnalyzer.new, RoodiAnalyzer.new,
-      FlogAnalyzer.new, ChurnAnalyzer.new, SaikuroAnalyzer.new,
-      FlayAnalyzer.new, StatsAnalyzer.new, RcovAnalyzer.new]
+      tool_analyzers = [ReekHotspot.new, RoodiHotspot.new,
+      FlogHotspot.new, ChurnHotspot.new, SaikuroHotspot.new,
+      FlayHotspot.new, StatsHotspot.new, RcovHotspot.new]
       # TODO There is likely a clash that will happen between
       # column names eventually. We should probably auto-prefix
       # them (e.g. "roodi_problem")
