@@ -138,7 +138,7 @@ module MetricFu
       @reek     = { :dirs_to_reek => @code_dirs,
                     :config_file_pattern => nil}
       @roodi    = { :dirs_to_roodi => @code_dirs,
-                    :roodi_config => nil}
+                    :roodi_config => "#{@metric_fu_root_directory}/config/roodi.yml" }
       @saikuro  = { :output_directory => "#{@scratch_directory}/saikuro",
                     :input_directory => @code_dirs,
                     :cyclo => "",
