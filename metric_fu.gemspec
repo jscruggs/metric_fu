@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     "flog"                  => ["= 2.3.0"],
     "reek"                  => ["= 1.2.12"],
     "metric_fu-roodi"       => [">= 2.2.0"],
-    "rails_best_practices"  => ["~> 0.6"],
+    "rails_best_practices"  => ["~> 0.10.1"],
     "churn"                 => ["= 0.0.7"],
     "sexp_processor"        => ["~> 3.0.3"], # required because of churn.
     "chronic"               => ["= 0.2.3"], # required by churn
