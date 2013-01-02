@@ -56,7 +56,7 @@ describe MetricFu::Template do
   describe "#template" do
     it 'should generate the filename of the template file' do
       section = mock('section')
-      section.should_receive(:to_s).and_return('section')
+      section.should_receive(:to_s).any_number_of_times.and_return('section')
       @template.should_receive(:template_directory).and_return('dir')
       result = @template.send(:template, section)
       result.should == "dir/section.html.erb"
