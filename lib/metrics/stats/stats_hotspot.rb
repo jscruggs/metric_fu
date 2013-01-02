@@ -1,4 +1,4 @@
-class StatsAnalyzer
+class StatsHotspot
 
   COLUMNS = %w{stat_name stat_value}
 

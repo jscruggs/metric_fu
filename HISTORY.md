@@ -1,3 +1,13 @@
+=== MetricFu 2.1.3.5 / 2013-01-01
+
+* Issue #35, Namespace MetricFu::Table. -Benjamin Fleischer
+* Additionally namespace
+  * MetricFu::CodeIssue
+  * MetricFu::MetricAnalyzer
+  * MetricFu::AnalysisError
+  * MetricFu::HotspotScoringStrategies
+* Rename MetricAnalyzer to HotspotAnalyzer, and rename all <metric>Analzyer classes to <metric>Hotspot to signify that they are part of the Hotspot code -Benjamin Fleischer
+
 === MetricFu 2.1.3.4 / 2012-12-28
 
 * Restructuring of the project layout
@@ -23,7 +33,7 @@
 * Getting it working on Rails 3, partly by going through the pull requests and setting gem dependencies to older, working versions - Benjamin Fleischer
 * It mostly works on Ruby 1.9, though there is an unresolved sexp_parser issue  - Benjamin Fleischer
 * Added link_prefix to configuration to allow URIs specified in config instead of file or txmt - dan sinclair
- 
+
 === MetricFu 2.1.1 / 2011-03-2
 
 * Making syntax highlighting optional (config.syntax_highlighting = false) so Ruby 1.9.2 users don't get "invalid byte sequence in UTF-8" errors.
@@ -37,7 +47,7 @@
 * Stefan Huber fixed some problems with churn pretending not to support Svn.
 * Kakutani Shintaro added the ability to opt out of opening files with TextMate (config.darwin_txmt_protocol_no_thanks = true).
 * Joel Nimety and Andrew Selder fixed a problem where Saikuro was parsing a dir twice.
-* Dan Sinclair added some awesome 'annotate' functionality to the Hotspots page. Click on it so see the file with problems in-line. 
+* Dan Sinclair added some awesome 'annotate' functionality to the Hotspots page. Click on it so see the file with problems in-line.
 * Dan Sinclair added a verbose mode (config.verbose = true).
 
 === MetricFu 2.0.1 / 2010-11-13

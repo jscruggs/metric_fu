@@ -1,5 +1,5 @@
-class ChurnAnalyzer
-  include ScoringStrategies
+class ChurnHotspot
+  include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{times_changed}
 
@@ -12,11 +12,11 @@ class ChurnAnalyzer
   end
 
   def map(row)
-    ScoringStrategies.present(row)
+    MetricFu::HotspotScoringStrategies.present(row)
   end
 
   def reduce(scores)
-    ScoringStrategies.sum(scores)
+    MetricFu::HotspotScoringStrategies.sum(scores)
   end
 
   def score(metric_ranking, item)

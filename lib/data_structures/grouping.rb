@@ -12,12 +12,12 @@ module MetricFu
         hash = table.group_by_metric
       else
         table.each do |row|
-          hash[row[column_name]] ||= Table.new(:column_names => row.attributes)
+          hash[row[column_name]] ||= MetricFu::Table.new(:column_names => row.attributes)
           hash[row[column_name]] << row
         end
       end
       if order
-        @arr = hash.sort_by &order
+        @arr = hash.sort_by(&order)
       else
         @arr = hash.to_a
       end
