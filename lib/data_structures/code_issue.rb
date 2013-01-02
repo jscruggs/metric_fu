@@ -20,9 +20,9 @@ module MetricFu
       SaikuroAnalyzer::COLUMNS +
       ['stat_value'] +
       ChurnAnalyzer::COLUMNS +
-      ReekAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['reek__type_name',
+      ReekAnalyzer.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['reek__type_name',
       'reek__comparable_message']) +
-      FlayAnalyzer.new.columns.extend(CarefulArray).carefully_remove(['flay_matching_reason'])
+      FlayAnalyzer.new.columns.extend(MetricFu::CarefulArray).carefully_remove(['flay_matching_reason'])
 
     def <=>(other)
       spaceship_for_columns(self.attributes, other)
@@ -58,7 +58,7 @@ module MetricFu
     end
 
     def included_columns
-      @included_columns ||= self.attributes.extend(CarefulArray).carefully_remove(EXCLUDED_COLUMNS)
+      @included_columns ||= self.attributes.extend(MetricFu::CarefulArray).carefully_remove(EXCLUDED_COLUMNS)
     end
 
     def find_counterpart_index_in(collection)
