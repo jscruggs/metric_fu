@@ -1,4 +1,4 @@
-%w(record).each do |path|
+%w(record code_issue).each do |path|
   MetricFu.data_structures_require { path }
 end
 
@@ -15,7 +15,7 @@ module MetricFu
 
     def <<(row)
       record = nil
-      if row.is_a?(MetricFu::Record) || row.is_a?(CodeIssue)
+      if row.is_a?(MetricFu::Record) || row.is_a?(MetricFu::CodeIssue)
         record = row
       else
         record = MetricFu::Record.new(row, @columns)
