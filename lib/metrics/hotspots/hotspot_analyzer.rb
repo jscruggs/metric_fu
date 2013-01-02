@@ -1,5 +1,10 @@
-%w(record grouping).each do |path|
-  MetricFu.data_structures_require { path }
+require File.expand_path('analysis_error', MetricFu.errors_dir)
+MetricFu.data_structures_require { 'location' }
+%w(table record grouping ranking).each do |path|
+  MetricFu.metrics_require   { "hotspots/analysis/#{path}" }
+end
+%w(reek roodi flog churn saikuro flay stats rcov).each do |path|
+  MetricFu.metrics_require   { "#{path}/#{path}_hotspot" }
 end
 
 module MetricFu

@@ -1,6 +1,6 @@
 require 'delegate'
 
-[ 'hotspot_analyzer',
+[ 'hotspots/hotspot_analyzer',
   'flog/flog_hotspot',
   'saikuro/saikuro_hotspot',
   'churn/churn_hotspot',
@@ -8,9 +8,10 @@ require 'delegate'
   'flay/flay_hotspot'].each do |path|
   MetricFu.metrics_require { path }
 end
-%w(careful_array record).each do |path|
+%w(careful_array).each do |path|
   MetricFu.data_structures_require { path }
 end
+MetricFu.metrics_require   { "hotspots/analysis/record" }
 
 module MetricFu
   class CodeIssue < DelegateClass(MetricFu::Record) #DelegateClass(Ruport::Data::Record)
