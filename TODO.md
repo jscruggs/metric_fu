@@ -9,9 +9,11 @@
   * cane https://github.com/square/cane
   * laser https://github.com/metricfu/laser
 * Add configurable logger to all output streams
+* Allow command-line metric_fu to accept parameters, and especially output its version
 * Color code flog results with scale from: http://jakescruggs.blogspot.com/2008/08/whats-good-flog-score.html
 * Make running metric_fu on metric_fu less embarrassing
 * Load all gems at config time so you fail fast if one is missing
+
 
 ## Testing
 
@@ -34,6 +36,7 @@
 ## Misc
 
 * Determine if CodeIssue is used, else remove it
+* Remove references to Ruport from the Devver / Caliper code
 * Update the homepage http://metric-fu.rubyforge.org/
 * Other intersting libraries to consider:
   * https://github.com/vinibaggio/discover-unused-partials
