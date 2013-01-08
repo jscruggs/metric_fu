@@ -1,3 +1,4 @@
+MetricFu.lib_require { 'configuration' }
 module MetricFu
   class Run
     def initialize
