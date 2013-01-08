@@ -1,3 +1,7 @@
+=== MetricFu 2.1.3.7 / 2013-01-08
+
+* Bug fix, ensure Configuration is loaded before Run, https://github.com/metricfu/metric_fu/issues/36
+
 === MetricFu 2.1.3.6 / 2013-01-02
 
 * Fixed bug that wasn't show stats or rails_best_practices graphs
