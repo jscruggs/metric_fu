@@ -2,9 +2,8 @@ module MetricFu
 
   class Churn < Generator
 
-    def initialize(options = {})
+    def initialize(options={})
       super
-      @options = options
       @opts = command_line_options
     end
 
@@ -29,7 +28,7 @@ module MetricFu
     private
       def command_line_options
         opts = ["--yaml"]
-        opts << "--minimum_churn_count=#{@options[:minimum_churn_count]}"if @options[:minimum_churn_count]
+        opts << "--minimum_churn_count=#{@options[:minimum_churn_count]}" if @options[:minimum_churn_count]
 
         opts.join(" ")
       end
