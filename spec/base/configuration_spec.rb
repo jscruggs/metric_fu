@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe MetricFu::Configuration do
 
   def get_new_config
-    @config = Configuration.new
+    MetricFu.configure
+    MetricFu.configuration
   end
 
   def base_directory
@@ -167,17 +168,14 @@ describe MetricFu::Configuration do
       end
 
       describe '#set_metrics ' do
-        it 'should set the @metrics instance var to AVAILABLE_METRICS + '\
-           +'[:stats]' do
-          @config.instance_variable_get(:@metrics).
-                  should == MetricFu::AVAILABLE_METRICS << [:stats]
+        it 'should set the metrics to include stats' do
+          @config.metrics.should include(:stats)
         end
       end
 
       describe '#set_graphs ' do
-        it 'should set the @graphs instance var to AVAILABLE_GRAPHS' do
-          @config.instance_variable_get(:@graphs).
-                  should == MetricFu::AVAILABLE_GRAPHS
+        it 'should set the graphs to include rails_best_practices' do
+          @config.graphs.should include(:rails_best_practices)
         end
       end
 
@@ -197,9 +195,8 @@ describe MetricFu::Configuration do
       end
 
       describe '#set_metrics ' do
-        it 'should set the @metrics instance var to AVAILABLE_METRICS' do
-          @config.instance_variable_get(:@metrics).
-                  should == MetricFu::AVAILABLE_METRICS
+        it 'should set the available metrics' do
+          @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro]
         end
       end
 
@@ -215,7 +212,7 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    MetricFu::AVAILABLE_METRICS.each do |metric|
+    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
       it "should have a reader for #{metric}" do
         @config.respond_to?(metric).should be_true
       end
@@ -230,13 +227,13 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    MetricFu::AVAILABLE_METRICS.each do |metric|
+    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
       it "should add a #{metric} class method to the MetricFu module " do
         MetricFu.should respond_to(metric)
       end
     end
 
-    MetricFu::AVAILABLE_GRAPHS.each do |graph|
+    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |graph|
       it "should add a #{graph} class metrhod to the MetricFu module" do
         MetricFu.should respond_to(graph)
       end
