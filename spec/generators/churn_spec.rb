@@ -16,12 +16,12 @@ describe Churn do
 
     it "initializes with yaml option" do
       churn = MetricFu::Churn.new
-      churn.instance_variable_get(:@opts).should == "--yaml"
+      churn.send(:build_churn_options).should == "--yaml"
     end
 
     it "initializes with given minimum_churn_count option" do
       churn = MetricFu::Churn.new( { :minimum_churn_count => 5 })
-      churn.instance_variable_get(:@opts).should == "--yaml --minimum_churn_count=5"
+      churn.send(:build_churn_options).should == "--yaml --minimum_churn_count=5"
     end
   end
 
@@ -69,13 +69,13 @@ describe Churn do
     end
 
     it "returns churn output" do
-      @churn.stub(:command_line_call).and_return("  master\n#{churn_yaml}")
+      @churn.stub(:churn_code).and_return("  master\n#{churn_yaml}")
       result = @churn.emit
       result.should == churn_yaml
     end
 
     it "returns nil, when churn result is not yaml" do
-      @churn.stub(:command_line_call).and_return("  master\n")
+      @churn.stub(:churn_code).and_return("  master\n")
       result = @churn.emit
       result.should be nil
     end

@@ -3,7 +3,9 @@ module MetricFu
   class Stats < Generator
 
     def emit
-      `rake stats > #{metric_directory + '/stats.txt'}`
+      command = %Q(rake stats > #{metric_directory + '/stats.txt'})
+      mf_debug "** #{command}"
+      @output = `#{command}`
     end
 
     def analyze
