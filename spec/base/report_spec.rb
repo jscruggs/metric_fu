@@ -51,6 +51,7 @@ describe MetricFu::Report do
       report_inst.should_receive(:generate_report).and_return({:a => 'b'})
       report_inst.should_receive(:respond_to?).and_return(false)
 
+      MetricFu.should_receive(:send).with(report_type).and_return({})
       MetricFu.should_receive(:const_get).
                with('Type').and_return(report_type)
       report_hash = mock('report_hash')
