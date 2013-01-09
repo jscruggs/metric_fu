@@ -38,6 +38,10 @@ module MetricFu
   class Configuration
 
     def initialize #:nodoc:#
+      reset
+    end
+
+    def reset
       @verbose = false
       set_directories
       configure_template
@@ -126,14 +130,19 @@ module MetricFu
       @data_directory    = MetricFu.data_dir
       # due to behavior differences between ruby 1.8.7 and 1.9.3
       # this is good enough for now
-      [@base_directory, @scratch_directory, @output_directory].each do |dir|
-        FileUtils.mkdir_p dir
-      end
+      create_directories [@base_directory, @scratch_directory, @output_directory]
+
       @metric_fu_root_directory = MetricFu.root_dir
       @template_directory =  File.join(@metric_fu_root_directory,
                                        'lib', 'templates')
       @file_globs_to_ignore = []
       set_code_dirs
+    end
+
+    def create_directories(*dirs)
+      Array(*dirs).each do |dir|
+        FileUtils.mkdir_p dir
+      end
     end
 
     # Add the 'app' directory if we're running within rails.
