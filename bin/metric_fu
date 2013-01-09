@@ -1,2 +1,3 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','lib','metric_fu'))
+#!/usr/bin/env ruby
+require 'metric_fu'
 MetricFu::Run.new.run
