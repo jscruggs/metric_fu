@@ -3,8 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe MetricFu::Configuration do
 
   def get_new_config
-    MetricFu.configure
+    ENV['CC_BUILD_ARTIFACTS'] = nil
     @config = MetricFu.configuration
+    @config.reset
+    MetricFu.configure
     @config.stub :create_directories # no need to create directories for the tests
     @config
   end
@@ -42,8 +44,9 @@ describe MetricFu::Configuration do
 
       it 'should return the CC_BUILD_ARTIFACTS environment variable' do
         ENV['CC_BUILD_ARTIFACTS'] = 'foo'
-        get_new_config
+        @config = MetricFu.configuration
         @config.reset
+        MetricFu.configure
         compare_paths(base_directory, ENV['CC_BUILD_ARTIFACTS'])
       end
     end
@@ -122,17 +125,6 @@ describe MetricFu::Configuration do
                 should == { :start_date => "1 year ago", :minimum_churn_count => 10}
       end
 
-      it 'should set @stats to {}' do
-        load_metric 'churn'
-        @config.instance_variable_get(:@stats).
-                should == {}
-      end
-
-      it 'should set @rails_best_practices to {}' do
-        load_metric 'rails_best_practices'
-        @config.instance_variable_get(:@rails_best_practices).
-                should == {}
-      end
 
       it 'should set @rcov to { :test_files => ["test/**/*_test.rb",
                                                 "spec/**/*_spec.rb"]
@@ -181,8 +173,10 @@ describe MetricFu::Configuration do
     describe 'if #rails? is true ' do
 
       before(:each) do
-        get_new_config
+        @config = MetricFu.configuration
         @config.stub!(:rails?).and_return(true)
+        @config.reset
+        MetricFu.configure
         %w(stats rails_best_practices).each do |metric|
           load_metric metric
         end
@@ -202,11 +196,20 @@ describe MetricFu::Configuration do
 
       describe '#set_code_dirs ' do
         it 'should set the @code_dirs instance var to ["app", "lib"]' do
-          # This is hard to spec properly because the @code_dirs variable
-          # is set during the reset process.
-          #@config.instance_variable_get(:@code_dirs).
-          #        should == ['app','lib']
+          @config.instance_variable_get(:@code_dirs).
+                  should == ['app','lib']
         end
+      end
+      it 'should set @stats to {}' do
+        load_metric 'stats'
+        @config.instance_variable_get(:@stats).
+                should == {}
+      end
+
+      it 'should set @rails_best_practices to {}' do
+        load_metric 'rails_best_practices'
+        @config.instance_variable_get(:@rails_best_practices).
+                should == {}
       end
     end
 
@@ -219,16 +222,12 @@ describe MetricFu::Configuration do
         end
       end
 
-      describe '#set_metrics ' do
-        it 'should set the available metrics' do
-          @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro]
-        end
+      it 'should set the available metrics' do
+        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro]
       end
 
-      describe '#set_code_dirs ' do
-        it 'should set the @code_dirs instance var to ["lib"]' do
-          @config.instance_variable_get(:@code_dirs).should == ['lib']
-        end
+      it 'should set the @code_dirs instance var to ["lib"]' do
+        @config.instance_variable_get(:@code_dirs).should == ['lib']
       end
     end
   end
