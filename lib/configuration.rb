@@ -157,6 +157,7 @@ module MetricFu
     def add_promiscuous_instance_variable(name,value)
       instance_variable_set("@#{name}", value)
       add_promiscuous_method(name)
+      value
     end
 
     def add_promiscuous_method(method_name)
