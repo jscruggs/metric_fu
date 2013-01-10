@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe MetricFu::Configuration do
 
   def get_new_config
-    @config = Configuration.new
+    @config = MetricFu::Configuration.new
   end
 
   def base_directory
