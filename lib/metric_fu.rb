@@ -40,6 +40,13 @@ module MetricFu
   def self.artifact_dir
     (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
   end
+  def self.configure
+    MetricFu.lib_require { 'configuration' }
+    Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each do |file|
+      require file
+    end
+    MetricFu.configuration
+  end
   class << self
     %w(scratch output _data).each do |dir|
       define_method("#{dir.gsub(/[^A-Za-z0-9]/,'')}_dir") do

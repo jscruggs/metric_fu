@@ -4,8 +4,7 @@ describe MetricFu::Generator do
 
   include Construct::Helpers
 
-  MetricFu::Configuration.run do |config|
-  end
+  MetricFu.configure
 
   class ConcreteClass < MetricFu::Generator
     def emit

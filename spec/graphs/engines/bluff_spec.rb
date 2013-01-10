@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
 describe "Bluff graphers responding to #graph!" do
   it "should write chart file" do
-    MetricFu.configuration
+    MetricFu.configure
     graphs = {}
-    available_graphs = MetricFu::AVAILABLE_GRAPHS + [:stats]
+    available_graphs = MetricFu.graphs
     available_graphs.each do |graph|
       grapher_name = graph.to_s.gsub("MetricFu::",'').gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       grapher_name =  grapher_name+"BluffGrapher"
