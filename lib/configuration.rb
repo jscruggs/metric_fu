@@ -175,8 +175,9 @@ module MetricFu
 
 
     def add_accessor_to_config(method_name)
-      MetricFu::Configuration.send(:attr_accessor, method_name)
+      self.class.send(:attr_accessor, method_name)
     end
+    public :add_accessor_to_config
 
     # Searches through the instance variables of the class and
     # creates a class method on the MetricFu module to read the value
