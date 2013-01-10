@@ -3,10 +3,10 @@ MetricFu.reporting_require { 'templates/awesome/awesome_template' }
 module MetricFu
 
 
-  # The @@configuration class variable holds a global type configuration
+  # The @configuration class variable holds a global type configuration
   # object for any parts of the system to use.
   def self.configuration
-    @@configuration ||= Configuration.new
+    @configuration ||= Configuration.new
   end
 
   # = Configuration
@@ -22,8 +22,7 @@ module MetricFu
   #
   # * Add 'app' to the @code_dirs directory to include the
   #   code in the app directory in the processing
-  # * Add :stats to the list of metrics to run to get the Rails stats
-  #   task
+  # * Add :stats  and :rails_best_practices to the list of metrics to run
   #
   # == Customization for CruiseControl.rb
   #
@@ -72,13 +71,13 @@ module MetricFu
     # e.g. :churn
     def add_metric(metric)
       add_promiscuous_method(metric)
-      @metrics = (@metrics << metric).uniq
+      self.metrics = (metrics << metric).uniq
     end
 
     # e.g. :reek
     def add_graph(metric)
       add_promiscuous_method(metric)
-      @graphs = (@graphs << metric).uniq
+      self.graphs = (graphs << metric).uniq
     end
 
     # e.g. :reek, {}
@@ -89,7 +88,7 @@ module MetricFu
     # e.g. :bluff
     def add_graph_engine(graph_engine)
       add_promiscuous_method(graph_engine)
-      @graph_engines = (@graph_engines << graph_engine).uniq
+      self.graph_engines = (graph_engines << graph_engine).uniq
     end
 
     # e.g. :bluff
@@ -100,9 +99,9 @@ module MetricFu
     # Perform a simple check to try and guess if we're running
     # against a rails app.
     #
-    # @todo  This should probably be made a bit more robust.
+    # TODO This should probably be made a bit more robust.
     def rails?
-      @rails = File.exist?("config/environment.rb")
+      add_promiscuous_instance_variable(:rails, File.exist?("config/environment.rb"))
     end
 
     def is_cruise_control_rb?
@@ -116,26 +115,27 @@ module MetricFu
     private
 
     def configure_template
-      @template_class = AwesomeTemplate
-      @link_prefix = nil
-      @darwin_txmt_protocol_no_thanks = true
-      # uses the CodeRay gem (was syntax gem)
-      @syntax_highlighting = true #Can be set to false to avoid UTF-8 issues with Ruby 1.9.2 and Syntax 1.0
+      add_promiscuous_instance_variable(:template_class, AwesomeTemplate)
+      add_promiscuous_instance_variable(:link_prefix, nil)
+      add_promiscuous_instance_variable(:darwin_txmt_protocol_no_thanks, true)
+      # turning off syntax_highlighting may avoid some UTF-8 issues
+      add_promiscuous_instance_variable(:syntax_highlighting, true)
     end
 
     def set_directories
-      @base_directory    = MetricFu.artifact_dir
-      @scratch_directory = MetricFu.scratch_dir
-      @output_directory  = MetricFu.output_dir
-      @data_directory    = MetricFu.data_dir
+      add_promiscuous_instance_variable(:base_directory,MetricFu.artifact_dir)
+      add_promiscuous_instance_variable(:scratch_directory,MetricFu.scratch_dir)
+      add_promiscuous_instance_variable(:output_directory,MetricFu.output_dir)
+      add_promiscuous_instance_variable(:data_directory,MetricFu.data_dir)
       # due to behavior differences between ruby 1.8.7 and 1.9.3
       # this is good enough for now
-      create_directories [@base_directory, @scratch_directory, @output_directory]
+      create_directories [base_directory, scratch_directory, output_directory]
 
-      @metric_fu_root_directory = MetricFu.root_dir
-      @template_directory =  File.join(@metric_fu_root_directory,
-                                       'lib', 'templates')
-      @file_globs_to_ignore = []
+      add_promiscuous_instance_variable(:metric_fu_root_directory,MetricFu.root_dir)
+      add_promiscuous_instance_variable(:template_directory,
+                                        File.join(metric_fu_root_directory,
+                                         'lib', 'templates'))
+      add_promiscuous_instance_variable(:file_globs_to_ignore,[])
       set_code_dirs
     end
 
@@ -148,16 +148,15 @@ module MetricFu
     # Add the 'app' directory if we're running within rails.
     def set_code_dirs
       if rails?
-        @code_dirs = ['app', 'lib']
+        add_promiscuous_instance_variable(:code_dirs,['app', 'lib'])
       else
-        @code_dirs = ['lib']
+        add_promiscuous_instance_variable(:code_dirs,['lib'])
       end
     end
 
     def add_promiscuous_instance_variable(name,value)
       instance_variable_set("@#{name}", value)
-      method_name = name.to_s[1..-1].to_sym
-      add_promiscuous_method(method_name)
+      add_promiscuous_method(name)
     end
 
     def add_promiscuous_method(method_name)
