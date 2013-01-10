@@ -40,8 +40,15 @@ module MetricFu
       reset
     end
 
+    def verbose
+      MfDebugger::Logger.debug_on
+    end
+
+    def verbose=(toggle)
+      MfDebugger::Logger.debug_on = toggle
+    end
+
     def reset
-      add_promiscuous_instance_variable(:verbose, false)
       set_directories
       configure_template
       add_promiscuous_instance_variable(:metrics, [])
