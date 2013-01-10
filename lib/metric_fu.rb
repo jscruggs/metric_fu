@@ -43,7 +43,7 @@ module MetricFu
   def self.configure
     MetricFu.lib_require { 'configuration' }
     Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each do |file|
-      require file
+      load file
     end
     MetricFu.configuration
   end
