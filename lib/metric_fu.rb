@@ -45,6 +45,7 @@ module MetricFu
     Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each do |file|
       require file
     end
+    MetricFu.configuration
   end
   class << self
     %w(scratch output _data).each do |dir|

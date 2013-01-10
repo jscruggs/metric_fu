@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 describe Stats do
   describe "emit method" do
     it "should gather the raw data" do
-      MetricFu::Configuration.run {}
+      ENV['CC_BUILD_ARTIFACTS'] = nil
+      MetricFu.configure.reset
       File.stub!(:directory?).and_return(true)
       stats = MetricFu::Stats.new
       stats.should_receive(:`).with("rake stats > tmp/metric_fu/scratch/stats/stats.txt")
@@ -32,7 +33,8 @@ describe Stats do
         Code LOC: 915     Test LOC: 2226     Code to Test Ratio: 1:2.4
 
       HERE
-      MetricFu::Configuration.run {}
+      ENV['CC_BUILD_ARTIFACTS'] = nil
+      MetricFu.configure.reset
       File.stub!(:directory?).and_return(true)
       stats = MetricFu::Stats.new
       File.should_receive(:open).and_return(mock("file", :read => @lines))
@@ -64,7 +66,8 @@ describe Stats do
 
   describe "to_h method" do
     it "should put things into a hash" do
-      MetricFu::Configuration.run {}
+      ENV['CC_BUILD_ARTIFACTS'] = nil
+      MetricFu.configure.reset
       File.stub!(:directory?).and_return(true)
       stats = MetricFu::Stats.new
       stats.instance_variable_set(:@stats, "the_stats")
