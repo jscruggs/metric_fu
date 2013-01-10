@@ -161,15 +161,22 @@ module MetricFu
     end
 
     def add_promiscuous_method(method_name)
-      # def add_class_methods_to_metric_fu
+        add_promiscuous_class_method_to_metric_fu(method_name)
+        add_accessor_to_config(method_name)
+    end
+
+    def add_promiscuous_class_method_to_metric_fu(method_name)
         metric_fu_method = <<-EOF
                   def self.#{method_name}
                     configuration.send(:#{method_name})
                   end
         EOF
-      # def add_attr_accessors_to_self
-        MetricFu.module_eval(metric_fu_method)
-        self.class.send(:attr_accessor, method_name.to_sym)
+      MetricFu.module_eval(metric_fu_method)
+    end
+
+
+    def add_accessor_to_config(method_name)
+      MetricFu::Configuration.send(:attr_accessor, method_name)
     end
 
     # Searches through the instance variables of the class and
@@ -178,12 +185,7 @@ module MetricFu
     def add_class_methods_to_metric_fu
       instance_variables.each do |name|
         method_name = name[1..-1].to_sym
-        method = <<-EOF
-                  def self.#{method_name}
-                    configuration.send(:#{method_name})
-                  end
-        EOF
-        MetricFu.module_eval(method)
+        add_promiscuous_class_method_to_metric_fu(method_name)
       end
     end
 
@@ -193,7 +195,7 @@ module MetricFu
     def add_attr_accessors_to_self
       instance_variables.each do |name|
         method_name = name[1..-1].to_sym
-        MetricFu::Configuration.send(:attr_accessor, method_name)
+        add_accessor_to_config(method_name)
       end
     end
 
