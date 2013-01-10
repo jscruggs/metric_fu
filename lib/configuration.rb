@@ -42,12 +42,12 @@ module MetricFu
     end
 
     def reset
-      add_instance_variable(:verbose, false)
+      add_promiscuous_instance_variable(:verbose, false)
       set_directories
       configure_template
-      add_instance_variable(:metrics, [])
-      add_instance_variable(:graphs, [])
-      add_instance_variable(:graph_engines, [])
+      add_promiscuous_instance_variable(:metrics, [])
+      add_promiscuous_instance_variable(:graphs, [])
+      add_promiscuous_instance_variable(:graph_engines, [])
       add_promiscuous_method(:graph_engine)
       # TODO this needs to go
       # we should use attr_accessors instead
@@ -83,7 +83,7 @@ module MetricFu
 
     # e.g. :reek, {}
     def configure_metric(metric, metric_configuration)
-      add_instance_variable(metric, metric_configuration)
+      add_promiscuous_instance_variable(metric, metric_configuration)
     end
 
     # e.g. :bluff
@@ -94,7 +94,7 @@ module MetricFu
 
     # e.g. :bluff
     def configure_graph_engine(graph_engine)
-      add_instance_variable(:graph_engine, graph_engine)
+      add_promiscuous_instance_variable(:graph_engine, graph_engine)
     end
 
     # Perform a simple check to try and guess if we're running
@@ -154,11 +154,12 @@ module MetricFu
       end
     end
 
-    def add_instance_variable(name,value)
+    def add_promiscuous_instance_variable(name,value)
       instance_variable_set("@#{name}", value)
       method_name = name.to_s[1..-1].to_sym
       add_promiscuous_method(method_name)
     end
+
     def add_promiscuous_method(method_name)
       # def add_class_methods_to_metric_fu
         metric_fu_method = <<-EOF
