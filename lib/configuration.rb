@@ -42,7 +42,7 @@ module MetricFu
     end
 
     def reset
-      @verbose = false
+      add_instance_variable(:verbose, false)
       set_directories
       configure_template
       add_instance_variable(:metrics, [])
