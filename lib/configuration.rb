@@ -5,6 +5,7 @@ module MetricFu
 
   # The @configuration class variable holds a global type configuration
   # object for any parts of the system to use.
+  # TODO Configuration should probably be a singleton class
   def self.configuration
     @configuration ||= Configuration.new
   end
