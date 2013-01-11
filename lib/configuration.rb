@@ -49,6 +49,8 @@ module MetricFu
       MfDebugger::Logger.debug_on = toggle
     end
 
+    # TODO review if these code is functionally duplicated in the
+    # base generator initialize
     def reset
       set_directories
       configure_template
@@ -56,12 +58,6 @@ module MetricFu
       add_promiscuous_instance_variable(:graphs, [])
       add_promiscuous_instance_variable(:graph_engines, [])
       add_promiscuous_method(:graph_engine)
-      # TODO this needs to go
-      # we should use attr_accessors instead
-      # TODO review if these code is functionally duplicated in the
-      # base generator initialize
-      add_attr_accessors_to_self
-      add_class_methods_to_metric_fu
     end
 
     # This allows us to have a nice syntax like:
@@ -148,26 +144,6 @@ module MetricFu
 
     def add_accessor_to_config(method_name)
       self.class.send(:attr_accessor, method_name)
-    end
-
-    # Searches through the instance variables of the class and
-    # creates a class method on the MetricFu module to read the value
-    # of the instance variable from the Configuration class.
-    def add_class_methods_to_metric_fu
-      instance_variables.each do |name|
-        method_name = name[1..-1].to_sym
-        add_promiscuous_class_method_to_metric_fu(method_name)
-      end
-    end
-
-    # Searches through the instance variables of the class and creates
-    # an attribute accessor on this instance of the Configuration
-    # class for each instance variable.
-    def add_attr_accessors_to_self
-      instance_variables.each do |name|
-        method_name = name[1..-1].to_sym
-        add_accessor_to_config(method_name)
-      end
     end
 
     private
