@@ -119,6 +119,56 @@ module MetricFu
       return RUBY_PLATFORM
     end
 
+    def self.ruby_strangely_makes_accessors_private?
+      !!(RUBY_VERSION =~ /1.9.2/)
+    end
+    protected unless ruby_strangely_makes_accessors_private?
+
+    def add_promiscuous_instance_variable(name,value)
+      instance_variable_set("@#{name}", value)
+      add_promiscuous_method(name)
+      value
+    end
+
+    def add_promiscuous_method(method_name)
+        add_promiscuous_class_method_to_metric_fu(method_name)
+        add_accessor_to_config(method_name)
+    end
+
+    def add_promiscuous_class_method_to_metric_fu(method_name)
+        metric_fu_method = <<-EOF
+                  def self.#{method_name}
+                    configuration.send(:#{method_name})
+                  end
+        EOF
+      MetricFu.module_eval(metric_fu_method)
+    end
+
+
+    def add_accessor_to_config(method_name)
+      self.class.send(:attr_accessor, method_name)
+    end
+
+    # Searches through the instance variables of the class and
+    # creates a class method on the MetricFu module to read the value
+    # of the instance variable from the Configuration class.
+    def add_class_methods_to_metric_fu
+      instance_variables.each do |name|
+        method_name = name[1..-1].to_sym
+        add_promiscuous_class_method_to_metric_fu(method_name)
+      end
+    end
+
+    # Searches through the instance variables of the class and creates
+    # an attribute accessor on this instance of the Configuration
+    # class for each instance variable.
+    def add_attr_accessors_to_self
+      instance_variables.each do |name|
+        method_name = name[1..-1].to_sym
+        add_accessor_to_config(method_name)
+      end
+    end
+
     private
 
     def configure_template
@@ -158,52 +208,6 @@ module MetricFu
         add_promiscuous_instance_variable(:code_dirs,['app', 'lib'])
       else
         add_promiscuous_instance_variable(:code_dirs,['lib'])
-      end
-    end
-
-    def add_promiscuous_instance_variable(name,value)
-      instance_variable_set("@#{name}", value)
-      add_promiscuous_method(name)
-      value
-    end
-
-    def add_promiscuous_method(method_name)
-        add_promiscuous_class_method_to_metric_fu(method_name)
-        add_accessor_to_config(method_name)
-    end
-
-    def add_promiscuous_class_method_to_metric_fu(method_name)
-        metric_fu_method = <<-EOF
-                  def self.#{method_name}
-                    configuration.send(:#{method_name})
-                  end
-        EOF
-      MetricFu.module_eval(metric_fu_method)
-    end
-
-
-    def add_accessor_to_config(method_name)
-      self.class.send(:attr_accessor, method_name)
-    end
-    public :add_accessor_to_config
-
-    # Searches through the instance variables of the class and
-    # creates a class method on the MetricFu module to read the value
-    # of the instance variable from the Configuration class.
-    def add_class_methods_to_metric_fu
-      instance_variables.each do |name|
-        method_name = name[1..-1].to_sym
-        add_promiscuous_class_method_to_metric_fu(method_name)
-      end
-    end
-
-    # Searches through the instance variables of the class and creates
-    # an attribute accessor on this instance of the Configuration
-    # class for each instance variable.
-    def add_attr_accessors_to_self
-      instance_variables.each do |name|
-        method_name = name[1..-1].to_sym
-        add_accessor_to_config(method_name)
       end
     end
 
