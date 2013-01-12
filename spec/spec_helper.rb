@@ -15,8 +15,6 @@ RSpec.configure do |config|
   # :each ever describe block
   # :all ever it block
 
-  config.include MetricFu
-
   config.after(:suite) do
     cleanup_test_files
   end
