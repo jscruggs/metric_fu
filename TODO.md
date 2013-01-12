@@ -18,7 +18,7 @@
 ## Testing
 
 * Determine how to test metric_fu against codebases that are not metric_fu, to ensure it works on most applications
-* Re-organize test files structure to align with changed structure of library files
+* <strike>Re-organize test files structure to align with changed structure of library files</strike>
 * Remove / Modify Devver code from the generators/hotspots_spec and base/hotspot_analzyer_spec
 * <strike>Don't leave around test artifacts such as the folders './foo' and './is set'</strike>
 
