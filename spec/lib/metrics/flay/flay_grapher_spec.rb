@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
+require "spec_helper"
 
 describe FlayGrapher do
   before :each do
@@ -21,7 +21,7 @@ describe FlayGrapher do
   describe "responding to #get_metrics" do
     context "when metrics were not generated" do
       before(:each) do
-        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "metric_missing.yml")))
+        @metrics = YAML::load(File.open("#{resources_path}/yml/metric_missing.yml"))
         @date = "1/2"
       end
 
@@ -38,7 +38,7 @@ describe FlayGrapher do
 
     context "when metrics have been generated" do
       before(:each) do
-        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
+        @metrics = YAML::load(File.open("#{resources_path}/yml/20090630.yml"))
         @date = "1/2"
       end
 

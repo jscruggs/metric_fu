@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
+require "spec_helper"
 
 describe MetricFu::FlogGrapher do
   before :each do
@@ -47,7 +47,7 @@ describe MetricFu::FlogGrapher do
 
     context "when metrics were not generated" do
       before(:each) do
-        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "metric_missing.yml")))
+        @metrics = YAML::load(File.open("#{resources_path}/yml/metric_missing.yml"))
         @date = "1/2"
       end
 
@@ -69,7 +69,7 @@ describe MetricFu::FlogGrapher do
 
     context "when metrics have been generated" do
       before(:each) do
-        @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
+        @metrics = YAML::load(File.open("#{resources_path}/yml/20090630.yml"))
         @date = "1/2"
       end
 
@@ -93,7 +93,7 @@ describe MetricFu::FlogGrapher do
 
   describe "responding to #get_metrics with legacy data" do
     before(:each) do
-      @metrics = YAML::load(File.open(File.join(File.dirname(__FILE__), "..", "resources", "yml", "20090630.yml")))
+      @metrics = YAML::load(File.open("#{resources_path}/yml/20090630.yml"))
 
       @date = "1/2"
     end

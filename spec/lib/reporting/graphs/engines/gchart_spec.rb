@@ -1,4 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
+require "spec_helper"
+
 describe MetricFu::Grapher do
   describe "require_graphing_gem" do
     it "should give a warning if trying to use gchart but gem is not installed" do

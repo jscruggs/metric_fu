@@ -9,3 +9,8 @@ def cleanup_test_files
   FileUtils.rm_rf(Dir["#{MetricFu.root_dir}/is set"])
 rescue => exception
 end
+
+
+def resources_path
+  "#{MetricFu.root_dir}/spec/resources"
+end

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
+require "spec_helper"
 
 describe Saikuro do
   describe "to_h method" do
@@ -6,7 +6,7 @@ describe Saikuro do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
       saikuro = MetricFu::Saikuro.new
-      saikuro.stub!(:metric_directory).and_return(File.join(File.dirname(__FILE__), "..", "resources", "saikuro"))
+      saikuro.stub!(:metric_directory).and_return("#{resources_path}/saikuro")
       saikuro.analyze
       @output = saikuro.to_h
     end
@@ -39,7 +39,7 @@ describe Saikuro do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
       @saikuro = MetricFu::Saikuro.new
-      @saikuro.stub!(:metric_directory).and_return(File.join(File.dirname(__FILE__), "..", "resources", "saikuro"))
+      @saikuro.stub!(:metric_directory).and_return("#{resources_path}/saikuro")
       @saikuro.analyze
       @output = @saikuro.to_h
     end
@@ -65,7 +65,7 @@ describe Saikuro do
   describe Saikuro::SFile do
     describe "getting elements from a Saikuro result file" do
      it "should parse nested START/END sections" do
-       path = File.join(File.dirname(__FILE__), "..", "resources", "saikuro_sfiles", "thing.rb_cyclo.html")
+       path = "#{resources_path}/saikuro_sfiles/thing.rb_cyclo.html"
         sfile = Saikuro::SFile.new path
        sfile.elements.map { |e| e.complexity }.sort.should eql(["0","0","2"])
       end
