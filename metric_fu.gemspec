@@ -43,9 +43,9 @@ Gem::Specification.new do |s|
     "googlecharts"          => []
   }.each do |gem, version|
     if version == []
-      s.add_dependency(gem)
+      s.add_runtime_dependency(gem)
     else
-      s.add_dependency(gem,version)
+      s.add_runtime_dependency(gem,version)
     end
   end
 
