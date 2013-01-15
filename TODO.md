@@ -18,6 +18,7 @@
 ## Testing
 
 * Determine how to test metric_fu against codebases that are not metric_fu, to ensure it works on most applications
+  * This is especially true for rails applications
 * <strike>Re-organize test files structure to align with changed structure of library files</strike>
 * Remove / Modify Devver code from the generators/hotspots_spec and base/hotspot_analzyer_spec
 * <strike>Don't leave around test artifacts such as the folders './foo' and './is set'</strike>
@@ -37,7 +38,11 @@
 
 * Determine if CodeIssue is used, else remove it
 * Remove references to Ruport from the Devver / Caliper code
-* Update the homepage http://metric-fu.rubyforge.org/
+* Update or move the homepage http://metric-fu.rubyforge.org/
+* Is there any reason not to remove the Manifest.txt?
+* See other documentation code for examples to improve ours:
+  * https://github.com/charliesome/better_errors/blob/master/CONTRIBUTING.md
+  * https://github.com/charliesome/better_errors/blob/master/README.md
 * Other intersting libraries to consider:
   * https://github.com/vinibaggio/discover-unused-partials
   * https://github.com/metricfu/heckle
