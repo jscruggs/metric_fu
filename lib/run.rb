@@ -5,13 +5,19 @@ module MetricFu
       STDOUT.sync = true
     end
     def run
-      add_metrics
+      run_reports
       save_reports
       save_graphs
       display_results
     end
-    def add_metrics
-      MetricFu.metrics.each {|metric|
+
+    # ensure :hotspots runs last
+    def report_metrics(metrics=MetricFu.metrics)
+      hotspots = metrics.delete(:hotspots)
+      MetricFu.metrics.push(:hotspots)
+    end
+    def run_reports
+      report_metrics.each {|metric|
         mf_debug "** STARTING METRIC #{metric}"
         MetricFu.report.add(metric)
         mf_debug "** ENDING METRIC #{metric}"
