@@ -25,7 +25,7 @@
 ## Bugs / Fixes
 
 * Fix occasional gem install metric_fu failures such as with ripper in Ruby 1.9
-* Fork roodi and correct the yaml
+* <strike>Fork roodi and correct the yaml</strike>
 * See https://github.com/metricfu/metric_fu/issues/2 about updating gems
 
 ## Ruby 1.9 compatibility
@@ -44,3 +44,6 @@
   * https://github.com/metricfu/gauntlet
   * https://github.com/metricfu/repodepot-ruby
   * https://github.com/eladmeidar/rails_indexes
+  * https://github.com/thoughtbot/appraisal
+  * https://github.com/jenkinsci/rubymetrics-plugin
+  * https://github.com/holman/hopper
