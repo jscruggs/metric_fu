@@ -1,6 +1,20 @@
-=== MetricFu 2.1.3.7 / 2013-01-08
+=== master ===
+
+* Add commandline behavior to `metric_fu`. Now there are options -v, -r, and -h
+* Clean up global ivars a bit in Configuration
+* Re-organized test files - Michael Stark
+* Rspec2 - Michael Stark
+* Unify verbose logging
+* Modularize
+
+=== MetricFu 2.1.3.7.18.1 / 2013-01-09
+
+* Same as 2.1.3.7.18.1 but gem packaged using ruby 1.8 dependencies, including ripper
+
+=== MetricFu 2.1.3.7.19 / 2013-01-08
 
 * Bug fix, ensure Configuration is loaded before Run, https://github.com/metricfu/metric_fu/issues/36
+* Gem packaged using ruby 1.9 dependencies.  Learned that we cannot dynamically change dependencies for a packaged gem.
 
 === MetricFu 2.1.3.6 / 2013-01-02
 
@@ -9,7 +23,6 @@
 * Move the metrics code in the rake task into its own file
 * Remove executable metric_fu dependency on rake
 * TODO: some unclear dependency issues may make metrics in 1.9 crash, esp Flog, Flay, Stats
-
 
 === MetricFu 2.1.3.5 / 2013-01-01
 
