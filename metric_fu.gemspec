@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
     "sexp_processor"        => ["~> 3.0.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
     # "ruby_parser"           => ["~> 2.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
     "activesupport"         => [">= 2.0.0"], # ok
-    # "syntax"                => ["= 1.0.0"],
     "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
     "arrayfields"           => ["= 4.7.4"],
