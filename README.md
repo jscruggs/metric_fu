@@ -22,6 +22,10 @@ It is currently testing on MRI 1.8.7, 1.9.2, and 1.9.3
 
 * Please note that rake version 10.0.2 cannot be used, whereas 0.8.7 through 0.9.2.2 do work.
 
+_Gem Badge_
+
+[![Gem Version](https://badge.fury.io/rb/metric_fu.png)](http://badge.fury.io/rb/metric_fu)
+
 
 __CI Build Status__
 
