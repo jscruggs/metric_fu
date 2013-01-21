@@ -3,7 +3,10 @@
 
 ## Features
 
-* Look into removing rcov and churn, and adding
+* Remove rcov by default
+* Either allow user to define a command to run a coverage task or supply a directory with coverage results.   We can't predict every test setup to run coverage correctly, but we can analyze results.
+* Look into getting everything to run on RubyParser ~> 3
+* Look into adding
   * https://github.com/metricfu/code_statistics
   * brakeman https://github.com/metricfu/brakeman
   * cane https://github.com/square/cane
@@ -13,6 +16,7 @@
 * Color code flog results with scale from: http://jakescruggs.blogspot.com/2008/08/whats-good-flog-score.html
 * Make running metric_fu on metric_fu less embarrassing
 * Load all gems at config time so you fail fast if one is missing
+* Refactor the hotspots code
 
 
 ## Testing
@@ -44,11 +48,15 @@
   * https://github.com/charliesome/better_errors/blob/master/CONTRIBUTING.md
   * https://github.com/charliesome/better_errors/blob/master/README.md
 * Other intersting libraries to consider:
+  * https://gist.github.com/4562865 for generating Flog on ERB templates by jamesmartin
+  * https://github.com/chad/turbulence churn and complexity (flog)
   * https://github.com/vinibaggio/discover-unused-partials
-  * https://github.com/metricfu/heckle
+  * https://github.com/metricfu/heckle (test mutation)
+  * https://github.com/mbj/mutant (test mutation)
   * https://github.com/metricfu/gauntlet
-  * https://github.com/metricfu/repodepot-ruby
+  * https://github.com/metricfu/repodepot-ruby https://twitter.com/jakescruggs/status/70521977303076865
   * https://github.com/eladmeidar/rails_indexes
+  * https://github.com/trptcolin/consistency_fail 
   * https://github.com/thoughtbot/appraisal
   * https://github.com/jenkinsci/rubymetrics-plugin
   * https://github.com/holman/hopper
