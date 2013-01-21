@@ -5,7 +5,6 @@ MetricFu.metrics_require   { 'graph' }
 MetricFu.reporting_require { 'graphs/grapher' }
 MetricFu.metrics_require   { 'hotspots/analysis/scoring_strategies' }
 
-# Now load everything else that's in the directory
 Dir.glob(File.join(MetricFu.lib_dir, '*.rb')).each do |file|
   require file
 end
@@ -29,10 +28,3 @@ end
 Dir.glob(File.join(MetricFu.reporting_dir, '**/*.rb')).each do |file|
   require file
 end
-# Dir[File.expand_path File.join(base_dir, '*.rb')].each{|l| require l }
-# Dir[File.expand_path File.join(generator_dir, '*.rb')].each {|l| require l }
-# Dir[File.expand_path File.join(template_dir, 'standard/*.rb')].each {|l| require l}
-# Dir[File.expand_path File.join(template_dir, 'awesome/*.rb')].each {|l| require l}
-# require graph_dir + "/grapher"
-# Dir[File.expand_path File.join(graph_dir, '*.rb')].each {|l| require l}
-# Dir[File.expand_path File.join(graph_dir, 'engines', '*.rb')].each {|l| require l}
