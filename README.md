@@ -20,7 +20,6 @@ It is currently testing on MRI 1.8.7, 1.9.2, and 1.9.3
 
 * Until we can upgrade to the latest RubyParser, metric_fu will fail on parsing some 1.9 code, e.g. the new hash syntax, and possibly have issues with encodings
 
-* Please note that rake version 10.0.2 cannot be used, whereas 0.8.7 through 0.9.2.2 do work.
 
 _Gem Badge_
 
