@@ -1,5 +1,7 @@
 # TODO list
 
+* Keep HISTORY.md in master up to date
+
 ## Before next release
 
 * Move code that references rcov out of
