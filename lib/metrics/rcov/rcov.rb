@@ -19,17 +19,28 @@ module MetricFu
     end
 
     def emit
-      unless MetricFu.rcov[:external]
-        FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
-        Dir.mkdir(MetricFu::Rcov.metric_directory)
-        test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
-        rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
-        output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
+      if run_rcov?
         mf_debug "** Running the specs/tests in the [#{MetricFu.rcov[:environment]}] environment"
-        command = %Q(RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output})
         mf_debug "** #{command}"
         `#{command}`
       end
+    end
+
+    def command
+      @command ||= default_command
+    end
+
+    def command=(command)
+      @command = command
+    end
+
+    def default_command
+      FileUtils.rm_rf(MetricFu::Rcov.metric_directory, :verbose => false)
+      Dir.mkdir(MetricFu::Rcov.metric_directory)
+      output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
+      test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
+      rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
+      %Q(RAILS_ENV=#{MetricFu.rcov[:environment]} rcov #{test_files} #{rcov_opts} #{output})
     end
 
 
@@ -118,6 +129,10 @@ module MetricFu
         percent_run = ((lines_run.to_f / total_lines.to_f) * 100).round
         files[fname][:percent_run] = percent_run
       end
+    end
+
+    def run_rcov?
+      !(MetricFu.rcov[:external])
     end
 
   end

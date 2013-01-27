@@ -22,7 +22,7 @@ module MetricFu
     private
 
     def generate_churn_metrics
-      @output = ensure_output_is_valid_yaml(churn_code)
+      ensure_output_is_valid_yaml(churn_code)
     end
 
     def ensure_output_is_valid_yaml(output)
