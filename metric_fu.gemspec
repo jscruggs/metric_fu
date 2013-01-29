@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/version', __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
+require 'metric_fu/version'
 
 Gem::Specification.new do |s|
   s.name        = "metric_fu"

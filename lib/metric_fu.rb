@@ -1,6 +1,6 @@
 module MetricFu
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
-  LIB_ROOT = File.join(APP_ROOT,'lib')
+  LIB_ROOT = File.join(APP_ROOT,'lib/metric_fu')
   @loaded_files = []
   class << self
     attr_reader :loaded_files

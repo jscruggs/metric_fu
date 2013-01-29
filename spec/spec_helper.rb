@@ -1,9 +1,10 @@
-require 'rubygems'
 require 'rspec/autorun'
 require 'date'
 require 'construct'
 
-require File.expand_path File.join(File.dirname(__FILE__), '/../lib/metric_fu.rb')
+# add lib to the load path just like rubygems does
+$:.push File.expand_path("../../lib", __FILE__)
+require 'metric_fu'
 include MetricFu
 
 # Requires supporting ruby files with custom matchers and macros, etc,
