@@ -1,11 +1,12 @@
 require 'rake'
 require 'yaml'
 begin
+  require 'active_support'
   require 'active_support/core_ext/object/to_json'
   require 'active_support/core_ext/object/blank'
   require 'active_support/inflector'
 rescue LoadError
-  require 'activesupport'
+  require 'activesupport' unless defined?(ActiveSupport)
 end
 
 # Load a few things to make our lives easier elsewhere.
