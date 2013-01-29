@@ -1,3 +1,3 @@
 module MetricFu
-  VERSION = "2.1.3.7.19"
+  VERSION = "2.1.4.pre"
 end
