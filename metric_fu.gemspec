@@ -33,8 +33,9 @@ Gem::Specification.new do |s|
     "reek"                  => ["= 1.3"],
     "churn"                 => ["= 0.0.28"],
       # specifying dependencies for flay, reek, churn, and flog
-      "ruby_parser"           => ["~> 3.0.4"],
+      "ruby_parser"           => ["~> 3.0", ">= 3.0.4"],
       "sexp_processor"        => ["~> 4.0"],
+      "ruby2ruby"             => ["= 2.0.1"],
     "activesupport"         => [">= 2.0.0"], # ok
     "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
