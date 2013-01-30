@@ -122,7 +122,7 @@ describe MetricFu::Configuration do
       it 'should set @churn to {}' do
         load_metric 'churn'
         @config.instance_variable_get(:@churn).
-                should == { :start_date => "1 year ago", :minimum_churn_count => 10}
+                should == { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
       end
 
 
