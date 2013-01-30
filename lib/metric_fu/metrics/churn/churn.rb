@@ -55,7 +55,8 @@ module MetricFu
     end
     def churn_options
       {
-        :minimum_churn_count => '--minimum_churn_count'
+        :minimum_churn_count => '--minimum_churn_count',
+        :start_date => '--start_date'
       }
     end
 
