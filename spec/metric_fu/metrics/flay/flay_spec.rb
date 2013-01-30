@@ -7,7 +7,7 @@ describe Flay do
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')
 
-      @flay.should_receive(:`).with("flay  app lib")
+      @flay.should_receive(:`).with("mf-flay  app lib")
       output = @flay.emit
     end
 
@@ -16,7 +16,7 @@ describe Flay do
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')
 
-      @flay.should_receive(:`).with("flay --mass 99  ")
+      @flay.should_receive(:`).with("mf-flay --mass 99  ")
       output = @flay.emit
     end
   end

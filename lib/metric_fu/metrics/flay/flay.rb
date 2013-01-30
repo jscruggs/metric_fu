@@ -7,7 +7,7 @@ module MetricFu
     def emit
       mimimum_score_parameter = MetricFu.flay[:minimum_score] ? "--mass #{MetricFu.flay[:minimum_score]} " : ""
 
-      command = %Q(flay #{mimimum_score_parameter} #{MetricFu.flay[:dirs_to_flay].join(" ")})
+      command = %Q(mf-flay #{mimimum_score_parameter} #{MetricFu.flay[:dirs_to_flay].join(" ")})
       mf_debug "** #{command}"
       @output = `#{command}`
     end
