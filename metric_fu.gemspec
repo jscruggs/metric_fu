@@ -21,19 +21,20 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   {
-    "flay"                  => ["= 1.2.1"],
-    "flog"                  => ["= 2.3.0"],
-    "reek"                  => ["= 1.2.12"],
-    "metric_fu-roodi"       => [">= 2.2.0"],
     "rails_best_practices"  => ["= 1.13.2"],
     "rcov"                  => ["~> 0.8"],
     # still using rcov in ruby 1.9 till some errors are fleshed out
     # "simplecov"             => [">= 0.5.4"],
     # "simplecov-rcov"        => [">= 0.2.3"],
     "japgolly-Saikuro"      => [">= 1.1.1.0"],
-    "churn"                 => ["= 0.0.25"],
-    "sexp_processor"        => ["~> 3.0.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
-    # "ruby_parser"           => ["~> 2.3"], # required because of churn, flog, reek 1.2.12, ripper_ruby_parser 0.0.8
+    "metric_fu-roodi"       => [">= 2.2.0"],
+    "flay"                  => ["= 2.0.1"],
+    "flog"                  => ["= 3.2.0"],
+    "reek"                  => ["= 1.3"],
+    "churn"                 => ["= 0.0.28"],
+      # specifying dependencies for flay, reek, churn, and flog
+      "ruby_parser"           => ["~> 3.0.4"],
+      "sexp_processor"        => ["~> 4.0"],
     "activesupport"         => [">= 2.0.0"], # ok
     "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
