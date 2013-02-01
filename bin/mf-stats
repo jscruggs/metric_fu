@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby_noexec_wrapper
+require 'rubygems'
+begin
+  puts File.exists?('Gemfile') && `bundle && bundle exec rake stats`
+rescue LoadError
+  puts `rake stats`
+end
