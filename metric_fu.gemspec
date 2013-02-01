@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 require 'metric_fu/version'
+require 'metric_fu_requires'
 
 Gem::Specification.new do |s|
   s.name        = "metric_fu"
@@ -21,21 +22,21 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   {
-    "rails_best_practices"  => ["= 1.13.2"],
-    "rcov"                  => ["~> 0.8"],
+    "rails_best_practices"  => ["= #{MetricFu::MetricVersion.rails_best_practices}"],
+    "rcov"                  => ["#{MetricFu::MetricVersion.rcov}"],
     # still using rcov in ruby 1.9 till some errors are fleshed out
     # "simplecov"             => [">= 0.5.4"],
     # "simplecov-rcov"        => [">= 0.2.3"],
-    "japgolly-Saikuro"      => [">= 1.1.1.0"],
-    "metric_fu-roodi"       => [">= 2.2.0"],
-    "flay"                  => ["= 2.0.1"],
-    "flog"                  => ["= 3.2.0"],
-    "reek"                  => ["= 1.3"],
-    "churn"                 => ["= 0.0.28"],
+    "japgolly-Saikuro"      => ["#{MetricFu::MetricVersion.saikuro}"],
+    "metric_fu-roodi"       => [">= #{MetricFu::MetricVersion.roodi}"],
+    "flay"                  => ["= #{MetricFu::MetricVersion.flay}"],
+    "flog"                  => ["= #{MetricFu::MetricVersion.flog}"],
+    "reek"                  => ["= #{MetricFu::MetricVersion.reek}"],
+    "churn"                 => ["= #{MetricFu::MetricVersion.churn}"],
       # specifying dependencies for flay, reek, churn, and flog
-      "ruby_parser"           => ["~> 3.0", ">= 3.0.4"],
-      "sexp_processor"        => ["~> 4.0"],
-      "ruby2ruby"             => ["= 2.0.1"],
+      "ruby_parser"           => ["~> 3.0", ">= #{MetricFu::MetricVersion.ruby_parser}"],
+      "sexp_processor"        => ["#{MetricFu::MetricVersion.sexp_processor}"],
+      "ruby2ruby"             => ["= #{MetricFu::MetricVersion.ruby2ruby}"],
     "activesupport"         => [">= 2.0.0"], # ok
     "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
