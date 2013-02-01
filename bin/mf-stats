@@ -2,6 +2,6 @@
 require 'rubygems'
 begin
   puts File.exists?('Gemfile') && `bundle && bundle exec rake stats`
-rescue LoadError
+rescue StandardError, LoadError => e
   puts `rake stats`
 end
