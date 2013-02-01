@@ -14,7 +14,7 @@ module MetricFu
       '0.0.28'
     end
     def roodi
-      '2.2.0'
+      '2.2.1'
     end
     def rails_best_practices
       '1.13.2'
