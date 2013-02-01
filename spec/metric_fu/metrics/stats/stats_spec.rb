@@ -7,7 +7,7 @@ describe Stats do
       MetricFu.configure.reset
       File.stub!(:directory?).and_return(true)
       stats = MetricFu::Stats.new
-      stats.should_receive(:`).with("rake stats > tmp/metric_fu/scratch/stats/stats.txt")
+      stats.should_receive(:`).with("mf-stats > tmp/metric_fu/scratch/stats/stats.txt")
       stats.emit
     end
   end
