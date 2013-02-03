@@ -2,10 +2,10 @@ module MetricFu
   module MetricVersion
     extend self
     def reek
-      '1.3'
+      '1.3.1'
     end
     def flog
-      '3.2.0'
+      '3.2.2'
     end
     def flay
       '2.0.1'
@@ -21,10 +21,10 @@ module MetricFu
     end
 
     def ruby2ruby
-      '2.0.1'
+      '2.0.2'
     end
     def ruby_parser
-      '3.0.4'
+      '3.1.1'
     end
     def sexp_processor
       '~> 4.0'
