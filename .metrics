@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# For testing that this file gets loaded
+puts "Metrics config loaded"
+# example configuration
+# MetricFu::Configuration.run do |config|
+#   config.metrics -= [ :rcov ]
+# end

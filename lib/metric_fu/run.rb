@@ -1,8 +1,10 @@
 MetricFu.configure
 module MetricFu
   class Run
-    def initialize
+    def initialize(options={})
       STDOUT.sync = true
+      load_user_configuration
+      disable_metrics(options)
     end
     def run
       run_reports
@@ -13,8 +15,9 @@ module MetricFu
 
     # ensure :hotspots runs last
     def report_metrics(metrics=MetricFu.metrics)
-      hotspots = metrics.delete(:hotspots)
-      MetricFu.metrics.push(:hotspots)
+      MetricFu.configuration.metrics -= [ :hotspots ]
+      MetricFu.configuration.metrics += [ :hotspots ]
+      MetricFu.configuration.metrics
     end
     def run_reports
       report_metrics.each {|metric|
@@ -50,6 +53,22 @@ module MetricFu
         MetricFu.report.show_in_browser(MetricFu.output_directory)
       end
     end
+    private
+    def load_user_configuration
+      file = File.join(Dir.pwd, '.metrics')
+      load file if File.exist?(file)
+    end
+    def disable_metrics(options)
+      report_metrics.each do |metric|
+        if options[metric.to_sym]
+          mf_debug "using metric #{metric}"
+        else
+          mf_debug "disabling metric #{metric}"
+          MetricFu.configuration.metrics -= [ metric ]
+          MetricFu.configuration.graphs -= [ metric ]
+          mf_debug "active metrics are #{MetricFu.configuration.metrics.inspect}"
+        end
+      end
+    end
   end
 end
-
