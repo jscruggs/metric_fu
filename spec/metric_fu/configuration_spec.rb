@@ -12,27 +12,27 @@ describe MetricFu::Configuration do
   end
 
   def base_directory
-    @config.instance_variable_get(:@base_directory)
+    @config.send(:base_directory)
   end
 
   def output_directory
-    @config.instance_variable_get(:@output_directory)
+    @config.send(:output_directory)
   end
 
   def scratch_directory
-    @config.instance_variable_get(:@scratch_directory)
+    @config.send(:scratch_directory)
   end
 
   def template_directory
-    @config.instance_variable_get(:@template_directory)
+    @config.send(:template_directory)
   end
 
   def template_class
-    @config.instance_variable_get(:@template_class)
+    @config.send(:template_class)
   end
 
   def metric_fu_root
-    @config.instance_variable_get(:@metric_fu_root_directory)
+    @config.send(:metric_fu_root_directory)
   end
   def load_metric(metric)
     load File.join(MetricFu.metrics_dir, metric, 'init.rb')
@@ -96,32 +96,32 @@ describe MetricFu::Configuration do
 
       it 'should set @flay to {:dirs_to_flay => @code_dirs}' do
         load_metric 'flay'
-        @config.instance_variable_get(:@flay).
+        @config.send(:flay).
                 should == {:dirs_to_flay => ['lib'], :filetypes=>["rb"], :minimum_score => 100}
       end
 
       it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
         load_metric 'flog'
-        @config.instance_variable_get(:@flog).
+        @config.send(:flog).
                 should == {:dirs_to_flog => ['lib']}
       end
 
       it 'should set @reek to {:dirs_to_reek => @code_dirs}' do
         load_metric 'reek'
-        @config.instance_variable_get(:@reek).
+        @config.send(:reek).
                 should == {:config_file_pattern=>nil, :dirs_to_reek => ['lib']}
       end
 
       it 'should set @roodi to {:dirs_to_roodi => @code_dirs}' do
         load_metric 'roodi'
-        @config.instance_variable_get(:@roodi).
+        @config.send(:roodi).
                 should == { :dirs_to_roodi => MetricFu.code_dirs,
                     :roodi_config => "#{MetricFu.root_dir}/config/roodi_config.yml"}
       end
 
       it 'should set @churn to {}' do
         load_metric 'churn'
-        @config.instance_variable_get(:@churn).
+        @config.send(:churn).
                 should == { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
       end
 
@@ -139,7 +139,7 @@ describe MetricFu::Configuration do
                               "-Ispec"
                             ]) do
         load_metric 'rcov'
-        @config.instance_variable_get(:@rcov).
+        @config.send(:rcov).
                 should ==  { :environment => 'test',
                             :test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
                             :rcov_opts => [
@@ -163,7 +163,7 @@ describe MetricFu::Configuration do
                                    :error_cyclo => "7",
                                    :formater => "text" }' do
         load_metric 'saikuro'
-        @config.instance_variable_get(:@saikuro).
+        @config.send(:saikuro).
                 should ==  { :output_directory => "#{scratch_directory}/saikuro",
                       :input_directory => ['lib'],
                       :cyclo => "",
@@ -200,19 +200,19 @@ describe MetricFu::Configuration do
 
       describe '#set_code_dirs ' do
         it 'should set the @code_dirs instance var to ["app", "lib"]' do
-          @config.instance_variable_get(:@code_dirs).
+          @config.send(:code_dirs).
                   should == ['app','lib']
         end
       end
       it 'should set @stats to {}' do
         load_metric 'stats'
-        @config.instance_variable_get(:@stats).
+        @config.send(:stats).
                 should == {}
       end
 
       it 'should set @rails_best_practices to {}' do
         load_metric 'rails_best_practices'
-        @config.instance_variable_get(:@rails_best_practices).
+        @config.send(:rails_best_practices).
                 should == {}
       end
     end
@@ -231,7 +231,7 @@ describe MetricFu::Configuration do
       end
 
       it 'should set the @code_dirs instance var to ["lib"]' do
-        @config.instance_variable_get(:@code_dirs).should == ['lib']
+        @config.send(:code_dirs).should == ['lib']
       end
     end
   end
