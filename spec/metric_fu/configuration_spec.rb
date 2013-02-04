@@ -126,28 +126,32 @@ describe MetricFu::Configuration do
       end
 
 
-      it 'should set @rcov to { :test_files => ["test/**/*_test.rb",
-                                                "spec/**/*_spec.rb"]
-                                :rcov_opts  => ["--sort coverage",
-                                                "--no-html",
-                                                "--text-coverage",
-                                                "--no-color",
-                                                "--profile",
-                                                "--rails",
-                                                "--exclude /gems/,/Library/,/usr/,spec"]}' do
+      it 'should set @rcov to ' +
+                            %q(:test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
+                            :rcov_opts => [
+                              "--sort coverage",
+                              "--no-html",
+                              "--text-coverage",
+                              "--no-color",
+                              "--profile",
+                              "--exclude-only '.*'",
+                              '--include-file "\Aapp,\Alib"',
+                              "-Ispec"
+                            ]) do
         load_metric 'rcov'
         @config.instance_variable_get(:@rcov).
                 should ==  { :environment => 'test',
-                             :test_files => ['test/**/*_test.rb',
-                                             'spec/spec_helper.rb',
-                                             'spec/**/*_spec.rb'],
-                             :rcov_opts => ["--sort coverage",
-                                           "--no-html",
-                                           "--text-coverage",
-                                           "--no-color",
-                                           "--profile",
-                                           "--rails",
-                                           "--exclude /gems/,/Library/,/usr/,spec"],
+                            :test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
+                            :rcov_opts => [
+                              "--sort coverage",
+                              "--no-html",
+                              "--text-coverage",
+                              "--no-color",
+                              "--profile",
+                              "--exclude-only '.*'",
+                              '--include-file "\Aapp,\Alib"',
+                              "-Ispec"
+                            ],
                             :external => nil}
       end
 
