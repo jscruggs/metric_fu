@@ -1,5 +1,6 @@
 require 'pathname'
 require 'optparse'
+require 'rbconfig'
 require 'flog'
 class RubyParser
   alias_method :original_process, :process
@@ -33,7 +34,7 @@ module MetricFu
       @flogger.flog files
 
     rescue LoadError
-      if RUBY_PLATFORM =~ /java/
+      if defined?(JRUBY_VERSION)
         puts 'running in jruby - flog tasks not available'
       end
     end

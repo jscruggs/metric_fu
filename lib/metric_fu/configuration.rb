@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'rbconfig'
 MetricFu.reporting_require { 'templates/awesome/awesome_template' }
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
@@ -122,7 +123,7 @@ module MetricFu
     end
 
     def self.ruby_strangely_makes_accessors_private?
-      !!(RUBY_VERSION =~ /1.9.2/)
+      !!(RUBY_VERSION =~ /1.9.2/) || defined?(JRUBY_VERSION)
     end
     protected unless ruby_strangely_makes_accessors_private?
 
