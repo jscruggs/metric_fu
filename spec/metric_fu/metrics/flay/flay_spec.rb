@@ -3,7 +3,10 @@ require "spec_helper"
 describe Flay do
   describe "emit method" do
     it "should look at the dirs" do
-      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => ['app', 'lib'], :filetypes => ['rb']  } }
+      MetricFu::Configuration.run {|config|
+        config.add_metric(:flay)
+        config.configure_metric(:flay, { :dirs_to_flay => ['app', 'lib'], :filetypes => ['rb']  })
+      }
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')
 
@@ -12,7 +15,10 @@ describe Flay do
     end
 
     it "should limit flay scores by the minimum_score" do
-      MetricFu::Configuration.run {|config| config.flay = { :dirs_to_flay => [], :minimum_score => 99 } }
+      MetricFu::Configuration.run {|config|
+        config.add_metric(:flay)
+        config.configure_metric(:flay, { :dirs_to_flay => [], :minimum_score => 99 })
+      }
       File.stub!(:directory?).and_return(true)
       @flay = MetricFu::Flay.new('base_dir')
 

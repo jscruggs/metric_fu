@@ -119,6 +119,8 @@ module MetricFu
     end
 
     def platform #:nodoc:
+      # TODO, change
+      # RbConfig::CONFIG['ruby_install_name'].dup
       return RUBY_PLATFORM
     end
 

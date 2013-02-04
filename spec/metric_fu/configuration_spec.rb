@@ -250,11 +250,15 @@ describe MetricFu::Configuration do
 
     [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
       it "should have a reader for #{metric}" do
-        @config.respond_to?(metric).should be_true
+        expect {
+          @config.send(metric.to_sym)
+        }.to_not raise_error
       end
 
       it "should have a writer for #{metric}=" do
-        @config.respond_to?((metric.to_s + '=').to_sym).should be_true
+        expect {
+          @config.send((metric.to_s + '=').to_sym, '')
+        }.to_not raise_error
       end
     end
   end
