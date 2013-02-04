@@ -1,5 +1,6 @@
 require 'fileutils'
 MetricFu.reporting_require { 'templates/awesome/awesome_template' }
+MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
 
 
@@ -47,6 +48,10 @@ module MetricFu
 
     def verbose=(toggle)
       MfDebugger::Logger.debug_on = toggle
+    end
+
+    def mf_debug(msg)
+      MfDebugger.mf_debug msg
     end
 
     # TODO review if these code is functionally duplicated in the
