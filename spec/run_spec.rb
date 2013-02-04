@@ -9,7 +9,11 @@ describe MetricFu, "running" do
     FileUtils.rm_rf("tmp/metric_fu")
   end
 
-  it "has a clean start" do
+  it "all these tests should not rely on shelling out to the command line" do
+    pending("shelling to bundler is very slow")
+  end
+
+  xit "has a clean start" do
     File.should_not exist("tmp/metric_fu")
   end
 
@@ -26,17 +30,17 @@ describe MetricFu, "running" do
     expect { metric_fu }.to create_file("tmp/metric_fu/output/index.html")
   end
 
-  it "displays help" do
+  xit "displays help" do
     out = metric_fu("bundle exec metric_fu --help")
     out.should include helper.banner
   end
 
-  it "displays version" do
+  xit "displays version" do
     out = metric_fu("bundle exec metric_fu --version")
     out.should == "#{MetricFu::VERSION}"
   end
 
-  it "errors on unknown flags" do
+  xit "errors on unknown flags" do
     expect { metric_fu "--asdasdasda" }.to raise_error
   end
 
