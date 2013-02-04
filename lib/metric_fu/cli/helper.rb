@@ -33,7 +33,7 @@ module MetricFu
         MetricFu.configuration.metrics.sort_by(&:to_s)
       end
 
-      def process_options
+      def process_options(argv=ARGV.dup)
         options = MetricFu::Cli::MicroOptParse::Parser.new do |p|
             p.banner = self.banner
             p.version = self.version
@@ -42,7 +42,7 @@ module MetricFu
               p.option metric.to_sym, "Enables or disables #{metric.to_s.titleize}", :default => true #, :value_in_set => [true, false]
             end
             p.option :open, "Open report in browser", :default => true
-        end.process!
+        end.process!(argv)
         options
       end
 
