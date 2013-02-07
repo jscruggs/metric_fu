@@ -7,6 +7,7 @@ describe MetricFu::Configuration do
     @config = MetricFu.configuration
     @config.reset
     MetricFu.configure
+    MetricFu.run_rcov
     @config.stub :create_directories # no need to create directories for the tests
     @config
   end

@@ -39,7 +39,7 @@ in your .metrics file add the below to run pre-generated metrics
 
 if you want metric_fu to actually run rcov itself (1.8 only), just add
 
-    def MetricFu.run_rcov?; true; end
+    MetricFu.run_rcov
 
 #### Rcov metrics with Ruby 1.8
 

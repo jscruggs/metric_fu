@@ -23,7 +23,7 @@ Dir.glob(File.join(MetricFu.errors_dir, '**/*.rb')).each do |file|
   require file
 end
 Dir.glob(File.join(MetricFu.metrics_dir, '**/*.rb')).each do |file|
-  require file
+  require(file) unless file =~ /init.rb/
 end
 Dir.glob(File.join(MetricFu.reporting_dir, '**/*.rb')).each do |file|
   require file

@@ -13,5 +13,5 @@ mf_debug "Metrics config loaded"
 # MetricFu::Configuration.run do |config|
 #   config.metrics -= [ :rcov ]
 # end
-# you may enable running rcov manually by changing the output of this method
-# def MetricFu.run_rcov?; true; end
+# you may enable running rcov manually with
+# MetricFu.run_rcov
