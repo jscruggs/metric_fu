@@ -284,8 +284,6 @@ __
           :add_coverage_percentage: 1.3
           :read: 1.3
           :[]: 2.70000000000001
-  :average_score: 27.8909176873585
-  :total_score: 195.23642381151
   - :highest_score: 60.0573892206447
     :path: lib/base/metric_analyzer.rb
     :methods:
@@ -307,6 +305,8 @@ __
           :==: 3.1
           :to_s: 1.3
           :[]: 5.40000000000001
+  :average_score: 27.8909176873585
+  :total_score: 195.23642381151
 __
     end
 
