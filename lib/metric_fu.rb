@@ -42,10 +42,21 @@ module MetricFu
   end
   def self.configure
     MetricFu.lib_require { 'configuration' }
-    Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each do |file|
+    init_files = Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).reject do |file|
+      if run_rcov?(file)
+        MetricFu.configuration.mf_debug "rcov is not available. See README"
+        true
+      else
+        false
+      end
+    end
+    init_files.each do |file|
       load file
     end
     MetricFu.configuration
+  end
+  def self.run_rcov?(file)
+    false
   end
   class << self
     %w(scratch output _data).each do |dir|

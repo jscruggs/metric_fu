@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "github@benjaminfleischer.com"
   s.homepage    = "http://github.com/metricfu/metric_fu"
-  s.description = "Code metrics from Flog, Flay, RCov, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices"
+  s.description = "Code metrics from Flog, Flay, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices, and optionally RCov"
   s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
   s.rubyforge_project = 'metric_fu'
   s.required_ruby_version     = ">= 1.8.7"
@@ -23,10 +23,6 @@ Gem::Specification.new do |s|
 
   {
     "rails_best_practices"  => ["= #{MetricFu::MetricVersion.rails_best_practices}"],
-    "rcov"                  => ["#{MetricFu::MetricVersion.rcov}"],
-    # still using rcov in ruby 1.9 till some errors are fleshed out
-    # "simplecov"             => [">= 0.5.4"],
-    # "simplecov-rcov"        => [">= 0.2.3"],
     "japgolly-Saikuro"      => ["#{MetricFu::MetricVersion.saikuro}"],
     "metric_fu-roodi"       => [">= #{MetricFu::MetricVersion.roodi}"],
     "flay"                  => ["= #{MetricFu::MetricVersion.flay}"],
