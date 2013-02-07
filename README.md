@@ -19,16 +19,50 @@ See `metric_fu --help` for more options
 It is currently testing on MRI 1.8.7, 1.9.2, and 1.9.3
 
 * The `japgolly-Saikuro` fork and `metric_fu-roodi` fork are a part of an attempt to get metric_fu working in a modern Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
-* rcov may fail in ruby 1.9
 * rails_best_practices is disabled in ruby 1.8
-
-## Documentation
-
-TBD
+* metric_fu no longer runs rcov itself. You may still use rcov metrics as documented below
 
 ### Configuration
 
 see the .metrics file
+
+## Documentation
+
+### Using Coverage Metrics
+
+in your .metrics file add the below to run pre-generated metrics
+
+    coverage_file = File.expand_path("coverage/rcov/rcov.txt", Dir.pwd)
+    config.add_metric(:rcov)
+    config.add_graph(:rcov)
+    config.configure_metric(:rcov, {:external => coverage_file})
+
+if you want metric_fu to actually run rcov itself (1.8 only), just add
+
+    def MetricFu.run_rcov?; true; end
+
+#### Rcov metrics with Ruby 1.8
+
+To generate the same metrics metric_fu has been generating run from the root of your project before running metric_fu
+
+    RAILS_ENV=test rcov $(ruby -e "puts Dir['{spec,test}/**/*_{spec,test}.rb'].join(' ')") --sort coverage --no-html --text-coverage --no-color --profile --exclude-only '.*' --include-file "\Aapp,\Alib" -Ispec >> coverage/rcov/rcov.txt
+
+### Simplecov metrics with Ruby 1.9
+
+Add to your Gemfile or otherwise install
+
+    gem 'simplecov'
+    # https://github.com/kina/simplecov-rcov-text
+    gem 'simplecov-rcov-text'
+
+Modify your spec_helper as per the SimpleCov docs and run your tests before running metric_fu
+
+    #in your spec_helper
+    require 'simplecov'
+    require 'simplecov-rcov-text'
+    SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
+    SimpleCov.start
+    # SimpleCov.start 'rails'
 
 ### Historical
 
