@@ -1,12 +1,12 @@
 MetricFu.configure
 module MetricFu
   class Run
-    def initialize(options={})
+    def initialize
       STDOUT.sync = true
       load_user_configuration
-      disable_metrics(options)
     end
-    def run
+    def run(options={})
+      disable_metrics(options)
       run_reports
       save_reports
       save_graphs

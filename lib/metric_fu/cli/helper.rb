@@ -4,9 +4,11 @@ require 'metric_fu/cli/parser'
 module MetricFu
   module Cli
     class Helper
+      def initialize
+        @metric_fu = MetricFu::Run.new
+      end
       def run(options={})
-        @metric_fu = MetricFu::Run.new(options)
-        @metric_fu.run
+        @metric_fu.run(options)
         complete
       end
       def version
