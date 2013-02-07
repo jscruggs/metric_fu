@@ -1,3 +1,10 @@
+if ENV['COVERAGE']
+  require 'simplecov'
+  require 'simplecov-rcov-text'
+  SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
+  SimpleCov.start
+end
+
 require 'rspec/autorun'
 require 'date'
 require 'construct'
