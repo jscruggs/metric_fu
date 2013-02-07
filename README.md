@@ -32,10 +32,12 @@ see the .metrics file
 
 in your .metrics file add the below to run pre-generated metrics
 
-    coverage_file = File.expand_path("coverage/rcov/rcov.txt", Dir.pwd)
-    config.add_metric(:rcov)
-    config.add_graph(:rcov)
-    config.configure_metric(:rcov, {:external => coverage_file})
+    MetricFu::Configuration.run do |config|
+      coverage_file = File.expand_path("coverage/rcov/rcov.txt", Dir.pwd)
+      config.add_metric(:rcov)
+      config.add_graph(:rcov)
+      config.configure_metric(:rcov, {:external => coverage_file})
+    end
 
 if you want metric_fu to actually run rcov itself (1.8 only), just add
 
