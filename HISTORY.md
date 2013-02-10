@@ -1,11 +1,32 @@
 === master ===
 
-* Add commandline behavior to `metric_fu`. Now there are options -v, -r, and -h
-* Clean up global ivars a bit in Configuration
+=== MetricFu 3.0.0 / 2013-02-07
+
+Features
+* Included metrics: churn, flay, flog, roodi, saikuro, reek, 'coverage', rails stats, rails_best_practices, hotspots.
+* Works with ruby 1.9 syntax.
+* Can be configured just like metrical, with a .metrics file.
+* Add commandline behavior to `metric_fu`. Try `metric_fu --help`.
+* Does not require rake to run. Can be run directly from the commandline.
+* Is tested to run on rbx-19 and jruby-19 in addition to cruby-19 and cruby-18.
+* churn options include :minimum-churn-count and :start-date, see https://github.com/metricfu/metric_fu/blob/master/lib/metric_fu/metrics/churn/init.rb
+* Installation and running it have less dependency issues.
+* Can either load external coverage metrics (rcov or simplecov) or run rcov directly.
+
+Notes:
+* Rcov is not included in the gem, and is off by default.
+* Rails best practices is not available in ruby 1.8.
+* Version 2.1.3.7.18.1 is currently the last version fully compatible with 1.8.
+* Metrical is no longer necessary. Its functionality has been merged into metric_fu.
+
+Other work
 * Re-organized test files - Michael Stark
 * Rspec2 - Michael Stark
-* Unify verbose logging
-* Modularize
+* Unify verbose logging with the MF_DEBUG=true commandline flag
+* Begin to isolate each metric code. Each metric configures itself
+* Clean up global ivars a bit in Configuration
+* Thanks to Dan Mayer for helping with churn compatibility
+* Thanks to Timo Rößner and Matijs van Zuijlen for their work on maintaining reek
 
 === MetricFu 2.1.3.7.18.1 / 2013-01-09
 
@@ -66,6 +87,8 @@
 
 === MetricFu 2.1.0 / 2011-03-1
 
+  In 2.1.0 there are a lot of bug fixes. There's a verbose mode (config.verbose = true) that's helpful for debugging (from Dan Sinclair), the ability to opt out of TextMate (from Kakutani Shintaro) opening your files (config.darwin_txmt_protocol_no_thanks = true), and super cool annotations on the Hotspots page so you can see your code problems in-line with the file contents (also from Dan Sinclair).
+
 * Flog gemspec version was >= 2.2.0, which was too early and didn't work. Changed to >= 2.3.0 -  Chris Griego
 * RCov generator now uses a regex with begin and end line anchor to avoid splitting on comments with equal signs in source files - Andrew Selder
 * RCov generator now always strips the 3 leading characters from the lines when reconstruction source files so that heredocs and block comments parse successfully - Andrew Selder
@@ -85,6 +108,12 @@
 * Fixed a bug reported by Andrew Davis on the mailing list where configuring the data directory causes dates to be 0/0 - Joshua Cronemeyer
 
 === MetricFu 2.0.0 / 2010-11-10
+
+In 2.0.0 the big new feature is Hotspots.  The Hotspots report combines Flog, Flay, Rcov, Reek, Roodi, and Churn numbers into one report so you see parts of your code that have multiple problems like so:
+
+![Hotspots](http://metric-fu.rubyforge.org/hotspot.gif "That is one terrible method")
+
+Big thanks to Dan Mayer and Ben Brinckerhoff for the Hotspots code and for helping me integrate it with RCov.
 
 * Hotspots - Dan Mayer, Ben Brinckerhoff, Jake Scruggs
 * Rcov integration with Hotspots - Jake Scruggs, Tony Castiglione, Rob Meyer
