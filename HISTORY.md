@@ -1,5 +1,9 @@
 === master ===
 
+== MetricFu 3.0.1 / 2013-03-01
+    
+* Fixed typo in Flay generator (Sathish, pull request #47)
+
 === MetricFu 3.0.0 / 2013-02-07
 
 Features
