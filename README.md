@@ -24,6 +24,8 @@ It is currently testing on MRI 1.8.7, 1.9.2, 1.9.3 and 2.0.0.
 
 ## Documentation
 
+* Cane code quality threshold checking is not included in the hotspots report
+
 ### Configuration
 
 see the .metrics file
