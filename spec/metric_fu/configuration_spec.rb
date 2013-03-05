@@ -126,6 +126,17 @@ describe MetricFu::Configuration do
                 should == { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
       end
 
+      it 'should set @cane to ' +
+                          %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n') do
+        load_metric 'cane'
+        @config.send(:cane).
+          should == {
+            :dirs_to_cane => MetricFu.code_dirs,
+            :filetypes => ["rb"],
+            :abc_max => 15,
+            :line_length => 80,
+            :no_doc => "n"}
+      end
 
       it 'should set @rcov to ' +
                             %q(:test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
@@ -194,14 +205,8 @@ describe MetricFu::Configuration do
       end
 
       describe '#set_graphs ' do
-        if RUBY_VERSION < '1.9'
-          it 'should not set the graphs to include rails_best_practices for ruby 1.8' do
-            @config.graphs.should_not include(:rails_best_practices)
-          end
-        else
-          it 'should set the graphs to include rails_best_practices' do
-            @config.graphs.should include(:rails_best_practices)
-          end
+        it 'should set the graphs to include rails_best_practices' do
+          @config.graphs.should include(:rails_best_practices)
         end
       end
 
@@ -217,12 +222,10 @@ describe MetricFu::Configuration do
                 should == {}
       end
 
-      unless RUBY_VERSION < '1.9'
-        it 'should set @rails_best_practices to {}' do
-          load_metric 'rails_best_practices'
-          @config.send(:rails_best_practices).
-                  should == {}
-        end
+      it 'should set @rails_best_practices to {}' do
+        load_metric 'rails_best_practices'
+        @config.send(:rails_best_practices).
+                should == {}
       end
     end
 
@@ -236,7 +239,7 @@ describe MetricFu::Configuration do
       end
 
       it 'should set the available metrics' do
-        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro]
+        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane]
       end
 
       it 'should set the @code_dirs instance var to ["lib"]' do
@@ -268,13 +271,13 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
+    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |metric|
       it "should add a #{metric} class method to the MetricFu module " do
         MetricFu.should respond_to(metric)
       end
     end
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |graph|
+    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |graph|
       it "should add a #{graph} class metrhod to the MetricFu module" do
         MetricFu.should respond_to(graph)
       end

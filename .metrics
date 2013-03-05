@@ -8,6 +8,7 @@ mf_debug "Metrics config loaded"
 #   config.add_metric(:rcov)
 #   config.add_graph(:rcov)
 #   config.configure_metric(:rcov, {:external => coverage_file})
+#   config.cane = {:abc_max => 15, :line_length => 80, :no_doc => 'y'}
 # end
 # or
 # MetricFu::Configuration.run do |config|
