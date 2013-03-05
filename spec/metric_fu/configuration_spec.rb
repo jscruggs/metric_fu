@@ -205,14 +205,8 @@ describe MetricFu::Configuration do
       end
 
       describe '#set_graphs ' do
-        if RUBY_VERSION < '1.9'
-          it 'should not set the graphs to include rails_best_practices for ruby 1.8' do
-            @config.graphs.should_not include(:rails_best_practices)
-          end
-        else
-          it 'should set the graphs to include rails_best_practices' do
-            @config.graphs.should include(:rails_best_practices)
-          end
+        it 'should set the graphs to include rails_best_practices' do
+          @config.graphs.should include(:rails_best_practices)
         end
       end
 
@@ -228,12 +222,10 @@ describe MetricFu::Configuration do
                 should == {}
       end
 
-      unless RUBY_VERSION < '1.9'
-        it 'should set @rails_best_practices to {}' do
-          load_metric 'rails_best_practices'
-          @config.send(:rails_best_practices).
-                  should == {}
-        end
+      it 'should set @rails_best_practices to {}' do
+        load_metric 'rails_best_practices'
+        @config.send(:rails_best_practices).
+                should == {}
       end
     end
 
