@@ -106,16 +106,12 @@ describe Cane do
         ]
       end
 
-      it "should ignore unrecognized violations" do
-        @cane.instance_variable_set :@output, <<-OUTPUT
-Unrecognized violation (1):
-
-  This is not handled
-
-Total Violations: 1
-        OUTPUT
+      it "should extract unknown violations in others category" do
         @cane.analyze
-        @cane.violations.should be_empty
+        @cane.violations[:others].should == [
+          {description: 'Misc issue 1'},
+          {description: 'Misc issue 2'}
+        ]
       end
     end
 
@@ -163,6 +159,14 @@ Class definitions require explanatory comments on preceding line (2):
 
   lib/comments/foo.rb:1       Foo
   lib/comments/bar.rb:2       Bar
+
+Unknown violation (1):
+
+  Misc issue 1
+
+Another Unknown violation (1):
+
+  Misc issue 2
 
 Total Violations: 6
     OUTPUT

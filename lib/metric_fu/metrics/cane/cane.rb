@@ -39,9 +39,9 @@ module MetricFu
     def violations_by_category
       violations_output = @output.scan(/(.*?)\n\n(.*?)\n\n/m)
       violations_output.each_with_object({}) do |(category_desc, violation_list), violations|
-        category = category_from(category_desc)
-        next unless category
-        violations[category] = violations_for(category, violation_list)
+        category = category_from(category_desc) || :others
+        violations[category] ||= []
+        violations[category] += violations_for(category, violation_list)
       end
     end
 
@@ -70,6 +70,8 @@ module MetricFu
         CaneViolations::Comment
       when :documentation
         CaneViolations::Documentation
+      else
+        CaneViolations::Others
       end
     end
 
