@@ -105,6 +105,18 @@ describe Cane do
           {description: 'No README found'},
         ]
       end
+
+      it "should ignore unrecognized violations" do
+        @cane.instance_variable_set :@output, <<-OUTPUT
+Unrecognized violation (1):
+
+  This is not handled
+
+Total Violations: 1
+        OUTPUT
+        @cane.analyze
+        @cane.violations.should be_empty
+      end
     end
 
     describe "to_h method" do

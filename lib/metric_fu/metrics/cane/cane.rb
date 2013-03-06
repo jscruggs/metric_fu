@@ -40,6 +40,7 @@ module MetricFu
       violations_output = @output.scan(/(.*?)\n\n(.*?)\n\n/m)
       violations_output.each_with_object({}) do |(category_desc, violation_list), violations|
         category = category_from(category_desc)
+        next unless category
         violations[category] = violations_for(category, violation_list)
       end
     end
@@ -51,7 +52,8 @@ module MetricFu
         :comment => /comment/,
         :documentation => /documentation/
       }
-      category_descriptions.find {|k,v| description =~ v}[0]
+      category, desc_matcher = category_descriptions.find {|k,v| description =~ v}
+      category
     end
 
     def violations_for(category, violation_list)
