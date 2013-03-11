@@ -1,4 +1,4 @@
-class RcovHotspot
+class RcovHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{percentage_uncovered}

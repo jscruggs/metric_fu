@@ -1,4 +1,4 @@
-class RoodiHotspot
+class RoodiHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{problems}

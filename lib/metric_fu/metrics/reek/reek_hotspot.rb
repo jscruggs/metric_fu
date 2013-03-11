@@ -1,6 +1,6 @@
 # coding: utf-8
 
-class ReekHotspot
+class ReekHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   REEK_ISSUE_INFO = {

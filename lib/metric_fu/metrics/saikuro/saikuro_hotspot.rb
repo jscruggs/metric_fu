@@ -1,4 +1,4 @@
-class SaikuroHotspot
+class SaikuroHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{lines complexity}

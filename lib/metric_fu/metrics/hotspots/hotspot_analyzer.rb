@@ -3,9 +3,7 @@ MetricFu.data_structures_require { 'location' }
 %w(table record grouping ranking).each do |path|
   MetricFu.metrics_require   { "hotspots/analysis/#{path}" }
 end
-%w(reek roodi flog churn saikuro flay stats rcov).each do |path|
-  MetricFu.metrics_require   { "#{path}/#{path}_hotspot" }
-end
+MetricFu.metrics_require   { 'hotspots/hotspot' }
 
 module MetricFu
   class HotspotAnalyzer
@@ -15,20 +13,21 @@ module MetricFu
 
     attr_accessor :table
 
+    def tool_analyzers
+      MetricFu::Hotspot.analyzers
+    end
     def initialize(yaml)
       if(yaml.is_a?(String))
-         @yaml = YAML.load(yaml)
-       else
-         @yaml = yaml
-       end
+        @yaml = YAML.load(yaml)
+      else
+        @yaml = yaml
+      end
       @file_ranking = MetricFu::Ranking.new
       @class_ranking = MetricFu::Ranking.new
       @method_ranking = MetricFu::Ranking.new
       rankings = [@file_ranking, @class_ranking, @method_ranking]
 
-      tool_analyzers = [ReekHotspot.new, RoodiHotspot.new,
-      FlogHotspot.new, ChurnHotspot.new, SaikuroHotspot.new,
-      FlayHotspot.new, StatsHotspot.new, RcovHotspot.new]
+      #
       # TODO There is likely a clash that will happen between
       # column names eventually. We should probably auto-prefix
       # them (e.g. "roodi_problem")

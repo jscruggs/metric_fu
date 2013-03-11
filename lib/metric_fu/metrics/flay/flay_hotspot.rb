@@ -1,4 +1,4 @@
-class FlayHotspot
+class FlayHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{flay_reason flay_matching_reason}

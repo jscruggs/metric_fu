@@ -1,4 +1,4 @@
-class FlogHotspot
+class FlogHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{score}

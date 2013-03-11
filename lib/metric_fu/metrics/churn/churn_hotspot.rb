@@ -1,4 +1,4 @@
-class ChurnHotspot
+class ChurnHotspot < MetricFu::Hotspot
   include MetricFu::HotspotScoringStrategies
 
   COLUMNS = %w{times_changed}
