@@ -2,8 +2,9 @@ module MetricFu
   class HotspotAnalyzedProblems
 
 
-    def initialize(hotspot_rankings)
+    def initialize(hotspot_rankings, analyzer_tables)
       @hotspot_rankings = hotspot_rankings
+      @analyzer_tables = analyzer_tables
     end
     def worst_items
       num = nil
@@ -59,14 +60,14 @@ module MetricFu
         end
       end
     end
+    # just for testing
+    public :location, :problems_with
     def get_sub_table(item, value)
-      @hotspot_rankings.tables.fetch(item) do
-        raise ArgumentError, "Item must be :class, :method, or :file"
-      end
+      tables = @analyzer_tables.tables_for(item)
       tables[value]
     end
     def get_grouping(table, opts)
-      MetricFu::HotspotGroupings.new(table, opts)
+      MetricFu::HotspotGroupings.new(table, opts).get_grouping
     end
   end
 end

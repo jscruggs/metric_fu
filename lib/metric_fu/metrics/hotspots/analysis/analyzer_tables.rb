@@ -11,6 +11,21 @@ module MetricFu
       process_rows!
     end
 
+    def tool_tables
+      @tool_tables ||= make_table_hash(@columns)
+    end
+
+    def tables_for(item)
+      {
+        :class  => @class_tables,
+        :method => @method_tables,
+        :file   => @file_tables,
+        :tool   => @tool_tables
+      }.fetch(item) do
+        raise ArgumentError, "Item must be :class, :method, or :file, but was #{item}"
+      end
+    end
+
     private
 
     def make_table(columns)
@@ -29,7 +44,7 @@ module MetricFu
       # (and make sure the mapping is unique)
       table.each do |row|
         # We know that Saikuro provides the wrong data
-        raise
+        # TODO inject Saikuro reference
         next if row['metric'] == :saikuro
         key = [row['class_name'], row['method_name']]
         file_path = row['file_path']
@@ -41,6 +56,7 @@ module MetricFu
       # Correct incorrect rows in the table
       table.each do |row|
         row_metric = row['metric'] #perf optimization
+        # TODO inject Saikuro reference
         if row_metric == :saikuro
           fix_row_file_path!(row)
         end
@@ -86,21 +102,14 @@ module MetricFu
       @optimized_tables ||= make_table_hash(@columns)
     end
 
-    def tool_tables
-      optimized_tables
-    end
     def file_tables
-      optimized_tables
+      @file_tables  ||= make_table_hash(@columns)
     end
     def class_tables
-      optimized_tables
+      @class_tables  ||= make_table_hash(@columns)
     end
     def method_tables
-      optimized_tables
+      @method_tables ||= make_table_hash(@columns)
     end
-    # @tool_tables   = make_table_hash(columns)
-    # @file_tables   = make_table_hash(columns)
-    # @class_tables  = make_table_hash(columns)
-    # @method_tables = make_table_hash(columns)
   end
 end

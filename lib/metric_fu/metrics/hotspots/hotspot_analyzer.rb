@@ -17,6 +17,7 @@ module MetricFu
     def tool_analyzers
       MetricFu::Hotspot.analyzers
     end
+
     def initialize(report_hash)
       # we can't depend on the Report
       # returning a parsed yaml file as a hash?
@@ -26,10 +27,17 @@ module MetricFu
 
     # def worst_items
     def hotspots
-      @analyzed_problems = MetricFu::HotspotAnalyzedProblems.new(@rankings)
       @analyzed_problems.worst_items
     end
-
+    # just for testing
+    def analyzed_problems
+      @analyzed_problems = MetricFu::HotspotAnalyzedProblems.new(@rankings, @analyzer_tables)
+    end
+    alias_method :worst_items, :hotspots
+    extend Forwardable
+    def_delegators  :@analyzer_tables, :table
+    def_delegators  :@analyzed_problems, :problems_with, :location
+    def_delegators  :@rankings, :worst_files, :worst_methods,:worst_classes
     private
 
     def setup(report_hash)
@@ -41,14 +49,15 @@ module MetricFu
       # various places here, then by the analyzer tables
       # then by the rankings
       # to ultimately generate the hotspots
+      @analyzer_tables = MetricFu::AnalyzerTables.new(analyzer_columns)
       tool_analyzers.each do |analyzer|
         analyzer.generate_records(report_hash[analyzer.name], table)
       end
-      @analyzer_tables = MetricFu::AnalyzerTables.new(analyzer_columns)
       @analyzer_tables.generate_records(report_hash)
-      @rankings = MetricFu::HotspotRankings.new
-      @rankings.calculate_scores(tools_analyzers)
-
+      @rankings = MetricFu::HotspotRankings.new(@analyzer_tables.tool_tables)
+      @rankings.calculate_scores(tool_analyzers, GRANULARITIES)
+      # just for testing
+      analyzed_problems
     end
 
     # UNUSED
