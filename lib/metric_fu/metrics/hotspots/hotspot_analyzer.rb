@@ -27,7 +27,7 @@ module MetricFu
 
     # def worst_items
     def hotspots
-      @analyzed_problems.worst_items
+      analyzed_problems.worst_items
     end
     # just for testing
     def analyzed_problems
@@ -51,9 +51,9 @@ module MetricFu
       # to ultimately generate the hotspots
       @analyzer_tables = MetricFu::AnalyzerTables.new(analyzer_columns)
       tool_analyzers.each do |analyzer|
-        analyzer.generate_records(report_hash[analyzer.name], table)
+        analyzer.generate_records(report_hash[analyzer.name], @analyzer_tables.table)
       end
-      @analyzer_tables.generate_records(report_hash)
+      @analyzer_tables.generate_records
       @rankings = MetricFu::HotspotRankings.new(@analyzer_tables.tool_tables)
       @rankings.calculate_scores(tool_analyzers, GRANULARITIES)
       # just for testing

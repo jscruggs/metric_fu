@@ -4,15 +4,22 @@ module MetricFu
       MetricFu.metrics_require   { "hotspots/analysis/#{path}" }
     end
 
-    def generate_records(analyzer_columns)
-    # def generate_records(tool_analyzers,report_hash)
+    def initialize(analyzer_columns)
       @columns = analyzer_columns
+    end
+
+    def generate_records
+    # def generate_records(tool_analyzers,report_hash)
       build_lookups!
       process_rows!
     end
 
     def tool_tables
       @tool_tables ||= make_table_hash(@columns)
+    end
+
+    def table
+      @table ||= make_table(@columns)
     end
 
     def tables_for(item)
@@ -91,11 +98,6 @@ module MetricFu
       @file_paths ||= @table.column('file_path').uniq
     end
 
-    def table
-      @table ||= make_table(@columns)
-    end
-
-    #
     # These tables are an optimization. They contain subsets of the master table.
     # TODO - these should be pushed into the Table class now
     def optimized_tables

@@ -23,7 +23,7 @@ module MetricFu
           :details => self.problems_with(:class, class_name)}
         array
       end
-      worst_items[:methods] = @analyzed_rankings.worst_methods(num).inject([]) do |array, method_name|
+      worst_items[:methods] = @hotspot_rankings.worst_methods(num).inject([]) do |array, method_name|
         location = self.location(:method, method_name)
         array <<
           {:location => location,

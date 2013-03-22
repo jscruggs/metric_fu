@@ -1,5 +1,6 @@
 module MetricFu
   class HotspotRankings
+
     def initialize(tool_tables)
       @tool_tables = tool_tables
       @file_ranking = MetricFu::Ranking.new
@@ -9,12 +10,13 @@ module MetricFu
         rank.delete(nil)
       end
     end
+
     def calculate_scores(tool_analyzers, granularities)
       tool_analyzers.each do |analyzer|
         calculate_scores_by_granularities(analyzer, granularities)
       end
-
     end
+
     def worst_methods(size = nil)
       @method_ranking.top(size)
     end

@@ -16,7 +16,7 @@ module MetricFu
     end
 
     def analyze
-      @hotspots = @analyzer.hotspots
+      @hotspots = @analyzer && @analyzer.hotspots || {}
     end
 
     def to_h
