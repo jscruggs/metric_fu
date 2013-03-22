@@ -9,7 +9,6 @@ module MetricFu
     end
 
     def generate_records
-    # def generate_records(tool_analyzers,report_hash)
       build_lookups!
       process_rows!
     end
