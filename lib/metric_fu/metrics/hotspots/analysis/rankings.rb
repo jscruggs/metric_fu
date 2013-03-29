@@ -6,9 +6,6 @@ module MetricFu
       @file_ranking = MetricFu::Ranking.new
       @class_ranking = MetricFu::Ranking.new
       @method_ranking = MetricFu::Ranking.new
-      [@file_ranking, @class_ranking, @method_ranking].each do |rank|
-        rank.delete(nil)
-      end
     end
 
     def calculate_scores(tool_analyzers, granularities)
@@ -18,14 +15,17 @@ module MetricFu
     end
 
     def worst_methods(size = nil)
+      @method_ranking.delete(nil)
       @method_ranking.top(size)
     end
 
     def worst_classes(size = nil)
+      @class_ranking.delete(nil)
       @class_ranking.top(size)
     end
 
     def worst_files(size = nil)
+      @file_ranking.delete(nil)
       @file_ranking.top(size)
     end
 
