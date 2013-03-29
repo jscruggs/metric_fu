@@ -127,6 +127,21 @@ class ReekHotspot < MetricFu::Hotspot
     ["Large Class", "Long Method", "Long Parameter List"].include?(type)
   end
 
+  def present_group(group)
+    occurences = group.size
+    "found #{occurences} code smells"
+  end
+  def present_group_details(group)
+    occurences = group.size
+    message = "found #{occurences} code smells<br/>"
+    group.each do |item|
+      type    = item.data["reek__type_name"]
+      reek_message = item.data["reek__message"]
+      message << "* #{type}: #{reek_message}<br/>"
+    end
+    message
+  end
+
   private
 
   def comparable_message(type_name, message)

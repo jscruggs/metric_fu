@@ -47,4 +47,21 @@ class FlayHotspot < MetricFu::Hotspot
     end
   end
 
+  def present_group(group)
+    occurences = group.size
+    "found #{occurences} code duplications"
+  end
+
+  def present_group_details(group)
+    occurences = group.size
+    message = "found #{occurences} code duplications<br/>"
+    group.each do |item|
+      problem    = item.data["flay_reason"]
+      problem    = problem.gsub(/^[0-9]*\)/,'')
+      problem    = problem.gsub(/files\:/,' <br>&nbsp;&nbsp;&nbsp;files:')
+      message << "* #{problem}<br/>"
+    end
+    message
+  end
+
 end
