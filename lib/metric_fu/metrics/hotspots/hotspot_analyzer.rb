@@ -37,7 +37,7 @@ module MetricFu
     extend Forwardable
     def_delegators  :@analyzer_tables, :table
     def_delegators  :@analyzed_problems, :problems_with, :location
-    def_delegators  :@rankings, :worst_files, :worst_methods,:worst_classes
+    def_delegators  :@rankings, :worst_files, :worst_methods, :worst_classes
     private
 
     def setup(report_hash)
