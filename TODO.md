@@ -15,7 +15,6 @@
 
     lib/configuration.rb
     lib/metrics/hotspots/analysis/code_issue.rb
-    lib/metrics/hotspots/analysis/scoring_strategies.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -44,7 +43,6 @@
 
     lib/data_structures/location.rb
     lib/metrics/hotspots/analysis/code_issue.rb
-    lib/metrics/hotspots/analysis/scoring_strategies.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
