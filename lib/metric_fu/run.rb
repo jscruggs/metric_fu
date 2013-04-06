@@ -59,6 +59,7 @@ module MetricFu
       load file if File.exist?(file)
     end
     def disable_metrics(options)
+      return if options.size == 0
       report_metrics.each do |metric|
         if options[metric.to_sym]
           mf_debug "using metric #{metric}"
