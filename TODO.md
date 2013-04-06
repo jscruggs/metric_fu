@@ -41,7 +41,6 @@
 
 * Move code that references reek out of
 
-    lib/data_structures/location.rb
     lib/metrics/hotspots/analysis/code_issue.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
