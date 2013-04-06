@@ -1,37 +1,11 @@
 <h3>Metric Fu Results</h3>
 <ul id='projects'>
-<% if @metrics[:churn] %>
-  <li class='even failure'><a href="churn.html">Churn</a></li>
+<% @metrics.keys.each do |metric| %>
+  <li class='even failure'>
+    <a href="<%= metric.to_s %>.html">
+      <%= metric.to_s.split('_').collect{|word| word[0] = word[0..0].upcase; word}.join(" ") %>
+    </a>
+  </li>
 <% end %>
-<% if @metrics[:flay] %>
-  <li class='even failure'><a href="flay.html">Flay</a></li>
-<% end %>
-<% if @metrics[:flog] %>
-  <li class='even failure'><a href="flog.html">Flog</a></li>
-<% end %>
-<% if @metrics[:rcov] %>
-  <li class='even failure'><a href="rcov.html">Rcov</a></li>
-<% end %>
-<% if @metrics[:reek] %>
-  <li class='even failure'><a href="reek.html">Reek</a></li>
-<% end %>
-<% if @metrics[:roodi] %>
-  <li class='even failure'><a href="roodi.html">Roodi</a></li>
-<% end %>
-<% if @metrics[:saikuro] %>
-  <li class='even failure'><a href="saikuro.html">Saikuro</a></li>
-<% end %>
-<% if @metrics[:cane] %>
-  <li class='even failure'><a href="cane.html">Cane</a></li>
-<% end %>
-<% if @metrics[:stats] %>
-  <li class='even failure'><a href="stats.html">Stats</a></li>
-<% end %>
-<% if @metrics[:rails_best_practices] %>
-  <li class='even failure'><a href="rails_best_practices.html">Rails Best Practices report</a></li>
-<% end%>
-<% if @metrics[:hotspots] %>
-  <li class='even failure'><a href="hotspots.html">Hotspots</a></li>
-<% end%>
 </ul>
 <p>Generated on <%= Time.now.localtime %></p>
