@@ -14,9 +14,11 @@ class AwesomeTemplate < MetricFu::Template
       FileUtils.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
     end
 
+    @metrics = {}
     report.each_pair do |section, contents|
       if template_exists?(section)
         create_instance_var(section, contents)
+        @metrics[section] = contents
         create_instance_var(:per_file_data, per_file_data)
         mf_debug  "Generating html for section #{section} with #{template(section)} for report #{report.class}"
         @html = erbify(section)
