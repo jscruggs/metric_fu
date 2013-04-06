@@ -1,10 +1,8 @@
 <h3>Metric Fu Results</h3>
 <ul id='projects'>
-<% @metrics.keys.each do |metric| %>
+<% metric_links.each do |link| %>
   <li class='even failure'>
-    <a href="<%= metric.to_s %>.html">
-      <%= metric.to_s.split('_').collect{|word| word[0] = word[0..0].upcase; word}.join(" ") %>
-    </a>
+    <%= link %>
   </li>
 <% end %>
 </ul>
