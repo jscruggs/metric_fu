@@ -6,8 +6,6 @@
 
 * Move code that references rcov out of
 
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/css/default.css
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/default.css
@@ -18,8 +16,6 @@
     lib/configuration.rb
     lib/metrics/hotspots/analysis/code_issue.rb
     lib/metrics/hotspots/analysis/scoring_strategies.rb
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -27,8 +23,6 @@
 
     lib/metrics/generator.rb
     lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -42,8 +36,6 @@
 * Move code that references rails_best_practices out of
 
     lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -53,8 +45,6 @@
     lib/data_structures/location.rb
     lib/metrics/hotspots/analysis/code_issue.rb
     lib/metrics/hotspots/analysis/scoring_strategies.rb
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -62,8 +52,6 @@
 * Move code that references roodi out of
 
     lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/graphs/engines/bluff.rb
-    lib/reporting/graphs/engines/gchart.rb
     lib/reporting/templates/awesome/index.html.erb
     lib/reporting/templates/standard/index.html.erb
 
@@ -75,8 +63,6 @@
 
 * Move code that references stats out of
 
-lib/reporting/graphs/engines/bluff.rb
-lib/reporting/graphs/engines/gchart.rb
 lib/reporting/templates/awesome/index.html.erb
 lib/reporting/templates/standard/index.html.erb
 
