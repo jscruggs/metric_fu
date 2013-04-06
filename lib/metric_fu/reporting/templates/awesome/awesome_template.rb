@@ -18,6 +18,7 @@ class AwesomeTemplate < MetricFu::Template
       if template_exists?(section)
         create_instance_var(section, contents)
         create_instance_var(:per_file_data, per_file_data)
+        mf_debug  "Generating html for section #{section} with #{template(section)} for report #{report.class}"
         @html = erbify(section)
         html = erbify('layout')
         fn = output_filename(section)
