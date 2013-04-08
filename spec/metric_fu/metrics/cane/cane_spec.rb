@@ -59,7 +59,7 @@ describe Cane do
     end
   end
 
-  describe "parse cane output" do
+  describe "parse cane empty output" do
     before :each do
       MetricFu::Configuration.run {}
       File.stub!(:directory?).and_return(true)
