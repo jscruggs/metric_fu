@@ -76,8 +76,12 @@ module MetricFu
     end
 
     def extract_total_violations
-      total = @output.match(/Total Violations: (\d+)/)[1]
-      @total_violations = total.to_i if total
+      total = @output.match(/Total Violations: (\d+)/)
+      @total_violations =  if total
+        total[1].to_i
+      else
+        0
+      end
     end
   end
 end
