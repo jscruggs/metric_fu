@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
       "ruby2ruby"             => ["= #{MetricFu::MetricVersion.ruby2ruby}"],
       "parallel"              => ["= #{MetricFu::MetricVersion.parallel}"],
     "activesupport"         => [">= 2.0.0"], # ok
+    'redcard'               => [],
     "coderay"               => [],
     "fattr"                 => ["= 2.2.1"],
     "arrayfields"           => ["= 4.7.4"],
