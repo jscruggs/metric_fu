@@ -1,4 +1,5 @@
 MetricFu::Configuration.run do |config|
+  require 'cane'
   config.add_metric(:cane)
   config.add_graph(:cane)
   config.configure_metric(:cane, {

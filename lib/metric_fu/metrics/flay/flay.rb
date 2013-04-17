@@ -1,5 +1,3 @@
-require 'flay'
-
 module MetricFu
 
   class Flay < Generator

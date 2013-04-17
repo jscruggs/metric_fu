@@ -1,4 +1,5 @@
 MetricFu::Configuration.run do |config|
+  require 'flay'
   config.add_metric(:flay)
   config.add_graph(:flay)
   config.configure_metric(:flay,
