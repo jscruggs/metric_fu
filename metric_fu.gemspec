@@ -22,19 +22,19 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   {
-    "rails_best_practices"  => ["= #{MetricFu::MetricVersion.rails_best_practices}"],
-    "japgolly-Saikuro"      => ["#{MetricFu::MetricVersion.saikuro}"],
-    "metric_fu-roodi"       => [">= #{MetricFu::MetricVersion.roodi}"],
-    "flay"                  => ["= #{MetricFu::MetricVersion.flay}"],
-    "flog"                  => ["= #{MetricFu::MetricVersion.flog}"],
-    "reek"                  => ["= #{MetricFu::MetricVersion.reek}"],
-    "churn"                 => ["= #{MetricFu::MetricVersion.churn}"],
-    "cane"                  => ["= #{MetricFu::MetricVersion.cane}"],
-      # specifying dependencies for flay, reek, churn, flog, and cane
-      "ruby_parser"           => ["~> 3.0", ">= #{MetricFu::MetricVersion.ruby_parser}"],
-      "sexp_processor"        => ["#{MetricFu::MetricVersion.sexp_processor}"],
-      "ruby2ruby"             => ["= #{MetricFu::MetricVersion.ruby2ruby}"],
-      "parallel"              => ["= #{MetricFu::MetricVersion.parallel}"],
+    "rails_best_practices"  => MetricFu::MetricVersion.rails_best_practices,
+    "japgolly-Saikuro"      => MetricFu::MetricVersion.saikuro,
+    "metric_fu-roodi"       => MetricFu::MetricVersion.roodi,
+    "flay"                  => MetricFu::MetricVersion.flay,
+    "flog"                  => MetricFu::MetricVersion.flog,
+    "reek"                  => MetricFu::MetricVersion.reek,
+    "churn"                 => MetricFu::MetricVersion.churn,
+    "cane"                  => MetricFu::MetricVersion.cane,
+      # specifying dependencies for f, r, ch, f, and cane
+      "ruby_parser"           => MetricFu::MetricVersion.ruby_parser,
+      "sexp_processor"        => MetricFu::MetricVersion.sexp_processor,
+      "ruby2ruby"             => MetricFu::MetricVersion.ruby2ruby,
+      "parallel"              => MetricFu::MetricVersion.parallel,
     "activesupport"         => [">= 2.0.0"], # ok
     'redcard'               => [],
     "coderay"               => [],
