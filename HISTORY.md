@@ -1,5 +1,16 @@
 ### Master
 
+### MetricFu 4.1.1 / 2013-04-16
+
+* Fixes
+  * Fix Syck warning in Ruby > 1.9 (Todd A. Jacobs #58, Benjamin Fleischer)
+  * Cane parser doesn't blow up when no output returned (Guilherme Souza #55)
+  * Fix typo in readme (Paul Elliott #52)
+  * Disable Flog and Cane in non-MRI rubies, as they require ripper (Benjamin Fleischer)
+* Refactor hotspots and graph code to live in its own metric (Benjamin Fleischer #54, #60)
+* Use RedCard gem to determine ruby version and ruby engine
+* Fix Gemfile ssl source warning
+
 ### MetricFu 4.1.0 / 2013-03-06
 
 * Fix crash in cane when missing readme (Sathish, pull request #51)
