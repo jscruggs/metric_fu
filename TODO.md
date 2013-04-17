@@ -6,7 +6,6 @@
 
 * Move code that references rcov out of
 
-    lib/reporting/templates/awesome/css/default.css
     lib/reporting/templates/standard/default.css
     lib/reporting/templates/standard/index.html.erb
 
