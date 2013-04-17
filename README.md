@@ -21,7 +21,10 @@ See `metric_fu --help` for more options
 * For 1.8.7 support, see version 3.0.0 for partial support, or 2.1.3.7.18.1 (where [Semantic Versioning](http://semver.org/) goes to die)
 
 * The `japgolly-Saikuro` fork and `metric_fu-roodi` fork are a part of an attempt to get metric_fu working in a modern Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
+
 * metric_fu no longer runs rcov itself. You may still use rcov metrics as documented below
+
+* The Cane and Flog metrics are disabled in non-MRI rubies as they depend on ripper
 
 ## Documentation
 
