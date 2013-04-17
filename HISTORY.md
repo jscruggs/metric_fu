@@ -1,5 +1,9 @@
 ### Master
 
+* Fixes
+  * No longer load rake when running from the command line (Benjamin Fleischer)
+  * Disable rails_best_practices in non-MRI rubies as it requires ripper (Benjamin Fleischer)
+
 ### MetricFu 4.1.1 / 2013-04-16
 
 * Fixes

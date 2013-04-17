@@ -24,7 +24,7 @@ See `metric_fu --help` for more options
 
 * metric_fu no longer runs rcov itself. You may still use rcov metrics as documented below
 
-* The Cane and Flog metrics are disabled in non-MRI rubies as they depend on ripper
+* The Cane, Flog, and Rails Best Practices metrics are disabled in non-MRI rubies as they depend on ripper
 
 ## Documentation
 

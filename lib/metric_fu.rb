@@ -54,6 +54,9 @@ module MetricFu
       elsif file =~ /flog/o
         MetricFu.configuration.mf_debug("Flog is only available in MRI. It requires ripper")
         true
+      elsif file =~ /rails_best_practices/o
+        MetricFu.configuration.mf_debug("Rails Best Practices only available in MRI. It requires ripper")
+        true
       else
         false
       end
