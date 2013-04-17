@@ -1,8 +1,11 @@
 ### Master
 
+### MetricFu 4.1.2 / 2013-04-17
+
 * Fixes
   * No longer load rake when running from the command line (Benjamin Fleischer)
   * Disable rails_best_practices in non-MRI rubies as it requires ripper (Benjamin Fleischer)
+  * Ensure metric executables use the same version the gemfile requires (Benjamin Fleischer)
 
 ### MetricFu 4.1.1 / 2013-04-16
 
