@@ -1,22 +1,12 @@
 require 'rake'
+
 require 'yaml'
-begin
-  require 'psych'
-  # Don't complain that "syck has been removed" in Ruby 2.0. Using syck will
-  # complain, but then sets itself to psych anyway.
-  stderr = $stderr 
-  $stderr = File.open('/dev/null', 'w')
-  YAML::ENGINE.yamler = 'syck'
-  $stderr = stderr
-rescue LoadError
-  #nothing to report
+# Psych is not defined in Ruby < 1.9
+if defined?(Psych)
+  # Syck is not available in Ruby > 1.9
+  YAML::ENGINE.yamler = 'syck' if defined?(Syck)
 end
-# def with_syck(&block)
-#   current_engine = YAML::ENGINE.yamler
-#   YAML::ENGINE.yamler = 'syck'
-#   block.call
-#   YAML::ENGINE.yamler = current_engine
-# end
+
 begin
   require 'active_support'
   require 'active_support/core_ext/object/to_json'
