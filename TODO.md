@@ -2,6 +2,8 @@
 
 * Keep HISTORY.md in master up to date
 
+* [Fix jruby/rbx errors on travis](https://travis-ci.org/metricfu/metric_fu)
+
 ## Before next release
 
 * Move code that references rcov out of
