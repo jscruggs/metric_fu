@@ -7,6 +7,8 @@ if defined?(Psych)
   YAML::ENGINE.yamler = 'syck' if defined?(Syck)
 end
 
+require 'redcard'
+
 begin
   require 'active_support'
   require 'active_support/core_ext/object/to_json'

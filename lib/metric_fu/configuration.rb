@@ -118,6 +118,14 @@ module MetricFu
       !!ENV['CC_BUILD_ARTIFACTS']
     end
 
+    def jruby?
+      @jruby ||= RedCard.check(:jruby)
+    end
+
+    def mri?
+      @mri ||= RedCard.check(:ruby)
+    end
+
     def platform #:nodoc:
       # TODO, change
       # RbConfig::CONFIG['ruby_install_name'].dup
@@ -125,7 +133,7 @@ module MetricFu
     end
 
     def self.ruby_strangely_makes_accessors_private?
-      !!(RUBY_VERSION =~ /1.9.2/) || defined?(JRUBY_VERSION)
+      RedCard.check('1.9.2') || jruby?
     end
     protected unless ruby_strangely_makes_accessors_private?
 

@@ -33,9 +33,12 @@ module MetricFu
       @flogger = ::Flog.new options
       @flogger.flog files
 
-    rescue LoadError
-      if defined?(JRUBY_VERSION)
-        puts 'running in jruby - flog tasks not available'
+    rescue LoadError => e
+      message = "#{e.class}\t#{e.message}\n\t#{e.backtrace.join('\n\t')}"
+      if MetricFu.configuration.mri?
+        puts "Flog Error: #{message}"
+      else
+        puts "Flog tasks only available in MRI: #{message}"
       end
     end
 

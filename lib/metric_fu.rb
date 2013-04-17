@@ -43,8 +43,16 @@ module MetricFu
   def self.configure
     MetricFu.lib_require { 'configuration' }
     init_files = Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).reject do |file|
-      if file =~ /rcov/
+      if file =~ /rcov/o
         MetricFu.configuration.mf_debug("rcov is not available. See README")
+        true
+      elsif MetricFu.configuration.mri?
+        false
+      elsif file =~ /cane/o
+        MetricFu.configuration.mf_debug("Cane is only available in MRI. It requires ripper")
+        true
+      elsif file =~ /flog/o
+        MetricFu.configuration.mf_debug("Flog is only available in MRI. It requires ripper")
         true
       else
         false
