@@ -1,3 +1,7 @@
+# rake is required for
+# Saikuro : sh
+# Rcov    : FileList
+# loading metric_fu.rake
 require 'rake'
 
 require 'yaml'
