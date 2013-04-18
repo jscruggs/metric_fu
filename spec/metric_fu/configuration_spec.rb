@@ -240,7 +240,7 @@ describe MetricFu::Configuration do
       end
 
       it 'should set the available metrics' do
-        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane]
+        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] - MetricFu.mri_only_metrics
       end
 
       it 'should set the @code_dirs instance var to ["lib"]' do
@@ -253,7 +253,10 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro] -
+      MetricFu.mri_only_metrics
+    ).each do |metric|
       it "should have a reader for #{metric}" do
         expect {
           @config.send(metric.to_sym)
@@ -272,7 +275,11 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |metric|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] -
+      MetricFu.mri_only_metrics
+
+    ).each do |metric|
       it "should add a #{metric} class method to the MetricFu module " do
         MetricFu.should respond_to(metric)
       end
