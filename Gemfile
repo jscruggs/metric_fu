@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rake'
-group :development, :test do
+group :development do
+  gem 'rake'
+end
+group :test do
   gem "rspec", '>2'
-  gem "test-construct", ">= 1.2.0"
-  gem "googlecharts"
+  gem 'test-construct'
   if ENV['COVERAGE']
     gem 'simplecov'
     # https://github.com/kina/simplecov-rcov-text
