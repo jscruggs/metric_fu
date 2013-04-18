@@ -122,11 +122,12 @@ describe MetricFu::Cli::Helper do
         helper.process_options(["--no-cane"])[:cane].should be_false
       end
 
+      it "turns cane on" do
+        helper.process_options(["--cane"])[:cane].should be_true
+      end
+
     end
 
-    it "turns cane on" do
-      helper.process_options(["--cane"])[:cane].should be_true
-    end
 
     it "turns hotspots off" do
       helper.process_options(["--no-hotspots"])[:hotspots].should be_false

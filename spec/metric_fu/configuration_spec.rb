@@ -101,12 +101,6 @@ describe MetricFu::Configuration do
                 should == {:dirs_to_flay => ['lib'], :filetypes=>["rb"], :minimum_score => 100}
       end
 
-      it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
-        load_metric 'flog'
-        @config.send(:flog).
-                should == {:dirs_to_flog => ['lib']}
-      end
-
       it 'should set @reek to {:dirs_to_reek => @code_dirs}' do
         load_metric 'reek'
         @config.send(:reek).
@@ -126,18 +120,6 @@ describe MetricFu::Configuration do
                 should == { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
       end
 
-      it 'should set @cane to ' +
-                          %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n', :no_readme => 'y') do
-        load_metric 'cane'
-        @config.send(:cane).
-          should == {
-            :dirs_to_cane => MetricFu.code_dirs,
-            :filetypes => ["rb"],
-            :abc_max => 15,
-            :line_length => 80,
-            :no_doc => "n",
-            :no_readme => "n"}
-      end
 
       it 'should set @rcov to ' +
                             %q(:test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
@@ -185,6 +167,27 @@ describe MetricFu::Configuration do
                       :error_cyclo => "7",
                       :formater => "text"}
       end
+
+      if MetricFu.configuration.mri?
+        it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
+          load_metric 'flog'
+          @config.send(:flog).
+                  should == {:dirs_to_flog => ['lib']}
+        end
+        it 'should set @cane to ' +
+                            %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n', :no_readme => 'y') do
+          load_metric 'cane'
+          @config.send(:cane).
+            should == {
+              :dirs_to_cane => MetricFu.code_dirs,
+              :filetypes => ["rb"],
+              :abc_max => 15,
+              :line_length => 80,
+              :no_doc => "n",
+              :no_readme => "n"}
+        end
+      end
+
 
     end
     describe 'if #rails? is true ' do
