@@ -15,10 +15,6 @@ describe MetricFu::Cli::Helper do
         defaults[:open].should be_true
       end
 
-      it "enables Flog" do
-        defaults[:flog].should be_true
-      end
-
       it "enables Flay" do
         defaults[:flay].should be_true
       end
@@ -39,8 +35,14 @@ describe MetricFu::Cli::Helper do
         defaults[:saikuro].should be_true
       end
 
-      it "enables Cane" do
-        defaults[:cane].should == MetricFu.configuration.mri?
+      if MetricFu.configuration.mri?
+        it "enables Flog" do
+          !defaults[:flog].should be_true
+        end
+
+        it "enables Cane" do
+          defaults[:cane].should be_true
+        end
       end
 
       it "enables RCov" do

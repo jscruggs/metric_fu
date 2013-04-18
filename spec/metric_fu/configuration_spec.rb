@@ -288,7 +288,10 @@ describe MetricFu::Configuration do
       end
     end
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |graph|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] -
+      MetricFu.mri_only_metrics
+    ).each do |graph|
       it "should add a #{graph} class metrhod to the MetricFu module" do
         MetricFu.should respond_to(graph)
       end
