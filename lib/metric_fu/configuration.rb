@@ -119,11 +119,11 @@ module MetricFu
     end
 
     def jruby?
-      @jruby ||= RedCard.check(:jruby)
+      @jruby ||= !!RedCard.check(:jruby)
     end
 
     def mri?
-      @mri ||= RedCard.check(:ruby)
+      @mri ||= !!RedCard.check(:ruby)
     end
 
     def platform #:nodoc:
@@ -133,8 +133,13 @@ module MetricFu
     end
 
     def self.ruby_strangely_makes_accessors_private?
-      RedCard.check('1.9.2') || jruby?
+       ruby192? || jruby?
     end
+
+    def self.ruby192?
+      @ruby192 ||= !!RedCard.check('1.9.2')
+    end
+
     protected unless ruby_strangely_makes_accessors_private?
 
     def add_promiscuous_instance_variable(name,value)
