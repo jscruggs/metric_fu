@@ -41,25 +41,24 @@ class AwesomeTemplate < MetricFu::Template
   end
 
   def convert_ruby_to_html(ruby_text, line_number)
-    # convertor = Syntax::Convertors::HTML.for_syntax('ruby')
-    # convertor.convert(ruby_text)
     tokens = CodeRay.scan(ruby_text, :ruby)
     options = { :css => :class, :style => :alpha }
     if line_number.to_i > 0
       options = options.merge({:line_numbers => :inline, :line_number_start => line_number.to_i })
     end
     tokens.div(options)
+    # CodeRay options
+    # used to analyze source code, because object Tokens is a list of tokens with specified types.
     # :tab_width – tabulation width in spaces. Default: 8
-# :css – how to include the styles (:class и :style). Default: :class)
-#
-# :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
-#
-# :line_numbers – how render line numbers (:table, :inline, :list or nil)
-#
-# :line_number_start – first line number
-#
-# :bold_every – make every n-th line number bold. Default: 10
-# CodeRay, as Syntax may be used to analyze source code, because object Tokens is a list of tokens with specified types.
+    # :css – how to include the styles (:class и :style). Default: :class)
+    #
+    # :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
+    #
+    # :line_numbers – how render line numbers (:table, :inline, :list or nil)
+    #
+    # :line_number_start – first line number
+    #
+    # :bold_every – make every n-th line number bold. Default: 10
   end
   def write_file_data
 
