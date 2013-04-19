@@ -40,22 +40,25 @@ class AwesomeTemplate < MetricFu::Template
     write_file_data
   end
 
-  def convert_ruby_to_html(ruby_text)
-    # convertor = Syntax::Convertors::HTML.for_syntax('ruby')
-    # convertor.convert(ruby_text)
+  def convert_ruby_to_html(ruby_text, line_number)
     tokens = CodeRay.scan(ruby_text, :ruby)
-    tokens.div( :line_numbers => :table, :css => :class, :style => :alpha )
+    options = { :css => :class, :style => :alpha }
+    if line_number.to_i > 0
+      options = options.merge({:line_numbers => :inline, :line_number_start => line_number.to_i })
+    end
+    tokens.div(options)
+    # CodeRay options
+    # used to analyze source code, because object Tokens is a list of tokens with specified types.
     # :tab_width – tabulation width in spaces. Default: 8
-# :css – how to include the styles (:class и :style). Default: :class)
-# 
-# :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
-# 
-# :line_numbers – how render line numbers (:table, :inline, :list or nil)
-# 
-# :line_number_start – first line number
-# 
-# :bold_every – make every n-th line number bold. Default: 10
-# CodeRay, as Syntax may be used to analyze source code, because object Tokens is a list of tokens with specified types.
+    # :css – how to include the styles (:class и :style). Default: :class)
+    #
+    # :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
+    #
+    # :line_numbers – how render line numbers (:table, :inline, :list or nil)
+    #
+    # :line_number_start – first line number
+    #
+    # :bold_every – make every n-th line number bold. Default: 10
   end
   def write_file_data
 
@@ -66,11 +69,12 @@ class AwesomeTemplate < MetricFu::Template
       out = "<html><head><style>#{inline_css('css/syntax.css')}</style></head><body>"
       out << "<table cellpadding='0' cellspacing='0' class='ruby'>"
       data.each_with_index do |line, idx|
-        out << "<tr><td valign='top'><small>#{idx + 1}</small></td>"
+        line_number = (idx + 1).to_s
+        out << "<tr>"
         out << "<td valign='top'>"
-        if lines.has_key?((idx + 1).to_s)
+        if lines.has_key?(line_number)
           out << "<ul>"
-          lines[(idx + 1).to_s].each do |problem|
+          lines[line_number].each do |problem|
             out << "<li>#{problem[:description]} &raquo; #{problem[:type]}</li>"
           end
           out << "</ul>"
@@ -78,8 +82,12 @@ class AwesomeTemplate < MetricFu::Template
           out << "&nbsp;"
         end
         out << "</td>"
-        line_for_display = MetricFu.configuration.syntax_highlighting ? convert_ruby_to_html(line) : line
-        out << "<td valign='top'><a name='line#{idx + 1}'>#{line_for_display}</a></td>"
+        if MetricFu.configuration.syntax_highlighting
+          line_for_display = convert_ruby_to_html(line, line_number)
+        else
+          line_for_display = "<a name='n#{line_number}' href='n#{line_number}'>#{line_number}</a>#{line}"
+        end
+        out << "<td valign='top'>#{line_for_display}</td>"
         out << "</tr>"
       end
       out << "<table></body></html>"
