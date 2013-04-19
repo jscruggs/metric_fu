@@ -1,5 +1,10 @@
 ### Master
 
+* Features
+  * Tests now pass in JRuby and Rubinius! (Benjamin Fleischer)
+* Fixes
+  * Line numbers now display and link properly in annotated code (Benjamin Fleischer)
+
 ### MetricFu 4.1.2 / 2013-04-17
 
 * Fixes
