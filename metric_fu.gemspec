@@ -45,8 +45,6 @@ Gem::Specification.new do |s|
     "metric_fu-roodi"       => MetricFu::MetricVersion.roodi,
     #
     # other dependencies
-    # ruby core extensions
-    "activesupport"         => [">= 2.0.0"], # ok
     # ruby version identification
     'redcard'               => [],
     # syntax highlighting
