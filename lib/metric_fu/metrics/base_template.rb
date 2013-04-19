@@ -149,7 +149,7 @@ module MetricFu
 
     def file_url(name, line) # :nodoc:
       return '' unless name
-      filename = File.expand_path(name.gsub(/^\//, ''))
+      filename = complete_file_path(name)
       link_prefix = MetricFu.configuration.link_prefix
       if link_prefix
         "#{link_prefix}/#{name.gsub(/:.*$/, '')}"
@@ -162,6 +162,13 @@ module MetricFu
       end
     end
 
+    def complete_file_path(filename)
+      File.expand_path(remove_leading_slash(filename))
+    end
+
+    def remove_leading_slash(filename)
+      filename.gsub(/^\//, '')
+    end
     def render_as_txmt_protocol? # :nodoc:
       config = MetricFu.configuration
       return false unless config.platform.include?('darwin')
