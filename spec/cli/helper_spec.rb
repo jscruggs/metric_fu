@@ -15,10 +15,6 @@ describe MetricFu::Cli::Helper do
         defaults[:open].should be_true
       end
 
-      it "enables Flog" do
-        defaults[:flog].should be_true
-      end
-
       it "enables Flay" do
         defaults[:flay].should be_true
       end
@@ -39,8 +35,14 @@ describe MetricFu::Cli::Helper do
         defaults[:saikuro].should be_true
       end
 
-      it "enables Cane" do
-        defaults[:cane].should be_true
+      if MetricFu.configuration.mri?
+        it "enables Flog" do
+          !defaults[:flog].should be_true
+        end
+
+        it "enables Cane" do
+          defaults[:cane].should be_true
+        end
       end
 
       it "enables RCov" do
@@ -49,24 +51,26 @@ describe MetricFu::Cli::Helper do
 
     end
 
-    context "on Ruby 1.8.7" do
+    if MetricFu.configuration.mri?
+      context "on Ruby 1.8.7" do
 
-      before { helper.stub(:ruby).and_return("1.8.7") }
+        before { helper.stub(:ruby).and_return("1.8.7") }
 
-      it "disables rails_best_practices" do
-        defaults[:rails_best_practices].should be_false
+        it "disables rails_best_practices" do
+          defaults[:rails_best_practices].should be_false
+        end
+
       end
 
-    end
+      context "on Ruby 1.9" do
 
-    context "on Ruby 1.9" do
+        before { helper.stub(:ruby).and_return("1.9.3") }
 
-      before { helper.stub(:ruby).and_return("1.9.3") }
+        xit "enables Rails Best Practices" do
+          defaults[:rails_best_practices].should be_true
+        end
 
-      xit "enables Rails Best Practices" do
-        defaults[:rails_best_practices].should be_true
       end
-
     end
 
   end
@@ -106,13 +110,26 @@ describe MetricFu::Cli::Helper do
       helper.process_options(["--flay"])[:flay].should be_true
     end
 
-    it "turns flog off" do
-      helper.process_options(["--no-flog"])[:flog].should be_false
+    if MetricFu.configuration.mri?
+
+      it "turns flog off" do
+        helper.process_options(["--no-flog"])[:flog].should be_false
+      end
+
+      it "turns flog on" do
+        helper.process_options(["--flog"])[:flog].should be_true
+      end
+
+      it "turns cane off" do
+        helper.process_options(["--no-cane"])[:cane].should be_false
+      end
+
+      it "turns cane on" do
+        helper.process_options(["--cane"])[:cane].should be_true
+      end
+
     end
 
-    it "turns flog on" do
-      helper.process_options(["--flog"])[:flog].should be_true
-    end
 
     it "turns hotspots off" do
       helper.process_options(["--no-hotspots"])[:hotspots].should be_false
@@ -146,13 +163,6 @@ describe MetricFu::Cli::Helper do
       helper.process_options(["--roodi"])[:roodi].should be_true
     end
 
-    it "turns cane off" do
-      helper.process_options(["--no-cane"])[:cane].should be_false
-    end
-
-    it "turns cane on" do
-      helper.process_options(["--cane"])[:cane].should be_true
-    end
   end
 
 end

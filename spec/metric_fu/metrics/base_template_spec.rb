@@ -94,21 +94,21 @@ describe MetricFu::Template do
       end
 
       it 'should return a textmate protocol link' do
-        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
+        @template.should_receive(:complete_file_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, 'filename')
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename'>filename</a>")
       end
 
       it "should do the right thing with a filename that starts with a slash" do
-        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
+        @template.should_receive(:complete_file_path).with('/filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, '/filename')
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename'>/filename</a>")
       end
 
       it "should include a line number" do
-        File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
+        @template.should_receive(:complete_file_path).with('filename').and_return('/expanded/filename')
         result = @template.send(:link_to_filename, 'filename', 6)
         result.should eql("<a href='txmt://open/?url=file://" \
                          + "/expanded/filename&line=6'>filename:6</a>")
@@ -121,7 +121,7 @@ describe MetricFu::Template do
           config.stub!(:darwin_txmt_protocol_no_thanks).and_return(true)
           config.stub!(:link_prefix).and_return(nil)
           MetricFu.stub!(:configuration).and_return(config)
-          File.should_receive(:expand_path).and_return('filename')
+          @template.should_receive(:complete_file_path).and_return('filename')
         end
 
         it "should return a file protocol link" do
@@ -133,7 +133,7 @@ describe MetricFu::Template do
 
       describe "and given link text" do
         it "should use the submitted link text" do
-          File.stub!(:expand_path).with('filename').and_return('/expanded/filename')
+          @template.should_receive(:complete_file_path).with('filename').and_return('/expanded/filename')
           result = @template.send(:link_to_filename, 'filename', 6, 'link content')
           result.should eql("<a href='txmt://open/?url=file://" \
                            + "/expanded/filename&line=6'>link content</a>")
@@ -148,7 +148,7 @@ describe MetricFu::Template do
         config.stub!(:link_prefix).and_return(nil)
         config.stub!(:darwin_txmt_protocol_no_thanks).and_return(false)
         MetricFu.stub!(:configuration).and_return(config)
-        File.should_receive(:expand_path).and_return('filename')
+        @template.should_receive(:complete_file_path).and_return('filename')
       end
 
       it 'should return a file protocol link' do
@@ -162,7 +162,7 @@ describe MetricFu::Template do
         config = mock("configuration")
         config.should_receive(:link_prefix).and_return('http://example.org/files')
         MetricFu.stub!(:configuration).and_return(config)
-        File.should_receive(:expand_path).and_return('filename')
+        @template.should_receive(:complete_file_path).and_return('filename')
       end
 
       it 'should return a http protocol link' do

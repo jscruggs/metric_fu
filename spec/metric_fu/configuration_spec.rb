@@ -101,12 +101,6 @@ describe MetricFu::Configuration do
                 should == {:dirs_to_flay => ['lib'], :filetypes=>["rb"], :minimum_score => 100}
       end
 
-      it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
-        load_metric 'flog'
-        @config.send(:flog).
-                should == {:dirs_to_flog => ['lib']}
-      end
-
       it 'should set @reek to {:dirs_to_reek => @code_dirs}' do
         load_metric 'reek'
         @config.send(:reek).
@@ -126,18 +120,6 @@ describe MetricFu::Configuration do
                 should == { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
       end
 
-      it 'should set @cane to ' +
-                          %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n', :no_readme => 'y') do
-        load_metric 'cane'
-        @config.send(:cane).
-          should == {
-            :dirs_to_cane => MetricFu.code_dirs,
-            :filetypes => ["rb"],
-            :abc_max => 15,
-            :line_length => 80,
-            :no_doc => "n",
-            :no_readme => "n"}
-      end
 
       it 'should set @rcov to ' +
                             %q(:test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
@@ -185,6 +167,27 @@ describe MetricFu::Configuration do
                       :error_cyclo => "7",
                       :formater => "text"}
       end
+
+      if MetricFu.configuration.mri?
+        it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
+          load_metric 'flog'
+          @config.send(:flog).
+                  should == {:dirs_to_flog => ['lib']}
+        end
+        it 'should set @cane to ' +
+                            %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n', :no_readme => 'y') do
+          load_metric 'cane'
+          @config.send(:cane).
+            should == {
+              :dirs_to_cane => MetricFu.code_dirs,
+              :filetypes => ["rb"],
+              :abc_max => 15,
+              :line_length => 80,
+              :no_doc => "n",
+              :no_readme => "n"}
+        end
+      end
+
 
     end
     describe 'if #rails? is true ' do
@@ -240,7 +243,7 @@ describe MetricFu::Configuration do
       end
 
       it 'should set the available metrics' do
-        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane]
+        @config.metrics.should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] - MetricFu.mri_only_metrics
       end
 
       it 'should set the @code_dirs instance var to ["lib"]' do
@@ -253,7 +256,10 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro].each do |metric|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro] -
+      MetricFu.mri_only_metrics
+    ).each do |metric|
       it "should have a reader for #{metric}" do
         expect {
           @config.send(metric.to_sym)
@@ -272,13 +278,20 @@ describe MetricFu::Configuration do
 
     before(:each) { get_new_config }
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |metric|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] -
+      MetricFu.mri_only_metrics
+
+    ).each do |metric|
       it "should add a #{metric} class method to the MetricFu module " do
         MetricFu.should respond_to(metric)
       end
     end
 
-    [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane].each do |graph|
+    (
+      [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] -
+      MetricFu.mri_only_metrics
+    ).each do |graph|
       it "should add a #{graph} class metrhod to the MetricFu module" do
         MetricFu.should respond_to(graph)
       end
