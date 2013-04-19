@@ -47,13 +47,13 @@ class AwesomeTemplate < MetricFu::Template
     tokens.div( :line_numbers => :table, :css => :class, :style => :alpha )
     # :tab_width – tabulation width in spaces. Default: 8
 # :css – how to include the styles (:class и :style). Default: :class)
-# 
+#
 # :wrap – wrap result in html tag :page, :div, :span or not to wrap (nil)
-# 
+#
 # :line_numbers – how render line numbers (:table, :inline, :list or nil)
-# 
+#
 # :line_number_start – first line number
-# 
+#
 # :bold_every – make every n-th line number bold. Default: 10
 # CodeRay, as Syntax may be used to analyze source code, because object Tokens is a list of tokens with specified types.
   end
