@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.files              = `git ls-files`.split($\)
   s.test_files         =  s.files.grep(%r{^(test|spec|features)/})
+  s.default_executable = %q{metric_fu}
   s.executables        =  s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.license     = 'MIT'
