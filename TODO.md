@@ -27,6 +27,7 @@ Also see [CONTRIBUTING](./CONTRIBUTING.md)
 * Remove / Modify Devver code from the generators/hotspots_spec and base/hotspot_analzyer_spec
 * Add tests
 * Remove useless tests
+* Remove tests that use StandardTemplate. Will require updating tests yml output, which may not be easy
 
 ## Bugs / Fixes
 
