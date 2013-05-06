@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = MetricFu::VERSION
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.email       = "github@benjaminfleischer.com"
-  s.homepage    = "http://github.com/metricfu/metric_fu"
+  s.homepage    = "https://github.com/metricfu/metric_fu"
   s.description = "Code metrics from Flog, Flay, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices, and optionally RCov"
   s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
   s.rubyforge_project = 'metric_fu'
