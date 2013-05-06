@@ -53,6 +53,7 @@ instance variables and accessors
 * Improve metric_fu code metrics
 * Refactor the hotspots code
 * Is there any reason not to remove the Manifest.txt?
+* Consider removing need for the core extensions (ActiveSupport)
 
 ### Documentation
 
