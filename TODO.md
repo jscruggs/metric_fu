@@ -45,7 +45,9 @@ instance variables and accessors
 * Clarify hotspot weighting
 * Update the wiki with use cases
 * Review how metric_fu uses each tools to generate metrics, e.g. by shelling out commands, rake task, modifying the output, etc.
-* Understand and explain s-expressions and how they're used (or should be ) here https://github.com/metricfu/metric_fu/blob/master/lib/metric_fu/data_structures/line_numbers.rb (via the ruby parser ) maybe see [ripper-tags](https://github.com/tmm1/ripper-tags)
+* Understand and explain s-expressions and how they're used (or should be ) in [line_numbers.rb](https://github.com/metricfu/metric_fu/blob/master/lib/metric_fu/data_structures/line_numbers.rb) (via the ruby_parser)
+  * maybe see [reek tree dresser](https://github.com/troessner/reek/blob/master/lib/reek/source/tree_dresser.rb) and [reek code parser](https://github.com/troessner/reek/blob/master/lib/reek/core/code_parser.rb) or
+  * [ripper-tags](https://github.com/tmm1/ripper-tags)
 * Remove dead code
 * Determine if CodeIssue is used, else remove it
 * Remove references to Ruport from the Devver / Caliper code
