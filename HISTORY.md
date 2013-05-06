@@ -4,6 +4,10 @@
   * Tests now pass in JRuby and Rubinius! (Benjamin Fleischer)
 * Fixes
   * Line numbers now display and link properly in annotated code (Benjamin Fleischer)
+  * No longer remove historical metrics when testing metric_fu
+* Misc (Benjamin Fleischer)
+  * Removed StandardTemplate, had no additional value and needed to be maintained
+  * Removed most template references to specific metrics
 
 ### MetricFu 4.1.2 / 2013-04-17
 
