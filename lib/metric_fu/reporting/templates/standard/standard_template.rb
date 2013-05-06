@@ -2,10 +2,13 @@ class StandardTemplate < MetricFu::Template
 
 
   def write
+    @metrics = {}
     report.each_pair do |section, contents|
       mf_debug section
       if template_exists?(section)
         create_instance_var(section, contents)
+        @metrics[section] = contents
+        mf_debug  "Generating html for section #{section} with #{template(section)} for report #{report.class}"
         html = erbify(section)
         fn = output_filename(section)
         MetricFu.report.save_output(html, MetricFu.output_directory, fn)

@@ -1,3 +1,4 @@
+# TODO remove explicit Churn dependency
 MetricFu::Configuration.run do |config|
   config.add_metric(:hotspots)
   config.configure_metric(:hotspots,
