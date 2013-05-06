@@ -36,6 +36,7 @@ Also see [CONTRIBUTING](./CONTRIBUTING.md)
 
 ### Improvements
 
+* See TODO items in the code
 * Change  how config works to not metaprogrammatically create so many
 instance variables and accessors
 * Clarify the execution path and what a metric's api should be, (repeat for templates and graphs)
