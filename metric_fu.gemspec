@@ -20,6 +20,9 @@ Gem::Specification.new do |s|
   s.executables        =  s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.license     = 'MIT'
+  s.has_rdoc = true
+  s.extra_rdoc_files = ["HISTORY.md", "CONTRIBUTING.md", "TODO.md", "MIT-LICENSE"]
+  s.rdoc_options = ["--main", "README.md"]
 
   {
     # metric dependencies
