@@ -154,7 +154,7 @@ module MetricFu
       EOF
     end
 
-    def to_graph #:nodoc:
+    def to_h #:nodoc:
       raise <<-EOF
         This method must be implemented by a concrete class descending
         from Generator.  See generator class documentation for more
