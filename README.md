@@ -1,5 +1,22 @@
 # MetricFu [![Gem Version](https://badge.fury.io/rb/metric_fu.png)](http://badge.fury.io/rb/metric_fu) [![Build Status](https://travis-ci.org/metricfu/metric_fu.png?branch=master)](http://travis-ci.org/metricfu/metric_fu) [![Code Climate](https://codeclimate.com/github/metricfu/metric_fu.png)](https://codeclimate.com/github/metricfu/metric_fu) [![Dependency Status](https://gemnasium.com/metricfu/metric_fu.png)](https://gemnasium.com/metricfu/metric_fu)
 
+## Metrics
+
+* [Cane](https://rubygems.org/gems/cane), [Source](http://github.com/square/cane)
+* [Churn](https://rubygems.org/gems/churn), [Source](http://github.com/danmayer/churn)
+* [Flog](https://rubygems.org/gems/flog), [Source](https://github.com/seattlerb/flog)
+* [Flay](https://rubygems.org/gems/flay), [Source](https://github.com/seattlerb/flay)
+* [Reek](https://rubygems.org/gems/reek) [Source](https://github.com/troessner/reek)
+* [Roodi](https://rubygems.org/gems/metric_fu-roodi), [Source](https://github.com/metricfu/roodi)
+* [Saikuro](https://rubygems.org/gems/japgolly-Saikuro), [Source](https://github.com/japgolly/Saikuro)
+* Rails-only
+  * [Rails Best Practices](https://rubygems.org/gems/rails_best_practices), [Source](https://github.com/railsbp/rails_best_practices)
+  * Rails `rake stats` task (see [gem](https://rubygems.org/gems/code_statistics), [Source](https://github.com/danmayer/code_statistics) )
+* Test Coverage
+  * 1.9: [SimpleCov](http://rubygems.org/gems/simplecov) and [SimpleCov-Rcov-Text](http://rubygems.org/gems/simplecov-rcov-text)
+  * 1.8 [Rcov](http://rubygems.org/gems/rcov)
+* Hotspots (a meta-metric of the above)
+
 ## Installation
 
     gem install metric_fu
