@@ -1,5 +1,8 @@
+# TODO determine if this file should be deleted
+# it doesn't appear to be used anywhere
 require 'delegate'
 
+# TODO remove explicit metric analyzer loading
 [ 'hotspots/hotspot_analyzer',
   'flog/flog_hotspot',
   'saikuro/saikuro_hotspot',
@@ -8,6 +11,7 @@ require 'delegate'
   'flay/flay_hotspot'].each do |path|
   MetricFu.metrics_require { path }
 end
+# TODO determine if the careful_array is needed
 %w(careful_array).each do |path|
   MetricFu.data_structures_require { path }
 end
@@ -18,6 +22,7 @@ module MetricFu
     include Comparable
 
     # TODO: Yuck! 'stat_value' is a column for StatHotspot
+    # TODO remove explicit metric references
     EXCLUDED_COLUMNS =
       FlogHotspot::COLUMNS +
       SaikuroHotspot::COLUMNS +
@@ -75,6 +80,7 @@ module MetricFu
       return nil
     end
 
+    # TODO remove explicit metric references
     def modifies?(other)
       case self.metric
       when :reek

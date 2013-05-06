@@ -2,69 +2,6 @@
 
 * Keep HISTORY.md in master up to date
 
-* [Fix jruby/rbx errors on travis](https://travis-ci.org/metricfu/metric_fu)
-
-## Before next release
-
-* Move code that references rcov out of
-
-    lib/reporting/templates/awesome/css/default.css
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/default.css
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references flog out of
-
-    lib/configuration.rb
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references flay out of
-
-    lib/metrics/generator.rb
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references churn out of
-
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/metrics/hotspots/init.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references rails_best_practices out of
-
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-
-* Move code that references reek out of
-
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-
-* Move code that references roodi out of
-
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references saikuro out of
-
-    lib/metrics/hotspots/analysis/code_issue.rb
-    lib/reporting/templates/awesome/index.html.erb
-    lib/reporting/templates/standard/index.html.erb
-
-* Move code that references stats out of
-
-lib/reporting/templates/awesome/index.html.erb
-lib/reporting/templates/standard/index.html.erb
-
 * Review how metric_fu uses each tools to generate metrics, e.g. by shelling out commands, rake task, modifying the output, etc.
 
 * Change MetricFu.report.add(metric) to e.g. MetricFu.generate_report(metric) to make clear that this actually runs the tool
