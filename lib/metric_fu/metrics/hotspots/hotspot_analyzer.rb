@@ -25,21 +25,29 @@ module MetricFu
       setup(report_hash)
     end
 
-    # def worst_items
+    # def worst_items; previous method name
     def hotspots
       analyzed_problems.worst_items
     end
-    # just for testing
+
     def analyzed_problems
       @analyzed_problems = MetricFu::HotspotAnalyzedProblems.new(@rankings, @analyzer_tables)
     end
+    # just for testing
+    # TODO remove the delegators
+    # and refactor the tests
     alias_method :worst_items, :hotspots
     extend Forwardable
     def_delegators  :@analyzer_tables, :table
     def_delegators  :@analyzed_problems, :problems_with, :location
     def_delegators  :@rankings, :worst_files, :worst_methods, :worst_classes
+
     private
 
+    # TODO clarify each of these steps in setup
+    # extract into its own method
+    # remove unnecessary constants,
+    # turn into methods
     def setup(report_hash)
       # TODO There is likely a clash that will happen between
       # column names eventually. We should probably auto-prefix
@@ -57,6 +65,7 @@ module MetricFu
       @rankings = MetricFu::HotspotRankings.new(@analyzer_tables.tool_tables)
       @rankings.calculate_scores(tool_analyzers, GRANULARITIES)
       # just for testing
+      # TODO does it not need to return something here?
       analyzed_problems
     end
 
