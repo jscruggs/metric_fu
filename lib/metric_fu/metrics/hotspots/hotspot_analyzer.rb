@@ -11,7 +11,7 @@ module MetricFu
     COMMON_COLUMNS = %w{metric}
     GRANULARITIES =  %w{file_path class_name method_name}
 
-    # UNUSED
+    # TODO , UNUSED
     # attr_accessor :table
 
     def tool_analyzers
@@ -60,7 +60,7 @@ module MetricFu
       analyzed_problems
     end
 
-    # UNUSED
+    # TODO remove, UNUSED
     # def most_common_column(column_name, size)
     #   #grouping = Ruport::Data::Grouping.new(@table,
     #   #                                      :by => column_name,
