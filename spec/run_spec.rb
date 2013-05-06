@@ -5,16 +5,8 @@ describe MetricFu, "running" do
 
   let(:helper)  { MetricFu::Cli::Helper.new }
 
-  before do
-    FileUtils.rm_rf("tmp/metric_fu")
-  end
-
   it "all these tests should not rely on shelling out to the command line" do
     pending("shelling to bundler is very slow")
-  end
-
-  xit "has a clean start" do
-    File.should_not exist("tmp/metric_fu")
   end
 
   xit "loads the .metrics file" do
