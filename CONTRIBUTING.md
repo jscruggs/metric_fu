@@ -5,8 +5,8 @@ How to contribute:
 1. Clone the repo: `git clone git://github.com/metricfu/metric_fu.git && cd metric_fu`
 2. Install the gem dependencies: `bundle install`
 3. Make the changes you want and back them up with tests.
-  * Run the tests ('bundle exec rake')
-  * Run metric_fu on itself ('bundle exec rake metrics:all')
+  * Run the tests (`bundle exec rake`)
+  * Run metric_fu on itself (`bundle exec rake metrics:all`)
 4. Update the HISTORY.md file with your changes and give yourself credit
 5. Commit and create a pull request with details as to what has been changed, including links to any relevant issues.
   * Use well-described, small-commits, and describe any relevant details in your pull request to make it easier for me to merge and greatly increase you chances of getting your changes accepted.
