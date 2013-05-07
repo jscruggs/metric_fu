@@ -75,8 +75,8 @@ class AwesomeTemplate < MetricFu::Template
           #{inline_css('css/bluff.css') if MetricFu.configuration.graph_engine == :bluff}
           #{inline_css('css/rcov.css') if @metrics.has_key?(:rcov)}
         </style></head><body>
-        out << "<table cellpadding='0' cellspacing='0' class='ruby'>
       HTML
+      out << "<table cellpadding='0' cellspacing='0' class='ruby'>"
       data.each_with_index do |line, idx|
         line_number = (idx + 1).to_s
         out << "<tr>"
