@@ -27,11 +27,11 @@ describe MetricFu::Graph do
       @graph.clazz.should_receive(:push).with(an_instance_of(RcovGchartGrapher))
       @graph.add("rcov", 'gchart')
     end
-  end 
+  end
 
   describe "setting the date on the graph" do
     before(:each) do
-      @graph.stub!(:puts)
+      @graph.stub!(:mf_log)
     end
 
     it "should set the date once for one data point" do
@@ -41,7 +41,7 @@ describe MetricFu::Graph do
       mock_grapher = stub
       mock_grapher.should_receive(:get_metrics).with("Metrics", "11/5")
       mock_grapher.should_receive(:graph!)
-     
+
       @graph.clazz = [mock_grapher]
       @graph.generate
     end
@@ -57,5 +57,5 @@ describe MetricFu::Graph do
       @graph.clazz = [mock_grapher]
       @graph.generate
     end
-  end 
+  end
 end

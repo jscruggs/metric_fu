@@ -25,7 +25,7 @@ module MetricFu
     def self.require_graphing_gem
       require 'gchart' if MetricFu.graph_engine == :gchart
     rescue LoadError
-      puts "#"*99 + "\n" +
+      mf_log "#"*99 + "\n" +
            "If you want to use google charts for graphing, you'll need to install the googlecharts rubygem." +
            "\n" + "#"*99
     end

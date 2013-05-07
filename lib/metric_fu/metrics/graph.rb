@@ -20,9 +20,9 @@ module MetricFu
 
     def generate
       return if self.clazz.empty?
-      puts "Generating graphs"
+      mf_log "Generating graphs"
       Dir[File.join(MetricFu.data_directory, '*.yml')].sort.each do |metric_file|
-        puts "Generating graphs for #{metric_file}"
+        mf_log "Generating graphs for #{metric_file}"
         date_parts = year_month_day_from_filename(metric_file)
         metrics = YAML::load(File.open(metric_file))
 

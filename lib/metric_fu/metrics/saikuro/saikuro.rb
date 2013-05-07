@@ -15,7 +15,7 @@ module MetricFu
       saikuro_bin= $:.map{|d| d+'/../bin/saikuro'}.select{|f| File.exists? f}.first || 'saikuro'
       sh %{#{saikuro_bin} #{options_string}} do |ok, response|
         unless ok
-          puts "Saikuro failed with exit status: #{response.exitstatus}"
+          mf_log "Saikuro failed with exit status: #{response.exitstatus}"
         end
       end
     end
@@ -56,7 +56,7 @@ module MetricFu
           line_numbers = MetricFu::LineNumbers.new(File.open(file_data[:filename], 'r').read)
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
-          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
+          mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
           next
         end
 
