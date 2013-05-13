@@ -79,7 +79,7 @@ instance variables and accessors
   * [Hoe](https://github.com/seattlerb/hoe/blob/master/lib/hoe.rb#L301)
   * CLI [Flog](https://github.com/seattlerb/flog/blob/master/lib/flog_cli.rb) Plugins [Flog](https://github.com/seattlerb/flog/blob/master/lib/flog_cli.rb#L34)
 * Look into adding
-  * https://github.com/metricfu/code_statistics
+  * https://github.com/metricfu/code_statistics [1](https://github.com/cloudability/code_statistics)
   * brakeman https://github.com/metricfu/brakeman
   * laser https://github.com/metricfu/laser
 * Other intersting libraries to consider:
@@ -91,7 +91,7 @@ instance variables and accessors
   * https://github.com/metricfu/gauntlet
   * https://github.com/metricfu/repodepot-ruby https://twitter.com/jakescruggs/status/70521977303076865
   * https://github.com/eladmeidar/rails_indexes
-  * https://github.com/trptcolin/consistency_fail 
+  * https://github.com/trptcolin/consistency_fail
   * https://github.com/thoughtbot/appraisal
   * https://github.com/jenkinsci/rubymetrics-plugin
   * https://github.com/holman/hopper
