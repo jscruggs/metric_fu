@@ -35,6 +35,10 @@ Also see [CONTRIBUTING](./CONTRIBUTING.md)
 
 ## Misc
 
+### Work on dependent libraries
+
+* Look into getting rails_best_practices, cane, and flog to use a non-MRI-specific parser, such as [parser](https://github.com/whitequark/parser/), aka not Ripper
+
 ### Improvements
 
 * See TODO items in the code
