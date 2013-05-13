@@ -1,5 +1,7 @@
 ### Master
 
+### MetricFu 4.1.3 / 2013-05-13
+
 * Features
   * Tests now pass in JRuby and Rubinius! (Benjamin Fleischer)
 * Fixes
