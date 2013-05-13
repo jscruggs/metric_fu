@@ -1,6 +1,11 @@
 How to contribute:
 
-## Code 
+## Bug reports / Issues
+
+  * Is something broken or not working as expected? Check for an existing issue or [create a new one](https://github.com/metricfu/metric_fu/issues/new)
+  * See [Quick guide to writing good bug reports](https://github.com/metricfu/metric_fu/wiki/Issues:-Quick-guide-to-writing-good-bug-reports)
+
+## Code
 
 1. Clone the repo: `git clone git://github.com/metricfu/metric_fu.git && cd metric_fu`
 2. Install the gem dependencies: `bundle install`
@@ -12,13 +17,12 @@ How to contribute:
   * Use well-described, small (atomic) commits.
   * Include links to any relevant github issues.
   * *Don't* change the VERSION file.
-  * Also see [Quick guide to writing good bug reports](https://github.com/metricfu/metric_fu/wiki/Issues:-Quick-guide-to-writing-good-bug-reports)
 6. Extra Credit: [Confirm it runs and tests pass on the rubies specified in the travis config](.travis.yml). I will otherwise confirm it runs on these.
 
 How I handle pull requests:
 
 * If the tests pass and the pull request looks good, I will merge it.
-* If the pull request needs to be changed, 
+* If the pull request needs to be changed,
   * you can change it by updating the branch you generated the pull request from
     * either by adding more commits, or
     * by force pushing to it
