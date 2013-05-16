@@ -1,5 +1,8 @@
 ### Master
 
+* Misc
+  * Make Location and AnalyzedProblems code more confident (Avdi Grimm)
+
 ### MetricFu 4.1.3 / 2013-05-13
 
 * Features
