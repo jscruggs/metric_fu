@@ -30,7 +30,7 @@ module MetricFu
       @file_path = file_path
       @class_name = class_name
       @method_name = method_name
-      @simple_method_name = @method_name.sub(@class_name,'') unless @method_name == nil
+      @simple_method_name = @method_name.to_s.sub(@class_name.to_s,'')
       @hash = [@file_path, @class_name, @method_name].hash
     end
 
