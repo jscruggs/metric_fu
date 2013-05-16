@@ -15,9 +15,7 @@ module MetricFu
       key = [file_path, class_name, method_name].
           map{|location_param| (location_param || Unspecified).clone }
       @@locations ||= {}
-      if @@locations.has_key?(key)
-        @@locations[key]
-      else
+      @@locations.fetch(key) do
         location = self.new(*key)
         @@locations[key] = location
         location.freeze  # we cache a lot of method call results, so we want location to be immutable
