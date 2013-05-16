@@ -3,7 +3,7 @@ module MetricFu
     # Modules make for easy cheap singleton objects...
     module Unspecified
       def self.clone
-        self
+        nil
       end
     end
 
@@ -18,7 +18,7 @@ module MetricFu
       if @@locations.has_key?(key)
         @@locations[key]
       else
-        location = self.new(file_path, class_name, method_name)
+        location = self.new(*key)
         @@locations[key] = location
         location.freeze  # we cache a lot of method call results, so we want location to be immutable
         location
