@@ -1,34 +1,25 @@
 module MetricFu
   class Location
-    # Modules make for easy cheap singleton objects...
-    module Unspecified
-      def self.clone
-        nil
-      end
-    end
-
     include Comparable
 
     attr_accessor :class_name, :method_name, :file_path, :simple_method_name, :hash
 
     def self.get(file_path, class_name, method_name)
-      key = [file_path, class_name, method_name].
-          map{|location_param| (location_param || Unspecified).clone }
+      location = new(file_path, class_name, method_name)
       @@locations ||= {}
-      @@locations.fetch(key) do
-        location = self.new(*key)
-        @@locations[key] = location
-        location.freeze  # we cache a lot of method call results, so we want location to be immutable
+      @@locations.fetch(location.to_key) do
+        @@locations[location.to_key] = location
+        location.finalize
         location
       end
     end
 
     def initialize(file_path, class_name, method_name)
-      @file_path = file_path
-      @class_name = class_name
-      @method_name = method_name
+      @file_path          = file_path
+      @class_name         = class_name
+      @method_name        = method_name
       @simple_method_name = @method_name.to_s.sub(@class_name.to_s,'')
-      @hash = [@file_path, @class_name, @method_name].hash
+      @hash               = to_key.hash
     end
 
     # TODO - we need this method (and hash accessor above) as a temporary hack where we're using Location as a hash key
@@ -69,6 +60,17 @@ module MetricFu
 
     def <=>(other)
       [self.file_path.to_s, self.class_name.to_s, self.method_name.to_s] <=> [other.file_path.to_s, other.class_name.to_s, other.method_name.to_s]
+    end
+
+    def to_key
+      [@file_path, @class_name, @method_name]
+    end
+
+    def finalize
+      @file_path   &&= @file_path.clone
+      @class_name  &&= @class_name.clone
+      @method_name &&= @method_name.clone
+      freeze  # we cache a lot of method call results, so we want location to be immutable
     end
 
     private
