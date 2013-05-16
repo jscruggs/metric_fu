@@ -13,8 +13,7 @@ module MetricFu
 
     def self.get(file_path, class_name, method_name)
       key = [file_path, class_name, method_name].
-          map{|part| part || Unspecified}.
-          map(&:clone)
+          map{|location_param| (location_param || Unspecified).clone }
       @@locations ||= {}
       if @@locations.has_key?(key)
         @@locations[key]
