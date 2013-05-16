@@ -44,9 +44,7 @@ module MetricFu
     end
     def location(item, value)
       sub_table = get_sub_table(item, value)
-      if(sub_table.length==0)
-        raise MetricFu::AnalysisError, "The #{item.to_s} '#{value.to_s}' does not have any rows in the analysis table"
-      end
+      assert_sub_table_has_data(item, sub_table, value)
       first_row = sub_table[0]
       case item
       when :class
@@ -59,6 +57,13 @@ module MetricFu
         raise ArgumentError, "Item must be :class, :method, or :file"
       end
     end
+
+    def assert_sub_table_has_data(item, sub_table, value)
+      if (sub_table.length==0)
+        raise MetricFu::AnalysisError, "The #{item.to_s} '#{value.to_s}' does not have any rows in the analysis table"
+      end
+    end
+
     # just for testing
     public :location, :problems_with
     def get_sub_table(item, value)
