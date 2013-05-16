@@ -6,9 +6,9 @@ module MetricFu
 
     def self.get(file_path, class_name, method_name)
       # This could be more 'confident' using Maybe, but we want it to be as fast as possible
-      file_path_copy = file_path == nil ? nil : file_path.clone
-      class_name_copy = class_name == nil ? nil : class_name.clone
-      method_name_copy = method_name == nil ? nil : method_name.clone
+      file_path_copy   = file_path   && file_path.clone
+      class_name_copy  = class_name  && class_name.clone
+      method_name_copy = method_name && method_name.clone
       key = [file_path_copy, class_name_copy, method_name_copy]
       @@locations ||= {}
       if @@locations.has_key?(key)
