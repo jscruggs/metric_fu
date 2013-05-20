@@ -21,7 +21,7 @@ module MetricFu
     end
 
     def ruby2ruby
-      ['= 2.0.2']
+      ['~> 2.0', '>= 2.0.2']
     end
     def ruby_parser
       ['~> 3.0', '>= 3.1.1']

@@ -2,7 +2,8 @@
 
 * Features
   * Allow setting of the --continue flag with flog (Eric Wollesen)
-
+*Fixes
+  * Allow the 2.0.x point releases (Benjamin Fleischer #75)
 * Misc
   * Make Location and AnalyzedProblems code more confident (Avdi Grimm)
 
