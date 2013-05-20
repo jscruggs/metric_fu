@@ -1,6 +1,11 @@
 #!/usr/bin/env rake
 require 'bundler/setup'
-require 'bundler/gem_tasks'
+
+
+Dir['./gem_tasks/*.rake'].each do |task|
+  import(task)
+end
+
 # $LOAD_PATH << '.'
 begin
   require 'spec/rake/spectask'
