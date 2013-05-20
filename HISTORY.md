@@ -1,5 +1,7 @@
 ### Master
 
+### MetricFu 4.2.0 / 2013-05-20
+
 * Features
   * Allow setting of the --continue flag with flog (Eric Wollesen)
 *Fixes
