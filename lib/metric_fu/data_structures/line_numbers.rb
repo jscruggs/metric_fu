@@ -23,7 +23,7 @@ module MetricFu
       end
     rescue Exception => e
       #catch errors for files ruby_parser fails on
-      mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
+      mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tFILE:#{file_path}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
       @locations
     end
 
