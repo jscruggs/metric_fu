@@ -10,7 +10,7 @@ describe Flog do
     describe "emit method" do
       it "should look for files and flog them" do
         Dir.should_receive(:glob).with("lib/**/*.rb").and_return(["found/file.rb"])
-        ::Flog.should_receive(:parse_options).with(["--all", "--details"]).and_return("options")
+        ::Flog.should_receive(:parse_options).with(["--all"]).and_return("options")
         ::Flog.should_receive(:new).with("options").and_return(flogger = mock('flogger'))
         flogger.should_receive(:flog).with(["found/file.rb"])
         @flog.emit

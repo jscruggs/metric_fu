@@ -27,7 +27,6 @@ module MetricFu
       end
       options = ::Flog.parse_options [
         "--all",
-        "--details",
         MetricFu.flog[:continue] ? "--continue" : nil,
       ].compact
 
