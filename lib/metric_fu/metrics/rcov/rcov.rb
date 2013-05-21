@@ -81,7 +81,7 @@ module MetricFu
           line_numbers = MetricFu::LineNumbers.new(file_contents)
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
-          STDOUT.puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Rcov information for this file."
+          mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Rcov information for this file."
           next
         end
 

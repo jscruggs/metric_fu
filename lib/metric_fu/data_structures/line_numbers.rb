@@ -4,7 +4,7 @@ module MetricFu
 
     def initialize(contents,file_path='')
       if contents.to_s.size.zero?
-        puts "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
+        mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
       else
         rp = RubyParser.new
         @locations = {}
@@ -21,12 +21,12 @@ module MetricFu
         when :cdecl
           mf_debug "SEXP: Not parsing line number for #{file_sexp.inspect}"
         else
-          puts "Unexpected sexp_type #{file_sexp[0].inspect}"
+          mf_log "Unexpected sexp_type #{file_sexp[0].inspect}"
         end
       end
     rescue Exception => e
       #catch errors for files ruby_parser fails on
-      puts "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
+      mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
       @locations
     end
 

@@ -37,9 +37,9 @@ module MetricFu
     rescue LoadError => e
       message = "#{e.class}\t#{e.message}\n\t#{e.backtrace.join('\n\t')}"
       if MetricFu.configuration.mri?
-        puts "Flog Error: #{message}"
+        mf_log "Flog Error: #{message}"
       else
-        puts "Flog tasks only available in MRI: #{message}"
+        mf_log "Flog tasks only available in MRI: #{message}"
       end
     end
 

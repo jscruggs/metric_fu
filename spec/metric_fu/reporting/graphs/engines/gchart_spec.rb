@@ -5,7 +5,7 @@ describe MetricFu::Grapher do
     it "should give a warning if trying to use gchart but gem is not installed" do
       MetricFu::Configuration.run {|config| config.graph_engine = :gchart}
       MetricFu::Grapher.should_receive(:require).with('gchart').and_raise(LoadError)
-      MetricFu::Grapher.should_receive(:puts).with(/If you want to use google charts/)
+      MetricFu::Grapher.should_receive(:mf_log).with(/If you want to use google charts/)
       MetricFu::Grapher.require_graphing_gem
     end
   end

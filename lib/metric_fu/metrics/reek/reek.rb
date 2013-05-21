@@ -66,7 +66,7 @@ module MetricFu
           line_numbers = MetricFu::LineNumbers.new(File.open(file_path, 'r').read,file_path)
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
-          puts "ruby_parser blew up while trying to parse #{file_path}. You won't have method level reek information for this file."
+          mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level reek information for this file."
           next
         end
 

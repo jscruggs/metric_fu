@@ -11,7 +11,7 @@ describe MetricFu::Rcov do
 
   describe "emit" do
     before :each do
-      @rcov.stub!(:puts)
+      @rcov.stub!(:mf_log)
       MetricFu.rcov[:external] = nil
     end
 
@@ -65,7 +65,7 @@ describe MetricFu::Rcov do
   end
   describe "with external configuration option set" do
     before :each do
-      @rcov.stub!(:puts)
+      @rcov.stub!(:mf_log)
       MetricFu.rcov[:external] = "coverage/rcov.txt"
     end
 
