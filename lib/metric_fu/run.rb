@@ -21,12 +21,13 @@ module MetricFu
     end
     def run_reports
       report_metrics.each {|metric|
-        mf_debug "** STARTING METRIC #{metric}"
+        mf_log "** STARTING METRIC #{metric}"
         MetricFu.report.add(metric)
-        mf_debug "** ENDING METRIC #{metric}"
+        mf_log "** ENDING METRIC #{metric}"
       }
     end
     def save_reports
+      mf_log "** SAVING REPORTS"
       mf_debug "** SAVING REPORT YAML OUTPUT TO #{MetricFu.base_directory}"
       MetricFu.report.save_output(MetricFu.report.as_yaml,
                                   MetricFu.base_directory,
@@ -39,6 +40,7 @@ module MetricFu
       MetricFu.report.save_templatized_report
     end
     def save_graphs
+      mf_log "** GENERATING GRAPHS"
       mf_debug "** PREPARING TO GRAPH"
       MetricFu.graphs.each {|graph|
         mf_debug "** Graphing #{graph} with #{MetricFu.graph_engine}"
@@ -52,6 +54,7 @@ module MetricFu
         mf_debug "** OPENING IN BROWSER FROM #{MetricFu.output_directory}"
         MetricFu.report.show_in_browser(MetricFu.output_directory)
       end
+      mf_log "** COMPLETE"
     end
     private
     def load_user_configuration
