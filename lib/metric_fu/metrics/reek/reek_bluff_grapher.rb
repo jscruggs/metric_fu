@@ -11,7 +11,7 @@ module MetricFu
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Reek: code smells';
         #{data}
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'reek.js'), 'w') {|f| f << content }

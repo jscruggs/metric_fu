@@ -7,7 +7,7 @@ module MetricFu
         g.title = 'Stats: LOC & LOT';
         g.data('LOC', [#{@loc_counts.join(',')}]);
         g.data('LOT', [#{@lot_counts.join(',')}])
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'stats.js'), 'w') {|f| f << content }

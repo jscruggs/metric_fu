@@ -6,7 +6,7 @@ module MetricFu
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Rails Best Practices: design problems';
         g.data('rails_best_practices', [#{@rails_best_practices_count.join(',')}]);
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'rails_best_practices.js'), 'w') {|f| f << content }

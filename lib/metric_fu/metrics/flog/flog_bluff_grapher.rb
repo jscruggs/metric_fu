@@ -7,7 +7,7 @@ module MetricFu
         g.title = 'Flog: code complexity';
         g.data('average', [#{@flog_average.join(',')}]);
         g.data('top 5% average', [#{@top_five_percent_average.join(',')}])
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'flog.js'), 'w') {|f| f << content }

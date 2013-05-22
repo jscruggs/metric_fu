@@ -6,7 +6,7 @@ module MetricFu
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Rcov: code coverage';
         g.data('rcov', [#{@rcov_percent.join(',')}]);
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'rcov.js'), 'w') {|f| f << content }

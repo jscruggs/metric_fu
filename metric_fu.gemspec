@@ -55,6 +55,8 @@ Gem::Specification.new do |s|
     "coderay"               => [],
     # default graphing libraries
     "bluff"                 => [],
+    # to_json support
+    'multi_json'            => [],
   }.each do |gem, version|
     if version == []
       s.add_runtime_dependency(gem)

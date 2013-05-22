@@ -6,7 +6,7 @@ module MetricFu
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Flay: duplication';
         g.data('flay', [#{@flay_score.join(',')}]);
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'flay.js'), 'w') {|f| f << content }

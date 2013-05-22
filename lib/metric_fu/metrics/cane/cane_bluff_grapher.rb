@@ -6,7 +6,7 @@ module MetricFu
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Cane: code quality threshold violations';
         g.data('cane', [#{@cane_violations.join(',')}]);
-        g.labels = #{@labels.to_json};
+        g.labels = #{MultiJson.dump(@labels)};
         g.draw();
       EOS
       File.open(File.join(MetricFu.output_directory, 'cane.js'), 'w') {|f| f << content }
