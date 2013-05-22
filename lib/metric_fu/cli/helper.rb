@@ -41,7 +41,7 @@ module MetricFu
             p.version = self.version
             p.option :run, "Run all metrics with defaults", :default => false
             metrics.each do |metric|
-              p.option metric.to_sym, "Enables or disables #{metric.to_s.titleize}", :default => true #, :value_in_set => [true, false]
+              p.option metric.to_sym, "Enables or disables #{metric.to_s}", :default => true #, :value_in_set => [true, false]
             end
             p.option :open, "Open report in browser", :default => true
         end.process!(argv)
