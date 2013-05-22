@@ -115,7 +115,7 @@ module MetricFu
         content.map! do |raw_line|
           line = Line.new(raw_line[3..-1], !raw_line.match(/^!!/)).to_h
         end
-        content.reject! {|line| line[:content].blank? }
+        content.reject! {|line| line[:content].to_s == '' }
         files[fname] = {:lines => content}
       end
       files
