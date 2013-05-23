@@ -84,6 +84,7 @@ instance variables and accessors
   * CLI [Flog](https://github.com/seattlerb/flog/blob/master/lib/flog_cli.rb) Plugins [Flog](https://github.com/seattlerb/flog/blob/master/lib/flog_cli.rb#L34)
 * Look into adding
   * https://github.com/metricfu/code_statistics [1](https://github.com/cloudability/code_statistics)
+    * or extract from rails into a gem [rake task](https://github.com/rails/rails/blob/master/railties/lib/rails/tasks/statistics.rake) [can be modified by rspec](https://github.com/rspec/rspec-rails/blob/master/lib/rspec/rails/tasks/rspec.rake#L38) with the [calculator](https://github.com/rails/rails/blob/master/railties/lib/rails/code_statistics_calculator.rb) and [class](https://github.com/rails/rails/blob/master/railties/lib/rails/code_statistics.rb)
   * brakeman https://github.com/metricfu/brakeman
   * laser https://github.com/metricfu/laser
 * Other intersting libraries to consider:
