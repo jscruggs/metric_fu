@@ -1,5 +1,13 @@
 ### Master
 
+### MetricFu 4.2.1 / 2013-05-23
+
+* Fixes
+  * Remove ActiveSupport dependencies (Benjamin Fleischer #79)
+    * Add MultiJson to ensure JSON support in rbx and jruby (Benjamin Fleischer)
+* Misc
+  * Improve STDOUT to show which metric is running but hide the details by default
+
 ### MetricFu 4.2.0 / 2013-05-20
 
 * Features
