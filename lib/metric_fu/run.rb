@@ -15,8 +15,7 @@ module MetricFu
 
     # ensure :hotspots runs last
     def report_metrics(metrics=MetricFu.metrics)
-      MetricFu.configuration.metrics -= [ :hotspots ]
-      MetricFu.configuration.metrics += [ :hotspots ]
+      MetricFu.configuration.metrics.sort_by! {|x| x == :hotspots ? 1 : 0 }
       MetricFu.configuration.metrics
     end
     def run_reports
