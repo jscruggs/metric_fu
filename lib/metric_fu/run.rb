@@ -10,7 +10,7 @@ module MetricFu
       run_reports
       save_reports
       save_graphs
-      display_results
+      display_results if options[:open]
     end
 
     # ensure :hotspots runs last
