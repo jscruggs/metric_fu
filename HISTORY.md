@@ -1,9 +1,12 @@
 ### Master
+
 * Fixes
   * obey --no-open option (Chris Mason)
   * Don't run the hotspots metric if it has been disabled (Chris Mason)
 * Misc
   * metric_fu runs with the -r option by default (Chris Mason #69)
+  * Switch to metric_fu-Saikuro gem (Benjamin Fleischer)
+
 ### MetricFu 4.2.1 / 2013-05-23
 
 * Fixes

@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
       "arrayfields"           => ["= 4.7.4"],
       "map"                   => ["= 6.2.0"],
     "rails_best_practices"  => MetricFu::MetricVersion.rails_best_practices,
-    "japgolly-Saikuro"      => MetricFu::MetricVersion.saikuro,
+    "metric_fu-Saikuro"      => MetricFu::MetricVersion.saikuro,
     "metric_fu-roodi"       => MetricFu::MetricVersion.roodi,
     #
     # other dependencies
