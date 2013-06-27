@@ -2,63 +2,63 @@ require "spec_helper"
 
 describe MetricFu do
 
-  describe "#report" do
-    it 'should return an instance of Report' do
-      MetricFu.report.instance_of?(Report).should be(true)
+  describe "#result" do
+    it 'should return an instance of Result' do
+      MetricFu.result.instance_of?(Result).should be(true)
     end
   end
 end
 
-describe MetricFu::Report do
+describe MetricFu::Result do
 
   before(:each) do
-    @report = MetricFu::Report.new
+    @result = MetricFu::Result.new
   end
 
   describe "#as_yaml" do
-    it 'should call #report_hash' do
-      report_hash = mock('report_hash')
-      report_hash.should_receive(:to_yaml)
+    it 'should call #result_hash' do
+      result_hash = mock('result_hash')
+      result_hash.should_receive(:to_yaml)
 
-      @report.should_receive(:report_hash).and_return(report_hash)
-      @report.as_yaml
+      @result.should_receive(:result_hash).and_return(result_hash)
+      @result.as_yaml
     end
   end
 
-  describe "#report_hash" do
+  describe "#result_hash" do
   end
 
-  describe "#save_templatized_report" do
-    it 'should create a new template class assign a report_hash '\
+  describe "#save_templatized_result" do
+    it 'should create a new template class assign a result_hash '\
        'to the template class, and ask it to write itself out' do
       template_class = mock('template_class')
       template_class.should_receive(:new).and_return(template_class)
       MetricFu.should_receive(:template_class).and_return(template_class)
-      template_class.should_receive(:report=)
+      template_class.should_receive(:result=)
       template_class.should_receive(:per_file_data=)
       template_class.should_receive(:write)
-      @report.save_templatized_report
+      @result.save_templatized_result
     end
   end
 
   describe "#add" do
-    it 'should add a passed hash to the report_hash instance variable' do
-      report_type = mock('report_type')
-      report_type.should_receive(:to_s).any_number_of_times.and_return('type')
+    it 'should add a passed hash to the result_hash instance variable' do
+      result_type = mock('result_type')
+      result_type.should_receive(:to_s).any_number_of_times.and_return('type')
 
-      report_inst = mock('report_inst')
-      report_type.should_receive(:new).and_return(report_inst)
+      result_inst = mock('result_inst')
+      result_type.should_receive(:new).and_return(result_inst)
 
-      report_inst.should_receive(:generate_report).and_return({:a => 'b'})
-      report_inst.should_receive(:respond_to?).and_return(false)
+      result_inst.should_receive(:generate_result).and_return({:a => 'b'})
+      result_inst.should_receive(:respond_to?).and_return(false)
 
-      MetricFu.should_receive(:send).with(report_type).and_return({})
+      MetricFu.should_receive(:send).with(result_type).and_return({})
       MetricFu.should_receive(:const_get).
-               with('Type').and_return(report_type)
-      report_hash = mock('report_hash')
-      report_hash.should_receive(:merge!).with({:a => 'b'})
-      @report.should_receive(:report_hash).and_return(report_hash)
-      @report.add(report_type)
+               with('Type').and_return(result_type)
+      result_hash = mock('result_hash')
+      result_hash.should_receive(:merge!).with({:a => 'b'})
+      @result.should_receive(:result_hash).and_return(result_hash)
+      @result.add(result_type)
     end
   end
 
@@ -66,9 +66,9 @@ describe MetricFu::Report do
     it 'should write the passed content to dir/index.html' do
       f = mock('file')
       content = 'content'
-      @report.should_receive(:open).with('dir/file', 'w').and_yield(f)
+      @result.should_receive(:open).with('dir/file', 'w').and_yield(f)
       f.should_receive(:puts).with(content)
-      @report.save_output(content, 'dir', 'file')
+      @result.save_output(content, 'dir', 'file')
     end
   end
 
@@ -92,7 +92,7 @@ describe MetricFu::Report do
         end
 
         it 'should return false' do
-          @report.open_in_browser?.should be_false
+          @result.open_in_browser?.should be_false
         end
       end
 
@@ -104,7 +104,7 @@ describe MetricFu::Report do
         end
 
         it 'should return true' do
-          @report.open_in_browser?.should be_true
+          @result.open_in_browser?.should be_true
         end
       end
     end
@@ -120,7 +120,7 @@ describe MetricFu::Report do
         end
 
         it 'should return false' do
-          @report.open_in_browser?.should be_false
+          @result.open_in_browser?.should be_false
         end
       end
 
@@ -130,7 +130,7 @@ describe MetricFu::Report do
         end
 
         it 'should return false' do
-          @report.open_in_browser?.should be_false
+          @result.open_in_browser?.should be_false
         end
       end
     end
@@ -139,9 +139,9 @@ describe MetricFu::Report do
 
   describe '#show_in_browser' do
     it 'should call open with the passed directory' do
-      @report.should_receive(:open_in_browser?).and_return(true)
-      @report.should_receive(:system).with("open my_dir/index.html")
-      @report.show_in_browser('my_dir')
+      @result.should_receive(:open_in_browser?).and_return(true)
+      @result.should_receive(:system).with("open my_dir/index.html")
+      @result.show_in_browser('my_dir')
     end
 
   end

@@ -7,7 +7,7 @@ module MetricFu
     end
     def run(options={})
       disable_metrics(options)
-      run_reports
+      measure
       save_reports
       save_graphs
       display_results if options[:open]
@@ -18,25 +18,25 @@ module MetricFu
       MetricFu.configuration.metrics.sort_by! {|x| x == :hotspots ? 1 : 0 }
       MetricFu.configuration.metrics
     end
-    def run_reports
+    def measure
       report_metrics.each {|metric|
         mf_log "** STARTING METRIC #{metric}"
-        MetricFu.report.add(metric)
+        MetricFu.result.add(metric)
         mf_log "** ENDING METRIC #{metric}"
       }
     end
     def save_reports
       mf_log "** SAVING REPORTS"
       mf_debug "** SAVING REPORT YAML OUTPUT TO #{MetricFu.base_directory}"
-      MetricFu.report.save_output(MetricFu.report.as_yaml,
+      MetricFu.result.save_output(MetricFu.result.as_yaml,
                                   MetricFu.base_directory,
                                   "report.yml")
       mf_debug "** SAVING REPORT DATA OUTPUT TO #{MetricFu.data_directory}"
-      MetricFu.report.save_output(MetricFu.report.as_yaml,
+      MetricFu.result.save_output(MetricFu.result.as_yaml,
                                   MetricFu.data_directory,
                                   "#{Time.now.strftime("%Y%m%d")}.yml")
       mf_debug "** SAVING TEMPLATIZED REPORT"
-      MetricFu.report.save_templatized_report
+      MetricFu.result.save_templatized_result
     end
     def save_graphs
       mf_log "** GENERATING GRAPHS"
@@ -49,9 +49,9 @@ module MetricFu
       MetricFu.graph.generate
     end
     def display_results
-      if MetricFu.report.open_in_browser?
+      if MetricFu.result.open_in_browser?
         mf_debug "** OPENING IN BROWSER FROM #{MetricFu.output_directory}"
-        MetricFu.report.show_in_browser(MetricFu.output_directory)
+        MetricFu.result.show_in_browser(MetricFu.output_directory)
       end
       mf_log "** COMPLETE"
     end
