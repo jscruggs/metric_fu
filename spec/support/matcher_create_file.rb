@@ -1,9 +1,9 @@
 RSpec::Matchers.define :create_file do |expected|
 
   match do |block|
-    @before = File.exist?(expected)
+    @before = exists?(expected)
     block.call
-    @after = File.exist?(expected)
+    @after = exists?(expected)
     !@before && @after
   end
 
@@ -17,6 +17,11 @@ RSpec::Matchers.define :create_file do |expected|
     existed_before_message expected do
       "The file #{expected.inspect} was created"
     end
+  end
+
+  def exists?(expected)
+    # Allows us to use wildcard checks for existence.
+    !Dir.glob(expected).empty?
   end
 
   def existed_before_message(expected)

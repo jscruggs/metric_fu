@@ -31,6 +31,10 @@ describe MetricFu do
       expect { metric_fu }.to create_file("tmp/metric_fu/report.yml")
     end
 
+    it "creates a data yaml file" do
+      expect { metric_fu }.to create_file("tmp/metric_fu/_data/*.yml")
+    end
+
     it "creates a report html file" do
       expect { metric_fu }.to create_file("tmp/metric_fu/output/index.html")
     end
@@ -64,6 +68,7 @@ describe MetricFu do
   after do
     FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
     FileUtils.rm_rf("#{MetricFu.output_directory}/index.html")
+    FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
   end
 
   def metric_fu(options = "--no-open")
