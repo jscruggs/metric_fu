@@ -39,11 +39,64 @@ describe MetricFu do
       expect { metric_fu }.to create_file("tmp/metric_fu/output/index.html")
     end
 
+    context "with configured formatter" do
+      before do
+        MetricFu::Configuration.run do |config|
+          config.add_formatter(:yaml)
+        end
+      end
+
+      it "outputs using configured formatter" do
+        expect { metric_fu }.to create_file("tmp/metric_fu/report.yml")
+      end
+
+      it "doesn't output using formatters not configured" do
+        expect { metric_fu }.to_not create_file("tmp/metric_fu/output/index.html")
+      end
+
+    end
+
+    context "with command line formatter" do
+      it "outputs using command line formatter" do
+        expect { metric_fu "--format yaml"}.to create_file("tmp/metric_fu/report.yml")
+      end
+
+      it "doesn't output using formatters not configured" do
+        expect { metric_fu "--format yaml"}.to_not create_file("tmp/metric_fu/output/index.html")
+      end
+
+    end
+
+    context "with configured and command line formatter" do
+
+      before do
+        MetricFu::Configuration.run do |config|
+          config.add_formatter(:html)
+        end
+      end
+
+      it "outputs using command line formatter" do
+        expect { metric_fu "--format yaml"}.to create_file("tmp/metric_fu/report.yml")
+      end
+
+      it "doesn't output using configured formatter (cli takes precedence)" do
+        expect { metric_fu "--format yaml"}.to_not create_file("tmp/metric_fu/output/index.html")
+      end
+
+    end
+
     after do
       MetricFu::Configuration.run do |config|
         config.metrics = @default_configured_metrics
+        config.formatters.clear
       end
+
+      FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
+      FileUtils.rm_rf("#{MetricFu.output_directory}/index.html")
+      FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
     end
+
+
   end
 
   context "given other options" do
@@ -63,12 +116,6 @@ describe MetricFu do
       out.should include 'invalid option'
     end
 
-  end
-
-  after do
-    FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
-    FileUtils.rm_rf("#{MetricFu.output_directory}/index.html")
-    FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
   end
 
   def metric_fu(options = "--no-open")

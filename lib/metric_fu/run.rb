@@ -6,10 +6,8 @@ module MetricFu
       load_user_configuration
     end
     def run(options={})
-      disable_metrics(options)
+      configure_run(options)
       measure
-      save_reports
-      save_graphs
       display_results if options[:open]
     end
 
@@ -35,6 +33,11 @@ module MetricFu
       file = File.join(Dir.pwd, '.metrics')
       load file if File.exist?(file)
     end
+    # Updates configuration based on runtime options.
+    def configure_run(options)
+      disable_metrics(options)
+      configure_formatters(options)
+    end
     def disable_metrics(options)
       return if options.size == 0
       report_metrics.each do |metric|
@@ -48,14 +51,23 @@ module MetricFu
         end
       end
     end
+    def configure_formatters(options)
+      # Configure from command line if any.
+      if options[:format]
+        MetricFu.formatters.clear # Command-line format takes precedence.
+        Array(options[:format]).each do |format, o|
+          MetricFu.configuration.add_formatter(format)
+        end
+      end
+      # If no formatters specified, use defaults.
+      if MetricFu.configuration.formatters.empty?
+        Array(MetricFu::Formatter::DEFAULT).each do |format|
+          MetricFu.configuration.add_formatter(format)
+        end
+      end
+    end
     def reporter
-      # TODO: load formatters from configured formatters.
-      Reporter.new(
-        MetricFu::Formatter::HTMLFormatter.new(
-          MetricFu.result,
-          dir: MetricFu.output_directory
-        )
-      )
+      Reporter.new(MetricFu.configuration.formatters)
     end
   end
 end

@@ -1,18 +1,18 @@
 module MetricFu
   module Formatter
-    class HTMLFormatter < Base
+    class HTML < MetricFu::Formatter::Base
+
+      def initialize(opts={})
+        @dir = MetricFu.output_directory
+      end
 
       def finish
         mf_log "** SAVING REPORTS"
         mf_debug "** SAVING REPORT YAML OUTPUT TO #{MetricFu.base_directory}"
-        MetricFu::Formatter::YAMLFormatter.new(
-          MetricFu.result,
-          file: 'report.yml'
-        ).finish
+        MetricFu::Formatter::YAML.new(file: 'report.yml').finish
 
         mf_debug "** SAVING REPORT DATA OUTPUT TO #{MetricFu.data_directory}"
-        MetricFu::Formatter::YAMLFormatter.new(
-          MetricFu.result,
+        MetricFu::Formatter::YAML.new(
           dir: MetricFu.data_directory,
           file: "#{Time.now.strftime("%Y%m%d")}.yml"
         ).finish
@@ -42,8 +42,8 @@ module MetricFu
       # tells the template to to write itself out.
       def save_templatized_result
         @template = MetricFu.template_class.new
-        @template.result = @result.result_hash
-        @template.per_file_data = @result.per_file_data
+        @template.result = MetricFu.result.result_hash
+        @template.per_file_data = MetricFu.result.per_file_data
         @template.formatter = self
         @template.write
       end

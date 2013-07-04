@@ -24,22 +24,6 @@ module MetricFu
           end
         end
 
-        def validate(options) # remove this method if you want fewer lines of code and don't need validations
-          options.each_pair do |key, value|
-            opt = @options.find_all{ |o| o[0] == key }.first
-            key = "--" << key.to_s.gsub("_", "-")
-            unless opt[2][:value_in_set].nil? || opt[2][:value_in_set].include?(value)
-              puts "Parameter for #{key} must be in [" << opt[2][:value_in_set].join(", ") << "]" ; exit(1)
-            end
-            unless opt[2][:value_matches].nil? || opt[2][:value_matches] =~ value
-              puts "Parameter for #{key} must match /" << opt[2][:value_matches].source << "/" ; exit(1)
-            end
-            unless opt[2][:value_satisfies].nil? || opt[2][:value_satisfies].call(value)
-              puts "Parameter for #{key} must satisfy given conditions (see description)" ; exit(1)
-            end
-          end
-        end
-
         def process!(arguments = ARGV)
           @result = (@default_values || {}).clone # reset or new
           @optionparser ||= OptionParser.new do |p| # prepare only once
@@ -53,6 +37,11 @@ module MetricFu
               else # argument with parameter
                 p.on("-" << short, "--" << o[0].to_s.gsub("_", "-") << " " << o[2][:default].to_s, klass, o[1]) {|x| @result[o[0]] = x}
               end
+            end
+
+            p.on("-m FORMAT", "--format FORMAT", "<TODO: Formatter option description>") do |f|
+              @result[:format] ||= []
+              @result[:format] << [f]
             end
 
             p.banner = @banner unless @banner.nil?
