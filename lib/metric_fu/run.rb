@@ -19,41 +19,16 @@ module MetricFu
       MetricFu.configuration.metrics
     end
     def measure
+      reporter.start
       report_metrics.each {|metric|
-        mf_log "** STARTING METRIC #{metric}"
+        reporter.start_metric(metric)
         MetricFu.result.add(metric)
-        mf_log "** ENDING METRIC #{metric}"
+        reporter.finish_metric(metric)
       }
-    end
-    def save_reports
-      mf_log "** SAVING REPORTS"
-      mf_debug "** SAVING REPORT YAML OUTPUT TO #{MetricFu.base_directory}"
-      MetricFu.result.save_output(MetricFu.result.as_yaml,
-                                  MetricFu.base_directory,
-                                  "report.yml")
-      mf_debug "** SAVING REPORT DATA OUTPUT TO #{MetricFu.data_directory}"
-      MetricFu.result.save_output(MetricFu.result.as_yaml,
-                                  MetricFu.data_directory,
-                                  "#{Time.now.strftime("%Y%m%d")}.yml")
-      mf_debug "** SAVING TEMPLATIZED REPORT"
-      MetricFu.result.save_templatized_result
-    end
-    def save_graphs
-      mf_log "** GENERATING GRAPHS"
-      mf_debug "** PREPARING TO GRAPH"
-      MetricFu.graphs.each {|graph|
-        mf_debug "** Graphing #{graph} with #{MetricFu.graph_engine}"
-        MetricFu.graph.add(graph, MetricFu.graph_engine)
-      }
-      mf_debug "** GENERATING GRAPH"
-      MetricFu.graph.generate
+      reporter.finish
     end
     def display_results
-      if MetricFu.result.open_in_browser?
-        mf_debug "** OPENING IN BROWSER FROM #{MetricFu.output_directory}"
-        MetricFu.result.show_in_browser(MetricFu.output_directory)
-      end
-      mf_log "** COMPLETE"
+      reporter.display_results
     end
     private
     def load_user_configuration
@@ -72,6 +47,15 @@ module MetricFu
           mf_debug "active metrics are #{MetricFu.configuration.metrics.inspect}"
         end
       end
+    end
+    def reporter
+      # TODO: load formatters from configured formatters.
+      Reporter.new(
+        MetricFu::Formatter::HTMLFormatter.new(
+          MetricFu.result,
+          dir: MetricFu.output_directory
+        )
+      )
     end
   end
 end

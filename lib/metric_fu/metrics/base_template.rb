@@ -10,8 +10,7 @@ module MetricFu
   # to actually write out the template.  See StandardTemplate for an
   # example.
   class Template
-    attr_accessor :result, :per_file_data
-
+    attr_accessor :result, :per_file_data, :formatter
     private
     # Creates a new erb evaluated result from the passed in section.
     #

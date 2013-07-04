@@ -24,7 +24,7 @@ class AwesomeTemplate < MetricFu::Template
         @html = erbify(section)
         html = erbify('layout')
         fn = output_filename(section)
-        MetricFu.result.save_output(html, MetricFu.output_directory, fn)
+        formatter.write_template(html, fn)
       else
         mf_debug  "no template for section #{section} with #{template(section)} for result #{result.class}"
       end
@@ -35,7 +35,7 @@ class AwesomeTemplate < MetricFu::Template
       @html = erbify('index')
       html = erbify('layout')
       fn = output_filename('index')
-      MetricFu.result.save_output(html, MetricFu.output_directory, fn)
+      formatter.write_template(html, fn)
     else
       mf_debug  "no template for section index for result #{result.class}"
     end
@@ -101,7 +101,7 @@ class AwesomeTemplate < MetricFu::Template
       end
       out << "<table></body></html>"
 
-      MetricFu.result.save_output(out, MetricFu.output_directory, fn)
+      formatter.write_template(out, fn)
     end
   end
   def template_directory
