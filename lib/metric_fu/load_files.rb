@@ -29,3 +29,6 @@ end
 Dir.glob(File.join(MetricFu.reporting_dir, '**/*.rb')).each do |file|
   require file
 end
+Dir.glob(File.join(MetricFu.formatter_dir, '**/*.rb')).each do |file|
+  require file
+end
