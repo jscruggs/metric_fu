@@ -39,12 +39,24 @@ module MetricFu
               end
             end
 
-            p.on("-m FORMAT", "--format FORMAT", "<TODO: Formatter option description>") do |f|
+            p.on("-m FORMAT", "--format FORMAT",
+                 "Specify the formatter to use for output.",
+                 "This option can be specified multiple times.",
+                 "Specify a built-in formatter from the list below,",
+                 "or the fully-qualified class name of your own custom formatter.",
+                 *format_descriptions) do |f|
               @result[:format] ||= []
               @result[:format] << [f]
             end
 
-            p.on('-o', '--out FILE|DIR', '<TODO: Out option description') do |o|
+            p.on("-o", "--out FILE|DIR",
+                "Specify the file or directory to use for output",
+                "This option applies to the previously",
+                "specified --format, or the default format",
+                "if no format is specified. Paths are relative to",
+                "#{Pathname.pwd.join(MetricFu.base_directory)}",
+                "Check the specific formatter\'s docs to see",
+                "whether to pass a file or a dir.") do |o|
               @result[:format] ||= MetricFu::Formatter::DEFAULT
               @result[:format].last << o
             end
@@ -64,6 +76,14 @@ module MetricFu
 
           validate(@result) if self.respond_to?("validate")
           @result
+        end
+
+        def format_descriptions
+          formats = MetricFu::Formatter::BUILTIN_FORMATS
+          max = formats.keys.map{|s| s.length}.max
+          formats.keys.sort.map do |key|
+            "  #{key}#{' ' * (max - key.length)} : #{formats[key][1]}"
+          end
         end
       end
     end
