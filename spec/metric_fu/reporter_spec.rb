@@ -14,6 +14,12 @@ describe MetricFu::Reporter do
       @reporter.start
       @reporter.finish
     end
+
+    it 'only sends notifications when supported by formatter' do
+      @formatter.stub(:respond_to?).with(:display_results).and_return(false)
+      @formatter.should_not_receive(:display_results)
+      @reporter.display_results
+    end
   end
 
   context 'given multiple formatters' do

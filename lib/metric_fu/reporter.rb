@@ -30,7 +30,7 @@ module MetricFu
 
     def notify(event, *args)
       @formatters.each do |formatter|
-        formatter.send(event, *args)
+        formatter.send(event, *args) if formatter.respond_to?(event)
       end
     end
   end

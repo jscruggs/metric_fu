@@ -1,6 +1,6 @@
 module MetricFu
   module Formatter
-    class YAML < MetricFu::Formatter::Base
+    class YAML
       include MetricFu::Io
 
       DEFAULT_PATH = "#{MetricFu.base_directory}/report.yml"

@@ -30,7 +30,7 @@ describe MetricFu::Formatter do
       subject { MetricFu::Formatter.class_for('MyCustomFormatter') }
 
       before do
-        stub_const('MyCustomFormatter', Class.new(MetricFu::Formatter::Base))
+        stub_const('MyCustomFormatter', Class.new() { def initialize(*);end })
       end
 
       it 'returns the formatter class' do

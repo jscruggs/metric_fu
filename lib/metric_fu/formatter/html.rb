@@ -1,6 +1,6 @@
 module MetricFu
   module Formatter
-    class HTML < MetricFu::Formatter::Base
+    class HTML
       include MetricFu::Io
 
       def initialize(opts={})

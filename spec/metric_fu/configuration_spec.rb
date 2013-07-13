@@ -345,7 +345,7 @@ describe MetricFu::Configuration do
 
     context 'given a custom formatter by class name' do
       before do
-        stub_const('MyCustomFormatter', Class.new(MetricFu::Formatter::Base))
+        stub_const('MyCustomFormatter', Class.new() { def initialize(*); end })
         @config.add_formatter('MyCustomFormatter')
       end
 
@@ -356,7 +356,7 @@ describe MetricFu::Configuration do
 
     context 'given multiple formatters' do
       before do
-        stub_const('MyCustomFormatter', Class.new(MetricFu::Formatter::Base))
+        stub_const('MyCustomFormatter', Class.new() { def initialize(*); end })
         @config.add_formatter('html')
         @config.add_formatter('yaml')
         @config.add_formatter('MyCustomFormatter')

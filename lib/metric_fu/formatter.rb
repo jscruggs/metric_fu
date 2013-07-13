@@ -20,29 +20,5 @@ module MetricFu
 
     end
 
-    class Base
-
-      def initialize(opts={})
-        @dir = opts[:dir] || MetricFu.base_directory
-        @file = opts[:file] || 'index.html'
-      end
-
-      def start
-      end
-
-      def finish
-      end
-
-      def start_metric(metric)
-      end
-
-      def finish_metric(metric)
-      end
-
-      def display_results
-      end
-
-    end
-
   end
 end
