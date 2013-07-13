@@ -39,7 +39,7 @@ module MetricFu
               end
             end
 
-            p.on("-m FORMAT", "--format FORMAT",
+            p.on("--format FORMAT",
                  "Specify the formatter to use for output.",
                  "This option can be specified multiple times.",
                  "Specify a built-in formatter from the list below,",
@@ -49,7 +49,7 @@ module MetricFu
               @result[:format] << [f]
             end
 
-            p.on("-o", "--out FILE|DIR",
+            p.on("--out FILE|DIR",
                 "Specify the file or directory to use for output",
                 "This option applies to the previously",
                 "specified --format, or the default format",
