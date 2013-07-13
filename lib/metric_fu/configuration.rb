@@ -91,8 +91,8 @@ module MetricFu
       self.graphs = (graphs << metric).uniq
     end
 
-    def add_formatter(format)
-      @formatters << MetricFu::Formatter.class_for(format).new
+    def add_formatter(format, output = nil)
+      @formatters << MetricFu::Formatter.class_for(format).new(output: output)
     end
 
     # e.g. :reek, {}

@@ -44,6 +44,11 @@ module MetricFu
               @result[:format] << [f]
             end
 
+            p.on('-o', '--out FILE|DIR', '<TODO: Out option description') do |o|
+              @result[:format] ||= MetricFu::Formatter::DEFAULT
+              @result[:format].last << o
+            end
+
             p.banner = @banner unless @banner.nil?
             p.on_tail("-h", "--help", "Show this message") {puts p ; exit}
             short = @used_short.include?("v") ? "-V" : "-v"

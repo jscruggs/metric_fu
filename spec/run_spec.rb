@@ -11,12 +11,14 @@ describe MetricFu do
 
   context "given configured metrics, when run" do
     before do
-      # By configuring with a limited set, we can
-      # test the basic functionality without significantly
-      # slowing down the specs.
+
+      # TODO: Should probably use some sort of fake metric
+      # to speed up tests. For now, just configuring with a
+      # limited set, so we can test the basic functionality
+      # without significantly slowing down the specs.
       MetricFu::Configuration.run do |config|
         @default_configured_metrics = config.metrics.dup
-        config.metrics = [:cane, :churn]
+        config.metrics = [:churn]
       end
     end
 
@@ -40,18 +42,22 @@ describe MetricFu do
     end
 
     context "with configured formatter" do
-      before do
-        MetricFu::Configuration.run do |config|
-          config.add_formatter(:yaml)
-        end
-      end
-
       it "outputs using configured formatter" do
-        expect { metric_fu }.to create_file("tmp/metric_fu/report.yml")
+        expect {
+          MetricFu::Configuration.run do |config|
+            config.add_formatter(:yaml)
+          end
+          metric_fu
+        }.to create_file("tmp/metric_fu/report.yml")
       end
 
       it "doesn't output using formatters not configured" do
-        expect { metric_fu }.to_not create_file("tmp/metric_fu/output/index.html")
+        expect {
+          MetricFu::Configuration.run do |config|
+            config.add_formatter(:yaml)
+          end
+          metric_fu
+        }.to_not create_file("tmp/metric_fu/output/index.html")
       end
 
     end
@@ -85,15 +91,62 @@ describe MetricFu do
 
     end
 
+    context "with configured specified out" do
+      it "outputs using configured out" do
+        expect {
+          MetricFu::Configuration.run do |config|
+            config.add_formatter(:yaml, "tmp/metric_fu/customreport.yml")
+          end
+          metric_fu
+        }.to create_file("tmp/metric_fu/customreport.yml")
+      end
+
+      it "doesn't output using formatters not configured" do
+        expect {
+          MetricFu::Configuration.run do |config|
+            config.add_formatter(:yaml, "tmp/metric_fu/customreport.yml")
+          end
+          metric_fu
+        }.to_not create_file("tmp/metric_fu/report.yml")
+      end
+
+    end
+
+    context "with command line specified formatter + out" do
+      it "outputs to the specified path" do
+        expect { metric_fu "--format yaml --out tmp/metric_fu/customreport.yml"}.to create_file("tmp/metric_fu/customreport.yml")
+      end
+
+      it "doesn't output to default path" do
+        expect { metric_fu "--format yaml --out tmp/metric_fu/customreport.yml"}.to_not create_file("tmp/metric_fu/report.yml")
+      end
+
+    end
+
+    context "with command line specified out only" do
+      it "outputs to the specified path" do
+        expect { metric_fu "--out customdir --no-open"}.to create_file("tmp/metric_fu/customdir/index.html")
+      end
+
+      it "doesn't output to default path" do
+        expect { metric_fu "--out customdir --no-open"}.to_not create_file("tmp/metric_fu/output/index.html")
+      end
+
+    end
+
+
     after do
       MetricFu::Configuration.run do |config|
         config.metrics = @default_configured_metrics
         config.formatters.clear
       end
 
+      # TODO: Use fakefs? This is getting unwieldy.
       FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
+      FileUtils.rm_rf("#{MetricFu.base_directory}/customreport.yml")
       FileUtils.rm_rf("#{MetricFu.output_directory}/index.html")
       FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
+      FileUtils.rm_rf(Dir["tmp/metric_fu/customdir"])
     end
 
 

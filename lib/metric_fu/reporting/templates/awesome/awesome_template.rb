@@ -11,7 +11,7 @@ class AwesomeTemplate < MetricFu::Template
 
     # Copy Bluff javascripts to output directory
     Dir[File.join(template_directory, '..', 'javascripts', '*')].each do |f|
-      FileUtils.copy(f, File.join(MetricFu.output_directory, File.basename(f)))
+      FileUtils.copy(f, File.join(self.output_directory, File.basename(f)))
     end
 
     @metrics = {}

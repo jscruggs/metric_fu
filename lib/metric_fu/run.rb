@@ -56,13 +56,13 @@ module MetricFu
       if options[:format]
         MetricFu.formatters.clear # Command-line format takes precedence.
         Array(options[:format]).each do |format, o|
-          MetricFu.configuration.add_formatter(format)
+          MetricFu.configuration.add_formatter(format, o)
         end
       end
       # If no formatters specified, use defaults.
       if MetricFu.configuration.formatters.empty?
-        Array(MetricFu::Formatter::DEFAULT).each do |format|
-          MetricFu.configuration.add_formatter(format)
+        Array(MetricFu::Formatter::DEFAULT).each do |format, o|
+          MetricFu.configuration.add_formatter(format, o)
         end
       end
     end
