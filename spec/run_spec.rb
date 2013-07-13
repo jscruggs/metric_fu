@@ -95,7 +95,7 @@ describe MetricFu do
       it "outputs using configured out" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml, "tmp/metric_fu/customreport.yml")
+            config.add_formatter(:yaml, "customreport.yml")
           end
           metric_fu
         }.to create_file("tmp/metric_fu/customreport.yml")
@@ -104,7 +104,7 @@ describe MetricFu do
       it "doesn't output using formatters not configured" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml, "tmp/metric_fu/customreport.yml")
+            config.add_formatter(:yaml, "customreport.yml")
           end
           metric_fu
         }.to_not create_file("tmp/metric_fu/report.yml")
@@ -114,7 +114,7 @@ describe MetricFu do
 
     context "with command line specified formatter + out" do
       it "outputs to the specified path" do
-        expect { metric_fu "--format yaml --out tmp/metric_fu/customreport.yml"}.to create_file("tmp/metric_fu/customreport.yml")
+        expect { metric_fu "--format yaml --out customreport.yml"}.to create_file("tmp/metric_fu/customreport.yml")
       end
 
       it "doesn't output to default path" do

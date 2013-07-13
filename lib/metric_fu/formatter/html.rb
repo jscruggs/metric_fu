@@ -14,7 +14,8 @@ module MetricFu
 
         mf_debug "** SAVING REPORT DATA OUTPUT TO #{MetricFu.data_directory}"
         MetricFu::Formatter::YAML.new(
-          output: "#{MetricFu.data_directory}/#{Time.now.strftime("%Y%m%d")}.yml").finish
+          output: Pathname.pwd.join("#{MetricFu.data_directory}/#{Time.now.strftime("%Y%m%d")}.yml")
+        ).finish
 
         mf_debug "** SAVING TEMPLATIZED REPORT"
         save_templatized_result

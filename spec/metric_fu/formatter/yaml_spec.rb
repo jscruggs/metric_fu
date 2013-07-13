@@ -31,7 +31,7 @@ describe MetricFu::Formatter::YAML do
     before do
       MetricFu.result.add(:cane)
       MetricFu.result.add(:hotspots)
-      @output = "tmp/metric_fu/customreport.yml"
+      @output = "customreport.yml"
     end
 
     it "creates a report yaml file to the custom output path" do

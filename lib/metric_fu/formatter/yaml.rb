@@ -3,7 +3,7 @@ module MetricFu
     class YAML
       include MetricFu::Io
 
-      DEFAULT_PATH = "#{MetricFu.base_directory}/report.yml"
+      DEFAULT_PATH = "report.yml"
 
       def initialize(opts={})
         @output = file_for(opts[:output]) || file_for(DEFAULT_PATH)
