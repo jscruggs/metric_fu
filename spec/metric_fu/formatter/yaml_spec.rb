@@ -1,9 +1,11 @@
 require "spec_helper"
+require 'fakefs/spec_helpers'
 
 describe MetricFu::Formatter::YAML do
+  include FakeFS::SpecHelpers
 
-  before(:all) do
-    FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
+  before do
+    setup_fs
   end
 
   context "In general" do
@@ -17,11 +19,6 @@ describe MetricFu::Formatter::YAML do
       expect {
       MetricFu::Formatter::YAML.new.finish
       }.to create_file("tmp/metric_fu/report.yml")
-    end
-
-    after do
-      # TODO: Use fakefs
-      FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
     end
 
   end
@@ -38,10 +35,6 @@ describe MetricFu::Formatter::YAML do
       expect {
       MetricFu::Formatter::YAML.new(output: @output).finish
       }.to create_file("tmp/metric_fu/customreport.yml")
-    end
-
-    after do
-      FileUtils.rm_rf("#{MetricFu.base_directory}/customreport.yml")
     end
 
   end
@@ -62,6 +55,10 @@ describe MetricFu::Formatter::YAML do
       out.should include ':hotspots:'
     end
 
+  end
+
+  after do
+    FakeFS::FileSystem.clear
   end
 
 end

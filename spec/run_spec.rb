@@ -1,12 +1,18 @@
 require 'spec_helper'
+require 'fakefs/spec_helpers'
 require 'metric_fu/cli/client'
 
 describe MetricFu do
+  include FakeFS::SpecHelpers
 
   let(:helper)  { MetricFu::Cli::Helper.new }
 
   before(:all) do
     MetricFu::Configuration.run {|config| config.graph_engine = :bluff}
+  end
+
+  before do
+    setup_fs
   end
 
   context "given configured metrics, when run" do
@@ -20,6 +26,7 @@ describe MetricFu do
         @default_configured_metrics = config.metrics.dup
         config.metrics = [:churn]
       end
+
     end
 
     it "loads the .metrics file" do
@@ -141,12 +148,7 @@ describe MetricFu do
         config.formatters.clear
       end
 
-      # TODO: Use fakefs? This is getting unwieldy.
-      FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
-      FileUtils.rm_rf("#{MetricFu.base_directory}/customreport.yml")
-      FileUtils.rm_rf("#{MetricFu.output_directory}/index.html")
-      FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
-      FileUtils.rm_rf(Dir["tmp/metric_fu/customdir"])
+      FakeFS::FileSystem.clear
     end
 
 

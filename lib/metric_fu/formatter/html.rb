@@ -4,7 +4,7 @@ module MetricFu
       include MetricFu::Io
 
       def initialize(opts={})
-        @outputdir = dir_for(opts[:output]) || MetricFu.output_directory
+        @outputdir = dir_for(opts[:output]) || Pathname.pwd.join(MetricFu.output_directory)
       end
 
       def finish
@@ -50,9 +50,8 @@ module MetricFu
       end
 
       def save_output(output, filename)
-        open("#{@outputdir}/#{filename}", "w") do |f|
-          f.write output
-        end
+        file = file_for("#{@outputdir}/#{filename}")
+        file.write output
       end
 
       def save_graphs

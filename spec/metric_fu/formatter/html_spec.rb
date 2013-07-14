@@ -1,9 +1,11 @@
 require "spec_helper"
+require 'fakefs/spec_helpers'
 
 describe MetricFu::Formatter::HTML do
+  include FakeFS::SpecHelpers
 
-  before(:all) do
-    FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
+  before do
+    setup_fs
   end
 
   context "In general" do
@@ -58,17 +60,13 @@ describe MetricFu::Formatter::HTML do
 
     it "can open the results in the browser" do
       formatter = MetricFu::Formatter::HTML.new
-      formatter.should_receive(:system).with("open tmp/metric_fu/output/index.html")
+      formatter.should_receive(:system).with("open #{Pathname.pwd.join('tmp/metric_fu/output/index.html')}")
       formatter.finish
       formatter.display_results
     end
 
     after do
-      # TODO: Use fakefs
-      FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
-      FileUtils.rm_rf(Dir.glob("#{MetricFu.output_directory}/*.html"))
-      FileUtils.rm_rf(Dir.glob("#{MetricFu.output_directory}/*.js"))
-      FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
+      FakeFS::FileSystem.clear
     end
 
   end
@@ -112,15 +110,14 @@ describe MetricFu::Formatter::HTML do
 
     it "can open the results in the browser from the custom output directory" do
       formatter = MetricFu::Formatter::HTML.new(output: @output)
-      formatter.should_receive(:system).with("open tmp/metric_fu/#{@output}/index.html")
+      path = Pathname.pwd.join("tmp/metric_fu/#{@output}/index.html")
+      formatter.should_receive(:system).with("open #{path}")
       formatter.finish
       formatter.display_results
     end
 
     after do
-      FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
-      FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
-      FileUtils.rm_rf(Dir["tmp/metric_fu/#{@output}"])
+      FakeFS::FileSystem.clear
     end
 
   end

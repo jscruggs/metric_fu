@@ -21,7 +21,7 @@ module MetricFu
       end
 
       def path_relative_to_base(path)
-        pathname = Pathname.new(MetricFu.base_directory) # make it relative to base directory
+        pathname = Pathname.pwd.join(MetricFu.base_directory) # make full path relative to base directory
         pathname.join(path)
       end
   end

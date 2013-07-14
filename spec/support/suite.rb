@@ -16,3 +16,10 @@ end
 def resources_path
   "#{MetricFu.root_dir}/spec/resources"
 end
+
+def setup_fs
+  FakeFS::FileSystem.clone('lib')
+  FakeFS::FileSystem.clone('.metrics')
+  FileUtils.mkdir_p(Pathname.pwd.join(MetricFu.base_directory))
+  FileUtils.mkdir_p(Pathname.pwd.join(MetricFu.output_directory))
+end
