@@ -58,11 +58,17 @@ describe MetricFu::Formatter::HTML do
       ])
     end
 
-    it "can open the results in the browser" do
-      formatter = MetricFu::Formatter::HTML.new
-      formatter.should_receive(:system).with("open #{Pathname.pwd.join('tmp/metric_fu/output/index.html')}")
-      formatter.finish
-      formatter.display_results
+    context 'when on OS X' do
+      before do
+        MetricFu.configuration.stub!(:platform).and_return('darwin')
+      end
+
+      it "can open the results in the browser" do
+        formatter = MetricFu::Formatter::HTML.new
+        formatter.should_receive(:system).with("open #{Pathname.pwd.join('tmp/metric_fu/output/index.html')}")
+        formatter.finish
+        formatter.display_results
+      end
     end
 
     after do
@@ -108,12 +114,18 @@ describe MetricFu::Formatter::HTML do
       )
     end
 
-    it "can open the results in the browser from the custom output directory" do
-      formatter = MetricFu::Formatter::HTML.new(output: @output)
-      path = Pathname.pwd.join("tmp/metric_fu/#{@output}/index.html")
-      formatter.should_receive(:system).with("open #{path}")
-      formatter.finish
-      formatter.display_results
+    context 'when on OS X' do
+      before do
+        MetricFu.configuration.stub!(:platform).and_return('darwin')
+      end
+
+      it "can open the results in the browser from the custom output directory" do
+        formatter = MetricFu::Formatter::HTML.new(output: @output)
+        path = Pathname.pwd.join("tmp/metric_fu/#{@output}/index.html")
+        formatter.should_receive(:system).with("open #{path}")
+        formatter.finish
+        formatter.display_results
+      end
     end
 
     after do
