@@ -4,7 +4,7 @@ module MetricFu
       include MetricFu::Io
 
       def initialize(opts={})
-        @outputdir = dir_for(opts[:output]) || Pathname.pwd.join(MetricFu.output_directory)
+        @options = opts
       end
 
       def finish
@@ -28,12 +28,16 @@ module MetricFu
 
       def display_results
         if self.open_in_browser?
-          mf_debug "** OPENING IN BROWSER FROM #{@outputdir}"
-          self.show_in_browser(@outputdir)
+          mf_debug "** OPENING IN BROWSER FROM #{self.output_directory}"
+          self.show_in_browser(self.output_directory)
         end
       end
 
       protected
+
+      def output_directory
+        @output ||= dir_for(@options[:output]) || Pathname.pwd.join(MetricFu.output_directory)
+      end
 
       # Instantiates a new template class based on the configuration set
       # in MetricFu::Configuration, or through the MetricFu.config block
@@ -42,7 +46,7 @@ module MetricFu
       # tells the template to to write itself out.
       def save_templatized_result
         @template = MetricFu.template_class.new
-        @template.output_directory = @outputdir
+        @template.output_directory = self.output_directory
         @template.result = MetricFu.result.result_hash
         @template.per_file_data = MetricFu.result.per_file_data
         @template.formatter = self
@@ -50,7 +54,7 @@ module MetricFu
       end
 
       def save_output(output, filename)
-        file = file_for("#{@outputdir}/#{filename}")
+        file = file_for("#{self.output_directory}/#{filename}")
         file.write output
       end
 
@@ -59,7 +63,7 @@ module MetricFu
         mf_debug "** PREPARING TO GRAPH"
         MetricFu.graphs.each {|graph|
           mf_debug "** Graphing #{graph} with #{MetricFu.graph_engine}"
-          MetricFu.graph.add(graph, MetricFu.graph_engine, @outputdir)
+          MetricFu.graph.add(graph, MetricFu.graph_engine, self.output_directory)
         }
         mf_debug "** GENERATING GRAPH"
         MetricFu.graph.generate

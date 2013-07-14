@@ -6,11 +6,17 @@ module MetricFu
       DEFAULT_PATH = "report.yml"
 
       def initialize(opts={})
-        @output = file_for(opts[:output]) || file_for(DEFAULT_PATH)
+        @options = opts
       end
 
       def finish
-        @output.write(MetricFu.result.as_yaml)
+        self.output.write(MetricFu.result.as_yaml)
+      end
+
+      protected
+
+      def output
+        @output ||= (file_for(@options[:output]) || file_for(DEFAULT_PATH))
       end
 
     end
