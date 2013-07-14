@@ -5,14 +5,18 @@ describe MetricFu::Formatter::HTML do
 
   before do
     setup_fs
+
+    # TODO: Use mock metrics?
+    # Right now, have to select from metrics
+    # based on platform, resulting in slow specs
+    # for some platforms.
+    @metric_with_graph = MetricFu.configuration.mri? ? :cane : :flay
+    @metric_without_graph = :hotspots
+    MetricFu.result.add(@metric_with_graph) # metric w/ graph
+    MetricFu.result.add(@metric_without_graph) # metric w/out graph
   end
 
   context "In general" do
-
-    before do
-      MetricFu.result.add(:cane)
-      MetricFu.result.add(:hotspots)
-    end
 
     it "creates a report yaml file" do
       # For backward compatibility.
@@ -38,8 +42,8 @@ describe MetricFu::Formatter::HTML do
       expect {
       MetricFu::Formatter::HTML.new.finish
       }.to create_files([
-        "tmp/metric_fu/output/cane.html",
-        "tmp/metric_fu/output/hotspots.html"
+        "tmp/metric_fu/output/#{@metric_with_graph}.html",
+        "tmp/metric_fu/output/#{@metric_without_graph}.html"
       ])
     end
 
@@ -53,7 +57,7 @@ describe MetricFu::Formatter::HTML do
       expect {
       MetricFu::Formatter::HTML.new.finish
       }.to create_files([
-        "tmp/metric_fu/output/cane.js",
+        "tmp/metric_fu/output/#{@metric_with_graph}.js",
       ])
     end
 
@@ -75,8 +79,6 @@ describe MetricFu::Formatter::HTML do
   context "given a custom output directory" do
 
     before do
-      MetricFu.result.add(:cane)
-      MetricFu.result.add(:hotspots)
       @output = 'customdir'
     end
 
@@ -90,8 +92,8 @@ describe MetricFu::Formatter::HTML do
       expect {
       MetricFu::Formatter::HTML.new(output: @output).finish
       }.to create_files([
-        "tmp/metric_fu/#{@output}/cane.html",
-        "tmp/metric_fu/#{@output}/hotspots.html"
+        "tmp/metric_fu/#{@output}/#{@metric_with_graph}.html",
+        "tmp/metric_fu/#{@output}/#{@metric_without_graph}.html"
       ])
     end
 
@@ -105,7 +107,7 @@ describe MetricFu::Formatter::HTML do
       expect {
       MetricFu::Formatter::HTML.new(output: @output).finish
       }.to create_file(
-        "tmp/metric_fu/#{@output}/cane.js",
+        "tmp/metric_fu/#{@output}/#{@metric_with_graph}.js",
       )
     end
 

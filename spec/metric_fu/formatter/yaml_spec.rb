@@ -5,14 +5,14 @@ describe MetricFu::Formatter::YAML do
 
   before do
     setup_fs
+
+    @metric1 = MetricFu.configuration.mri? ? :cane : :flay
+    @metric2 = :hotspots
+    MetricFu.result.add(@metric1)
+    MetricFu.result.add(@metric2)
   end
 
   context "In general" do
-
-    before do
-      MetricFu.result.add(:cane)
-      MetricFu.result.add(:hotspots)
-    end
 
     it "creates a report yaml file" do
       expect {
@@ -25,8 +25,6 @@ describe MetricFu::Formatter::YAML do
   context "given a custom output file" do
 
     before do
-      MetricFu.result.add(:cane)
-      MetricFu.result.add(:hotspots)
       @output = "customreport.yml"
     end
 
@@ -41,8 +39,6 @@ describe MetricFu::Formatter::YAML do
   context "given a custom output stream" do
 
     before do
-      MetricFu.result.add(:cane)
-      MetricFu.result.add(:hotspots)
       @output = $stdout
     end
 
@@ -50,8 +46,8 @@ describe MetricFu::Formatter::YAML do
       out = MfDebugger::Logger.capture_output {
         MetricFu::Formatter::YAML.new(output: @output).finish
       }
-      out.should include ':cane:'
-      out.should include ':hotspots:'
+      out.should include ":#{@metric1}:"
+      out.should include ":#{@metric2}:"
     end
 
   end
