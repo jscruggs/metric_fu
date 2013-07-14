@@ -1,8 +1,7 @@
 require "spec_helper"
-require 'fakefs/spec_helpers'
+require 'fakefs/safe'
 
 describe MetricFu::Formatter::HTML do
-  include FakeFS::SpecHelpers
 
   before do
     setup_fs
@@ -71,10 +70,6 @@ describe MetricFu::Formatter::HTML do
       end
     end
 
-    after do
-      FakeFS::FileSystem.clear
-    end
-
   end
 
   context "given a custom output directory" do
@@ -128,10 +123,10 @@ describe MetricFu::Formatter::HTML do
       end
     end
 
-    after do
-      FakeFS::FileSystem.clear
-    end
+  end
 
+  after do
+    cleanup_fs
   end
 
 end

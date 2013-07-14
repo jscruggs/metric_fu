@@ -1,10 +1,8 @@
 require 'spec_helper'
-require 'fakefs/spec_helpers'
+require 'fakefs/safe'
 require 'metric_fu/cli/client'
 
 describe MetricFu do
-  include FakeFS::SpecHelpers
-
   let(:helper)  { MetricFu::Cli::Helper.new }
 
   before(:all) do
@@ -148,7 +146,7 @@ describe MetricFu do
         config.formatters.clear
       end
 
-      FakeFS::FileSystem.clear
+      cleanup_fs
     end
 
 

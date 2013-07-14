@@ -1,8 +1,7 @@
 require "spec_helper"
-require 'fakefs/spec_helpers'
+require 'fakefs/safe'
 
 describe MetricFu::Formatter::YAML do
-  include FakeFS::SpecHelpers
 
   before do
     setup_fs
@@ -58,7 +57,7 @@ describe MetricFu::Formatter::YAML do
   end
 
   after do
-    FakeFS::FileSystem.clear
+    cleanup_fs
   end
 
 end
