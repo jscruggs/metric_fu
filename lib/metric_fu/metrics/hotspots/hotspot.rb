@@ -19,11 +19,12 @@ module MetricFu
     end
 
     # TODO simplify calculation
+    # DUPLICATES CODE IN ScoringStrategies
     def get_mean(collection)
       collection_length = collection.length
-      sum = 0
-      sum = collection.inject( nil ) { |sum,x| sum ? sum+x : x }
-      (sum.to_f / collection_length.to_f)
+      total = 0
+      total = collection.inject( nil ) { |sum,x| sum ? sum+x : x }
+      (total.to_f / collection_length.to_f)
     end
   end
 end

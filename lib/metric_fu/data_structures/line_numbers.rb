@@ -53,9 +53,9 @@ module MetricFu
 
     def process_module(sexp)
       module_name = sexp[1]
-      sexp.each_of_type(:class) do |sexp|
-        process_class(sexp, module_name)
-        hide_methods_from_next_round(sexp)
+      sexp.each_of_type(:class) do |exp|
+        process_class(exp, module_name)
+        hide_methods_from_next_round(exp)
       end
       process_class(sexp)
     end

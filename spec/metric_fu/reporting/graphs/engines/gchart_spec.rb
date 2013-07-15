@@ -41,7 +41,7 @@ describe "Gchart graphers" do
       grapher = FlayGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Flay: duplication"),
+        :title => URI.encode("Flay: duplication"),
         :axis_with_labels => 'x,y',
         :format => 'file',
         :filename => File.join(MetricFu.output_directory, 'flay.png'),
@@ -56,7 +56,7 @@ describe "Gchart graphers" do
       grapher = FlogGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Flog: code complexity"),
+        :title => URI.encode("Flog: code complexity"),
         :stacked => false,
         :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
         :legend => ['average', 'top 5% average'],
@@ -75,7 +75,7 @@ describe "Gchart graphers" do
       grapher = RcovGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Rcov: code coverage"),
+        :title => URI.encode("Rcov: code coverage"),
         :max_value => 101,
         :axis_with_labels => 'x,y',
         :axis_labels => [grapher.labels.values, [0,20,40,60,80,100]],
@@ -92,7 +92,7 @@ describe "Gchart graphers" do
       grapher = ReekGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Reek: code smells"),
+        :title => URI.encode("Reek: code smells"),
         :stacked => false,
         :bar_colors => MetricFu::GchartGrapher::COLORS,
         :axis_with_labels => 'x,y',
@@ -109,7 +109,7 @@ describe "Gchart graphers" do
       grapher = RoodiGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Roodi: potential design problems"),
+        :title => URI.encode("Roodi: potential design problems"),
         :axis_with_labels => 'x,y',
         :format => 'file',
         :filename => File.join(MetricFu.output_directory, 'roodi.png'),
@@ -124,7 +124,7 @@ describe "Gchart graphers" do
       grapher = StatsGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Stats: LOC & LOT"),
+        :title => URI.encode("Stats: LOC & LOT"),
         :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
         :legend => ['Lines of code', 'Lines of test'],
         :custom => "chdlp=t",
@@ -142,7 +142,7 @@ describe "Gchart graphers" do
       grapher = RailsBestPracticesGchartGrapher.new
       expected = {
         :size => MetricFu::GchartGrapher::GCHART_GRAPH_SIZE,
-        :title => URI.escape("Rails Best Practices: design problems"),
+        :title => URI.encode("Rails Best Practices: design problems"),
         :bar_colors => MetricFu::GchartGrapher::COLORS[0..1],
         :legend => ['Problems'],
         :custom => "chdlp=t",
