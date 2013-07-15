@@ -6,7 +6,7 @@ MetricFu.metrics_require   { 'graph' }
 MetricFu.reporting_require { 'graphs/grapher' }
 MetricFu.metrics_require   { 'hotspots/analysis/scoring_strategies' }
 
-Dir.glob(File.join(MetricFu.lib_dir, '*.rb')).each do |file|
+Dir.glob(File.join(MetricFu.lib_dir, '*.rb')).reject{|file| file =~ /#{__FILE__}/}.each do |file|
   require file
 end
 # prevent the task from being run multiple times.

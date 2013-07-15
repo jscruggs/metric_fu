@@ -113,7 +113,7 @@ module MetricFu
       files.each_pair {|fname, content| files[fname] = content.split("\n") }
       files.each_pair do |fname, content|
         content.map! do |raw_line|
-          line = Line.new(raw_line[3..-1], !raw_line.match(/^!!/)).to_h
+          Line.new(raw_line[3..-1], !raw_line.match(/^!!/)).to_h
         end
         content.reject! {|line| line[:content].to_s == '' }
         files[fname] = {:lines => content}

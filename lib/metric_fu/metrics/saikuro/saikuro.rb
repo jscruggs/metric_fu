@@ -164,14 +164,14 @@ module MetricFu
         while (line = @file_handle.readline) do
           return [] if line.nil? || line !~ /\S/
           element ||= nil
-          if line.match /START/
+          if line.match(/START/)
             unless element.nil?
               @elements << element
               element = nil
             end
             line = @file_handle.readline
             element = Saikuro::ParsingElement.new(line)
-          elsif line.match /END/
+          elsif line.match(/END/)
             @elements << element if element
             element = nil
           else

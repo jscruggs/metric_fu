@@ -40,6 +40,7 @@ module MetricFu
         rescue => error
           #new error during port to metric_fu occasionally a unintialized
           #MatchData object shows up here. Not expected.
+          mf_debug "ERROR on getting location for #{class_or_method_name} #{error.inspect}"
           match = nil
         end
 

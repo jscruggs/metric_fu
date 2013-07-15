@@ -4,7 +4,7 @@ module MetricFu
 
     def emit
       command = %Q{mf-cane#{abc_max_param}#{style_measure_param}#{no_doc_param}#{no_readme_param}}
-      mf_debug = "** #{command}"
+      mf_debug "** #{command}"
       @output = `#{command}`
     end
 
@@ -51,6 +51,7 @@ module MetricFu
         :documentation => /documentation/
       }
       category, desc_matcher = category_descriptions.find {|k,v| description =~ v}
+      mf_debug desc_matcher.inspect
       category
     end
 
