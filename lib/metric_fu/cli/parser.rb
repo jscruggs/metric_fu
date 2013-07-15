@@ -78,6 +78,13 @@ module MetricFu
           @result
         end
 
+        # Build a nicely formatted list of built-in
+        # formatter keys and their descriptions
+        # @see MetricFu::Formatter::BUILTIN_FORMATS
+        # @example
+        #    format_descriptions #=> ["  yaml :  Generates the raw output as yaml"]
+        # @return [Array<String>] in the form of
+        #    "   <key>  : <description>."
         def format_descriptions
           formats = MetricFu::Formatter::BUILTIN_FORMATS
           max = formats.keys.map{|s| s.length}.max
