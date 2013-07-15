@@ -30,7 +30,7 @@ describe MetricFu do
     it "loads the .metrics file" do
       # Global only for testing that this file gets loaded
       $metric_file_loaded = false
-      out = metric_fu
+      metric_fu
       $metric_file_loaded.should be_true
     end
 

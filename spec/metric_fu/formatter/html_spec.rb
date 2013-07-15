@@ -63,7 +63,7 @@ describe MetricFu::Formatter::HTML do
 
     context 'when on OS X' do
       before do
-        MetricFu.configuration.stub!(:platform).and_return('darwin')
+        MetricFu.configuration.stub(:platform).and_return('darwin')
       end
 
       it "can open the results in the browser" do
@@ -113,7 +113,7 @@ describe MetricFu::Formatter::HTML do
 
     context 'when on OS X' do
       before do
-        MetricFu.configuration.stub!(:platform).and_return('darwin')
+        MetricFu.configuration.stub(:platform).and_return('darwin')
       end
 
       it "can open the results in the browser from the custom output directory" do
