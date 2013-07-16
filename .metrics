@@ -17,3 +17,13 @@ $metric_file_loaded = true
 # end
 # you may enable running rcov manually with
 # MetricFu.run_rcov
+#
+# By default, metric_fu will use the built-in html formatter
+# to generate HTML reports for each metric with pretty graphs.
+
+# To configure different formatter(s) or output ...
+# MetricFu::Configuration.run do |config|
+#   config.add_formatter(:html)
+#   config.add_formatter(:yaml, "customreport.yml")
+#   config.add_formatter(MyCustomFormatter)
+# end
