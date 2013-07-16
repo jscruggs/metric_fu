@@ -54,7 +54,7 @@ module MetricFu
       end
 
       def save_output(output, filename)
-        file = file_for("#{self.output_directory}/#{filename}")
+        file = io_for("#{self.output_directory}/#{filename}")
         file.write output
       end
 

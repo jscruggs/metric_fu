@@ -1,9 +1,11 @@
 module MetricFu
   module Io
-    def file_for(path)
-      return nil if path.nil?
-      return path if path.respond_to?(:write)
-      file = File.open(path_relative_to_base(path), "w")
+    def io_for(path_or_io)
+      return nil if path_or_io.nil?
+      return path_or_io if path_or_io.respond_to?(:write)
+
+      # Otherwise, we assume its a file path...
+      file = File.open(path_relative_to_base(path_or_io), "w")
       at_exit do
         unless file.closed?
           file.flush

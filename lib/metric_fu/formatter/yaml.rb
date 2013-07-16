@@ -16,7 +16,7 @@ module MetricFu
       protected
 
       def output
-        @output ||= (file_for(@options[:output]) || file_for(DEFAULT_PATH))
+        @output ||= (io_for(@options[:output]) || io_for(DEFAULT_PATH))
       end
 
     end
