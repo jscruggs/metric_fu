@@ -94,6 +94,17 @@ that takes an options hash and responds to one or more notifications:
 
 See [lib/metric_fu/formatter/](lib/metric_fu/formatter/) for examples.
 
+metric_fu will attempt to require a custom formatter by
+fully qualified name based on ruby search path. So if you include a custom
+formatter as a gem in your Gemfile, you should be able to use it out of the box.
+But you may find in certain cases that you need to add a require to
+your .metrics configuration file.
+
+For instance, to require a formatter in your app's lib directory:
+
+```ruby
+require './lib/my_custom_formatter.rb'
+```
 
 ### Configuration
 
