@@ -24,6 +24,13 @@ def setup_fs
     FakeFS::FileSystem.clone('.metrics')
     FileUtils.mkdir_p(Pathname.pwd.join(MetricFu.base_directory))
     FileUtils.mkdir_p(Pathname.pwd.join(MetricFu.output_directory))
+  else
+    # Have to use the file system, so let's shift the
+    # output directories so that we don't interfere with
+    # existing historical metric data.
+    MetricFu.stub(:base_directory).and_return("tmp/metric_fu/test")
+    MetricFu.stub(:output_directory).and_return("tmp/metric_fu/test/output")
+    MetricFu.stub(:data_directory).and_return("tmp/metric_fu/test/_data")
   end
 end
 
@@ -36,8 +43,8 @@ def cleanup_fs
     FileUtils.rm_rf("#{MetricFu.base_directory}/report.yml")
     FileUtils.rm_rf(Dir.glob("#{MetricFu.output_directory}/*.html"))
     FileUtils.rm_rf(Dir.glob("#{MetricFu.output_directory}/*.js"))
-    FileUtils.rm_rf(Dir.glob("#{MetricFu.data_directory}/*.yml"))
-    FileUtils.rm_rf(Dir["tmp/metric_fu/customdir"])
+    FileUtils.rm_rf("#{MetricFu.data_directory}/#{Time.now.strftime("%Y%m%d")}.yml")
+    FileUtils.rm_rf(Dir["#{MetricFu.base_directory}/customdir"])
     FileUtils.rm_rf("#{MetricFu.base_directory}/customreport.yml")
   end
 end
