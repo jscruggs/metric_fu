@@ -18,7 +18,7 @@ def resources_path
 end
 
 def setup_fs
-  if defined?(FakeFS::Dir::Glob) # fakefs doesn't seem to work on rubinius...
+  if !MetricFu.configuration.rubinius? # fakefs doesn't seem to work on rubinius...
     FakeFS.activate!
     FakeFS::FileSystem.clone('lib')
     FakeFS::FileSystem.clone('.metrics')
@@ -28,7 +28,7 @@ def setup_fs
 end
 
 def cleanup_fs
-  if defined?(FakeFS::Dir::Glob)
+  if !MetricFu.configuration.rubinius?
     FakeFS::FileSystem.clear
     FakeFS.deactivate!
   else
