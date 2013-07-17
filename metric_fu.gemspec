@@ -25,45 +25,36 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["HISTORY.md", "CONTRIBUTING.md", "TODO.md", "MIT-LICENSE"]
   s.rdoc_options = ["--main", "README.md"]
 
-  {
-    # metric dependencies
-    "flay"                  => MetricFu::MetricVersion.flay,
-    "churn"                 => MetricFu::MetricVersion.churn,
-    "flog"                  => MetricFu::MetricVersion.flog,
-    "reek"                  => MetricFu::MetricVersion.reek,
-    "cane"                  => MetricFu::MetricVersion.cane,
-      # specifying gem dependencies for
-      # flay, churn, flog, reek, and cane
-      "ruby_parser"           => MetricFu::MetricVersion.ruby_parser,
-      "sexp_processor"        => MetricFu::MetricVersion.sexp_processor,
-      # reek
-      "ruby2ruby"             => MetricFu::MetricVersion.ruby2ruby,
-      # cane
-      "parallel"              => MetricFu::MetricVersion.parallel,
+  # metric dependencies
+  s.add_runtime_dependency 'flay',                  MetricFu::MetricVersion.flay
+  s.add_runtime_dependency 'churn',                 MetricFu::MetricVersion.churn
+  s.add_runtime_dependency 'flog',                  MetricFu::MetricVersion.flog
+  s.add_runtime_dependency 'reek',                  MetricFu::MetricVersion.reek
+  s.add_runtime_dependency 'cane',                  MetricFu::MetricVersion.cane
+    # specifying gem dependencies for
+    # flay, churn, flog, reek, and cane
+    s.add_runtime_dependency 'ruby_parser',         MetricFu::MetricVersion.ruby_parser
+    s.add_runtime_dependency 'sexp_processor',      MetricFu::MetricVersion.sexp_processor
+      # reek only
+      s.add_runtime_dependency 'ruby2ruby',         MetricFu::MetricVersion.ruby2ruby
+      # cane only
+      s.add_runtime_dependency 'parallel',          MetricFu::MetricVersion.parallel
       # required by main, a churn dependency
-      "fattr"                 => ["= 2.2.1"],
-      "arrayfields"           => ["= 4.7.4"],
-      "map"                   => ["= 6.2.0"],
-    "rails_best_practices"  => MetricFu::MetricVersion.rails_best_practices,
-    "metric_fu-Saikuro"      => MetricFu::MetricVersion.saikuro,
-    "metric_fu-roodi"       => MetricFu::MetricVersion.roodi,
-    #
-    # other dependencies
-    # ruby version identification
-    'redcard'               => [],
-    # syntax highlighting
-    "coderay"               => [],
-    # default graphing libraries
-    "bluff"                 => [],
-    # to_json support
-    'multi_json'            => [],
-  }.each do |gem, version|
-    if version == []
-      s.add_runtime_dependency(gem)
-    else
-      s.add_runtime_dependency(gem,version)
-    end
-  end
+      s.add_runtime_dependency 'fattr',             ["= 2.2.1"]
+      s.add_runtime_dependency 'arrayfields',       ["= 4.7.4"]
+      s.add_runtime_dependency 'map',               ["= 6.2.0"]
+  s.add_runtime_dependency 'rails_best_practices',  MetricFu::MetricVersion.rails_best_practices
+  s.add_runtime_dependency 'metric_fu-Saikuro',     MetricFu::MetricVersion.saikuro
+  s.add_runtime_dependency 'metric_fu-roodi',       MetricFu::MetricVersion.roodi
+
+  # other dependencies
+  # ruby version identification
+  s.add_runtime_dependency 'redcard'
+  # syntax highlighting
+  s.add_runtime_dependency 'coderay'
+  # default graphing libraries
+  s.add_runtime_dependency 'bluff'
+  # to_json support
+  s.add_runtime_dependency 'multi_json'
 
 end
-
