@@ -16,4 +16,4 @@ group :test do
   end
   gem "fakefs", :require => "fakefs/safe"
 end
-gemspec
+gemspec :path => File.expand_path('..', __FILE__)
