@@ -1,8 +1,26 @@
-MetricFu::Configuration.run do |config|
-  require 'flog'
-  config.add_metric(:flog)
-  config.add_graph(:flog)
-  config.configure_metric(:flog,
-                          { :dirs_to_flog => MetricFu.code_dirs  }
-                          )
+module MetricFu
+  class MetricFlog < Metric
+
+    def metric_name
+      :flog
+    end
+
+    def run_options
+      { :dirs_to_flog => MetricFu.code_dirs  }
+    end
+
+    def has_graph?
+      true
+    end
+
+    def enable
+      if MetricFu.configuration.mri?
+        require 'flog'
+        super
+      else
+        MetricFu.configuration.mf_debug("Flog is only available in MRI. It requires ripper")
+      end
+    end
+
+  end
 end

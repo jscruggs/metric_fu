@@ -6,8 +6,8 @@ describe MetricFu::Configuration do
     ENV['CC_BUILD_ARTIFACTS'] = nil
     @config = MetricFu.configuration
     @config.reset
-    MetricFu.configure
     MetricFu.run_rcov
+    MetricFu.reconfigure
     @config.stub :create_directories # no need to create directories for the tests
     @config
   end

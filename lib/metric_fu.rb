@@ -42,29 +42,39 @@ module MetricFu
   end
   def self.configure
     MetricFu.lib_require { 'configuration' }
-    init_files = Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).reject do |file|
-      if file =~ /rcov/o
-        MetricFu.configuration.mf_debug("rcov is not available. See README")
-        true
-      elsif MetricFu.configuration.mri?
-        false
-      elsif file =~ /cane/o
-        MetricFu.configuration.mf_debug("Cane is only available in MRI. It requires ripper")
-        true
-      elsif file =~ /flog/o
-        MetricFu.configuration.mf_debug("Flog is only available in MRI. It requires ripper")
-        true
-      elsif file =~ /rails_best_practices/o
-        MetricFu.configuration.mf_debug("Rails Best Practices only available in MRI. It requires ripper")
-        true
-      else
-        false
+    MetricFu.lib_require { 'metric' }
+    Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each{|init_file|require(init_file)}
+    reconfigure
+  end
+  def self.reconfigure
+    MetricFu::Configuration.run do |config|
+      MetricFu::Metric.metrics.each do |metric|
+        if block_given?
+          yield metric
+        elsif !metric_manually_configured?(metric)
+          metric.enabled = false
+          metric.enable
+        end
+        next unless metric.enabled
+        config.add_metric(metric.metric_name)
+        config.add_graph(metric.metric_name) if metric.has_graph?
+        config.configure_metric(metric.metric_name, metric.run_options)
       end
     end
-    init_files.each do |file|
-      load file
-    end
     MetricFu.configuration
+  end
+
+  def self.metric_manually_configured?(metric)
+    [:rcov].include?(metric.metric_name)
+  end
+
+  def self.run_rcov
+    MetricFu::Metric.get_metric(:rcov).enabled = true
+  end
+  def self.skip_rcov
+    MetricFu::Metric.get_metric(:rcov).enabled = false
+    MetricFu.metrics -= [:rcov]
+    MetricFu.graphs  -= [:rcov]
   end
   def self.mri_only_metrics
     if MetricFu.configuration.mri?
@@ -72,13 +82,6 @@ module MetricFu
     else
       [:cane, :flog, :rails_best_practices]
     end
-  end
-  def self.run_rcov
-    load File.join(MetricFu.metrics_dir, 'rcov/init.rb')
-  end
-  def self.skip_rcov
-    MetricFu.metrics -= [:rcov]
-    MetricFu.graphs  -= [:rcov]
   end
   class << self
     %w(scratch output _data).each do |dir|
