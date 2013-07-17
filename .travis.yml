@@ -1,8 +1,8 @@
 language: ruby
 bundler_args: --without development
 script: bundle exec rspec
-# gemfile:
-#   - gemfiles/Gemfile.ci
+gemfile:
+  - gemfiles/Gemfile.travis
 # before_install: some_command
 # env:
 #   - "rack=1.3.4"

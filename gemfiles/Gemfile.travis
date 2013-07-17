@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+# for 1.9.2 support because of https://github.com/railsbp/rails_best_practices/blob/master/rails_best_practices.gemspec
+gem 'activesupport', '~> 3.2'
+
+gemspec :path => '..'
