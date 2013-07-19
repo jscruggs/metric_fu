@@ -1,12 +1,20 @@
+# Used to find which version, if any, of a gem to use when running command-line tools
 module MetricFu
   module MetricVersion
     extend self
 
     # @return rcov version if running rcov
+    # Rcov is not a dependency in the gemspec
+    # but is available to be shelled out
     def rcov
       ['~> 0.8']
     end
 
+    # @example MetricFu::MetricVersion.flog will return the gem version of Flog to require
+    # @return Nil when the metric_fu gem dependency isn't specified
+    # @return String represenation of the metric_fu gem dependency if specified
+    #   in the gemspec.
+    # @see gems
     def method_missing(method,*args,&block)
       if (gem_version = version_for(method.to_s))
         gem_version != '' ? gem_version : nil
