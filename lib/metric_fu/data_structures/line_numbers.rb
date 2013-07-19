@@ -1,7 +1,13 @@
+# MetricFu::LineNumber
+# (see #initialize)
 require 'ruby_parser'
 module MetricFu
   class LineNumbers
 
+    # Parses ruby code to collect line numbers for class, module, and method definitions.
+    # Used by metrics that don't provide line numbers for class, module, or methods problems
+    # @param contents [String] a string of ruby code
+    # @param file_path [String] the file path for the contents, defaults to empty string
     def initialize(contents,file_path='')
       if contents.to_s.size.zero?
         mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
@@ -27,12 +33,20 @@ module MetricFu
       @locations
     end
 
+    # @param line_number [String]
+    # @return [Boolean] if the given line number is in a method
     def in_method? line_number
       !!@locations.detect do |method_name, line_number_range|
         line_number_range.include?(line_number)
       end
     end
 
+    # @param line_number [Integer]
+    # @return [String, nil] the method which includes that line number, if any
+    # For all collected locations, find the first location where the line_number_range
+    #   includes the line_number
+    #   If a location is found, return its first element
+    #   Else return nil
     def method_at_line line_number
       found_method_and_range = @locations.detect do |method_name, line_number_range|
         line_number_range.include?(line_number)
@@ -44,6 +58,8 @@ module MetricFu
       end
     end
 
+    # @param method [String] the method name being queried
+    # @erturn [Integer, nil] the line number at which the given method is defined
     def start_line_for_method(method)
       return nil unless @locations.has_key?(method)
       @locations[method].first
