@@ -12,12 +12,13 @@ module MetricFu
 
     # @example MetricFu::MetricVersion.flog will return the gem version of Flog to require
     # @return Nil when the metric_fu gem dependency isn't specified
-    # @return String represenation of the metric_fu gem dependency if specified
+    # @return Array represenation of the metric_fu gem dependency if specified
     #   in the gemspec.
+    # Will raise method missing if :version_for is falsy
     # @see gems
     def method_missing(method,*args,&block)
       if (gem_version = version_for(method.to_s))
-        gem_version != '' ? gem_version : nil
+        gem_version != [] ? gem_version : nil
       else
         super
       end
@@ -25,24 +26,30 @@ module MetricFu
 
     private
 
-    # Reads in the gemspec and parses out gem dependencies and versions, if specified
-    # @return Array<Array<gem_name,gem_version>>, where both gem_name and gem_version are strings
-    def gems
-      @gems ||= begin
-                  gemspec = File.readlines(File.expand_path('../../metric_fu.gemspec', __FILE__))
-                  gemspec.select{|line| line =~ /dependency/}.map{|line|
-                    line.scan(/dependency\s+['"](\S+)['"][^\['"]+([^$]+)?/)
-                    gem_name = $1
-                    if gem_name
-                      gem_version = $2.to_s.chomp
-                      [gem_name.to_s.downcase.sub('metric_fu-',''), gem_version]
-                    end
-                  }.compact
-                end
+    # Reads in the gemspec and returns its abstract syntax tree
+    # @return Sexp
+    def ast
+      require 'ruby_parser'
+      parser = RubyParser.new
+      gemspec = File.read(File.expand_path('../../metric_fu.gemspec', __FILE__))
+      ast = parser.parse(gemspec)
     end
 
-    # @return '' if no gem version found
+
+    # @return Array<Array<gem_name,gem_version>>, where gem_name is a string and gem_version is an Array
+    def gems
+      @gems ||= ast.find{|node| node[0] == :iter}.
+        find{|node| node[0] == :block}.
+        select{|node| node[0] == :call }.
+        select{|node| node[2] == :add_runtime_dependency }.
+        map{|node| [
+          node[3][1].downcase.sub('metric_fu-',''),
+          Array(Array(node[4])[1..-1]).map{|node|node[1]}
+        ]}
+    end
+
     # @return Array<String> where the strings are valid gem version requires
+    #   The Array is empty if no gem version is specified
     def version_for(gem_name)
       node = gems.find{|node|node[0] == gem_name.downcase}
       node && node[1]
