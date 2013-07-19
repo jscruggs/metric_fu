@@ -17,24 +17,8 @@ module MetricFu
 
     private
 
-    # def ast
-    #   require 'ruby_parser'
-    #   parser = RubyParser.new
-    #   gemspec = File.read(File.expand_path('../../metric_fu.gemspec', __FILE__))
-    #   ast = parser.parse(gemspec)
-    # end
-
-    # def gems
-    #   @gems ||= ast.find{|node| node[0] == :iter}.
-    #     find{|node| node[0] == :block}.
-    #     select{|node| node[0] == :call }.
-    #     select{|node| node[2] == :add_runtime_dependency }.
-    #     map{|node| [
-    #       node[3][1].downcase.sub('metric_fu-',''),
-    #       Array(Array(node[4])[1..-1]).map{|node|node[1]}
-    #     ]}
-    # end
-
+    # Reads in the gemspec and parses out gem dependencies and versions, if specified
+    # @return Array<Array<gem_name,gem_version>>, where both gem_name and gem_version are strings
     def gems
       @gems ||= begin
                   gemspec = File.readlines(File.expand_path('../../metric_fu.gemspec', __FILE__))
@@ -49,7 +33,7 @@ module MetricFu
                 end
     end
 
-    # @return nil if no gem found
+    # @return '' if no gem version found
     # @return Array<String> where the strings are valid gem version requires
     def version_for(gem_name)
       node = gems.find{|node|node[0] == gem_name.downcase}
