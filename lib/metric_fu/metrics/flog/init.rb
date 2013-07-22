@@ -18,7 +18,7 @@ module MetricFu
         require 'flog'
         super
       else
-        MetricFu.configuration.mf_debug("Flog is only available in MRI. It requires ripper")
+        MetricFu.configuration.mf_debug("Flog is only available in MRI due to flog tasks")
       end
     end
 

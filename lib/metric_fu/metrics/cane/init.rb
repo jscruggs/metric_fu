@@ -21,7 +21,7 @@ module MetricFu
     end
 
     def enable
-      if MetricFu.configuration.mri?
+      if MetricFu.configuration.supports_ripper?
         super
       else
         MetricFu.configuration.mf_debug("Cane is only available in MRI. It requires ripper")

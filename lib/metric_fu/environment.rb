@@ -45,6 +45,16 @@ module MetricFu
       @rubinius ||= !!RedCard.check(:rubinius)
     end
 
+    def supports_ripper?
+      @supports_ripper ||= begin
+                             begin
+                               require 'ripper'
+                               true
+                             rescue LoadError
+                               false
+                             end
+                           end
+    end
     def platform #:nodoc:
       return RUBY_PLATFORM
     end

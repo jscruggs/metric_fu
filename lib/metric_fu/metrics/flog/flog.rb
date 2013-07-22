@@ -19,13 +19,6 @@ module MetricFu
       @flogger = ::Flog.new options
       @flogger.flog files
 
-    rescue LoadError => e
-      message = "#{e.class}\t#{e.message}\n\t#{e.backtrace.join('\n\t')}"
-      if MetricFu.configuration.mri?
-        mf_log "Flog Error: #{message}"
-      else
-        mf_log "Flog tasks only available in MRI: #{message}"
-      end
     end
 
     def analyze
