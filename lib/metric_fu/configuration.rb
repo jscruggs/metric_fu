@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'rbconfig'
 MetricFu.reporting_require { 'templates/awesome/awesome_template' }
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
@@ -38,17 +37,11 @@ module MetricFu
   #
   # Each metric can be configured by e.g. config.churn, config.flog, config.saikuro
   class Configuration
+    require_relative 'environment'
+    include MetricFu::Environment
 
     def initialize #:nodoc:#
       reset
-    end
-
-    def verbose
-      MfDebugger::Logger.debug_on
-    end
-
-    def verbose=(toggle)
-      MfDebugger::Logger.debug_on = toggle
     end
 
     def mf_debug(msg)
@@ -109,44 +102,6 @@ module MetricFu
     # e.g. :bluff
     def configure_graph_engine(graph_engine)
       add_promiscuous_instance_variable(:graph_engine, graph_engine)
-    end
-
-    # Perform a simple check to try and guess if we're running
-    # against a rails app.
-    #
-    # TODO This should probably be made a bit more robust.
-    def rails?
-      add_promiscuous_instance_variable(:rails, File.exist?("config/environment.rb"))
-    end
-
-    def is_cruise_control_rb?
-      !!ENV['CC_BUILD_ARTIFACTS']
-    end
-
-    def jruby?
-      @jruby ||= !!RedCard.check(:jruby)
-    end
-
-    def mri?
-      @mri ||= !!RedCard.check(:ruby)
-    end
-
-    def rubinius?
-      @rubinius ||= !!RedCard.check(:rubinius)
-    end
-
-    def platform #:nodoc:
-      # TODO, change
-      # RbConfig::CONFIG['ruby_install_name'].dup
-      return RUBY_PLATFORM
-    end
-
-    def self.ruby_strangely_makes_accessors_private?
-       ruby192? || jruby?
-    end
-
-    def self.ruby192?
-      @ruby192 ||= !!RedCard.check('1.9.2')
     end
 
     protected unless ruby_strangely_makes_accessors_private?
