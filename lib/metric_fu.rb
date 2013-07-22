@@ -19,10 +19,11 @@ module MetricFu
     %w(metrics formatter reporting logging errors data_structures tasks)
   end
 
-  # @note artifact_idr is relative to where the task is being run,
+  # @note artifact_dir is relative to where the task is being run,
   # not to the metric_fu library
+  require 'metric_fu/io'
   def self.artifact_dir
-    (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+    MetricFu::Io::FileSystem.artifact_dir
   end
 
   LOADER.create_artifact_subdirs(self) do

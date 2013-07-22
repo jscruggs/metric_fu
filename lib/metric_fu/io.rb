@@ -2,6 +2,10 @@ module MetricFu
   module Io
     module FileSystem
 
+      def self.artifact_dir
+        (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+      end
+
       module_function
 
       def set_directories(config)
