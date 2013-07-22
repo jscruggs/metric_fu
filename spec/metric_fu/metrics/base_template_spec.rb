@@ -10,7 +10,7 @@ describe MetricFu::Template do
   describe "#erbify" do
     it 'should evaluate a erb doc' do
       section = 'section'
-      File.stub!(:read).and_return('foo')
+      File.stub(:read).and_return('foo')
       erb = mock('erb')
       erb.should_receive(:result)
       ERB.should_receive(:new).with('foo').and_return(erb)
@@ -87,10 +87,10 @@ describe MetricFu::Template do
     describe "when on OS X" do
       before(:each) do
         config = mock("configuration")
-        config.stub!(:platform).and_return('universal-darwin-9.0')
-        config.stub!(:darwin_txmt_protocol_no_thanks).and_return(false)
-        config.stub!(:link_prefix).and_return(nil)
-        MetricFu.stub!(:configuration).and_return(config)
+        config.stub(:platform).and_return('universal-darwin-9.0')
+        config.stub(:darwin_txmt_protocol_no_thanks).and_return(false)
+        config.stub(:link_prefix).and_return(nil)
+        MetricFu.stub(:configuration).and_return(config)
       end
 
       it 'should return a textmate protocol link' do
@@ -117,10 +117,10 @@ describe MetricFu::Template do
       describe "but no thanks for txtmt" do
         before(:each) do
           config = mock("configuration")
-          config.stub!(:platform).and_return('universal-darwin-9.0')
-          config.stub!(:darwin_txmt_protocol_no_thanks).and_return(true)
-          config.stub!(:link_prefix).and_return(nil)
-          MetricFu.stub!(:configuration).and_return(config)
+          config.stub(:platform).and_return('universal-darwin-9.0')
+          config.stub(:darwin_txmt_protocol_no_thanks).and_return(true)
+          config.stub(:link_prefix).and_return(nil)
+          MetricFu.stub(:configuration).and_return(config)
           @template.should_receive(:complete_file_path).and_return('filename')
         end
 
@@ -145,9 +145,9 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.should_receive(:platform).and_return('other')
-        config.stub!(:link_prefix).and_return(nil)
-        config.stub!(:darwin_txmt_protocol_no_thanks).and_return(false)
-        MetricFu.stub!(:configuration).and_return(config)
+        config.stub(:link_prefix).and_return(nil)
+        config.stub(:darwin_txmt_protocol_no_thanks).and_return(false)
+        MetricFu.stub(:configuration).and_return(config)
         @template.should_receive(:complete_file_path).and_return('filename')
       end
 
@@ -161,7 +161,7 @@ describe MetricFu::Template do
       before(:each) do
         config = mock("configuration")
         config.should_receive(:link_prefix).and_return('http://example.org/files')
-        MetricFu.stub!(:configuration).and_return(config)
+        MetricFu.stub(:configuration).and_return(config)
         @template.should_receive(:complete_file_path).and_return('filename')
       end
 

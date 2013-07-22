@@ -3,7 +3,7 @@ describe Flog do
   if MetricFu.configuration.mri?
     before :each do
       MetricFu::Configuration.run {}
-      File.stub!(:directory?).and_return(true)
+      File.stub(:directory?).and_return(true)
       @flog = MetricFu::Flog.new('base_dir')
     end
 
