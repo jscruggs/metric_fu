@@ -210,7 +210,7 @@ describe MetricFu::Configuration do
 
       describe '#set_graphs ' do
         it 'should set the graphs to include rails_best_practices' do
-          @config.graphs.should include(:rails_best_practices)
+          expect(MetricFu::Metric.get_metric(:rails_best_practices).has_graph?).to be_true
         end
       end
 
@@ -228,8 +228,7 @@ describe MetricFu::Configuration do
 
       it 'should set @rails_best_practices to {}' do
         load_metric 'rails_best_practices'
-        @config.send(:rails_best_practices).
-                should == {}
+        expect(MetricFu::Metric.get_metric(:rails_best_practices).run_options).to eql({})
       end
     end
 
