@@ -28,6 +28,7 @@ module MetricFu
   # Each metric can be configured by e.g. config.get_metric(:churn)
   class Configuration
     require_relative 'environment'
+    require_relative 'io'
     include MetricFu::Environment
 
     def initialize #:nodoc:#
@@ -41,7 +42,7 @@ module MetricFu
     # TODO review if these code is functionally duplicated in the
     # base generator initialize
     def reset
-      set_directories
+      MetricFu::Io::FileSystem.set_directories(self)
       configure_template
       add_promiscuous_instance_variable(:metrics, [])
       add_promiscuous_instance_variable(:formatters, [])
@@ -131,36 +132,5 @@ module MetricFu
       add_promiscuous_instance_variable(:syntax_highlighting, true)
     end
 
-    def set_directories
-      add_promiscuous_instance_variable(:base_directory,MetricFu.artifact_dir)
-      add_promiscuous_instance_variable(:scratch_directory,MetricFu.scratch_dir)
-      add_promiscuous_instance_variable(:output_directory,MetricFu.output_dir)
-      add_promiscuous_instance_variable(:data_directory,MetricFu.data_dir)
-      # due to behavior differences between ruby 1.8.7 and 1.9.3
-      # this is good enough for now
-      create_directories [base_directory, scratch_directory, output_directory]
-
-      add_promiscuous_instance_variable(:metric_fu_root_directory,MetricFu.root_dir)
-      add_promiscuous_instance_variable(:template_directory,
-                                        File.join(metric_fu_root_directory,
-                                         'lib', 'templates'))
-      add_promiscuous_instance_variable(:file_globs_to_ignore,[])
-      set_code_dirs
-    end
-
-    def create_directories(*dirs)
-      Array(*dirs).each do |dir|
-        FileUtils.mkdir_p dir
-      end
-    end
-
-    # Add the 'app' directory if we're running within rails.
-    def set_code_dirs
-      if rails?
-        add_promiscuous_instance_variable(:code_dirs,['app', 'lib'])
-      else
-        add_promiscuous_instance_variable(:code_dirs,['lib'])
-      end
-    end
   end
 end
