@@ -16,16 +16,6 @@ module MetricFu
   # The Configuration class, as it sounds, provides methods for
   # configuring the behaviour of MetricFu.
   #
-  # == Customization for Rails
-  #
-  # The Configuration class checks for the presence of a
-  # 'config/environment.rb' file.  If the file is present, it assumes
-  # it is running in a Rails project.  If it is, it will:
-  #
-  # * Add 'app' to the @code_dirs directory to include the
-  #   code in the app directory in the processing
-  # * Add :stats  and :rails_best_practices to the list of metrics to run
-  #
   # == Customization for CruiseControl.rb
   #
   # The Configuration class checks for the presence of a
@@ -35,7 +25,7 @@ module MetricFu
   #
   # == Metric Configuration
   #
-  # Each metric can be configured by e.g. config.churn, config.flog, config.saikuro
+  # Each metric can be configured by e.g. config.get_metric(:churn)
   class Configuration
     require_relative 'environment'
     include MetricFu::Environment
