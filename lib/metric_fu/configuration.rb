@@ -10,6 +10,49 @@ module MetricFu
     @configuration ||= Configuration.new
   end
 
+  def self.configure
+    Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each{|init_file|require(init_file)}
+    reconfigure
+  end
+
+  def self.reconfigure
+    MetricFu::Configuration.run do |config|
+      MetricFu::Metric.metrics.each do |metric|
+        if block_given?
+          yield metric
+        elsif !metric_manually_configured?(metric)
+          metric.enabled = false
+          metric.enable
+        end
+        next unless metric.enabled
+        config.add_metric(metric.metric_name)
+        config.add_graph(metric.metric_name) if metric.has_graph?
+        config.configure_metric(metric.metric_name, metric.run_options)
+      end
+    end
+    MetricFu.configuration
+  end
+
+  def self.metric_manually_configured?(metric)
+    [:rcov].include?(metric.metric_name)
+  end
+
+  def self.run_rcov
+    MetricFu::Metric.get_metric(:rcov).enabled = true
+  end
+  def self.skip_rcov
+    MetricFu::Metric.get_metric(:rcov).enabled = false
+    MetricFu.metrics -= [:rcov]
+    MetricFu.graphs  -= [:rcov]
+  end
+  def self.mri_only_metrics
+    if MetricFu.configuration.mri?
+      []
+    else
+      [:cane, :flog, :rails_best_practices]
+    end
+  end
+
   # = Configuration
   #
   # The Configuration class, as it sounds, provides methods for
