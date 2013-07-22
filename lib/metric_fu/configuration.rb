@@ -1,5 +1,4 @@
 require 'fileutils'
-MetricFu.reporting_require { 'templates/awesome/awesome_template' }
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
 
@@ -29,6 +28,7 @@ module MetricFu
   class Configuration
     require_relative 'environment'
     require_relative 'io'
+    require_relative 'formatter'
     include MetricFu::Environment
 
     def initialize #:nodoc:#
@@ -43,7 +43,7 @@ module MetricFu
     # base generator initialize
     def reset
       MetricFu::Io::FileSystem.set_directories(self)
-      configure_template
+      MetricFu::Formatter::Templates.configure_template(self)
       add_promiscuous_instance_variable(:metrics, [])
       add_promiscuous_instance_variable(:formatters, [])
       add_promiscuous_instance_variable(:graphs, [])
@@ -120,16 +120,6 @@ module MetricFu
 
     def add_accessor_to_config(method_name)
       self.class.send(:attr_accessor, method_name)
-    end
-
-    private
-
-    def configure_template
-      add_promiscuous_instance_variable(:template_class, AwesomeTemplate)
-      add_promiscuous_instance_variable(:link_prefix, nil)
-      add_promiscuous_instance_variable(:darwin_txmt_protocol_no_thanks, true)
-      # turning off syntax_highlighting may avoid some UTF-8 issues
-      add_promiscuous_instance_variable(:syntax_highlighting, true)
     end
 
   end

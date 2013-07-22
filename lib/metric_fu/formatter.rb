@@ -20,5 +20,19 @@ module MetricFu
 
     end
 
+    module Templates
+      MetricFu.reporting_require { 'templates/awesome/awesome_template' }
+
+      module_function
+
+      def configure_template(config)
+        config.add_promiscuous_instance_variable(:template_class, AwesomeTemplate)
+        config.add_promiscuous_instance_variable(:link_prefix, nil)
+        config.add_promiscuous_instance_variable(:darwin_txmt_protocol_no_thanks, true)
+        # turning off syntax_highlighting may avoid some UTF-8 issues
+        config.add_promiscuous_instance_variable(:syntax_highlighting, true)
+      end
+
+    end
   end
 end
