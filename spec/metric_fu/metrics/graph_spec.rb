@@ -31,7 +31,7 @@ describe MetricFu::Graph do
 
   describe "setting the date on the graph" do
     before(:each) do
-      @graph.stub!(:mf_log)
+      @graph.stub(:mf_log)
     end
 
     it "should set the date once for one data point" do

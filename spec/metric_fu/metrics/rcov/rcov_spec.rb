@@ -5,26 +5,26 @@ describe MetricFu::Rcov do
   before :each do
     MetricFu.configure
     MetricFu.run_rcov
-    File.stub!(:directory?).and_return(true)
+    File.stub(:directory?).and_return(true)
     @rcov = MetricFu::Rcov.new('base_dir')
   end
 
   describe "emit" do
     before :each do
-      @rcov.stub!(:mf_log)
+      @rcov.stub(:mf_log)
       MetricFu.rcov[:external] = nil
     end
 
     it "should clear out previous output and make output folder" do
-      @rcov.stub!(:`)
+      @rcov.stub(:`)
       FileUtils.should_receive(:rm_rf).with(MetricFu::Rcov.metric_directory, :verbose => false)
       Dir.should_receive(:mkdir).with(MetricFu::Rcov.metric_directory)
       @rcov.emit
     end
 
     it "should set the RAILS_ENV" do
-      FileUtils.stub!(:rm_rf)
-      Dir.stub!(:mkdir)
+      FileUtils.stub(:rm_rf)
+      Dir.stub(:mkdir)
       MetricFu.rcov[:environment] = "metrics"
       @rcov.should_receive(:`).with(/RAILS_ENV=metrics/)
       @rcov.emit
@@ -65,7 +65,7 @@ describe MetricFu::Rcov do
   end
   describe "with external configuration option set" do
     before :each do
-      @rcov.stub!(:mf_log)
+      @rcov.stub(:mf_log)
       MetricFu.rcov[:external] = "coverage/rcov.txt"
     end
 
