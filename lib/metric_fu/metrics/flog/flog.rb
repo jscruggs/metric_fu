@@ -1,6 +1,5 @@
 require 'pathname'
 require 'optparse'
-require 'rbconfig'
 class RubyParser
   alias_method :original_process, :process
   def process(s,f,t)

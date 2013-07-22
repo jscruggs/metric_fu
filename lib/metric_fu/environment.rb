@@ -1,4 +1,3 @@
-# require 'rbconfig'
 require 'redcard'
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
@@ -47,8 +46,6 @@ module MetricFu
     end
 
     def platform #:nodoc:
-      # TODO, change
-      # RbConfig::CONFIG['ruby_install_name'].dup
       return RUBY_PLATFORM
     end
 
