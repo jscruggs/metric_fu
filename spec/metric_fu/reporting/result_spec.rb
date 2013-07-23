@@ -31,7 +31,7 @@ describe MetricFu::Result do
   describe "#add" do
     it 'should add a passed hash to the result_hash instance variable' do
       result_type = double('result_type')
-      result_type.should_receive(:to_s).any_number_of_times.and_return('type')
+      result_type.stub(:to_s).and_return('type')
 
       result_inst = double('result_inst')
       result_type.should_receive(:new).and_return(result_inst)
