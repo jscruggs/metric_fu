@@ -37,7 +37,7 @@ describe Stats do
       MetricFu.configure.reset
       File.stub(:directory?).and_return(true)
       stats = MetricFu::Stats.new
-      File.should_receive(:open).and_return(mock("file", :read => @lines))
+      File.should_receive(:open).and_return(double("file", :read => @lines))
       @results = stats.analyze
     end
 

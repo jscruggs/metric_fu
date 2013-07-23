@@ -36,7 +36,7 @@ describe MetricFu::Rcov do
       MetricFu.rcov[:external] = nil
       File.should_receive(:open).
             with(MetricFu::Rcov.metric_directory + '/rcov.txt').
-            and_return(mock("io", :read => RCOV_OUTPUT))
+            and_return(double("io", :read => RCOV_OUTPUT))
       @files = @rcov.analyze
     end
 
@@ -77,7 +77,7 @@ describe MetricFu::Rcov do
     it "should open the external rcov analysis file" do
       File.should_receive(:open).
             with(MetricFu.rcov[:external]).
-            and_return(mock("io", :read => RCOV_OUTPUT))
+            and_return(double("io", :read => RCOV_OUTPUT))
       @files = @rcov.analyze
     end
 
