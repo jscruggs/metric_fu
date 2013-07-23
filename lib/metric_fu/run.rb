@@ -11,10 +11,8 @@ module MetricFu
       display_results if options[:open]
     end
 
-    # ensure :hotspots runs last
-    def report_metrics(metrics=MetricFu.metrics)
-      MetricFu.configuration.metrics.sort_by! {|x| x == :hotspots ? 1 : 0 }
-      MetricFu.configuration.metrics
+    def report_metrics(metrics=MetricFu::Metric.enabled_metrics)
+      metrics.map(&:metric_name)
     end
     def measure
       reporter.start

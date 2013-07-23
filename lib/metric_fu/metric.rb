@@ -2,7 +2,7 @@
 module MetricFu
   class Metric
 
-    attr_accessor :enabled
+    attr_accessor :enabled, :activated
 
     def initialize
       self.enabled = false
@@ -10,6 +10,12 @@ module MetricFu
 
     def enable
       self.enabled = true
+    end
+
+    def activate
+      self.activated = true
+    rescue LoadError
+      MetricFu.configuration.mf_debug("#{metric_name} library unavailable, not activated")
     end
 
     # @return metric name [Symbol]
@@ -29,8 +35,13 @@ module MetricFu
 
     @metrics = []
     # @return all subclassed metrics [Array<MetricFu::Metric>]
+    # ensure :hotspots runs last
     def self.metrics
       @metrics
+    end
+
+    def self.enabled_metrics
+      metrics.select{|metric| metric.enabled && metric.activated}.sort_by {|metric| metric.metric_name  == :hotspots ? 1 : 0 }
     end
 
     def self.get_metric(metric_name)

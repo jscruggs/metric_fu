@@ -13,9 +13,13 @@ module MetricFu
       true
     end
 
+    def activate
+      require 'flog'
+      super
+    end
+
     def enable
       if MetricFu.configuration.mri?
-        require 'flog'
         super
       else
         MetricFu.configuration.mf_debug("Flog is only available in MRI due to flog tasks")

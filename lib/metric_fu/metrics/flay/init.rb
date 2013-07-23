@@ -15,8 +15,12 @@ module MetricFu
       true
     end
 
-    def enable
+    def activate
       require 'flay'
+      super
+    end
+
+    def enable
       super
     end
 

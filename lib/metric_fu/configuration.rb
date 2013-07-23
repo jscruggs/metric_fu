@@ -25,6 +25,7 @@ module MetricFu
           metric.enable
         end
         next unless metric.enabled
+        next unless metric.activated || metric.activate
         config.add_metric(metric.metric_name)
         config.add_graph(metric.metric_name) if metric.has_graph?
         config.configure_metric(metric.metric_name, metric.run_options)
