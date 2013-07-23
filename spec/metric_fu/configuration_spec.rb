@@ -8,6 +8,8 @@ describe MetricFu::Configuration do
     @config.reset
     MetricFu.run_rcov
     MetricFu.reconfigure
+    mri_only_metrics = MetricFu.mri_only_metrics.reject {|metric| MetricFu::Metric.get_metric(metric).enabled }
+    MetricFu.stub(:mri_only_metrics).and_return(mri_only_metrics)
     @config.stub :create_directories # no need to create directories for the tests
     @config
   end
