@@ -8,28 +8,34 @@ module MetricFu
 
       module_function
 
-      def set_directories(config)
-        base_directory    = MetricFu.artifact_dir
-        scratch_directory = MetricFu.scratch_dir
-        output_directory  = MetricFu.output_dir
-        data_directory    = MetricFu.data_dir
-        root_directory    = MetricFu.root_dir
-        config.add_promiscuous_instance_variable(:base_directory,base_directory)
-        config.add_promiscuous_instance_variable(:scratch_directory,scratch_directory)
-        config.add_promiscuous_instance_variable(:output_directory,output_directory)
-        config.add_promiscuous_instance_variable(:data_directory,data_directory)
-        # due to behavior differences between ruby 1.8.7 and 1.9.3
-        # this is good enough for now
-        create_directories [base_directory, scratch_directory, output_directory]
+      def directories
+        @directories ||= {}
+      end
 
-        config.add_promiscuous_instance_variable(:metric_fu_root_directory,root_directory)
-        config.add_promiscuous_instance_variable(:template_directory,
-                  File.join(root_directory, 'lib', 'templates'))
-        config.add_promiscuous_instance_variable(:file_globs_to_ignore,[])
+      def directory(name)
+        directories.fetch(name) { raise "No such directory configured: #{name}" }
+      end
+      def file_globs_to_ignore
+        @file_globs_to_ignore ||= []
+      end
+
+      def set_directories(config)
+        @directories = {}
+        @directories['base_directory']    = MetricFu.artifact_dir
+        @directories['scratch_directory'] = MetricFu.scratch_dir
+        @directories['output_directory']  = MetricFu.output_dir
+        @directories['data_directory']    = MetricFu.data_dir
+        create_directories @directories.values
+
+        @directories['root_directory']    = MetricFu.root_dir
+        @directories['template_directory'] = File.join(@directories.fetch('root_directory'), 'lib', 'templates')
+        @file_globs_to_ignore = []
         set_code_dirs(config)
       end
 
       def create_directories(*dirs)
+        # due to behavior differences between ruby 1.8.7 and 1.9.3
+        # this is good enough for now
         Array(*dirs).each do |dir|
           FileUtils.mkdir_p dir
         end
@@ -38,9 +44,9 @@ module MetricFu
       # Add the 'app' directory if we're running within rails.
       def set_code_dirs(config)
         if config.rails?
-          config.add_promiscuous_instance_variable(:code_dirs,['app', 'lib'])
+          @directories['code_dirs'] = %w(app lib)
         else
-          config.add_promiscuous_instance_variable(:code_dirs,['lib'])
+          @directories['code_dirs'] = %w(lib)
         end
       end
 
@@ -69,7 +75,7 @@ module MetricFu
     end
 
     def path_relative_to_base(path)
-      pathname = Pathname.pwd.join(MetricFu.base_directory) # make full path relative to base directory
+      pathname = Pathname.pwd.join(MetricFu::Io::FileSystem.directory('base_directory')) # make full path relative to base directory
       pathname.join(path)
     end
   end

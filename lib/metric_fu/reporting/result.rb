@@ -40,7 +40,7 @@ module MetricFu
       mf_debug "result requested #{result_type}"
       clazz = MetricFu.const_get(result_type.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase })
       mf_debug "result class found #{clazz}"
-      metric_options = MetricFu.send(result_type)
+      metric_options = MetricFu::Metric.get_metric(result_type).run_options
       inst = clazz.new(metric_options)
 
       result_hash.merge!(inst.generate_result)

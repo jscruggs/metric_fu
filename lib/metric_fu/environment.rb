@@ -59,6 +59,10 @@ module MetricFu
       return RUBY_PLATFORM
     end
 
+    def osx?
+      @osx ||= platform.include?('darwin')
+    end
+
     def ruby_strangely_makes_accessors_private?
        ruby192? || jruby?
     end

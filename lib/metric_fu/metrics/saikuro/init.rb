@@ -6,8 +6,8 @@ module MetricFu
     end
 
     def run_options
-      { :output_directory => "#{MetricFu.scratch_directory}/saikuro",
-                    :input_directory =>MetricFu.code_dirs,
+      { :output_directory => "#{MetricFu::Io::FileSystem.directory('scratch_directory')}/saikuro",
+                    :input_directory =>MetricFu::Io::FileSystem.directory('code_dirs'),
                     :cyclo => "",
                     :filter_cyclo => "0",
                     :warn_cyclo => "5",

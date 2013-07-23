@@ -2,6 +2,8 @@ require 'fileutils'
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
 
+  # Even though the below class methods are defined on the MetricFu module
+  # They are included here as they deal with configuration
 
   # The @configuration class variable holds a global type configuration
   # object for any parts of the system to use.
@@ -12,6 +14,7 @@ module MetricFu
 
   def self.configure
     Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each{|init_file|require(init_file)}
+    Dir.glob(File.join(MetricFu.reporting_dir, '**/init.rb')).each{|init_file|require(init_file)}
     reconfigure
   end
 
@@ -26,9 +29,6 @@ module MetricFu
         end
         next unless metric.enabled
         next unless metric.activated || metric.activate
-        config.add_metric(metric.metric_name)
-        config.add_graph(metric.metric_name) if metric.has_graph?
-        config.configure_metric(metric.metric_name, metric.run_options)
       end
     end
     MetricFu.configuration
@@ -43,8 +43,6 @@ module MetricFu
   end
   def self.skip_rcov
     MetricFu::Metric.get_metric(:rcov).enabled = false
-    MetricFu.metrics -= [:rcov]
-    MetricFu.graphs  -= [:rcov]
   end
   def self.mri_only_metrics
     if MetricFu.configuration.mri?
@@ -85,20 +83,18 @@ module MetricFu
 
     # TODO review if these code is functionally duplicated in the
     # base generator initialize
+    attr_reader :formatters
     def reset
       MetricFu::Io::FileSystem.set_directories(self)
       MetricFu::Formatter::Templates.configure_template(self)
-      add_promiscuous_instance_variable(:metrics, [])
-      add_promiscuous_instance_variable(:formatters, [])
-      add_promiscuous_instance_variable(:graphs, [])
-      add_promiscuous_instance_variable(:graph_engines, [])
-      add_promiscuous_method(:graph_engine)
+      @formatters = []
+      @graph_engine_config = MetricFu::Graph.new
     end
 
     # This allows us to have a nice syntax like:
     #
     #   MetricFu.run do |config|
-    #     config.base_directory = 'tmp/metric_fu'
+    #     config.graph_engine = :bluff
     #   end
     #
     # See the README for more information on configuration options.
@@ -106,64 +102,34 @@ module MetricFu
       yield MetricFu.configuration
     end
 
-    attr_accessor :metrics
-    # e.g. :churn
-    def add_metric(metric)
-      add_promiscuous_method(metric)
-      self.metrics = (metrics << metric).uniq
-    end
-
-    # e.g. :reek
-    def add_graph(metric)
-      add_promiscuous_method(metric)
-      self.graphs = (graphs << metric).uniq
+    # @return [Array<Symbol>] names of enabled metrics with graphs
+    def graphs
+      MetricFu::Metric.enabled_metrics.select{|metric|metric.has_graph?}.map(&:metric_name)
     end
 
     def add_formatter(format, output = nil)
       @formatters << MetricFu::Formatter.class_for(format).new(output: output)
     end
 
-    # e.g. :reek, {}
-    def configure_metric(metric, metric_configuration)
-      add_promiscuous_instance_variable(metric, metric_configuration)
+    # @return [Array<Symbol>] names of graph engines
+    # @example [:bluff, :gchart]
+    def graph_engines
+      @graph_engine_config.graph_engines
     end
 
-    # e.g. :bluff
+    # @return [Symbol] the selected graph engine
+    def graph_engine
+      @graph_engine_config.graph_engine
+    end
+
+    # @param graph_engine [Symbol] the name of the graph engine
     def add_graph_engine(graph_engine)
-      add_promiscuous_method(graph_engine)
-      self.graph_engines = (graph_engines << graph_engine).uniq
+      @graph_engine_config.add_graph_engine(graph_engine)
     end
 
-    # e.g. :bluff
+    # @param graph_engine [Symbol] sets the selected graph engine to sue
     def configure_graph_engine(graph_engine)
-      add_promiscuous_instance_variable(:graph_engine, graph_engine)
-    end
-
-    protected unless ruby_strangely_makes_accessors_private?
-
-    def add_promiscuous_instance_variable(name,value)
-      instance_variable_set("@#{name}", value)
-      add_promiscuous_method(name)
-      value
-    end
-
-    def add_promiscuous_method(method_name)
-        add_promiscuous_class_method_to_metric_fu(method_name)
-        add_accessor_to_config(method_name)
-    end
-
-    def add_promiscuous_class_method_to_metric_fu(method_name)
-        metric_fu_method = <<-EOF
-                  def self.#{method_name}
-                    configuration.send(:#{method_name})
-                  end
-        EOF
-      MetricFu.module_eval(metric_fu_method)
-    end
-
-
-    def add_accessor_to_config(method_name)
-      self.class.send(:attr_accessor, method_name)
+      @graph_engine_config.configure_graph_engine(graph_engine)
     end
 
   end

@@ -8,6 +8,7 @@ $metric_file_loaded = true
 #   next unless metric.metric_name == :flog
 #   metric.enabled = true
 # end
+# TODO: the below won't work anymore, update it per the above
 # MetricFu::Configuration.run do |config|
 #   coverage_file = File.expand_path("coverage/rcov/rcov.txt", Dir.pwd)
 #   config.add_metric(:rcov)

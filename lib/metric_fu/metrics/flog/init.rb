@@ -6,7 +6,7 @@ module MetricFu
     end
 
     def run_options
-      { :dirs_to_flog => MetricFu.code_dirs  }
+      { :dirs_to_flog => MetricFu::Io::FileSystem.directory('code_dirs')  }
     end
 
     def has_graph?

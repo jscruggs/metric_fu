@@ -6,7 +6,7 @@ module MetricFu
     end
 
     def run_options
-      { :dirs_to_reek => MetricFu.code_dirs,
+      { :dirs_to_reek => MetricFu::Io::FileSystem.directory('code_dirs'),
                     :config_file_pattern => nil}
     end
 

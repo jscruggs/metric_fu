@@ -25,12 +25,20 @@ module MetricFu
 
       module_function
 
+      def options
+        @options ||= {}
+      end
+      def option(name)
+        options.fetch(name) { raise "No such template option: #{name}" }
+      end
+
       def configure_template(config)
-        config.add_promiscuous_instance_variable(:template_class, AwesomeTemplate)
-        config.add_promiscuous_instance_variable(:link_prefix, nil)
-        config.add_promiscuous_instance_variable(:darwin_txmt_protocol_no_thanks, true)
-        # turning off syntax_highlighting may avoid some UTF-8 issues
-        config.add_promiscuous_instance_variable(:syntax_highlighting, true)
+        @options = {}
+        @options['template_class'] = AwesomeTemplate
+        @options['link_prefix'] = nil
+        @options['darwin_txmt_protocol_no_thanks'] = true
+        # # turning off syntax_highlighting may avoid some UTF-8 issues
+        @options['syntax_highlighting'] = true
       end
 
     end
