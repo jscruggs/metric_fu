@@ -37,8 +37,20 @@ module MetricFu
       @mri ||= !!RedCard.check(:ruby)
     end
 
+    def ruby_flavor
+      @ruby_flavor ||= RedCard.engine
+    end
+
+    def ruby_version
+      @ruby_version ||= RedCard.engine_version
+    end
+
+    def ruby18?
+      @ruby18 ||= mri? && !!RedCard.check('1.8'...'1.9')
+    end
+
     def ruby192?
-      @ruby192 ||= !!RedCard.check('1.9.2')
+      @ruby192 ||= mri? && ruby_version == '1.9.2'
     end
 
     def rubinius?
