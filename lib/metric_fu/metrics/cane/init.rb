@@ -21,10 +21,10 @@ module MetricFu
     end
 
     def enable
-      if MetricFu.configuration.supports_ripper?
+      if MetricFu.configuration.supports_ripper? && !MetricFu.configuration.ruby18?
         super
       else
-        MetricFu.configuration.mf_debug("Cane is only available in MRI. It requires ripper")
+        MetricFu.configuration.mf_debug("Cane is only available in MRI. It requires ripper and 1.9 hash syntax support")
       end
     end
 
