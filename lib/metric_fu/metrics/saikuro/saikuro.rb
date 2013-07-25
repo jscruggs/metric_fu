@@ -12,7 +12,7 @@ module MetricFu
         options_string += "--input_directory #{input_dir} "
       end
 
-      saikuro_bin= $:.map{|d| d+'/../bin/saikuro'}.select{|f| File.exists? f}.first || 'saikuro'
+      saikuro_bin= $:.map{|d| d+'/../bin/saikuro'}.select{|f| File.executable? f}.first || 'saikuro'
       mf_debug(MfDebugger::Logger.capture_output do
         sh %{#{saikuro_bin} #{options_string}} do |ok, response|
           unless ok
