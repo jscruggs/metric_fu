@@ -43,7 +43,7 @@ module MetricFu
           mf_debug "using metric #{metric}"
         else
           mf_debug "disabling metric #{metric}"
-          MetricFu::Metrics.get_metric(metric).enabled = false
+          MetricFu::Metric.get_metric(metric).enabled = false
           mf_debug "active metrics are #{MetricFu::Metric.enabled_metrics.inspect}"
         end
       end
