@@ -5,7 +5,7 @@ module MetricFu
       :saikuro
     end
 
-    def run_options
+    def default_run_options
       { :output_directory => "#{MetricFu::Io::FileSystem.directory('scratch_directory')}/saikuro",
                     :input_directory =>MetricFu::Io::FileSystem.directory('code_dirs'),
                     :cyclo => "",

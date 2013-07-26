@@ -5,7 +5,7 @@ module MetricFu
       :rails_best_practices
     end
 
-    def run_options
+    def default_run_options
       {}
     end
 

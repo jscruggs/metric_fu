@@ -5,7 +5,7 @@ module MetricFu
       :rcov
     end
 
-    def run_options
+    def default_run_options
       { :environment => 'test',
                     :test_files =>  Dir['{spec,test}/**/*_{spec,test}.rb'],
                     :rcov_opts => rcov_opts,

@@ -5,7 +5,7 @@ module MetricFu
       :stats
     end
 
-    def run_options
+    def default_run_options
       {}
     end
 

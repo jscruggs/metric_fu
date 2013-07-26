@@ -5,7 +5,7 @@ module MetricFu
       :flay
     end
 
-    def run_options
+    def default_run_options
       { :dirs_to_flay => MetricFu::Io::FileSystem.directory('code_dirs'), # was @code_dirs
       :minimum_score => 100,
       :filetypes => ['rb'] }

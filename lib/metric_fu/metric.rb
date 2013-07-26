@@ -3,6 +3,7 @@ module MetricFu
   class Metric
 
     attr_accessor :enabled, :activated
+    attr_writer :run_options
 
     def initialize
       self.enabled = false
@@ -25,6 +26,11 @@ module MetricFu
 
     # @return metric run options [Hash]
     def run_options
+      @run_options || default_run_options
+    end
+
+    # @return default metric run options [Hash]
+    def default_run_options
       not_implemented
     end
 

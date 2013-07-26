@@ -5,7 +5,7 @@ module MetricFu
       :cane
     end
 
-    def run_options
+    def default_run_options
       {
         :dirs_to_cane => MetricFu::Io::FileSystem.directory('code_dirs'),
         :abc_max => 15,

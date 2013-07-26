@@ -5,7 +5,7 @@ module MetricFu
       :flog
     end
 
-    def run_options
+    def default_run_options
       { :dirs_to_flog => MetricFu::Io::FileSystem.directory('code_dirs')  }
     end
 

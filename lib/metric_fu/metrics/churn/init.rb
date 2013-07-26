@@ -5,7 +5,7 @@ module MetricFu
       :churn
     end
 
-    def run_options
+    def default_run_options
       { :start_date => %q("1 year ago"), :minimum_churn_count => 10}
     end
 
