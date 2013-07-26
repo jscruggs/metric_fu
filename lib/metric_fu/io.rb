@@ -1,5 +1,17 @@
 module MetricFu
   module Io
+    # Writes the output to a file or io stream.
+    # @param output [String, #to_s] the content to write.
+    # @param path_or_io [String, #to_s, IO, nil] a file path or an
+    # io stream that responds to write. Can be nil. If nil,
+    # output is not written.
+    # @return [nil]
+    def write_output(output, path_or_io)
+      io_for(path_or_io) do |io|
+        io.write(output)
+      end
+    end
+
     # Yields an io object for writing output.
     # @example
     #   io_for('path/to/file') do |io|

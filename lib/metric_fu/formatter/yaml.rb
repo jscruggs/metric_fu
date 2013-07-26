@@ -7,20 +7,12 @@ module MetricFu
 
       def initialize(opts={})
         @options = opts
+        @path_or_io = @options[:output] || DEFAULT_PATH
       end
 
       def finish
-        self.write(MetricFu.result.as_yaml)
+        write_output(MetricFu.result.as_yaml, @path_or_io)
       end
-
-      protected
-
-      def write(output)
-        io_for(@options[:output] || DEFAULT_PATH) do |io|
-          io.write(output)
-        end
-      end
-
     end
   end
 end
