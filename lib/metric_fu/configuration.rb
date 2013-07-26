@@ -94,7 +94,7 @@ module MetricFu
     # This allows us to have a nice syntax like:
     #
     #   MetricFu.run do |config|
-    #     config.graph_engine = :bluff
+    #     config.configure_graph_engine(:bluff)
     #   end
     #
     # See the README for more information on configuration options.
