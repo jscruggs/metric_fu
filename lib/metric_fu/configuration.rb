@@ -88,7 +88,7 @@ module MetricFu
       MetricFu::Io::FileSystem.set_directories(self)
       MetricFu::Formatter::Templates.configure_template(self)
       @formatters = []
-      @graph_engine_config = MetricFu::Graph.new
+      @graph_engine_config = MetricFu::GraphEngine.new
     end
 
     # This allows us to have a nice syntax like:

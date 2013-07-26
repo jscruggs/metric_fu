@@ -1,5 +1,5 @@
 module MetricFu
-  class Graph
+  class GraphEngine
 
     attr_accessor :graph_engines, :graph_engine
     def initialize
