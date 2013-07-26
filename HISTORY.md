@@ -4,6 +4,7 @@
   * obey --no-open option (Chris Mason)
   * Don't run the hotspots metric if it has been disabled (Chris Mason)
   * No longer crashes when rake stats outputs blank lines (Benjamin Fleischer #103, #24)
+  * Run saikuro metrics the same way as the other metrics (Martin Gotink #100)
 * Patches
   * Make the run specs work without the need to shell out. (Robin Curry)
 * Misc
