@@ -1,8 +1,6 @@
 module MetricFu
 
   class Saikuro < Generator
-    include Rake::DSL if defined?(Rake::DSL) # rake 0.8.7 and 0.9.2 compatible
-
     def emit
       options_string = MetricFu.saikuro.inject("") do |options, option|
         option[0] == :input_directory ? options : options + "--#{option.join(' ')} "
