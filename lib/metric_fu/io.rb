@@ -2,9 +2,8 @@ module MetricFu
   module Io
     # Writes the output to a file or io stream.
     # @param output [String, #to_s] the content to write.
-    # @param path_or_io [String, #to_s, IO, nil] a file path or an
-    #   io stream that responds to write. Can be nil. If nil,
-    #   output is not written.
+    # @param path_or_io [String, #to_s, IO, #write] a file path
+    #   or an io stream that responds to write.
     # @return [nil]
     def write_output(output, path_or_io)
       io_for(path_or_io) do |io|
@@ -27,9 +26,8 @@ module MetricFu
     #     io.write(output)
     #   end
     #
-    # @param path_or_io [String, IO, nil] a file path or an
-    #   io stream that responds to write. Can be nil. If nil,
-    #   block is ignored.
+    # @param path_or_io [String, #to_s, IO, #write] a file path
+    #   or an io stream that responds to write.
     #
     # @yield [IO] an open stream for writing.
     #
@@ -39,7 +37,8 @@ module MetricFu
     #   be automatically closed. Cleanup, if necessary, is
     #   the responsibility of the caller.
     def io_for(path_or_io)
-      return nil if path_or_io.nil?
+      raise ArgumentError, "No path or io provided." if path_or_io.nil?
+      raise ArgumentError, "No block given. Cannot yield io stream." unless block_given?
 
       if path_or_io.respond_to?(:write)
         # We have an existing open stream...
