@@ -54,8 +54,9 @@ module MetricFu
       end
 
       def save_output(output, filename)
-        file = io_for("#{self.output_directory}/#{filename}")
-        file.write output
+        io_for("#{self.output_directory}/#{filename}") do |io|
+          io.write output
+        end
       end
 
       def save_graphs

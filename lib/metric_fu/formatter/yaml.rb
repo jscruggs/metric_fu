@@ -10,13 +10,15 @@ module MetricFu
       end
 
       def finish
-        self.output.write(MetricFu.result.as_yaml)
+        self.write(MetricFu.result.as_yaml)
       end
 
       protected
 
-      def output
-        @output ||= (io_for(@options[:output]) || io_for(DEFAULT_PATH))
+      def write(output)
+        io_for(@options[:output] || DEFAULT_PATH) do |io|
+          io.write(output)
+        end
       end
 
     end
