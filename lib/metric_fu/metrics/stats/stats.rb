@@ -2,15 +2,45 @@ module MetricFu
 
   class Stats < Generator
 
+    require 'code_metrics/statistics'
+    DIRS = CodeMetrics::StatsDirectories.new.directories
+    def self.add_dirs(dirs)
+      dirs.each do |type, dir|
+        DIRS << [type, dir]
+        CodeMetrics::Statistics::TEST_TYPES << type
+      end
+      DIRS
+    end
+
+    # [ 'Acceptance specs', 'spec/acceptance' ]
+    def self.spec_dirs
+      build_dirs('./spec/**/*_spec.rb', 'spec')
+    end
+
+    def self.build_dirs(glob_pattern, suffix)
+      dirs = Dir[glob_pattern].
+        map { |f| f.sub(/^\.\/(#{suffix}\/\w+)\/.*/, '\\1') }.
+        uniq.
+        select { |f| File.directory?(f) }
+
+      Hash[dirs.map { |dir|
+            type = dir.split('/').last
+            type = "#{type[0..0].upcase}#{type[1..-1]} #{suffix}s"
+            [type, dir]
+            }
+          ]
+    end
+
+    add_dirs(self.spec_dirs)
+
     def emit
-      command = %Q(mf-stats > #{metric_directory + '/stats.txt'})
-      mf_debug "** #{command}"
-      @output = `#{command}`
+      @output = MfDebugger::Logger.capture_output do
+        CodeMetrics::Statistics.new(*DIRS).to_s
+      end
     end
 
     def analyze
-      output = File.open(metric_directory + '/stats.txt').read
-      lines = remove_noise(output).compact
+      lines = remove_noise(@output).compact
 
       @stats = {}
 
