@@ -14,7 +14,7 @@ module MetricFu
     end
 
     def enable
-      super if MetricFu.configuration.rails?
+      super
     end
 
   end
