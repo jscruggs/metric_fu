@@ -1,14 +1,28 @@
+Changes are below categorized as `Features, Fixes, or Misc`.
+
+Each change should fall into categories that would affect whether the release is major (breaking changes), minor (new behavior), or patch (bug fix). See [semver](http://semver.org/) and [pessimistic versioning](http://docs.rubygems.org/read/chapter/16#page74)
+
+As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.  And _misc_ is either minor or patch, the difference being kind of fuzzy for the purposes of history.  Adding tests would be patch level.
+
 ### Master
 
+### MetricFu 4.3.0 / 2013-07-26
+
+* Features
+  * Allow customization of reporting results using formatters (Robin Curry #94)
 * Fixes
   * obey --no-open option (Chris Mason)
   * Don't run the hotspots metric if it has been disabled (Chris Mason)
   * No longer crashes when rake stats outputs blank lines (Benjamin Fleischer #103, #24)
-* Patches
-  * Make the run specs work without the need to shell out. (Robin Curry)
+  * Run saikuro metrics the same way as the other metrics (Martin Gotink #100)
+  * Add missing Cane Google Chart Grapher (Benjamin Fleischer)
+  * Fix wrong arguments to display_location, split off line numbers from paths (Benjamin Fleischer #88)
+  * Remove line numbers from direct file link so the browser can open it (Benjamin Fleischer #82)
+  * Make the run specs work without the need to shell out (Robin Curry)
 * Misc
   * metric_fu runs with the -r option by default (Chris Mason #69)
   * Switch to metric_fu-Saikuro gem (Benjamin Fleischer)
+  * Reduce Grapher code duplication (Benjamin Fleischer #89)
 
 ### MetricFu 4.2.1 / 2013-05-23
 

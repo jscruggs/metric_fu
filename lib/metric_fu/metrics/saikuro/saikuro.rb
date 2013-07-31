@@ -1,8 +1,6 @@
 module MetricFu
 
   class Saikuro < Generator
-    include Rake::DSL if defined?(Rake::DSL) # rake 0.8.7 and 0.9.2 compatible
-
     def emit
       options_string = options.inject("") do |options, option|
         option[0] == :input_directory ? options : options + "--#{option.join(' ')} "
@@ -12,14 +10,9 @@ module MetricFu
         options_string += "--input_directory #{input_dir} "
       end
 
-      saikuro_bin= $:.map{|d| d+'/../bin/saikuro'}.select{|f| File.exists? f}.first || 'saikuro'
-      mf_debug(MfDebugger::Logger.capture_output do
-        sh %{#{saikuro_bin} #{options_string}} do |ok, response|
-          unless ok
-            mf_log "Saikuro failed with exit status: #{response.exitstatus}"
-          end
-        end
-      end)
+      command = %Q(mf-saikuro #{options_string})
+      mf_debug "** #{command}"
+      `#{command}`
     end
 
     def format_directories
