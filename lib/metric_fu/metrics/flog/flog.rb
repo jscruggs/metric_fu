@@ -5,7 +5,7 @@ module MetricFu
 
     def emit
       files = []
-      options[:dirs_to_flog].each do |directory|
+      Array(options[:dirs_to_flog]).each do |directory|
         directory = "." if directory=='./'
         dir_files = Dir.glob("#{directory}/**/*.rb")
         dir_files = remove_excluded_files(dir_files)
