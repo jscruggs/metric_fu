@@ -24,6 +24,8 @@ RSpec.configure do |config|
   # :each ever describe block
   # :all ever it block
 
+  config.order = 'random'
+
   config.after(:suite) do
     cleanup_test_files
   end
