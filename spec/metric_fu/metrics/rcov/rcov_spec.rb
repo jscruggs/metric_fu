@@ -3,7 +3,7 @@ require "spec_helper"
 describe MetricFu::Rcov do
 
   before :each do
-    MetricFu.reconfigure do |metric|
+    MetricFu.configure_metrics do |metric|
       next unless metric.metric_name == :rcov
       metric.enabled = true
     end

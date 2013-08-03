@@ -15,10 +15,10 @@ module MetricFu
   def self.configure
     Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each{|init_file|require(init_file)}
     Dir.glob(File.join(MetricFu.reporting_dir, '**/init.rb')).each{|init_file|require(init_file)}
-    reconfigure
+    configure_metrics
   end
 
-  def self.reconfigure
+  def self.configure_metrics
     MetricFu::Configuration.run do |config|
       MetricFu::Metric.metrics.each do |metric|
         if block_given?
