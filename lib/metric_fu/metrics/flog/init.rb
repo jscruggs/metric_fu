@@ -1,7 +1,7 @@
 module MetricFu
   class MetricFlog < Metric
 
-    def metric_name
+    def name
       :flog
     end
 

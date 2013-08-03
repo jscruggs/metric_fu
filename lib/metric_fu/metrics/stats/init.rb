@@ -1,7 +1,7 @@
 module MetricFu
   class MetricStats < Metric
 
-    def metric_name
+    def name
       :stats
     end
 

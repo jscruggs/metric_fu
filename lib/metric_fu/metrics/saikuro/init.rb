@@ -1,7 +1,7 @@
 module MetricFu
   class MetricSaikuro < Metric
 
-    def metric_name
+    def name
       :saikuro
     end
 

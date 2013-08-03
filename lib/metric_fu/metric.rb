@@ -16,11 +16,11 @@ module MetricFu
     def activate
       self.activated = true
     rescue LoadError
-      MetricFu.configuration.mf_debug("#{metric_name} library unavailable, not activated")
+      MetricFu.configuration.mf_debug("#{name} library unavailable, not activated")
     end
 
     # @return metric name [Symbol]
-    def metric_name
+    def name
       not_implemented
     end
 

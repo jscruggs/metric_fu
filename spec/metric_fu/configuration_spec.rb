@@ -218,7 +218,7 @@ describe MetricFu::Configuration do
 
       describe '#set_metrics ' do
         it 'should set the metrics to include stats' do
-          MetricFu::Metric.enabled_metrics.map(&:metric_name).should include(:stats)
+          MetricFu::Metric.enabled_metrics.map(&:name).should include(:stats)
         end
       end
 
@@ -256,7 +256,7 @@ describe MetricFu::Configuration do
       end
 
       it 'should set the available metrics' do
-        MetricFu::Metric.enabled_metrics.map(&:metric_name).should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] - MetricFu.mri_only_metrics
+        MetricFu::Metric.enabled_metrics.map(&:name).should =~ [:churn, :flog, :flay, :reek, :roodi, :rcov, :hotspots, :saikuro, :cane] - MetricFu.mri_only_metrics
       end
 
       it 'should set the @code_dirs instance var to ["lib"]' do

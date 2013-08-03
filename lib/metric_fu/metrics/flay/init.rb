@@ -1,7 +1,7 @@
 module MetricFu
   class MetricFlay < Metric
 
-    def metric_name
+    def name
       :flay
     end
 

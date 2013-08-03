@@ -34,7 +34,7 @@ describe MetricFu do
       # limited set, so we can test the basic functionality
       # without significantly slowing down the specs.
       MetricFu.configure_metrics do |metric|
-        if metric.metric_name == :churn
+        if metric.name == :churn
           metric.enable
           metric.activated = true
         else

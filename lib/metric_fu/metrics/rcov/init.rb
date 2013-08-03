@@ -1,7 +1,7 @@
 module MetricFu
   class MetricRcov < Metric
 
-    def metric_name
+    def name
       :rcov
     end
 

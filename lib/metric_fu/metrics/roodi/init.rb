@@ -1,7 +1,7 @@
 module MetricFu
   class MetricRoodi < Metric
 
-    def metric_name
+    def name
       :roodi
     end
 

@@ -1,7 +1,7 @@
 module MetricFu
   class MetricReek < Metric
 
-    def metric_name
+    def name
       :reek
     end
 

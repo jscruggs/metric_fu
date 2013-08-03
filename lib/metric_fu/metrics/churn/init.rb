@@ -1,7 +1,7 @@
 module MetricFu
   class MetricChurn < Metric
 
-    def metric_name
+    def name
       :churn
     end
 

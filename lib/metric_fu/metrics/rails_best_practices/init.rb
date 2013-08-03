@@ -1,7 +1,7 @@
 module MetricFu
   class MetricRailsBestPractices < Metric
 
-    def metric_name
+    def name
       :rails_best_practices
     end
 

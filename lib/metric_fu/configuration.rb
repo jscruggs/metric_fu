@@ -34,8 +34,12 @@ module MetricFu
     MetricFu.configuration
   end
 
+  def self.configure_metric(name)
+    yield MetricFu::Metric.get_metric(name)
+  end
+
   def self.metric_manually_configured?(metric)
-    [:rcov].include?(metric.metric_name)
+    [:rcov].include?(metric.name)
   end
 
   def self.run_rcov
@@ -104,7 +108,7 @@ module MetricFu
 
     # @return [Array<Symbol>] names of enabled metrics with graphs
     def graphs
-      MetricFu::Metric.enabled_metrics.select{|metric|metric.has_graph?}.map(&:metric_name)
+      MetricFu::Metric.enabled_metrics.select{|metric|metric.has_graph?}.map(&:name)
     end
 
     def add_formatter(format, output = nil)

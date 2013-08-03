@@ -1,7 +1,7 @@
 module MetricFu
   class MetricCane < Metric
 
-    def metric_name
+    def name
       :cane
     end
 

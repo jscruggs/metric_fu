@@ -56,7 +56,7 @@ module MetricFu
     # @return String
     #   A file path
     def template(section)
-      if MetricFu::Metric.enabled_metrics.map(&:metric_name).include?(section) # expects a symbol
+      if MetricFu::Metric.enabled_metrics.map(&:name).include?(section) # expects a symbol
         File.join(template_dir(section.to_s), "#{section}.html.erb")
       else
         File.join(template_directory,  section.to_s + ".html.erb")

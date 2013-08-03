@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Bluff graphers responding to #graph!" do
   it "should write chart file" do
     graphs = {}
-    available_graphs = MetricFu::Metric.enabled_metrics.select{|m|m.has_graph?}.map(&:metric_name)
+    available_graphs = MetricFu::Metric.enabled_metrics.select{|m|m.has_graph?}.map(&:name)
     available_graphs.each do |graph|
       grapher_name = graph.to_s.gsub("MetricFu::",'').gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       grapher_name =  grapher_name+"BluffGrapher"

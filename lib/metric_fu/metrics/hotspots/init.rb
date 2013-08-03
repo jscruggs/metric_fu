@@ -1,7 +1,7 @@
 module MetricFu
   class MetricHotspots < Metric
 
-    def metric_name
+    def name
       :hotspots
     end
 

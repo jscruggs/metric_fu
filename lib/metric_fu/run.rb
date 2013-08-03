@@ -12,7 +12,7 @@ module MetricFu
     end
 
     def report_metrics(metrics=MetricFu::Metric.enabled_metrics)
-      metrics.map(&:metric_name)
+      metrics.map(&:name)
     end
     def measure
       reporter.start
