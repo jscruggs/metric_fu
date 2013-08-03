@@ -51,7 +51,7 @@ module MetricFu
     def configure_formatters(options)
       # Configure from command line if any.
       if options[:format]
-        MetricFu.formatters.clear # Command-line format takes precedence.
+        MetricFu.configuration.formatters.clear # Command-line format takes precedence.
         Array(options[:format]).each do |format, o|
           MetricFu.configuration.add_formatter(format, o)
         end
