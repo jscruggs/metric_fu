@@ -6,6 +6,18 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 
 ### Master
 
+* Features
+* Fixes
+* Misc
+
+### MetricFu 4.3.1 / 2013-08-02
+
+* Features
+* Fixes
+* Misc
+  * Don't set a default flay minimum score (was 100); use flay default (16) instead. (Robin Curry #110)
+  * Loosen gem dependencies.  Please report any bugs! (Benjamin Fleischer, #109)
+
 ### MetricFu 4.3.0 / 2013-07-26
 
 * Features
