@@ -32,9 +32,9 @@ def setup_fs
     # Have to use the file system, so let's shift the
     # output directories so that we don't interfere with
     # existing historical metric data.
-    MetricFu::IO::FileSystem.stub(:directory).with('base_directory').and_return("tmp/metric_fu/test")
-    MetricFu::IO::FileSystem.stub(:directory).with('output_directory').and_return("tmp/metric_fu/test/output")
-    MetricFu::IO::FileSystem.stub(:directory).with('data_directory').and_return("tmp/metric_fu/test/_data")
+    MetricFu::Io::FileSystem.stub(:directory).with('base_directory').and_return("tmp/metric_fu/test")
+    MetricFu::Io::FileSystem.stub(:directory).with('output_directory').and_return("tmp/metric_fu/test/output")
+    MetricFu::Io::FileSystem.stub(:directory).with('data_directory').and_return("tmp/metric_fu/test/_data")
   end
 end
 
