@@ -59,6 +59,20 @@ module MetricFu
   #   config.configure_metrics.each do |metric|
   #     ...
   #   end
+  #
+  # == Formatter Configuration
+  #
+  # Formatters can be configured by e.g.
+  #   config.configure_formatter(:html)
+  #   config.configure_formatter(:yaml, "customreport.yml")
+  #   config.configure_formatter(MyCustomFormatter)
+  #
+  # == Graph Configuration
+  #
+  # Graphing engine can be configured by e.g.
+  #   config.configure_graph_engine(:bluff)
+  #
+  #
   class Configuration
     require_relative 'environment'
     require_relative 'io'
@@ -86,6 +100,10 @@ module MetricFu
     # This allows us to have a nice syntax like:
     #
     #   MetricFu.run do |config|
+    #     congif.configure_metric(:churn) do
+    #       ...
+    #     end
+    #
     #     config.configure_graph_engine(:bluff)
     #   end
     #
