@@ -33,7 +33,7 @@ describe MetricFu do
       # to speed up tests. For now, just configuring with a
       # limited set, so we can test the basic functionality
       # without significantly slowing down the specs.
-      MetricFu.configure_metrics do |metric|
+      MetricFu.configuration.configure_metrics do |metric|
         if metric.name == :churn
           metric.enable
           metric.activated = true

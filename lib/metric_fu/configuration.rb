@@ -15,31 +15,9 @@ module MetricFu
   def self.configure
     Dir.glob(File.join(MetricFu.metrics_dir, '**/init.rb')).each{|init_file|require(init_file)}
     Dir.glob(File.join(MetricFu.reporting_dir, '**/init.rb')).each{|init_file|require(init_file)}
-    configure_metrics
-  end
-
-  def self.configure_metrics
-    MetricFu::Configuration.run do |config|
-      MetricFu::Metric.metrics.each do |metric|
-        if block_given?
-          yield metric
-        elsif !metric_manually_configured?(metric)
-          metric.enabled = false
-          metric.enable
-        end
-        next unless metric.enabled
-        next unless metric.activated || metric.activate
-      end
+    configuration.tap do |config|
+      config.configure_metrics
     end
-    MetricFu.configuration
-  end
-
-  def self.configure_metric(name)
-    yield MetricFu::Metric.get_metric(name)
-  end
-
-  def self.metric_manually_configured?(metric)
-    [:rcov].include?(metric.name)
   end
 
   def self.run_rcov
@@ -114,6 +92,27 @@ module MetricFu
     # See the README for more information on configuration options.
     def self.run
       yield MetricFu.configuration
+    end
+
+    def configure_metric(name)
+      yield MetricFu::Metric.get_metric(name)
+    end
+
+    def configure_metrics
+      MetricFu::Metric.metrics.each do |metric|
+        if block_given?
+          yield metric
+        elsif !metric_manually_configured?(metric)
+          metric.enabled = false
+          metric.enable
+        end
+        next unless metric.enabled
+        next unless metric.activated || metric.activate
+      end
+    end
+
+    def metric_manually_configured?(metric)
+      [:rcov].include?(metric.name)
     end
 
     def configure_formatter(format, output = nil)

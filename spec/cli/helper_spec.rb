@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'metric_fu/cli/helper'
 MetricFu.run_rcov
-MetricFu.configure_metrics
+MetricFu.configure
 
 describe MetricFu::Cli::Helper do
 
