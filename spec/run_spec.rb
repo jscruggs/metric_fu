@@ -159,7 +159,6 @@ describe MetricFu do
 
     after do
       MetricFu::Configuration.run do |config|
-        MetricFu::Metric.stub(:metrics).and_return(@default_configured_metrics)
         config.formatters.clear
       end
 
