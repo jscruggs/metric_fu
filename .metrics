@@ -19,9 +19,9 @@ $metric_file_loaded = true
 
 # To configure different formatter(s) or output ...
 # MetricFu::Configuration.run do |config|
-#   config.add_formatter(:html)
-#   config.add_formatter(:yaml, "customreport.yml")
-#   config.add_formatter(MyCustomFormatter)
+#   config.configure_formatter(:html)
+#   config.configure_formatter(:yaml, "customreport.yml")
+#   config.configure_formatter(MyCustomFormatter)
 # end
 #
 # metric_fu will attempt to require a custom formatter by

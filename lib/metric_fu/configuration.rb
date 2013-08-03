@@ -116,14 +116,15 @@ module MetricFu
       yield MetricFu.configuration
     end
 
+    def configure_formatter(format, output = nil)
+      @formatters << MetricFu::Formatter.class_for(format).new(output: output)
+    end
+
     # @return [Array<Symbol>] names of enabled metrics with graphs
     def graphs
       MetricFu::Metric.enabled_metrics.select{|metric|metric.has_graph?}.map(&:name)
     end
 
-    def add_formatter(format, output = nil)
-      @formatters << MetricFu::Formatter.class_for(format).new(output: output)
-    end
 
     # @return [Array<Symbol>] names of graph engines
     # @example [:bluff, :gchart]

@@ -67,7 +67,7 @@ describe MetricFu do
       it "outputs using configured formatter" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml)
+            config.configure_formatter(:yaml)
           end
           metric_fu
         }.to create_file("#{base_directory}/report.yml")
@@ -76,7 +76,7 @@ describe MetricFu do
       it "doesn't output using formatters not configured" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml)
+            config.configure_formatter(:yaml)
           end
           metric_fu
         }.to_not create_file("#{output_directory}/index.html")
@@ -99,7 +99,7 @@ describe MetricFu do
 
       before do
         MetricFu::Configuration.run do |config|
-          config.add_formatter(:html)
+          config.configure_formatter(:html)
         end
       end
 
@@ -117,7 +117,7 @@ describe MetricFu do
       it "outputs using configured out" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml, "customreport.yml")
+            config.configure_formatter(:yaml, "customreport.yml")
           end
           metric_fu
         }.to create_file("#{base_directory}/customreport.yml")
@@ -126,7 +126,7 @@ describe MetricFu do
       it "doesn't output using formatters not configured" do
         expect {
           MetricFu::Configuration.run do |config|
-            config.add_formatter(:yaml, "customreport.yml")
+            config.configure_formatter(:yaml, "customreport.yml")
           end
           metric_fu
         }.to_not create_file("#{base_directory}/report.yml")

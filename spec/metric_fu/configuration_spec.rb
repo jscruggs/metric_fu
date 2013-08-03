@@ -297,12 +297,12 @@ describe MetricFu::Configuration do
     end
   end
 
-  describe '#add_formatter' do
+  describe '#configure_formatter' do
     before(:each) { get_new_config }
 
     context 'given a built-in formatter' do
       before do
-        @config.add_formatter('html')
+        @config.configure_formatter('html')
       end
 
       it 'adds to the list of formatters' do
@@ -313,7 +313,7 @@ describe MetricFu::Configuration do
     context 'given a custom formatter by class name' do
       before do
         stub_const('MyCustomFormatter', Class.new() { def initialize(*); end })
-        @config.add_formatter('MyCustomFormatter')
+        @config.configure_formatter('MyCustomFormatter')
       end
 
       it 'adds to the list of formatters' do
@@ -324,9 +324,9 @@ describe MetricFu::Configuration do
     context 'given multiple formatters' do
       before do
         stub_const('MyCustomFormatter', Class.new() { def initialize(*); end })
-        @config.add_formatter('html')
-        @config.add_formatter('yaml')
-        @config.add_formatter('MyCustomFormatter')
+        @config.configure_formatter('html')
+        @config.configure_formatter('yaml')
+        @config.configure_formatter('MyCustomFormatter')
       end
 
       it 'adds each to the list of formatters' do
