@@ -70,7 +70,17 @@ module MetricFu
   #
   # == Metric Configuration
   #
-  # Each metric can be configured by e.g. config.get_metric(:churn)
+  # Each metric can be configured by e.g.
+  #   config.configure_metric(:flog) do |flog|
+  #     flog.enable
+  #     flog.dirs_to_flog = %w(app lib spec)
+  #     ...
+  #   end
+  #
+  # or iterate over all metrics to configure by e.g.
+  #   config.configure_metrics.each do |metric|
+  #     ...
+  #   end
   class Configuration
     require_relative 'environment'
     require_relative 'io'

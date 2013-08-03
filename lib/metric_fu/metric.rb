@@ -3,7 +3,6 @@ module MetricFu
   class Metric
 
     attr_accessor :enabled, :activated
-    attr_writer :run_options
 
     def initialize
       self.enabled = false
@@ -26,7 +25,11 @@ module MetricFu
 
     # @return metric run options [Hash]
     def run_options
-      @run_options || default_run_options
+      default_run_options.merge(configured_run_options)
+    end
+
+    def configured_run_options
+      @configured_run_options ||= {}
     end
 
     # @return default metric run options [Hash]
@@ -47,15 +50,30 @@ module MetricFu
     end
 
     def self.enabled_metrics
-      metrics.select{|metric| metric.enabled && metric.activated}.sort_by {|metric| metric.metric_name  == :hotspots ? 1 : 0 }
+      metrics.select{|metric| metric.enabled && metric.activated}.sort_by {|metric| metric.name  == :hotspots ? 1 : 0 }
     end
 
-    def self.get_metric(metric_name)
-      metrics.find{|metric|metric.metric_name.to_s == metric_name.to_s}
+    def self.get_metric(name)
+      metrics.find{|metric|metric.name.to_s == name.to_s}
     end
 
     def self.inherited(subclass)
       @metrics << subclass.new
+    end
+
+    protected
+
+    def method_missing(method, *args)
+      key = method_to_attr(method)
+      if default_run_options.has_key?(key)
+        configured_run_options[key] = args.first
+      else
+        raise "#{key} is not a valid configuration option"
+      end
+    end
+
+    def method_to_attr(method)
+      method.to_s.sub(/=$/, '').to_sym
     end
 
     private
@@ -63,5 +81,6 @@ module MetricFu
     def not_implemented
       raise "Required method #{caller[0]} not implemented in #{__FILE__}"
     end
+
   end
 end
