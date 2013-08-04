@@ -13,6 +13,7 @@ module MetricFu
       self.enabled = true
     end
 
+    # TODO: Confirm this catches load errors from requires in subclasses, such as for flog
     def activate
       self.activated = true
     rescue LoadError
@@ -64,6 +65,11 @@ module MetricFu
 
     protected
 
+    # Enable using a syntax such as metric.foo = 'foo'
+    #   by catching the missing method here,
+    #   checking if :foo is a key in the default_run_options, and
+    #   setting the key/value in the @configured_run_options hash
+    # TODO: See if we can do this without a method_missing
     def method_missing(method, *args)
       key = method_to_attr(method)
       if default_run_options.has_key?(key)
@@ -73,6 +79,7 @@ module MetricFu
       end
     end
 
+    # Used above to identify the stem of a setter method
     def method_to_attr(method)
       method.to_s.sub(/=$/, '').to_sym
     end

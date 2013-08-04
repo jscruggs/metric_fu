@@ -1,8 +1,10 @@
 require 'fileutils'
 module MetricFu
   module Io
+    # TODO: Move this module / functionality elsewhere and make less verbose
     module FileSystem
 
+      # TODO: Use a better environmental variable name for the output / artiface dir.  Set to a different default in tests.
       def self.artifact_dir
         (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
       end
@@ -20,6 +22,7 @@ module MetricFu
         @file_globs_to_ignore ||= []
       end
 
+      # TODO: Remove call to config
       def set_directories(config)
         @directories = {}
         @directories['base_directory']    = MetricFu.artifact_dir
@@ -29,6 +32,7 @@ module MetricFu
         create_directories @directories.values
 
         @directories['root_directory']    = MetricFu.root_dir
+        # TODO Though this is true of the general AwesomeTemplate, it is not necessarily true of templates within each Metric.  Each metric should probably know how to use AwesomeTemplate (or whatever)
         @directories['template_directory'] = File.join(@directories.fetch('root_directory'), 'lib', 'templates')
         @file_globs_to_ignore = []
         set_code_dirs(config)
@@ -44,6 +48,8 @@ module MetricFu
 
       # Add the 'app' directory if we're running within rails.
       def set_code_dirs(config)
+        # TODO: Rather than check if we're running against a rails app,
+        #   shouldn't we just check if the directories exist?
         if config.rails?
           @directories['code_dirs'] = %w(app lib)
         else

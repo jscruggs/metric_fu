@@ -13,6 +13,7 @@ module MetricFu
         MetricFu::Formatter::YAML.new.finish
 
         mf_debug "** SAVING REPORT DATA OUTPUT TO #{MetricFu::Io::FileSystem.directory('data_directory')}"
+        # TODO: Allow customizing output filenames
         MetricFu::Formatter::YAML.new(
           output: Pathname.pwd.join("#{MetricFu::Io::FileSystem.directory('data_directory')}/#{Time.now.strftime("%Y%m%d")}.yml")
         ).finish
@@ -58,6 +59,8 @@ module MetricFu
         mf_debug "** PREPARING TO GRAPH"
         MetricFu.configuration.graphs.each {|graph|
           mf_debug "** Graphing #{graph} with #{MetricFu.configuration.graph_engine}"
+          # TODO: This should probably be defined on configuration
+          #   rather than the module. See MetricFu::Graph
           MetricFu.graph.add(graph, MetricFu.configuration.graph_engine, self.output_directory)
         }
         mf_debug "** GENERATING GRAPH"

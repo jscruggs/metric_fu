@@ -1,5 +1,7 @@
 module MetricFu
   class Loader
+    # TODO: This class mostly serves to clean up the base MetricFu module,
+    #   but needs further work
 
     attr_reader :loaded_files
     def initialize(lib_root)
@@ -21,6 +23,7 @@ module MetricFu
       end
     end
 
+    # TODO: Reduce duplication of directory logic
     def create_dirs(klass)
       class << klass
         Array(yield).each do |dir|
@@ -49,6 +52,7 @@ module MetricFu
     def setup
       MetricFu.lib_require { 'configuration' }
       MetricFu.lib_require { 'metric' }
+      # TODO: consolidate these setup files
       MetricFu.lib_require { 'initial_requires' }
       # Load a few things to make our lives easier elsewhere.
       MetricFu.lib_require { 'load_files' }

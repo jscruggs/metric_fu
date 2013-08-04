@@ -56,6 +56,8 @@ module MetricFu
     # @return String
     #   A file path
     def template(section)
+      # TODO: each MetricFu::Metric should know about its templates
+      #  This class knows too much about the filesystem structure
       if MetricFu::Metric.enabled_metrics.map(&:name).include?(section) # expects a symbol
         File.join(template_dir(section.to_s), "#{section}.html.erb")
       else

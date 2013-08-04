@@ -72,6 +72,7 @@ module MetricFu
     require_relative 'environment'
     require_relative 'io'
     require_relative 'formatter'
+    # TODO: Remove need to include the module
     include MetricFu::Environment
 
     def initialize #:nodoc:#
@@ -86,6 +87,9 @@ module MetricFu
     # base generator initialize
     attr_reader :formatters
     def reset
+      # TODO: Remove calls to self and/or allow querying the
+      #   template/filesystem/metric/graph/environment, etc settings
+      #   from the configuration instance
       MetricFu::Io::FileSystem.set_directories(self)
       MetricFu::Formatter::Templates.configure_template(self)
       @formatters = []
@@ -103,6 +107,7 @@ module MetricFu
     #   end
     #
     # See the README for more information on configuration options.
+    # TODO: Consider breaking compatibility by removing this, now unused method
     def self.run
       yield MetricFu.configuration
     end
@@ -119,26 +124,33 @@ module MetricFu
           metric.enabled = false
           metric.enable
         end
-        next unless metric.enabled
-        next unless metric.activated || metric.activate
+        metric.activate if metric.enabled unless metric.activated
       end
     end
 
+    # TODO: Remove this method.  If we run configure_metrics
+    #   and it disabled rcov, we shouldn't have to worry here
+    #   that rcov is a special case that can only be enabled
+    #   manually
     def metric_manually_configured?(metric)
       [:rcov].include?(metric.name)
     end
 
+    # TODO: Reconsider method name/behavior, as it really adds a formatter
     def configure_formatter(format, output = nil)
       @formatters << MetricFu::Formatter.class_for(format).new(output: output)
     end
 
     # @return [Array<Symbol>] names of enabled metrics with graphs
     def graphs
+      # TODO: This is a common enough need to be pushed into MetricFu::Metric as :enabled_metrics_with_graphs
       MetricFu::Metric.enabled_metrics.select{|metric|metric.has_graph?}.map(&:name)
     end
 
+    # TODO: Consider if we need to delegate so much to graph_engine_config
+    #   if we should use forwardable or change the api
 
-    # @return [Array<Symbol>] names of graph engines
+    # @return [Array<Symbol>] names of available graph engines
     # @example [:bluff, :gchart]
     def graph_engines
       @graph_engine_config.graph_engines
@@ -149,12 +161,12 @@ module MetricFu
       @graph_engine_config.graph_engine
     end
 
-    # @param graph_engine [Symbol] the name of the graph engine
+    # @param graph_engine [Symbol] the name of an available graph engine
     def add_graph_engine(graph_engine)
       @graph_engine_config.add_graph_engine(graph_engine)
     end
 
-    # @param graph_engine [Symbol] sets the selected graph engine to sue
+    # @param graph_engine [Symbol] sets the selected graph engine to use
     def configure_graph_engine(graph_engine)
       @graph_engine_config.configure_graph_engine(graph_engine)
     end

@@ -32,6 +32,7 @@ module MetricFu
         options.fetch(name) { raise "No such template option: #{name}" }
       end
 
+      # TODO: Remove config argument
       def configure_template(config)
         @options = {}
         @options['template_class'] = AwesomeTemplate

@@ -3,6 +3,7 @@ MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
   module Environment
 
+    # TODO: Set log_level here, instead
     def verbose
       MfDebugger::Logger.debug_on
     end
@@ -79,6 +80,7 @@ module MetricFu
        ruby192? || jruby?
     end
 
+    # HACK: for using this module via inclusion in Configuration
     def self.included(host_class)
       def host_class.ruby_strangely_makes_accessors_private?
         @private_accessors ||= allocate.ruby_strangely_makes_accessors_private?
