@@ -1,5 +1,64 @@
+require 'fileutils'
 module MetricFu
   module Io
+    # TODO: Move this module / functionality elsewhere and make less verbose
+    module FileSystem
+
+      # TODO: Use a better environmental variable name for the output / artiface dir.  Set to a different default in tests.
+      def self.artifact_dir
+        (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+      end
+
+      module_function
+
+      def directories
+        @directories ||= {}
+      end
+
+      def directory(name)
+        directories.fetch(name) { raise "No such directory configured: #{name}" }
+      end
+      def file_globs_to_ignore
+        @file_globs_to_ignore ||= []
+      end
+
+      # TODO: Remove call to config
+      def set_directories(config)
+        @directories = {}
+        @directories['base_directory']    = MetricFu.artifact_dir
+        @directories['scratch_directory'] = MetricFu.scratch_dir
+        @directories['output_directory']  = MetricFu.output_dir
+        @directories['data_directory']    = MetricFu.data_dir
+        create_directories @directories.values
+
+        @directories['root_directory']    = MetricFu.root_dir
+        # TODO Though this is true of the general AwesomeTemplate, it is not necessarily true of templates within each Metric.  Each metric should probably know how to use AwesomeTemplate (or whatever)
+        @directories['template_directory'] = File.join(@directories.fetch('root_directory'), 'lib', 'templates')
+        @file_globs_to_ignore = []
+        set_code_dirs(config)
+      end
+
+      def create_directories(*dirs)
+        # due to behavior differences between ruby 1.8.7 and 1.9.3
+        # this is good enough for now
+        Array(*dirs).each do |dir|
+          FileUtils.mkdir_p dir
+        end
+      end
+
+      # Add the 'app' directory if we're running within rails.
+      def set_code_dirs(config)
+        # TODO: Rather than check if we're running against a rails app,
+        #   shouldn't we just check if the directories exist?
+        if config.rails?
+          @directories['code_dirs'] = %w(app lib)
+        else
+          @directories['code_dirs'] = %w(lib)
+        end
+      end
+
+    end
+
     # Writes the output to a file or io stream.
     # @param output [String, #to_s] the content to write.
     # @param path_or_io [String, #to_s, IO, #write] a file path
@@ -62,7 +121,7 @@ module MetricFu
     end
 
     def path_relative_to_base(path)
-      pathname = Pathname.pwd.join(MetricFu.base_directory) # make full path relative to base directory
+      pathname = Pathname.pwd.join(MetricFu::Io::FileSystem.directory('base_directory')) # make full path relative to base directory
       pathname.join(path)
     end
   end

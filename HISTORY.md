@@ -7,8 +7,17 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 ### Master
 
 * Features
+  * Metric now configure themselves in a subclass of MetricFu::Metric ( Benjamin Fleischer / Robin Curry #91, #111)
+  * Metrics can be configured individually via Metric.configuration.configure_metric(:some_metric) or Metric.configuration.configure_metrics {|metric| }.  See .metrics file for examples ( Benjamin Fleischer / Robin Curry #91, #111)
+  * Distinguish between an activated metric library and an enabled metric.
+    * An enabled metric will be run.
+    * An activated metric has had its library required.
 * Fixes
 * Misc
+  * Moved environmental concerns into an Environment module ( Benjamin Fleischer / Robin Curry #91, #111)
+  * Exposed RubyParser patch ( Benjamin Fleischer / Robin Curry #91, #111)
+  * Separated out io / filesystem /templating concerns into their own classes or modules. Thus, we removed all the metaprogrammatically defined methods and instance variables.( Benjamin Fleischer / Robin Curry #91, #111)
+  * Breaking change related to the above: removed configuration methods / MetricFu module methods: add_graph, add_metric, configure_graph, configure_metric, configure_graph_engine, graph_engine, metrics, formatters, graphs, graph_engines, rails?, code_dirs, base_directory, scratch_directory, output_directory, data_directory, file_globs_to_ignore, metric_fu_root_directory, template_directory, template_class, link_prefix, darwin_txmt_protocol_no_thanks, syntax_highlighting
 
 ### MetricFu 4.3.1 / 2013-08-02
 
