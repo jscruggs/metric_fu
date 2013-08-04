@@ -6,6 +6,7 @@ module MetricFu
 
     def initialize
       self.enabled = false
+      @configured_run_options = {}
     end
 
     def enable
@@ -29,7 +30,7 @@ module MetricFu
     end
 
     def configured_run_options
-      @configured_run_options ||= {}
+      @configured_run_options
     end
 
     # @return default metric run options [Hash]
