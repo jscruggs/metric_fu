@@ -1,4 +1,5 @@
 require 'enumerator'
+require 'fileutils'
 
 module MetricFu
 

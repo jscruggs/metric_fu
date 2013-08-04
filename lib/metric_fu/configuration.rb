@@ -1,4 +1,3 @@
-require 'fileutils'
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
 

@@ -1,3 +1,4 @@
+require 'fileutils'
 module MetricFu
 
   # = Generator
