@@ -27,7 +27,7 @@ $metric_file_loaded = true
 #
 #   Or, to configure a group of metrics...
 #   config.configure_metrics.each do |metric|
-#     if [:churn, :flay, :flog].include?(metric)
+#     if [:churn, :flay, :flog].include?(metric.name)
 #       metric.enabled = true
 #     else
 #       metric.enabled = false
