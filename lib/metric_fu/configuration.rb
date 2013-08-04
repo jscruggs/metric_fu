@@ -19,12 +19,8 @@ module MetricFu
     end
   end
 
-  def self.run_rcov
-    MetricFu::Metric.get_metric(:rcov).enabled = true
-  end
-  def self.skip_rcov
-    MetricFu::Metric.get_metric(:rcov).enabled = false
-  end
+  # TODO: Remove this method.  It is really a test concern for identifying
+  #   metrics turned off for environmental reasons
   def self.mri_only_metrics
     if MetricFu.configuration.mri?
       []

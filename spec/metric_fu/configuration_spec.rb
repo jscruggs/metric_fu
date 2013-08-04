@@ -6,7 +6,9 @@ describe MetricFu::Configuration do
     ENV['CC_BUILD_ARTIFACTS'] = nil
     @config = MetricFu.configuration
     @config.reset
-    MetricFu.run_rcov
+    MetricFu.configuration.configure_metric(:rcov) do |rcov|
+      rcov.enabled = true
+    end
     MetricFu.configure
     mri_only_metrics = MetricFu.mri_only_metrics.reject {|metric| MetricFu::Metric.get_metric(metric).enabled }
     MetricFu.stub(:mri_only_metrics).and_return(mri_only_metrics)
