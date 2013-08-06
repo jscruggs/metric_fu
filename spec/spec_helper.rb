@@ -29,4 +29,8 @@ RSpec.configure do |config|
   config.after(:suite) do
     cleanup_test_files
   end
+
+  config.after(:each) do
+    MetricFu.reset
+  end
 end
