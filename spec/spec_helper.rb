@@ -8,6 +8,7 @@ end
 require 'rspec/autorun'
 require 'date'
 require 'construct'
+require 'json'
 
 # add lib to the load path just like rubygems does
 $:.push File.expand_path("../../lib", __FILE__)
