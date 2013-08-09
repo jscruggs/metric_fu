@@ -12,10 +12,8 @@ describe MetricFu::Formatter::HTML do
     # for some platforms.
     @metric_with_graph = MetricFu.configuration.mri? ? :cane : :flay
     @metric_without_graph = :hotspots
-    MetricFu::Configuration.run do |config|
-      config.configure_metrics.each do |metric|
-        metric.enabled = true if [@metric_with_graph, @metric_without_graph].include?(metric.name)
-      end
+    MetricFu.configuration.configure_metrics.each do |metric|
+      metric.enabled = true if [@metric_with_graph, @metric_without_graph].include?(metric.name)
     end
 
     MetricFu.result.add(@metric_with_graph) # metric w/ graph
