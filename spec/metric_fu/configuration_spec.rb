@@ -238,8 +238,10 @@ describe MetricFu::Configuration do
       end
       it 'should set @stats to {}' do
         load_metric 'stats'
-        MetricFu::Metric.get_metric(:stats).run_options.
-                should == {}
+        expect(MetricFu::Metric.get_metric(:stats).run_options).to eq({
+          :additional_test_directories=>[{:glob_pattern=>"./spec/**/*_spec.rb", :file_pattern=>"spec"}],
+          :additional_app_directories=>[{:glob_pattern=>"./engines/**/*.rb", :file_pattern=>""}]
+        })
       end
 
       it 'should set @rails_best_practices to {}' do
