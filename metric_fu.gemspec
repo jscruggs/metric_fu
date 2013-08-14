@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'flog',                  ['~> 3.2.2']
   s.add_runtime_dependency 'reek',                  ['~> 1.3.1']
   s.add_runtime_dependency 'cane',                  ['~> 2.5.2']
-  s.add_runtime_dependency 'rails_best_practices',  ['~> 1.13.2']
+  s.add_runtime_dependency 'rails_best_practices',  ['>= 1.14.1', '~> 1.14']
   s.add_runtime_dependency 'metric_fu-Saikuro',     ['>= 1.1.1.0']
   s.add_runtime_dependency 'metric_fu-roodi',       ['>= 2.2.1']
 
