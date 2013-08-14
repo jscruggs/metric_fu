@@ -1,6 +1,8 @@
-# MetricFu [![Gem Version](https://badge.fury.io/rb/metric_fu.png)](http://badge.fury.io/rb/metric_fu) [![Build Status](https://travis-ci.org/metricfu/metric_fu.png?branch=master)](http://travis-ci.org/metricfu/metric_fu) [Rdoc](http://rdoc.info/github/metricfu/metric_fu/)
+# MetricFu [![Gem Version](https://badge.fury.io/rb/metric_fu.png)](http://badge.fury.io/rb/metric_fu) [![Build Status](https://travis-ci.org/metricfu/metric_fu.png?branch=master)](http://travis-ci.org/metricfu/metric_fu) 
 
 [![Code Climate](https://codeclimate.com/github/metricfu/metric_fu.png)](https://codeclimate.com/github/metricfu/metric_fu) [![Dependency Status](https://gemnasium.com/metricfu/metric_fu.png)](https://gemnasium.com/metricfu/metric_fu)
+
+[Rdoc](http://rdoc.info/github/metricfu/metric_fu/)
 
 ## Metrics
 
@@ -10,10 +12,10 @@
 * [Flay](https://rubygems.org/gems/flay), [Source](https://github.com/seattlerb/flay)
 * [Reek](https://rubygems.org/gems/reek) [Source](https://github.com/troessner/reek)
 * [Roodi](https://rubygems.org/gems/metric_fu-roodi), [Source](https://github.com/metricfu/roodi)
-* [Saikuro](https://rubygems.org/gems/japgolly-Saikuro), [Source](https://github.com/japgolly/Saikuro)
+* [Saikuro](https://rubygems.org/gems/metric_fu-Saikuro), [Source](https://github.com/metricfu/Saikuro)
 * Rails-only
   * [Rails Best Practices](https://rubygems.org/gems/rails_best_practices), [Source](https://github.com/railsbp/rails_best_practices)
-  * Rails `rake stats` task (see [gem](https://rubygems.org/gems/code_statistics), [Source](https://github.com/danmayer/code_statistics) )
+  * Rails `rake stats` task (see [gem](https://rubygems.org/gems/code_metrics), [Source](https://github.com/bf4/code_metrics) )
 * Test Coverage
   * 1.9: [SimpleCov](http://rubygems.org/gems/simplecov) and [SimpleCov-Rcov-Text](http://rubygems.org/gems/simplecov-rcov-text)
   * 1.8 [Rcov](http://rubygems.org/gems/rcov)
@@ -29,25 +31,25 @@ See documentation on the rubyforge page for how to customize your metrics. Other
 
 ## Usage
 
-By default, you can run all metrics from the root of an app with the command `metric_fu -r`
+By default, you can run all metrics from the root of an app with the command `metric_fu`
 
 See `metric_fu --help` for more options
 
 ## Compatibility
 
-* It is currently testing on MRI 1.9.2, 1.9.3 and 2.0.0. Ruby 1.8 is no longer supported due to the cane library.
+* It is currently testing on MRI (1.9.2, 1.9.3 and 2.0.0), JRuby (19 mode), and Rubinius (19 mode). Ruby 1.8 is no longer supported due to the cane library.
 
 * For 1.8.7 support, see version 3.0.0 for partial support, or 2.1.3.7.18.1 (where [Semantic Versioning](http://semver.org/) goes to die)
 
-* The `japgolly-Saikuro` fork and `metric_fu-roodi` fork are a part of an attempt to get metric_fu working in a modern Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
+* The `metric_fu-Saikuro` fork and `metric_fu-roodi` fork are a part of an attempt to get metric_fu working in a modern Ruby environment, specifically compatibility with Ruby 1.9 and Bundler.
 
 * metric_fu no longer runs rcov itself. You may still use rcov metrics as documented below
 
-* The Cane, Flog, and Rails Best Practices metrics are disabled in non-MRI rubies as they depend on ripper
+* The Cane, Flog, and Rails Best Practices metrics are disabled when Ripper is not available 
 
 ## Documentation
 
-* Cane code quality threshold checking is not included in the hotspots report
+*[See wiki](https://github.com/metricfu/metric_fu/wiki#usage)
 
 ## Formatters
 
@@ -122,9 +124,7 @@ in your .metrics file add the below to run pre-generated metrics
       end
     end
 
-if you want metric_fu to actually run rcov itself (1.8 only), just add
-
-    MetricFu.run_rcov
+If you want metric_fu to actually run rcov itself (1.8 only), don't specify an external file to read from
 
 #### Rcov metrics with Ruby 1.8
 
@@ -157,19 +157,23 @@ There is some useful-but-out-of-date documentation about configuring metric_fu a
 
 See the TODO for some ideas
 
-See CONTRIBUTING for how to contribute
+See [CONTRIBUTING](https://github.com/metricfu/metric_fu/blob/master/CONTRIBUTING.md) for how to contribute
 
 ## Resources:
 
-This is the official repository for metric_fu.  The original repository by Jake Scruggs at [https://github.com/jscruggs/metric_fu](https://github.com/jscruggs/metric_fu) [has been deprecated.](http://jakescruggs.blogspot.com/2012/08/why-i-abandoned-metricfu.html).
+This is the official repository for metric_fu.  The original repository by Jake Scruggs at [https://github.com/jscruggs/metric_fu](https://github.com/jscruggs/metric_fu) has been deprecated.
 
-* Github: http://github.com/metricfu/metric_fu
-* Issue Tracker: http://github.com/metricfu/metric_fu/issues
-* Google Group: http://groups.google.com/group/metric_fu
-* Historical Homepage: http://metric-fu.rubyforge.org/
+* [Official Repository](http://github.com/metricfu/metric_fu)
+* [Issue Tracker](http://metricfu.github.io/metric_fu/)
+* [Google Group](http://metricfu.github.io/metric_fu/)
+* [Outdated Homepage](http://metricfu.github.io/metric_fu/)
+* [List of code tools](https://github.com/metricfu/metric_fu/wiki/Code-Tools)
+* [Roadmap](https://github.com/metricfu/metric_fu/wiki/Roadmap)
 
 ### Original Resources:
 
 * Github: http://github.com/jscruggs/metric_fu
 * Issue Tracker: http://github.com/jscruggs/metric_fu/issues
+* Historical Homepage: http://metric-fu.rubyforge.org/
 * Jake's Blog: http://jakescruggs.blogspot.com/
+* Jake's Post about stepping down: http://jakescruggs.blogspot.com/2012/08/why-i-abandoned-metricfu.html
