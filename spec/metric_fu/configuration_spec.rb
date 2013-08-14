@@ -185,9 +185,12 @@ describe MetricFu::Configuration do
       if MetricFu.configuration.mri?
         it 'should set @flog to {:dirs_to_flog => @code_dirs}' do
           load_metric 'flog'
-          expect(MetricFu::Metric.get_metric(:flog).run_options).to eq(
-                  {:dirs_to_flog => ['lib']}
-                  )
+          expect(MetricFu::Metric.get_metric(:flog).run_options).to eq({
+            :all => true,
+           :continue => true,
+           :dirs_to_flog => ["lib"],
+           :quiet => true
+           })
         end
         it 'should set @cane to ' +
                             %q(:dirs_to_cane => @code_dirs, :abc_max => 15, :line_length => 80, :no_doc => 'n', :no_readme => 'y') do
