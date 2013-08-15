@@ -1,4 +1,3 @@
-require 'rails_best_practices'
 module MetricFu
   class RailsBestPractices < Generator
 
