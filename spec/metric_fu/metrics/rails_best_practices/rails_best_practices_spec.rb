@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe RailsBestPractices do
+describe RailsBestPracticesGenerator do
 
   break if metric_not_activated?(:rails_best_practices)
 

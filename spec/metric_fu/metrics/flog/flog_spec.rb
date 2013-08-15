@@ -1,13 +1,13 @@
 require "spec_helper"
 
-describe Flog do
+describe MetricFu::FlogGenerator do
 
   break if metric_not_activated?(:flog)
 
   before :each do
     File.stub(:directory?).and_return(true)
     options = MetricFu::Metric.get_metric(:flog).run_options
-    @flog = MetricFu::Flog.new(options)
+    @flog = MetricFu::FlogGenerator.new(options)
   end
 
   describe "emit method" do
