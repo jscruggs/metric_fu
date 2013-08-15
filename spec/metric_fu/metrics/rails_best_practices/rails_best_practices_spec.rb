@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe RailsBestPractices do
 
+  break if metric_not_activated?(:rails_best_practices)
+
   describe "emit method" do
     let(:analyzer) { ::RailsBestPractices::Analyzer.new('.', { 'silent' => true }) }
     context "RailsBestPractices provides the expected API" do
