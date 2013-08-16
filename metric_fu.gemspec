@@ -1,29 +1,31 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 require 'metric_fu/version'
-require 'metric_fu_requires'
 
 Gem::Specification.new do |s|
   s.name        = "metric_fu"
-  s.platform    = Gem::Platform::RUBY
-  s.version     = MetricFu::VERSION
-  s.summary     = "A fistful of code metrics, with awesome templates and graphs"
-  s.email       = "github@benjaminfleischer.com"
   s.homepage    = "https://github.com/metricfu/metric_fu"
-  s.description = "Code metrics from Flog, Flay, Saikuro, Churn, Reek, Roodi, Rails' stats task and Rails Best Practices, and optionally RCov"
-  s.authors     = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière", "Carl Youngblood", "Richard Huang", "Dan Mayer", "Benjamin Fleischer"]
-  s.rubyforge_project = 'metric_fu'
-  s.required_ruby_version     = ">= 1.8.7"
-  s.required_rubygems_version = ">= 1.3.6"
-  s.files              = `git ls-files`.split($\)
-  s.test_files         =  s.files.grep(%r{^(test|spec|features)/})
-  s.default_executable = %q{metric_fu}
-  s.executables        =  s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
-  s.license     = 'MIT'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ["HISTORY.md", "CONTRIBUTING.md", "TODO.md", "MIT-LICENSE"]
-  s.rdoc_options = ["--main", "README.md"]
+  s.summary     = "A fistful of code metrics, with awesome templates and graphs"
+  s.description = "Code metrics from Flog, Flay, Saikuro, Churn, Reek, Roodi, Code Statistics, and Rails Best Practices. (and optionally RCov)"
+  s.email       = "github@benjaminfleischer.com"
+  s.authors     = File.readlines('AUTHORS').map(&:strip)
+
+  s.rubyforge_project           = 'metric_fu'
+  s.license                     = 'MIT'
+  s.platform                    = Gem::Platform::RUBY
+  s.version                     = MetricFu::VERSION
+  s.required_ruby_version       = ">= 1.9.0"
+  s.required_rubygems_version   = ">= 1.3.6"
+
+  s.files                       = `git ls-files`.split($\)
+  s.test_files                  =  s.files.grep(%r{^(test|spec|features)/})
+  s.default_executable          = %q{metric_fu}
+  s.executables                 =  s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  s.require_paths               = ["lib"]
+
+  s.has_rdoc                    = true
+  s.extra_rdoc_files            = ["HISTORY.md", "CONTRIBUTING.md", "TODO.md", "MIT-LICENSE"]
+  s.rdoc_options                = ["--main", "README.md"]
 
   # metric dependencies
   s.add_runtime_dependency 'flay',                  ['~> 2.0.1']
