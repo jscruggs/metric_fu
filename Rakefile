@@ -6,7 +6,6 @@ Dir['./gem_tasks/*.rake'].each do |task|
   import(task)
 end
 
-# $LOAD_PATH << '.'
 begin
   require 'spec/rake/spectask'
   desc "Run all specs in spec directory"
