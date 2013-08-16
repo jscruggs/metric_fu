@@ -7,23 +7,31 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 ### Master
 
 * Features
-  * Metric now configure themselves in a subclass of MetricFu::Metric ( Benjamin Fleischer / Robin Curry #91, #111)
+* Fixes
+* Misc
+
+### MetricFu 4.4.0 / 2013-08-15
+
+* Features
+  * Metrics now configure themselves in a subclass of MetricFu::Metric ( Benjamin Fleischer / Robin Curry #91, #111)
   * Metrics can be configured individually via Metric.configuration.configure_metric(:some_metric) or Metric.configuration.configure_metrics {|metric| }.  See .metrics file for examples ( Benjamin Fleischer / Robin Curry #91, #111)
   * Distinguish between an activated metric library and an enabled metric.
     * An enabled metric will be run.
-    * An activated metric has had its library required.
+    * An activated metric has had its library successfully required. (Benjamin Fleischer #125)
   * Code Statistics metrics always runs now, relies on the code_metrics gem extracted from Rails. Does not shell out. ( Benjamin Fleischer, #108 )
   * Rails Best Practices report now provides a link to the description and solution of the problem (Calveto #117)
   * Rails Best Practices now runs as a library. It is no longer shelled out. (Calveto #117)
   * Update flog to ~> 4.1.1, this is needed to use keyword parameters in ruby 2. (George Erickson, #122)
 * Fixes
-  * Skip reek of no files are found to run against.  Otherwise, reek hangs trying to read from STDIN (Benjamin Fleischer, #119, #121)
+  * Skip reek when no files are found to run against.  Otherwise, reek hangs trying to read from STDIN (Benjamin Fleischer, #119, #121)
   * Reek will now find files on Windows.  Remove *nix-specific '/' directory separators from Reek file glob.  (Benjamin Fleischer, #119, #121)
   * Link to correct reek url on report. (Calveto #116)
+  * Hack to accomodate Rails Best Practices dependency Code Analyzer monkey patch of Sexp (Benjamin Fleischer #123, #124)
 * Misc
   * Moved environmental concerns into an Environment module ( Benjamin Fleischer / Robin Curry #91, #111)
   * Exposed RubyParser patch ( Benjamin Fleischer / Robin Curry #91, #111)
   * Separated out io / filesystem /templating concerns into their own classes or modules. Thus, we removed all the metaprogrammatically defined methods and instance variables.( Benjamin Fleischer / Robin Curry #91, #111, #112, #115)
+  * Generator subclasses can now be found by metric name. MetricFu::Generator.get_generator(:flog) (Benjamin Fleischer, #126)
   * Breaking change related to the above: removed configuration methods / MetricFu module methods: add_graph, add_metric, configure_graph, configure_metric, configure_graph_engine, graph_engine, metrics, formatters, graphs, graph_engines, rails?, code_dirs, base_directory, scratch_directory, output_directory, data_directory, file_globs_to_ignore, metric_fu_root_directory, template_directory, template_class, link_prefix, darwin_txmt_protocol_no_thanks, syntax_highlighting
 
 ### MetricFu 4.3.1 / 2013-08-02
