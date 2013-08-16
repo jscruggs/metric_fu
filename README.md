@@ -13,12 +13,12 @@
 * [Reek](https://rubygems.org/gems/reek) [Source](https://github.com/troessner/reek)
 * [Roodi](https://rubygems.org/gems/metric_fu-roodi), [Source](https://github.com/metricfu/roodi)
 * [Saikuro](https://rubygems.org/gems/metric_fu-Saikuro), [Source](https://github.com/metricfu/Saikuro)
+  [Code Statistics](https://rubygems.org/gems/code_metrics), [Source](https://github.com/bf4/code_metrics) )
 * Rails-only
   * [Rails Best Practices](https://rubygems.org/gems/rails_best_practices), [Source](https://github.com/railsbp/rails_best_practices)
-  * Rails `rake stats` task (see [gem](https://rubygems.org/gems/code_metrics), [Source](https://github.com/bf4/code_metrics) )
 * Test Coverage
   * 1.9: [SimpleCov](http://rubygems.org/gems/simplecov) and [SimpleCov-Rcov-Text](http://rubygems.org/gems/simplecov-rcov-text)
-  * 1.8 [Rcov](http://rubygems.org/gems/rcov)
+  * 1.8: [Rcov](http://rubygems.org/gems/rcov)
 * Hotspots (a meta-metric of the above)
 
 ## Installation
@@ -37,7 +37,7 @@ See `metric_fu --help` for more options
 
 ## Compatibility
 
-* It is currently testing on MRI (1.9.2, 1.9.3 and 2.0.0), JRuby (19 mode), and Rubinius (19 mode). Ruby 1.8 is no longer supported due to the cane library.
+* It is currently testing on MRI (1.9.3 and 2.0.0), JRuby (19 mode), and Rubinius (19 mode). Ruby 1.8 is no longer supported due to the cane library.
 
 * For 1.8.7 support, see version 3.0.0 for partial support, or 2.1.3.7.18.1 (where [Semantic Versioning](http://semver.org/) goes to die)
 
