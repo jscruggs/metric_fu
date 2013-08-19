@@ -12,28 +12,30 @@ module MetricFu
       worst_items[:files] =
         @hotspot_rankings.worst_files(num).inject([]) do |array, worst_file|
         array <<
-          {:location => self.location(:file, worst_file),
-          :details => self.problems_with(:file, worst_file)}
+          {:location => location(:file, worst_file),
+          :details => problems_with(:file, worst_file)}
         array
       end
       worst_items[:classes] = @hotspot_rankings.worst_classes(num).inject([]) do |array, class_name|
-        location = self.location(:class, class_name)
+        location = location(:class, class_name)
         array <<
           {:location => location,
-          :details => self.problems_with(:class, class_name)}
+          :details => problems_with(:class, class_name)}
         array
       end
       worst_items[:methods] = @hotspot_rankings.worst_methods(num).inject([]) do |array, method_name|
-        location = self.location(:method, method_name)
+        location = location(:method, method_name)
         array <<
           {:location => location,
-          :details => self.problems_with(:method, method_name)}
+          :details => problems_with(:method, method_name)}
         array
       end
       worst_items
     end
+
     private
-    #todo redo as item,value, options = {}
+
+    # @todo redo as item,value, options = {}
     # Note that the other option for 'details' is :detailed (this isn't
     # at all clear from this method itself
     def problems_with(item, value, details = :summary, exclude_details = [])
@@ -42,6 +44,7 @@ module MetricFu
       grouping = get_grouping(sub_table, :by => 'metric')
       MetricFu::HotspotProblems.new(grouping, details, exclude_details).problems
     end
+
     def location(item, value)
       sub_table = get_sub_table(item, value)
       assert_sub_table_has_data(item, sub_table, value)
@@ -68,8 +71,10 @@ module MetricFu
       tables = @analyzer_tables.tables_for(item)
       tables[value]
     end
+
     def get_grouping(table, opts)
       MetricFu::HotspotGroupings.new(table, opts).get_grouping
     end
+
   end
 end

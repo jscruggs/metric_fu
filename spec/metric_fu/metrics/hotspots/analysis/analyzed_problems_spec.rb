@@ -23,12 +23,12 @@ describe MetricFu::AnalyzerTables do
     end
   end
 
-
   context "with several types of data" do
 
     before do
       @result_hash = metric_data('hotspots/several_metrics.yml')
       @analyzed_problems = analyzed_problems(@result_hash)
+      @worst_items = @analyzed_problems.worst_items
     end
 
     it "gives all issues for a class" do
@@ -36,7 +36,9 @@ describe MetricFu::AnalyzerTables do
         :reek => "found 2 code smells",
         :flog => "complexity is 37.9"
       }
+      # TODO Unsure if we want to make problems_with and location public or private at this point
       @analyzed_problems.method(:problems_with).call(:class, "Client").should == expected
+      expect(@worst_items[:classes].first[:details]).to eq(expected)
     end
 
     it "gives all issues for a method" do
@@ -44,6 +46,7 @@ describe MetricFu::AnalyzerTables do
         :reek => "found 1 code smells",
         :flog => "complexity is 37.9"}
       @analyzed_problems.method(:problems_with).call(:method, "Client#client_requested_sync").should == expected
+      expect(@worst_items[:methods].first[:details]).to eq(expected)
     end
 
     it "gives all issues for a file" do
@@ -52,6 +55,7 @@ describe MetricFu::AnalyzerTables do
         :flog => "complexity is 37.9",
         :churn => "detected high level of churn (changed 54 times)"}
       @analyzed_problems.method(:problems_with).call(:file, "lib/client/client.rb").should == expected
+      expect(@worst_items[:files].first[:details]).to eq(expected)
     end
 
     it "provide location for a method" do
@@ -59,6 +63,7 @@ describe MetricFu::AnalyzerTables do
                               "Client",
                               "Client#client_requested_sync")
       @analyzed_problems.method(:location).call(:method, "Client#client_requested_sync").should == expected
+      expect(@worst_items[:methods].first[:location]).to eq(expected)
     end
 
     it "provides location for a class" do
@@ -66,6 +71,7 @@ describe MetricFu::AnalyzerTables do
                               "Client",
                               nil)
       @analyzed_problems.method(:location).call(:class, "Client").should == expected
+      expect(@worst_items[:classes].first[:location]).to eq(expected)
     end
 
     it "provides location for a file" do
@@ -73,6 +79,7 @@ describe MetricFu::AnalyzerTables do
                               nil,
                               nil)
       @analyzed_problems.method(:location).call(:file, "lib/client/client.rb").should == expected
+      expect(@worst_items[:files].first[:location]).to eq(expected)
     end
 
   end
@@ -82,6 +89,7 @@ describe MetricFu::AnalyzerTables do
     before do
       @result_hash = metric_data('hotspots/saikuro.yml')
       @analyzed_problems = analyzed_problems(@result_hash)
+      @worst_items = @analyzed_problems.worst_items
     end
 
     it "gives complexity for method" do
@@ -89,6 +97,7 @@ describe MetricFu::AnalyzerTables do
         :saikuro => "complexity is 1.0"
       }
       @analyzed_problems.method(:problems_with).call(:method, "Supr#initialize").should == expected
+      expect(@worst_items[:methods].last[:details]).to eq(expected)
     end
 
     it "gives average complexity for class" do
@@ -96,6 +105,7 @@ describe MetricFu::AnalyzerTables do
         :saikuro => "average complexity is 5.0"
       }
       @analyzed_problems.method(:problems_with).call(:class, "Supr").should == expected
+      expect(@worst_items[:classes].last[:details]).to eq(expected)
     end
 
   end
