@@ -64,8 +64,6 @@ module MetricFu
       end
     end
 
-    # just for testing
-    public :location, :problems_with
     def get_sub_table(item, value)
       tables = @analyzer_tables.tables_for(item)
       tables[value]
