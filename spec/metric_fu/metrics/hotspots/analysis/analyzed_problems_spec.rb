@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MetricFu::AnalyzerTables do
+describe MetricFu::HotspotAnalyzedProblems do
 
   def analyzed_problems(result_hash)
     @analyzed_problems ||= {}

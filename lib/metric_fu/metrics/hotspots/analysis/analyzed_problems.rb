@@ -7,33 +7,26 @@ module MetricFu
       @analyzer_tables = analyzer_tables
     end
     def worst_items
-      num = nil
+      limit = nil
       worst_items = {}
-      worst_items[:files] =
-        @hotspot_rankings.worst_files(num).inject([]) do |array, worst_file|
-        array <<
-          {:location => location(:file, worst_file),
-          :details => problems_with(:file, worst_file)}
-        array
-      end
-      worst_items[:classes] = @hotspot_rankings.worst_classes(num).inject([]) do |array, class_name|
-        location = location(:class, class_name)
-        array <<
-          {:location => location,
-          :details => problems_with(:class, class_name)}
-        array
-      end
-      worst_items[:methods] = @hotspot_rankings.worst_methods(num).inject([]) do |array, method_name|
-        location = location(:method, method_name)
-        array <<
-          {:location => location,
-          :details => problems_with(:method, method_name)}
-        array
-      end
+      worst_items[:files]   = worst(@hotspot_rankings.worst_files(limit),   :file)
+      worst_items[:classes] = worst(@hotspot_rankings.worst_classes(limit), :class)
+      worst_items[:methods] = worst(@hotspot_rankings.worst_methods(limit), :method)
       worst_items
     end
 
     private
+
+    # @param rankings [Array<MetricFu::HotspotRankings>]
+    # @param granularity [Symbol] one of :class, :method, :file
+    def worst(rankings,granularity)
+      rankings.inject([]) do |array, ranked_item_name|
+        location = location(granularity, ranked_item_name)
+        details = problems_with(granularity, ranked_item_name)
+        array << {:location => location, :details =>  details}
+        array
+      end
+    end
 
     # @todo redo as item,value, options = {}
     # Note that the other option for 'details' is :detailed (this isn't
