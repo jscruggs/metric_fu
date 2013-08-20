@@ -20,11 +20,10 @@ module MetricFu
     # @param rankings [Array<MetricFu::HotspotRankings>]
     # @param granularity [Symbol] one of :class, :method, :file
     def worst(rankings,granularity)
-      rankings.inject([]) do |array, ranked_item_name|
+      rankings.map do |ranked_item_name|
         location = location(granularity, ranked_item_name)
         details = problems_with(granularity, ranked_item_name)
-        array << {:location => location, :details =>  details}
-        array
+        {:location => location, :details =>  details}
       end
     end
 
