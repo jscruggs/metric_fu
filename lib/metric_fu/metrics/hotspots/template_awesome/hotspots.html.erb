@@ -6,7 +6,7 @@
   No Hotspots were found.
 <% else %>
 
-  <% granularities = [:files, :classes, :methods] %>
+  <% granularities = %w[files classes methods] %>
   <table>
     <tr valign="top">
     <% granularities.each do |granularity| %>
@@ -28,8 +28,8 @@
         <% columns.each do |column| %>
           <% item = hotspots[column].length >= hotspots_length ? hotspots[column][hotspots_length] : nil %>
           <% if item %>
-            <% location = item.location %>
-            <% file, line =  location.file_name, location.line_number %>
+            <% location = item.fetch('location') %>
+            <% file, line =  location.fetch('file_name'), location.fetch('line_number') %>
             <td>
             <b>
               <%= display_location(location) %>
@@ -43,7 +43,7 @@
             <% end %>
             <br/><br/>
             <!-- TODO HOTSPOTS for metric fu nice metric_link method -->
-            <% item.problems.each do |metric, info| %>
+            <% item.fetch('details').each do |metric, info| %>
               <%#= metric_link(@stat, metric, h(metric.to_s.capitalize)) + ": " + h(info)%><br/>
               <%= "#{metric.to_s.capitalize}: #{info}" %><br/>
             <% end %>

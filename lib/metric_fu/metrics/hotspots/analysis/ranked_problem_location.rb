@@ -7,20 +7,36 @@ module MetricFu
       @granularity = granularity
     end
 
+    def to_hash
+      {
+        'location' => location.to_hash,
+        'details' =>  stringify_keys(problems),
+      }
+    end
+
+    def stringify_keys(hash)
+      result = {}
+      hash.each do |key, value|
+        result[key.to_s] = value
+      end
+      result
+    end
+
+
     # @todo redo as item,value, options = {}
     # Note that the other option for 'details' is :detailed (this isn't
     # at all clear from this method itself
     def problems
-      MetricFu::HotspotProblems.new(sub_table).problems
+      @problems ||= MetricFu::HotspotProblems.new(sub_table).problems
     end
 
     def location
-      case granularity
-      when :class  then class_location
-      when :method then method_location
-      when :file   then file_location
-      else              raise ArgumentError, "Item must be :class, :method, or :file"
-      end
+      @location ||= case granularity
+                    when :class  then class_location
+                    when :method then method_location
+                    when :file   then file_location
+                    else              raise ArgumentError, "Item must be :class, :method, or :file"
+                    end
     end
 
     def file_path

@@ -21,7 +21,11 @@ module MetricFu
     end
 
     def to_h
-      {:hotspots => @hotspots}
+      result = {:hotspots => {}}
+      @hotspots.each do |granularity, hotspots|
+        result[:hotspots][granularity.to_s] = hotspots.map(&:to_hash)
+      end
+      result
     end
   end
 
