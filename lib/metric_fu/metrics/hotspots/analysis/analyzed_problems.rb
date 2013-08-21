@@ -7,11 +7,10 @@ module MetricFu
       @analyzer_tables = analyzer_tables
     end
     def worst_items
-      limit = nil
       worst_items = {}
-      worst_items[:files]   = worst(@hotspot_rankings.worst_files(limit),   :file)
-      worst_items[:classes] = worst(@hotspot_rankings.worst_classes(limit), :class)
-      worst_items[:methods] = worst(@hotspot_rankings.worst_methods(limit), :method)
+      worst_items[:files]   = worst(@hotspot_rankings.worst_files,   :file)
+      worst_items[:classes] = worst(@hotspot_rankings.worst_classes, :class)
+      worst_items[:methods] = worst(@hotspot_rankings.worst_methods, :method)
       worst_items
     end
 

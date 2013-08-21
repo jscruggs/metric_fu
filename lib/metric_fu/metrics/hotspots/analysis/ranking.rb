@@ -7,12 +7,8 @@ module MetricFu
       @items_to_score = {}
     end
 
-    def top(num=nil)
-      if(num.is_a?(Numeric))
-        sorted_items[0,num]
-      else
-        sorted_items
-      end
+    def top
+      sorted_items
     end
 
     def percentile(item)
