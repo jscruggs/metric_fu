@@ -1,7 +1,7 @@
 module MetricFu
   class Hotspot
     def self.metric
-      self.name.split('Hotspot')[0].downcase.to_sym
+      self.name.split('::')[-1].split('Hotspot')[0].downcase.to_sym
     end
     @analyzers = {}
     def self.analyzers

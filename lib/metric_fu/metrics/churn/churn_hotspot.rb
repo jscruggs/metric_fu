@@ -1,5 +1,4 @@
-class ChurnHotspot < MetricFu::Hotspot
-  include MetricFu::HotspotScoringStrategies
+class MetricFu::ChurnHotspot < MetricFu::Hotspot
 
   COLUMNS = %w{times_changed}
 
@@ -36,10 +35,6 @@ class ChurnHotspot < MetricFu::Hotspot
   end
 
   def present_group(group)
-    "detected high level of churn (changed #{group[0].times_changed} times)"
-  end
-
-  def present_group_details(group)
     "detected high level of churn (changed #{group[0].times_changed} times)"
   end
 

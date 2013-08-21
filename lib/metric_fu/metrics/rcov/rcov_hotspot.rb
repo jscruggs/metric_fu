@@ -1,5 +1,4 @@
-class RcovHotspot < MetricFu::Hotspot
-  include MetricFu::HotspotScoringStrategies
+class MetricFu::RcovHotspot < MetricFu::Hotspot
 
   COLUMNS = %w{percentage_uncovered}
 
@@ -44,12 +43,6 @@ class RcovHotspot < MetricFu::Hotspot
     occurences = group.size
     average_code_uncoverage = get_mean(group.column("percentage_uncovered"))
     "#{"average " if occurences > 1}uncovered code is %.1f%" % average_code_uncoverage
-  end
-
-  # TODO determine if no-op in pre-factored
-  # code was intentional
-  def present_group_details(group)
-
   end
 
 end

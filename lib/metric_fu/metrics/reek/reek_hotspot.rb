@@ -1,7 +1,6 @@
 # coding: utf-8
 
 class ReekHotspot < MetricFu::Hotspot
-  include MetricFu::HotspotScoringStrategies
 
   REEK_ISSUE_INFO = {
     'Uncommunicative Name' =>
@@ -131,17 +130,6 @@ class ReekHotspot < MetricFu::Hotspot
     occurences = group.size
     "found #{occurences} code smells"
   end
-  def present_group_details(group)
-    occurences = group.size
-    message = "found #{occurences} code smells<br/>"
-    group.each do |item|
-      type    = item.data["reek__type_name"]
-      reek_message = item.data["reek__message"]
-      message << "* #{type}: #{reek_message}<br/>"
-    end
-    message
-  end
-
   private
 
   def comparable_message(type_name, message)
