@@ -212,6 +212,7 @@ describe MetricFu::Configuration do
     describe 'if #rails? is true ' do
 
       before(:each) do
+        Dir.stub(:exists?).and_return(true)
         @config = MetricFu.configuration
         @config.stub(:rails?).and_return(true)
         @config.reset
