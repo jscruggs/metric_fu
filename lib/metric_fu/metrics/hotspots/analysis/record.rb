@@ -5,7 +5,6 @@ module MetricFu
 
     def initialize(data, columns)
       @data = data
-      @columns = columns
     end
 
     def method_missing(name, *args, &block)
@@ -14,8 +13,6 @@ module MetricFu
         @data.send(name, *args, &block)
       elsif @data.has_key?(key)
         @data[key]
-      elsif @columns.member?(key)
-        nil
       else
         super(name, *args, &block)
       end
