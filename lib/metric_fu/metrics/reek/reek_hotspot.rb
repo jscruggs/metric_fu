@@ -15,16 +15,16 @@ class ReekHotspot < MetricFu::Hotspot
     :reek
   end
 
-  def map(row)
-    MetricFu::HotspotScoringStrategies.present(row)
+  def map_strategy
+    :present
   end
 
-  def reduce(scores)
-    MetricFu::HotspotScoringStrategies.sum(scores)
+  def reduce_strategy
+    :sum
   end
 
-  def score(metric_ranking, item)
-    MetricFu::HotspotScoringStrategies.percentile(metric_ranking, item)
+  def score_strategy
+    :percentile
   end
 
   def generate_records(data, table)
@@ -60,6 +60,7 @@ class ReekHotspot < MetricFu::Hotspot
     occurences = group.size
     "found #{occurences} code smells"
   end
+
   private
 
   def comparable_message(type_name, message)

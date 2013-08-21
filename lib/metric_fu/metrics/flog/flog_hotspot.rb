@@ -10,16 +10,16 @@ class MetricFu::FlogHotspot < MetricFu::Hotspot
     :flog
   end
 
-  def map(row)
-    row.score
+  def map_strategy
+    :score
   end
 
-  def reduce(scores)
-    MetricFu::HotspotScoringStrategies.average(scores)
+  def reduce_strategy
+    :average
   end
 
-  def score(metric_ranking, item)
-    MetricFu::HotspotScoringStrategies.identity(metric_ranking, item)
+  def score_strategy
+    :identity
   end
 
   def generate_records(data, table)

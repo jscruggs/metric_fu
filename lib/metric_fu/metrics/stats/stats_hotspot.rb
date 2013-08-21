@@ -10,16 +10,16 @@ class MetricFu::StatsHotspot < MetricFu::Hotspot
     :stats
   end
 
-  def map(row)
-    0
+  def map_strategy
+    :absent
   end
 
-  def reduce(scores)
-    0
+  def reduce_strategy
+    :absent
   end
 
-  def score(metric_ranking, item)
-    0
+  def score_strategy
+    :absent
   end
 
   def generate_records(data, table)

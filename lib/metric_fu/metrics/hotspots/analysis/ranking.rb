@@ -18,7 +18,7 @@ module MetricFu
     end
 
     def_delegator :@items_to_score, :has_key?, :scored?
-    def_delegators :@items_to_score, :[], :[]=, :length, :each, :delete
+    def_delegators :@items_to_score, :[], :[]=, :length, :each, :delete, :fetch
 
     private
 

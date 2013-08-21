@@ -10,16 +10,16 @@ class MetricFu::RoodiHotspot < MetricFu::Hotspot
     :roodi
   end
 
-  def map(row)
-    MetricFu::HotspotScoringStrategies.present(row)
+  def map_strategy
+    :present
   end
 
-  def reduce(scores)
-    MetricFu::HotspotScoringStrategies.sum(scores)
+  def reduce_strategy
+    :sum
   end
 
-  def score(metric_ranking, item)
-    MetricFu::HotspotScoringStrategies.percentile(metric_ranking, item)
+  def score_strategy
+    :percentile
   end
 
   def generate_records(data, table)
