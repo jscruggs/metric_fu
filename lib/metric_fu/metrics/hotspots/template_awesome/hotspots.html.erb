@@ -2,9 +2,9 @@
 <p>Meta analysis of your metrics to find hotspots in your code.</p>
 <br/>
 
-<% if !@hotspots || @hotspots.size == 0 %>
+<% if @hotspots.nil? || @hotspots.size.zero? %>
   No Hotspots were found.
-<% elsif @hotspots && @hotspots.size > 0 %>
+<% else %>
 
   <% granularities = [:files, :classes, :methods] %>
   <table>
