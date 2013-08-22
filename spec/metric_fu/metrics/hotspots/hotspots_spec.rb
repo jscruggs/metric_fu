@@ -62,7 +62,7 @@ END
       hotspots = MetricFu::HotspotsGenerator.new
       hotspots.instance_variable_set(:@analyzer, nil)
       result = hotspots.analyze
-      result.should == {}
+      result.should == {:files => [], :classes => [], :methods => []}
     end
 
     it "should return yaml results" do
