@@ -28,7 +28,7 @@
         <% columns.each do |column| %>
           <% item = items[column].length >= items_length ? items[column][items_length] : nil %>
           <% if item %>
-            <% location = item[:location] %>
+            <% location = item.location %>
             <% file, line =  location.file_name, location.line_number %>
             <td>
             <b>
@@ -43,7 +43,7 @@
             <% end %>
             <br/><br/>
             <!-- TODO HOTSPOTS for metric fu nice metric_link method -->
-            <% item[:details].each do |metric, info| %>
+            <% item.problems.each do |metric, info| %>
               <%#= metric_link(@stat, metric, h(metric.to_s.capitalize)) + ": " + h(info)%><br/>
               <%= "#{metric.to_s.capitalize}: #{info}" %><br/>
             <% end %>
