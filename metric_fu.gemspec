@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'cane',                  ['>= 2.5.2',  '~> 2.5']
   s.add_runtime_dependency 'rails_best_practices',  ['>= 1.14.1', '~> 1.14']
   s.add_runtime_dependency 'metric_fu-Saikuro',     ['>= 1.1.1.0']
-  s.add_runtime_dependency 'metric_fu-roodi',       ['>= 2.2.1']
+  s.add_runtime_dependency 'roodi',                 ['~> 3.1']
   s.add_runtime_dependency 'code_metrics',          ['~> 0.1']
 
   # other dependencies
