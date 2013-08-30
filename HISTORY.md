@@ -10,6 +10,18 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 * Fixes
 * Misc
 
+### MetricFu [4.4.1 / 2013-08-29](https://github.com/metricfu/metric_fu/compare/v4.4.0...v4.4.1)
+
+* Features
+* Fixes
+  * No longer consider an ampty sexp in LineNumbers an error.  A file with only comments is empty of code. (Benjamin Fleischer)
+  * Prevent encoding errors when using syntax highlighting via coderay (Benjamin Fleischer #120, #131)
+* Misc
+  * Update dependencies: cane, flay, flog, reek; switch from metric_fu-roodi to revived roodi (Benjamin Fleischer #130)
+  * Update to fully ruby_parser-compatible rails_best_practices (Benjamin Fleischer #133)
+  * Hotspots: remove legacy test code, reduce duplication (Benjamin Fleischer, #127, #77)
+  * Remove a lot of dead code (Benjamin Fleischer, #77)
+
 ### MetricFu 4.4.0 / 2013-08-15
 
 * Features
