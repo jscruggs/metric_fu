@@ -27,8 +27,16 @@ module MetricFu
     # @return String
     #   The erb evaluated string
     def erbify(section)
-      erb_doc = File.read(template(section))
-      ERB.new(erb_doc).result(binding)
+      template_file = template(section)
+      erb_doc = File.read(template_file)
+      erb = ERB.new(erb_doc)
+      erb.filename = template_file
+      erb.result(binding)
+    rescue => e
+      message = "Error: #{e.class}; message #{e.message}. "
+      message << "Failed evaluating erb template "
+      message << "for section #{section} and template #{template_file}."
+      raise message
     end
 
     # Copies an instance variable mimicing the name of the section
