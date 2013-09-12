@@ -4,37 +4,16 @@ require 'ruby_parser'
 module MetricFu
   class LineNumbers
 
+    attr_reader :file_path
+
     # Parses ruby code to collect line numbers for class, module, and method definitions.
     # Used by metrics that don't provide line numbers for class, module, or methods problems
     # @param contents [String] a string of ruby code
     # @param file_path [String] the file path for the contents, defaults to empty string
     def initialize(contents,file_path='')
-      if contents.to_s.size.zero?
-        mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
-      else
-        rp = RubyParser.new
-        @locations = {}
-        file_sexp = rp.parse(contents)
-        return @locations if file_sexp.nil?
-        case file_sexp[0]
-        when nil
-          mf_log "No ruby code found in #{file_path}"
-          @locations
-        when :class
-          process_class(file_sexp)
-        when :module
-          process_module(file_sexp)
-        else
-          mf_debug "SEXP: Parsing line numbers for classes in sexp type #{file_sexp[0].inspect}"
-          mf_debug "      in #{file_path}"
-          file_sexp.each_of_type(:module) { |sexp| process_class(sexp) }
-          file_sexp.each_of_type(:class)  { |sexp| process_class(sexp) }
-        end
-      end
-    rescue Exception => e
-      #catch errors for files ruby_parser fails on
-      mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tFILE:#{file_path}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
-      @locations
+      @locations = {}
+      @file_path = file_path
+      parse_code(contents)
     end
 
     # @param line_number [String]
@@ -70,6 +49,40 @@ module MetricFu
     end
 
     private
+
+    def parse_code(contents)
+      if contents.to_s.size.zero?
+        mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
+      else
+        rp = RubyParser.new
+        file_sexp = rp.parse(contents)
+        file_sexp && process_ast(file_sexp)
+      end
+    rescue Exception => e
+      #catch errors for files ruby_parser fails on
+      mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tFILE:#{file_path}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
+    end
+
+    def process_ast(file_sexp)
+      node_name = sexp_name(file_sexp)
+      case node_name
+      when nil
+        mf_log "No ruby code found in #{file_path}"
+      when :class
+        process_class(file_sexp)
+      when :module
+        process_module(file_sexp)
+      else
+        mf_debug "SEXP: Parsing line numbers for classes in sexp type #{node_name.inspect}"
+        mf_debug "      in #{file_path}"
+        file_sexp.each_of_type(:module) { |sexp| process_class(sexp) }
+        file_sexp.each_of_type(:class)  { |sexp| process_class(sexp) }
+      end
+    end
+
+    def sexp_name(sexp)
+      sexp[0]
+    end
 
     def process_module(sexp)
       module_name = sexp[1]
