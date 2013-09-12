@@ -15,9 +15,11 @@ module MetricFu
         rp = RubyParser.new
         @locations = {}
         file_sexp = rp.parse(contents)
+        return @locations if file_sexp.nil?
         case file_sexp[0]
         when nil
           mf_log "No ruby code found in #{file_path}"
+          @locations
         when :class
           process_class(file_sexp)
         when :module
