@@ -19,29 +19,23 @@ module MetricFu
       end
     end
 
-    # @param line_number [String]
+    # @param line_number [Integer]
     # @return [Boolean] if the given line number is in a method
-    def in_method? line_number
-      !!@locations.detect do |method_name, line_number_range|
-        line_number_range.include?(line_number)
-      end
+    def in_method?(line_number)
+      not method_at_line(line_number) == :no_method_at_line
     end
 
     # @param line_number [Integer]
     # @return [String, nil] the method which includes that line number, if any
-    # For all collected locations, find the first location where the line_number_range
-    #   includes the line_number
-    #   If a location is found, return its first element
-    #   Else return nil
-    def method_at_line line_number
-      found_method_and_range = @locations.detect do |method_name, line_number_range|
+    # For all collected locations, find the first location
+    #   where the line_number_range includes the line_number.
+    #   If a location is found, return the method name (first element)
+    #   Else return :no_method_at_line
+    def method_at_line(line_number)
+      default_proc = ->{ [:no_method_at_line] }
+      @locations.detect(default_proc) do |method_name, line_number_range|
         line_number_range.include?(line_number)
-      end
-      if found_method_and_range
-        found_method_and_range.first
-      else
-        nil
-      end
+      end.first
     end
 
     # @param method [String] the method name being queried
