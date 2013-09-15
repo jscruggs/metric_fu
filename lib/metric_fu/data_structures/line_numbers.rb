@@ -81,12 +81,12 @@ module MetricFu
 
     def process_class(class_node, module_name=nil)
       class_name = class_node.name
-      process_singleton_methods(class_node, class_name, module_name)
+      process_singleton_methods(class_node, class_name)
       process_instance_methods( class_node, class_name, module_name)
       process_class_methods(    class_node, class_name, module_name)
     end
 
-    def process_singleton_methods(class_node, class_name, module_name)
+    def process_singleton_methods(class_node, class_name)
       class_node.each_singleton_class do |singleton_node|
         singleton_node.each_singleton_method do |singleton_method_node|
           singleton_method_name = singleton_method_node.full_name(class_name)
