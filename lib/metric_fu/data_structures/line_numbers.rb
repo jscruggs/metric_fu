@@ -1,90 +1,8 @@
 # MetricFu::LineNumber
 # (see #initialize)
-require 'ruby_parser'
+MetricFu.data_structures_require { 'sexp_node' }
 module MetricFu
   class LineNumbers
-    Node = Struct.new(:sexp) do
-      def nil?
-        sexp.nil?
-      end
-      def node_type
-        sexp[0]
-      end
-      def name
-        sexp[1]
-      end
-      def each_of_type(type,node_class=Node)
-        sexp.each_of_type(type) do |child_sexp|
-          yield node_class.new(child_sexp)
-        end
-      end
-      def each_module(&block)
-        each_of_type(:module,&block)
-      end
-      def each_class(&block)
-        each_of_type(:class,&block)
-      end
-      def each_singleton_class(&block)
-        each_of_type(:sclass,SingletonMethodNode,&block)
-      end
-      def each_instance_method(&block)
-        each_of_type(:defn,InstanceMethodNode,&block)
-      end
-      def each_class_method(&block)
-        each_of_type(:defs,ClassMethodNode,&block)
-      end
-      def first_line
-        sexp.line
-      end
-      def last_line
-        sexp.last.line
-      end
-      def line_range
-        (first_line..last_line)
-      end
-      def hide_methods_from_next_round(node)
-        sexp.find_and_replace_all(:defn, :ignore_me)
-        sexp.find_and_replace_all(:defs, :ignore_me)
-      end
-      def full_method_name(method_separator, class_name, module_name=nil)
-        [module_namespace(module_name), class_name, method_separator, name].join
-      end
-      def module_namespace(module_name=nil)
-        if module_name.nil?
-          nil
-        else
-          [module_name,class_method_separator].join
-        end
-      end
-      def instance_method_separator
-        '#'
-      end
-      def class_method_separator
-        '::'
-      end
-    end
-    class ClassMethodNode < Node
-      def name
-        sexp[2]
-      end
-      def full_name(module_name, class_name)
-        full_method_name(class_method_separator, class_name, module_name)
-      end
-    end
-    class InstanceMethodNode < Node
-      def full_name(module_name, class_name)
-        full_method_name(instance_method_separator, class_name, module_name)
-      end
-    end
-    class SingletonMethodNode < Node
-      def full_name(class_name)
-        full_method_name(class_method_separator, class_name)
-      end
-      def each_singleton_method(&block)
-        each_of_type(:defn,SingletonMethodNode,&block)
-      end
-    end
-
     attr_reader :file_path
 
     # Parses ruby code to collect line numbers for class, module, and method definitions.
@@ -94,7 +12,11 @@ module MetricFu
     def initialize(contents,file_path='')
       @locations = {}
       @file_path = file_path
-      parse_code(contents)
+      if contents.to_s.size.zero?
+        mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
+      else
+        parse_code(contents)
+      end
     end
 
     # @param line_number [String]
@@ -132,20 +54,15 @@ module MetricFu
     private
 
     def parse_code(contents)
-      if contents.to_s.size.zero?
-        mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
-      else
-        rp = RubyParser.new
-        file_sexp = rp.parse(contents)
-        file_sexp && process_ast(file_sexp)
-      end
+      file_sexp = MetricFu::SexpNode.parse(contents)
+      file_sexp && process_ast(file_sexp)
     rescue Exception => e
       #catch errors for files ruby_parser fails on
       mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tFILE:#{file_path}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
     end
 
     def process_ast(file_sexp)
-      node = Node.new(file_sexp)
+      node = MetricFu::SexpNode.new(file_sexp)
       case node.node_type
       when nil
         mf_log "No ruby code found in #{file_path}"
