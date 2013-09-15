@@ -1,5 +1,3 @@
-# MetricFu::LineNumber
-# (see #initialize)
 MetricFu.data_structures_require { 'sexp_node' }
 module MetricFu
   class LineNumbers
@@ -10,8 +8,8 @@ module MetricFu
     # @param contents [String] a string of ruby code
     # @param file_path [String] the file path for the contents, defaults to empty string
     def initialize(contents,file_path='')
-      @locations = {}
       @file_path = file_path
+      @locations = {}
       if contents.to_s.size.zero?
         mf_log "NON PARSEABLE INPUT: File is empty at path #{file_path.inspect}\n\t#{caller.join("\n\t")}"
       else
@@ -50,7 +48,7 @@ module MetricFu
     def parse_code(contents)
       file_sexp = MetricFu::SexpNode.parse(contents)
       file_sexp && process_ast(file_sexp)
-    rescue Exception => e
+    rescue => e
       #catch errors for files ruby_parser fails on
       mf_log "RUBY PARSE FAILURE: #{e.class}\t#{e.message}\tFILE:#{file_path}\tSEXP:#{file_sexp.inspect}\n\tCONTENT:#{contents.inspect}\n\t#{e.backtrace}"
     end
