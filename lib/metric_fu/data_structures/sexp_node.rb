@@ -44,7 +44,7 @@ module MetricFu
     def line_range
       (first_line..last_line)
     end
-    def hide_methods_from_next_round(node)
+    def hide_methods_from_next_round
       sexp.find_and_replace_all(:defn, :ignore_me)
       sexp.find_and_replace_all(:defs, :ignore_me)
     end
