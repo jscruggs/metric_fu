@@ -15,6 +15,7 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 * Misc
   * Extract SexpNode class from LineNumbers to handle Sexp Processing (Benjamin Fleischer, #137)
   * Separate out Hotspot ranked problem location and misc code improvements (Benjamin Fleischer, #128)
+  * Identify directories with code to analyze by checking if they exist. (No longer use :rails? as a proxy for checking if we should run on 'app'). (George Erickson, #129)
 
 ### MetricFu [4.4.1 / 2013-08-29](https://github.com/metricfu/metric_fu/compare/v4.4.0...v4.4.1)
 

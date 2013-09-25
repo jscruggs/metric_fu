@@ -225,13 +225,6 @@ describe MetricFu::Configuration do
         end
       end
 
-      describe '#set_code_dirs ' do
-        it 'should set the @code_dirs instance var to ["app", "lib"]' do
-          directory('code_dirs').
-                  should == ['app','lib']
-        end
-      end
-
       it 'should set @rails_best_practices to {}' do
         load_metric 'rails_best_practices'
         expect(MetricFu::Metric.get_metric(:rails_best_practices).run_options).to eql({})
