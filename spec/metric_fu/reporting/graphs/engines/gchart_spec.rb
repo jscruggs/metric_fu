@@ -1,4 +1,5 @@
 require "spec_helper"
+require 'googlecharts'
 
 describe MetricFu::Grapher do
   describe "require_graphing_gem" do
