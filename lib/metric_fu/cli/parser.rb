@@ -80,13 +80,9 @@ module MetricFu
         end
 
         def debug_info
-          puts "Ruby"
-          puts "  Version:  #{RUBY_VERSION}"
-          puts "  Platform: #{RUBY_PLATFORM}"
-          puts "  Engine:   #{RUBY_ENGINE}"
-          puts "\nMetricFu"
-          puts "  Version: #{@version}"
-          puts "\n  Dependencies #{`gem dependency metric_fu`}"
+          extend(MetricFu::Environment)
+          require 'pp'
+          pp debug_info
         end
 
         # Build a nicely formatted list of built-in

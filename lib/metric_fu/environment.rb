@@ -1,4 +1,5 @@
 require 'redcard'
+require 'rbconfig'
 MetricFu.logging_require { 'mf_debugger' }
 module MetricFu
   module Environment
@@ -66,8 +67,55 @@ module MetricFu
                              false
                            end
     end
+
     def platform #:nodoc:
       return RUBY_PLATFORM
+    end
+
+    def version
+      MetricFu::VERSION
+    end
+
+    def environment_details
+      @environment_details ||= {
+        'VERBOSE' => $VERBOSE.inspect,
+        'External Encoding' => Encoding.default_external.to_s,
+        'Internal Encoding' => Encoding.default_internal.to_s,
+        'Host Architecture' => RbConfig::CONFIG['build'],
+        'Ruby Prefix'       => RbConfig::CONFIG['prefix'],
+        'Ruby Options'      => ENV.keys.grep(/RUBYOPT/).map{|key| "#{key}=#{ENV[key]}" }.join(', '),
+      }
+    end
+
+    # To consider
+    # $LOADED_FEATURES
+    # $LOAD_PATH
+    def ruby_details
+      @ruby_details ||= {
+        'Engine' => ruby_flavor,
+        'Version' => ruby_version,
+        'Patchlevel' => (defined?(RUBY_PATCHLEVEL) && RUBY_PATCHLEVEL),
+        'Ripper Support' => supports_ripper?,
+        'Rubygems Version' => Gem::VERSION,
+        'Long Description' => (defined?(RUBY_DESCRIPTION) ? RUBY_DESCRIPTION : platform),
+      }
+    end
+
+    def library_details
+      @library_details ||= {
+        'Version' =>  version,
+        'Verbose Mode' => verbose,
+        'Enabled Metrics' => MetricFu::Metric.enabled_metrics.map(&:name),
+        # 'Dependencies' => `gem dependency metric_fu`, # TODO how should we handle this?
+      }
+    end
+
+    def debug_info
+      @debug_info ||= {
+        'Ruby' => ruby_details,
+        'Environment' => environment_details,
+        'MetricFu' => library_details,
+      }
     end
 
     def osx?
