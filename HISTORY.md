@@ -7,6 +7,7 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 ### Master
 
 * Features
+  * Add --debug-info command line switch to get debug info for Issues. (calveto, #118)
 * Fixes
   * Return valid line locations for code with either no AST or nil nodes (Benjamin Fleischer, #137)
   * Only use FakeFS on MRI.  Avoid intermittent failures on JRuby or Rubinius (Benjamin Fleischer, #135)
