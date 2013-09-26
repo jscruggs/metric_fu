@@ -36,9 +36,6 @@ module MetricFu
 
     def initialize(options={})
       @options = options
-      create_metric_dir_if_missing
-      create_output_dir_if_missing
-      create_data_dir_if_missing
     end
 
     @generators = []
@@ -57,29 +54,16 @@ module MetricFu
 
     # Returns the directory where the Generator will write any output
     def self.metric_directory
-      MetricFu::Io::FileSystem.scratch_directory(metric)
+      @metric_directory ||=
+        MetricFu::Metric.get_metric(metric).run_options[:output_directory] ||
+        begin
+          metric_directory = MetricFu::Io::FileSystem.scratch_directory(metric)
+          FileUtils.mkdir_p(metric_directory, :verbose => false)
+        end
     end
 
-    def create_metric_dir_if_missing #:nodoc:
-      unless File.directory?(metric_directory)
-        FileUtils.mkdir_p(metric_directory, :verbose => false)
-      end
-    end
-
-    def create_output_dir_if_missing #:nodoc:
-      unless File.directory?(MetricFu::Io::FileSystem.directory('output_directory'))
-        FileUtils.mkdir_p(MetricFu::Io::FileSystem.directory('output_directory'), :verbose => false)
-      end
-    end
-
-    def create_data_dir_if_missing #:nodoc:
-      unless File.directory?(MetricFu::Io::FileSystem.directory('data_directory'))
-        FileUtils.mkdir_p(MetricFu::Io::FileSystem.directory('data_directory'), :verbose => false)
-      end
-    end
-
-    # @return String
-    #   The path of the metric directory this class is using.
+    # @return [String]
+    # The path of the metric directory this class is using.
     def metric_directory
       self.class.metric_directory
     end
