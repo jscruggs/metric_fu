@@ -10,6 +10,14 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 * Fixes
 * Misc
 
+### MetricFu [4.4.3 / 2013-09-25](https://github.com/metricfu/metric_fu/compare/v4.4.1...v4.4.3)
+
+* Features
+* Fixes
+  * Scratch directory no longer dependent on generator class name. Saikuro works again! (Benjamin Fleischer, #141)
+* Misc
+  * Metric scratch directory now set via Metric `run_options[:output_directory] || MetricFu::Io::FileSystem.scratch_directory(metric)` (Benjamin Fleischer, #141)
+
 ### MetricFu [4.4.2 / 2013-09-25](https://github.com/metricfu/metric_fu/compare/v4.4.1...v4.4.2)
 
 * Features
