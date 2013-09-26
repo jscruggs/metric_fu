@@ -54,24 +54,9 @@ module MetricFu
       @generators << subclass
     end
 
-    # Provides the unqualified class name of an implemented concrete
-    # class, as a string.  For example:
-    #
-    #   class Flay < Generator; end
-    #   klass = Flay.new
-    #   klass.class_name
-    #   > "flay"
-    #
-    # @return String
-    #   The unqualified class name of this concrete class, returned
-    #   as a string.
-    def self.class_name
-      self.to_s.split('::').last.downcase
-    end
-
     # Returns the directory where the Generator will write any output
     def self.metric_directory
-      File.join(MetricFu::Io::FileSystem.directory('scratch_directory'), class_name)
+      File.join(MetricFu::Io::FileSystem.directory('scratch_directory'), metric.to_s)
     end
 
     def create_metric_dir_if_missing #:nodoc:
