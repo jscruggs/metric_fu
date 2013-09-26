@@ -10,7 +10,7 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 * Fixes
 * Misc
 
-### MetricFu [4.4.3 / 2013-09-25](https://github.com/metricfu/metric_fu/compare/v4.4.1...v4.4.3)
+### MetricFu [4.4.3 / 2013-09-25](https://github.com/metricfu/metric_fu/compare/v4.4.2...v4.4.3)
 
 * Features
 * Fixes
