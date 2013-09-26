@@ -18,6 +18,11 @@ module MetricFu
       def directory(name)
         directories.fetch(name) { raise "No such directory configured: #{name}" }
       end
+
+      def scratch_directory(name)
+        File.join(directory('scratch_directory'), name.to_s)
+      end
+
       def file_globs_to_ignore
         @file_globs_to_ignore ||= []
       end

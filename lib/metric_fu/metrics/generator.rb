@@ -24,10 +24,10 @@ module MetricFu
   #
   # Based on the class name of the concrete class implementing a
   # Generator, the Generator class will create a 'metric_directory'
-  # named after the class under the MetricFu.scratch_directory, where
+  # named after the metric under the scratch_directory, where
   # any output from the #emit method should go.
   #
-  # It will also create the MetricFu.output_directory if neccessary, and
+  # It will also create the output_directory if neccessary, and
   # in general setup the directory structure that the MetricFu system
   # expects.
   class Generator
@@ -56,7 +56,7 @@ module MetricFu
 
     # Returns the directory where the Generator will write any output
     def self.metric_directory
-      File.join(MetricFu::Io::FileSystem.directory('scratch_directory'), metric.to_s)
+      MetricFu::Io::FileSystem.scratch_directory(metric)
     end
 
     def create_metric_dir_if_missing #:nodoc:
