@@ -27,8 +27,7 @@ module MetricFu
         @file_globs_to_ignore ||= []
       end
 
-      # TODO: Remove call to config
-      def set_directories(config)
+      def set_directories
         @directories = {}
         @directories['base_directory']    = MetricFu.artifact_dir
         @directories['scratch_directory'] = MetricFu.scratch_dir
@@ -40,7 +39,7 @@ module MetricFu
         # TODO Though this is true of the general AwesomeTemplate, it is not necessarily true of templates within each Metric.  Each metric should probably know how to use AwesomeTemplate (or whatever)
         @directories['template_directory'] = File.join(@directories.fetch('root_directory'), 'lib', 'templates')
         @file_globs_to_ignore = []
-        set_code_dirs(config)
+        set_code_dirs
       end
 
       def create_directories(*dirs)
@@ -52,7 +51,7 @@ module MetricFu
       end
 
       # Add the 'app' directory if we're running within rails.
-      def set_code_dirs(config)
+      def set_code_dirs
         @directories['code_dirs'] = %w(app lib).select{|dir| Dir.exists?(dir) }
       end
 
