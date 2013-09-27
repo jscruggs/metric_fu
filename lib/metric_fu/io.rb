@@ -5,9 +5,17 @@ module MetricFu
     module FileSystem
 
       # TODO: Use a better environmental variable name for the output / artiface dir.  Set to a different default in tests.
-      def self.artifact_dir
-        (ENV['CC_BUILD_ARTIFACTS'] || 'tmp/metric_fu')
+      @default_artifact_dir = 'tmp/metric_fu'
+      def self.default_artifact_dir
+        @default_artifact_dir
       end
+      def self.artifact_dir
+        (ENV['CC_BUILD_ARTIFACTS'] || @artifact_dir)
+      end
+      def self.artifact_dir=(artifact_dir)
+        @artifact_dir = artifact_dir
+      end
+      self.artifact_dir = default_artifact_dir
 
       module_function
 
