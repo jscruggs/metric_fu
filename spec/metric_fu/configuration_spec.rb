@@ -100,7 +100,7 @@ describe MetricFu::Configuration do
         get_new_config
       end
       it 'should return "tmp/metric_fu"' do
-        base_directory.should == "tmp/metric_fu"
+        base_directory.should == MetricFu.artifact_dir
       end
 
       it 'should set @metric_fu_root_directory to the base of the '+

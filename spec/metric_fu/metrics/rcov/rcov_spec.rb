@@ -2,10 +2,16 @@ require "spec_helper"
 
 describe MetricFu::RcovGenerator do
 
-  before :each do
-    MetricFu.configuration.configure_metric(:rcov) do |rcov|
-      rcov.enabled = true
+  before do
+    setup_fs
+    MetricFu::Configuration.run do |config|
+      config.configure_metric(:rcov) do |rcov|
+        rcov.enabled = true
+      end
     end
+  end
+
+  before :each do
     @default_options = MetricFu::Metric.get_metric(:rcov).run_options
   end
 
@@ -37,9 +43,7 @@ describe MetricFu::RcovGenerator do
     before :each do
       options = {:external =>  nil}
       @rcov = MetricFu::RcovGenerator.new(@default_options.merge(options))
-      File.should_receive(:open).
-            with(MetricFu::RcovGenerator.metric_directory + '/rcov.txt').
-            and_return(double("io", :read => RCOV_OUTPUT))
+      @rcov.should_receive(:load_output).and_return(RCOV_OUTPUT)
       @files = @rcov.analyze
     end
 
@@ -78,9 +82,7 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should open the external rcov analysis file" do
-      File.should_receive(:open).
-            with('coverage/rcov.txt').
-            and_return(double("io", :read => RCOV_OUTPUT))
+      @rcov.should_receive(:load_output).and_return(RCOV_OUTPUT)
       @files = @rcov.analyze
     end
 
@@ -177,5 +179,9 @@ lib/templates/standard/standard_template.rb
 !! end
 
 HERE
+
+  after do
+    cleanup_fs
+  end
 
 end
