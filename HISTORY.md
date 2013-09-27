@@ -12,7 +12,6 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
   * rcov hotspot analyzer (MetricFu::RcovHotspot) now overrides map_strategy instead of map (Carlos Fernandez, #145)
   * Fix test failures relating to artifact directory missing (Benjamin Fleischer, #144)
 * Misc
-  * Update to rails_best_practices that removes activesupport dependency (for inflecto). (Benjamin Fleischer, #134)
 
 ### MetricFu [4.4.3 / 2013-09-25](https://github.com/metricfu/metric_fu/compare/v4.4.2...v4.4.3)
 
