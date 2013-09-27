@@ -16,17 +16,16 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should clear out previous output and make output folder" do
-      @rcov.stub(:`)
-      FileUtils.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
-      Dir.should_receive(:mkdir).with(MetricFu::RcovGenerator.metric_directory)
-      @rcov.emit
+      MetricFu::Utility.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
+      MetricFu::Utility.should_receive(:mkdir_p).with(MetricFu::RcovGenerator.metric_directory)
+      @rcov.reset_output_location
     end
 
     it "should set the RAILS_ENV" do
       next if breaks_when?(MetricFu.configuration.rubinius?)
-      FileUtils.stub(:rm_rf)
-      Dir.stub(:mkdir)
-      options = {:environment => 'metrics'}
+      MetricFu::Utility.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
+      MetricFu::Utility.should_receive(:mkdir_p).with(MetricFu::RcovGenerator.metric_directory)
+      options = {:environment => 'metrics', :external => nil}
       @rcov = MetricFu::RcovGenerator.new(@default_options.merge(options))
       @rcov.should_receive(:`).with(/RAILS_ENV=metrics/)
       @rcov.emit
@@ -74,7 +73,7 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should emit nothing if external configuration option is set" do
-      FileUtils.should_not_receive(:rm_rf)
+      MetricFu::Utility.should_not_receive(:rm_rf)
       @rcov.emit
     end
 

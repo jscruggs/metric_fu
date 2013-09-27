@@ -1,5 +1,4 @@
-require 'enumerator'
-require 'fileutils'
+MetricFu.lib_require { 'utility' }
 
 module MetricFu
 
@@ -39,9 +38,13 @@ module MetricFu
       @command = command
     end
 
+    def reset_output_location
+      MetricFu::Utility.rm_rf(metric_directory, :verbose => false)
+      MetricFu::Utility.mkdir_p(metric_directory)
+    end
+
     def default_command
-      FileUtils.rm_rf(MetricFu::RcovGenerator.metric_directory, :verbose => false)
-      Dir.mkdir(MetricFu::RcovGenerator.metric_directory)
+      reset_output_location
       output = ">> #{MetricFu::RcovGenerator.metric_directory}/rcov.txt"
       test_files = FileList[*options[:test_files]].join(' ')
       rcov_opts = options[:rcov_opts].join(' ')
