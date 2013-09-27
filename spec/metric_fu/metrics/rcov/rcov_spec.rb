@@ -28,13 +28,13 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should set the RAILS_ENV" do
+      pending "Making this work with FakeFs"
       next if breaks_when?(MetricFu.configuration.rubinius?)
       MetricFu::Utility.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
       MetricFu::Utility.should_receive(:mkdir_p).with(MetricFu::RcovGenerator.metric_directory)
       options = {:environment => 'metrics', :external => nil}
       @rcov = MetricFu::RcovGenerator.new(@default_options.merge(options))
-      @rcov.should_receive(:`).with(/RAILS_ENV=metrics/)
-      @rcov.emit
+      expect(@rcov.command).to include('RAILS_ENV=metrics')
     end
   end
 

@@ -2,7 +2,7 @@ MetricFu.lib_require { 'utility' }
 
 module MetricFu
 
-  class RcovGenerator < Generator
+  class RcovGenerator < MetricFu::Generator
     NEW_FILE_MARKER = /^={80}$/.freeze
 
     def self.metric
@@ -45,16 +45,13 @@ module MetricFu
 
     def default_command
       reset_output_location
-      output = ">> #{MetricFu::RcovGenerator.metric_directory}/rcov.txt"
       test_files = FileList[*options[:test_files]].join(' ')
       rcov_opts = options[:rcov_opts].join(' ')
-      %Q(RAILS_ENV=#{options[:environment]} rcov #{test_files} #{rcov_opts} #{output})
+      %Q(RAILS_ENV=#{options[:environment]} rcov #{test_files} #{rcov_opts} >> #{default_output_file})
     end
 
-
     def analyze
-      output_file = options[:external] ? options[:external] : MetricFu::RcovGenerator.metric_directory + '/rcov.txt'
-      output = File.open(output_file).read
+      output = load_output
       output = output.split(NEW_FILE_MARKER)
 
       output.shift # Throw away the first entry - it's the execution time etc.
@@ -142,6 +139,23 @@ module MetricFu
     def run_rcov?
       !(options[:external])
     end
+
+    def load_output
+      File.read(output_file)
+    end
+
+    def output_file
+      if run_rcov?
+        default_output_file
+      else
+        options.fetch(:external)
+      end
+    end
+
+    def default_output_file
+      File.join(metric_directory, 'rcov.txt')
+    end
+
 
   end
 end
