@@ -8,6 +8,12 @@ As such, a _Feature_ would map to either major or minor. A _bug fix_ to a patch.
 
 * Features
 * Fixes
+* Misc
+
+### MetricFu [4.4.4 / 2013-09-27](https://github.com/metricfu/metric_fu/compare/v4.4.3...v4.4.4)
+
+* Features
+* Fixes
   * Update rcov config instructions in README to include call to activate (Carlos Fernandez, #145)
   * rcov hotspot analyzer (MetricFu::RcovHotspot) now overrides map_strategy instead of map (Carlos Fernandez, #145)
   * Fix test failures relating to artifact directory missing (Benjamin Fleischer, #144)
