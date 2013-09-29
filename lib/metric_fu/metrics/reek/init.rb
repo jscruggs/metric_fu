@@ -7,7 +7,7 @@ module MetricFu
 
     def default_run_options
       { :dirs_to_reek => MetricFu::Io::FileSystem.directory('code_dirs'),
-                    :config_file_pattern => nil}
+                    :config_file_pattern => 'config/*.reek'}
     end
 
     def has_graph?
