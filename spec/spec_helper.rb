@@ -21,6 +21,7 @@ def mf_log(msg); mf_debug(msg); end
 Dir[MetricFu.root_dir + "/spec/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
+  config.fail_fast = ENV.include?('FAIL_FAST')
   # :suite after/before all specs
   # :each every describe block
   # :all every it block
