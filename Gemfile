@@ -16,5 +16,7 @@ group :test do
   end
   gem "fakefs", :require => "fakefs/safe", :platform => :ruby
   gem 'json'
+  gem 'pry'
+  gem 'pry-nav'
 end
 gemspec :path => File.expand_path('..', __FILE__)

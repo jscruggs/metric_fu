@@ -9,9 +9,10 @@ require 'rspec/autorun'
 require 'date'
 require 'construct'
 require 'json'
-
+require 'pry-nav'
+#
 # add lib to the load path just like rubygems does
-$:.push File.expand_path("../../lib", __FILE__)
+$:.unshift File.expand_path("../../lib", __FILE__)
 require 'metric_fu'
 include MetricFu
 def mf_log(msg); mf_debug(msg); end
