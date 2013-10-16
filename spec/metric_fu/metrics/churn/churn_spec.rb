@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe MetricFu::ChurnGenerator do
 
+  # TODO extract yaml
   let(:churn_yaml) { "--- \n:churn: \n  :changed_files: \n  - spec/graphs/flog_grapher_spec.rb\n  - spec/base/graph_spec.rb\n  - lib/templates/awesome/layout.html.erb\n  - lib/graphs/rcov_grapher.rb\n  - lib/base/base_template.rb\n  - spec/graphs/grapher_spec.rb\n  - lib/templates/awesome/flog.html.erb\n  - lib/templates/awesome/flay.html.erb\n  - lib/graphs/roodi_grapher.rb\n  - lib/graphs/reek_grapher.rb\n  - HISTORY\n  - spec/graphs/roodi_grapher_spec.rb\n  - lib/generators/rcov.rb\n  - spec/graphs/engines/gchart_spec.rb\n  - spec/graphs/rcov_grapher_spec.rb\n  - lib/templates/javascripts/excanvas.js\n  - lib/templates/javascripts/bluff-min.js\n  - spec/graphs/reek_grapher_spec.rb\n" }
 
   let(:config_setup) {
