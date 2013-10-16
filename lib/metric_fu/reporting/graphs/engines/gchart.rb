@@ -51,7 +51,7 @@ module MetricFu
       end
     end
     def y_axis_scale_argument
-      raise "#{__LINE__} in #{__FILE__} from #{caller.join('\n')}"
+      raise "#{__LINE__} in #{__FILE__} from #{caller[0]}"
     end
   end
 
