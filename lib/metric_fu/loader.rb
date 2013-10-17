@@ -59,8 +59,16 @@ module MetricFu
       end
     end
 
-    def load_tasks(tasks_relative_path)
-      load File.join(@lib_root, 'tasks', *Array(tasks_relative_path))
+    # Load specified task task only once
+    #   if and only if rake is required and the task is not yet defined
+    #   to prevent the task from being loaded multiple times
+    # @param tasks_relative_path [String] 'metric_fu.rake' by default
+    # @param options [Hash] optional task_name to check if loaded
+    # @option options [String] :task_name The task_name to load, if not yet loaded
+    def load_tasks(tasks_relative_path, options={task_name: ''})
+      if defined?(Rake::Task) and not Rake::Task.task_defined?(options[:task_name])
+        load File.join(@lib_root, 'tasks', *Array(tasks_relative_path))
+      end
     end
 
     def setup
