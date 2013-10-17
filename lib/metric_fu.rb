@@ -2,16 +2,19 @@ require 'metric_fu/version'
 module MetricFu
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
   LIB_ROOT = File.join(APP_ROOT,'lib/metric_fu')
-  def self.root_dir
+
+  module_function
+
+  def root_dir
     APP_ROOT
   end
-  def self.lib_dir
+  def lib_dir
     LIB_ROOT
   end
 
   require 'metric_fu/loader'
   LOADER = MetricFu::Loader.new(LIB_ROOT)
-  def self.lib_require(base='',&block)
+  def lib_require(base='',&block)
     LOADER.lib_require(base,&block)
   end
 
@@ -20,9 +23,9 @@ module MetricFu
   end
 
   # @note artifact_dir is relative to where the task is being run,
-  # not to the metric_fu library
+  #   not to the metric_fu library
   require 'metric_fu/io'
-  def self.artifact_dir
+  def artifact_dir
     MetricFu::Io::FileSystem.artifact_dir
   end
 
@@ -30,13 +33,13 @@ module MetricFu
     %w(scratch output _data)
   end
 
-  def self.tasks_load(tasks_relative_path)
+  def tasks_load(tasks_relative_path)
     LOADER.load_tasks(tasks_relative_path)
   end
 
   LOADER.setup
 
-  def self.reset
+  def reset
     # TODO Don't like how this method needs to know
     # all of these class variables that are defined
     # in separate classes.
