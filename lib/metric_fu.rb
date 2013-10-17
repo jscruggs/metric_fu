@@ -55,4 +55,23 @@ module MetricFu
     @graph = nil
     @result = nil
   end
+
+  def run(options)
+    MetricFu::Run.new.run(options)
+  end
+
+  def run_only(metric_name)
+    MetricFu::Configuration.run do |config|
+      config.configure_metrics.each do |metric|
+        if metric.name.to_s == metric_name.to_s
+          p "Enabling #{metric.name}"
+          metric.enabled = true
+        else
+          p "Disabling #{metric.name}"
+          metric.enabled = false
+        end
+      end
+    end
+    run({})
+  end
 end
