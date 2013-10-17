@@ -59,19 +59,20 @@ module MetricFu
   def run(options)
     MetricFu::Run.new.run(options)
   end
-
-  def run_only(metric_name)
+  def run_only(metrics_to_run_names, options)
+    metrics_to_run_names = Array(metrics_to_run_names).map(&:to_s)
     MetricFu::Configuration.run do |config|
       config.configure_metrics.each do |metric|
-        if metric.name.to_s == metric_name.to_s
-          p "Enabling #{metric.name}"
+        metric_name = metric.name.to_s
+        if metrics_to_run_names.include?(metric_name)
+          p "Enabling #{metric_name}"
           metric.enabled = true
         else
-          p "Disabling #{metric.name}"
+          p "Disabling #{metric_name}"
           metric.enabled = false
         end
       end
     end
-    run({})
+    run(options)
   end
 end
