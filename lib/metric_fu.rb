@@ -1,4 +1,5 @@
 require 'metric_fu/version'
+require 'forwardable'
 module MetricFu
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
   LIB_ROOT = File.join(APP_ROOT,'lib/metric_fu')
@@ -14,11 +15,14 @@ module MetricFu
 
   require 'metric_fu/loader'
   LOADER = MetricFu::Loader.new(LIB_ROOT)
-  def lib_require(base='',&block)
-    LOADER.lib_require(base,&block)
+  def loader
+    LOADER
   end
+  extend SingleForwardable
 
-  LOADER.create_dirs(self) do
+  def_delegators :loader, :lib_require, :load_tasks
+
+  loader.create_dirs(self) do
     %w(metrics formatter reporting logging errors data_structures tasks)
   end
 
@@ -29,15 +33,11 @@ module MetricFu
     MetricFu::Io::FileSystem.artifact_dir
   end
 
-  LOADER.create_artifact_subdirs(self) do
+  loader.create_artifact_subdirs(self) do
     %w(scratch output _data)
   end
 
-  def tasks_load(tasks_relative_path)
-    LOADER.load_tasks(tasks_relative_path)
-  end
-
-  LOADER.setup
+  loader.setup
 
   def reset
     # TODO Don't like how this method needs to know
