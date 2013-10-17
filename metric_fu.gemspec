@@ -43,8 +43,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'redcard'
   # syntax highlighting
   s.add_runtime_dependency 'coderay'
-  # default graphing libraries
-  s.add_runtime_dependency 'bluff'
   # to_json support
   s.add_runtime_dependency 'multi_json'
 

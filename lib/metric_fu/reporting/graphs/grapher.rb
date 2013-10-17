@@ -17,10 +17,6 @@ module MetricFu
       graphers.find{|grapher|grapher.metric.to_s == metric.to_s}
     end
 
-    def self.gem_name
-      'bluff'
-    end
-
     BLUFF_GRAPH_SIZE = "1000x600"
     BLUFF_DEFAULT_OPTIONS = <<-EOS
       var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
@@ -34,18 +30,11 @@ module MetricFu
     attr_accessor :output_directory
 
     def initialize(opts = {})
-      self.class.require_graphing_gem
       self.output_directory = opts[:output_directory]
     end
 
     def output_directory
       @output_directory || MetricFu::Io::FileSystem.directory('output_directory')
-    end
-
-    def self.require_graphing_gem
-      require self.gem_name
-    rescue LoadError => e
-      mf_log "Failed requiring graphing gem #{e.message} #{e.backtrace.join("\t\n")}"
     end
 
     def get_metrics(metrics, sortable_prefix)
