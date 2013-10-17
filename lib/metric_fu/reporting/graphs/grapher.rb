@@ -2,9 +2,25 @@
 require 'multi_json'
 module MetricFu
   class Grapher
+
+    @graphers = []
+    # @return all subclassed graphers [Array<MetricFu::Grapher>]
+    def self.graphers
+      @graphers
+    end
+
+    def self.inherited(subclass)
+      @graphers << subclass
+    end
+
+    def self.get_grapher(metric)
+      graphers.find{|grapher|grapher.metric.to_s == metric.to_s}
+    end
+
     def self.gem_name
       'bluff'
     end
+
     BLUFF_GRAPH_SIZE = "1000x600"
     BLUFF_DEFAULT_OPTIONS = <<-EOS
       var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");
