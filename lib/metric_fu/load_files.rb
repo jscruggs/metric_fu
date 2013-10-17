@@ -11,11 +11,9 @@ Dir.glob(File.join(MetricFu.lib_dir, '*.rb')).
   each do |file|
     require file
 end
-# prevent the task from being run multiple times.
-unless Rake::Task.task_defined? "metrics:all"
-  # Load the rakefile so users of the gem get the default metric_fu task
-  MetricFu.tasks_load 'metric_fu.rake'
-end
+
+MetricFu.load_tasks('metric_fu.rake', task_name: 'metrics:all')
+
 Dir.glob(File.join(MetricFu.data_structures_dir, '**/*.rb')).each do |file|
   require file
 end
