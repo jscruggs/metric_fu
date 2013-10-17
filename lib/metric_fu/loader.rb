@@ -24,6 +24,14 @@ module MetricFu
     end
 
     # TODO: Reduce duplication of directory logic
+    # Adds methods x_dir and _x_require for the directory x,
+    #   relative to the metric_fu lib, to the given klass
+    # @param klass [Class] the klass to add methods for the specified directories
+    # @yieldreturn [Array<String>] Takes a list of directories and adds readers for each
+    # @example For the directory 'metrics', which is relative to the metric_fu lib directory,
+    #   creates on the klass two methods:
+    #     ::metrics_dir which returns the full path
+    #     ::metrics_require which takes a block of files to require relative to the metrics_dir
     def create_dirs(klass)
       class << klass
         Array(yield).each do |dir|
@@ -35,6 +43,12 @@ module MetricFu
       end
     end
 
+    # Adds method x_dir relative to the metric_fu artifact directory to the given klass
+    #   And strips any leading non-alphanumerical character from the directory name
+    # @param klass [Class] the klass to add methods for the specified artifact sub-directories
+    # @yieldreturn [Array<String>] Takes a list of directories and adds readers for each
+    # @example For the artifact sub-directory '_scratch', creates on the klass one method:
+    #     ::scratch_dir (which notably has the leading underscore removed)
     def create_artifact_subdirs(klass)
       class << klass
         Array(yield).each do |dir|
