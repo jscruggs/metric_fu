@@ -1,11 +1,20 @@
+require 'rspec/autorun'
+
 if ENV['COVERAGE']
   require 'simplecov'
-  require 'simplecov-rcov-text'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
+  formatters = [SimpleCov::Formatter::HTMLFormatter]
+  begin
+    puts '[COVERAGE] Running with SimpleCov HTML Formatter'
+    require 'simplecov-rcov-text'
+    formatters << SimpleCov::Formatter::RcovTextFormatter
+    puts '[COVERAGE] Running with SimpleCov Rcov Formatter'
+  rescue LoadError
+    puts '[COVERAGE] SimpleCov Rcov formatter could not be loaded'
+  end
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[ *formatters ]
   SimpleCov.start
 end
 
-require 'rspec/autorun'
 require 'date'
 require 'construct'
 require 'json'
