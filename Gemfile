@@ -12,7 +12,6 @@ group :test do
     # https://github.com/kina/simplecov-rcov-text
     gem 'simplecov-rcov-text'
   end
-  gem "fakefs", :require => "fakefs/safe", :platform => :ruby
   gem 'json'
   gem 'pry'
   gem 'pry-nav'

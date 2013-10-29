@@ -28,7 +28,6 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should set the RAILS_ENV" do
-      pending "Making this work with FakeFs"
       next if breaks_when?(MetricFu.configuration.rubinius?)
       MetricFu::Utility.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
       MetricFu::Utility.should_receive(:mkdir_p).with(MetricFu::RcovGenerator.metric_directory)

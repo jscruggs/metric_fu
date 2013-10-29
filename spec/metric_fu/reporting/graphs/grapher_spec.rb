@@ -1,6 +1,12 @@
 require "spec_helper"
 
 describe "Bluff graphers responding to #graph!" do
+  before do
+    setup_fs
+  end
+  after do
+    cleanup_fs
+  end
   it "should write chart file" do
     graphs = {}
     available_graphs = MetricFu::Metric.enabled_metrics.select{|m|m.has_graph?}.map(&:name)
