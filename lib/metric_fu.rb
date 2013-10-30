@@ -6,6 +6,14 @@ module MetricFu
 
   module_function
 
+  def run_dir
+    @run_dir ||= Dir.pwd
+  end
+
+  def run_dir=(run_dir)
+    @run_dir = run_dir
+  end
+
   def root_dir
     APP_ROOT
   end

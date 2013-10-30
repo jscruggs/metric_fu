@@ -7,8 +7,8 @@ class AwesomeTemplate < MetricFu::Template
 
   def write
     # Getting rid of the crap before and after the project name from integrity
-    # @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
-    @name = Pathname.new(Dir.pwd).basename
+    # @name = File.basename(MetricFu.run_dir).gsub(/^\w+-|-\w+$/, "")
+    @name = Pathname.new(MetricFu.run_dir).basename
 
     # Copy Bluff javascripts to output directory
     Dir[File.join(template_directory, '..', 'javascripts', '*')].each do |f|

@@ -117,7 +117,7 @@ lib/templates/awesome/awesome_template.rb
 
      def write
 !!     # Getting rid of the crap before and after the project name from integrity
-!!     @name = File.basename(Dir.pwd).gsub(/^\w+-|-\w+$/, "")
+!!     @name = File.basename(MetricFu.run_dir).gsub(/^\w+-|-\w+$/, "")
 !!
 !!     # Copy Bluff javascripts to output directory
 !!     Dir[File.join(template_directory, '..', 'javascripts', '*')].each do |f|

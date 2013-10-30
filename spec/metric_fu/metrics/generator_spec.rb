@@ -128,7 +128,7 @@ describe MetricFu::Generator do
         @paths.each do |path|
           @container.file(path)
         end
-        @old_dir = Dir.pwd
+        @old_dir = MetricFu.run_dir
         Dir.chdir(@container)
       end
 
