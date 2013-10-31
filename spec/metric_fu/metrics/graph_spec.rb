@@ -25,7 +25,7 @@ describe MetricFu::Graph do
     it "should set the date once for one data point" do
       Dir.should_receive(:[]).and_return(["metric_fu/tmp/_data/20101105.yml"])
       File.should_receive(:join)
-      File.should_receive(:open).and_return("Metrics")
+      File.should_receive(:read).and_return("Metrics")
       double_grapher = double
       double_grapher.should_receive(:get_metrics).with("Metrics", "11/5")
       double_grapher.should_receive(:graph!)
@@ -37,7 +37,7 @@ describe MetricFu::Graph do
     it "should set the date when the data directory isn't in the default place" do
       Dir.should_receive(:[]).and_return(["/some/kind/of/weird/directory/somebody/configured/_data/20101105.yml"])
       File.should_receive(:join)
-      File.should_receive(:open).and_return("Metrics")
+      File.should_receive(:read).and_return("Metrics")
       double_grapher = double
       double_grapher.should_receive(:get_metrics).with("Metrics", "11/5")
       double_grapher.should_receive(:graph!)

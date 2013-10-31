@@ -93,7 +93,7 @@ describe MetricFu::FlogGrapher do
 
   describe "responding to #get_metrics with legacy data" do
     before(:each) do
-      @metrics = YAML::load(File.open("#{resources_path}/yml/20090630.yml"))
+      @metrics = YAML::load(File.read("#{resources_path}/yml/20090630.yml"))
 
       @date = "1/2"
     end

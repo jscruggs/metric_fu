@@ -52,7 +52,7 @@ module MetricFu
     end
 
     def load_yaml_metric_file(metric_file)
-      YAML.load(File.open(metric_file))
+      YAML.load(File.read(metric_file))
     end
 
     def build_graph(metrics, sortable_prefix)
