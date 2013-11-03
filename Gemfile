@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
 
 
-group :development do
-
-end
-
 group :test, :coverage do
   # https://github.com/kina/simplecov-rcov-text
   gem 'simplecov-rcov-text'

@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --without development coverage
+bundler_args: --without coverage
 script: bundle exec rspec
 gemfile:
   - gemfiles/Gemfile.travis
