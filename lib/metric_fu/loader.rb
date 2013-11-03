@@ -78,7 +78,14 @@ module MetricFu
       MetricFu.lib_require { 'initial_requires' }
       # Load a few things to make our lives easier elsewhere.
       MetricFu.lib_require { 'load_files' }
+      load_user_configuration
     end
+
+    def load_user_configuration
+      file = File.join(Dir.pwd, '.metrics')
+      load file if File.exist?(file)
+    end
+
   end
 end
 
