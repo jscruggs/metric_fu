@@ -1,18 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rake'
+
 group :development do
 
 end
 
 group :test, :coverage do
-  gem 'simplecov'
   # https://github.com/kina/simplecov-rcov-text
   gem 'simplecov-rcov-text'
 end
 
 group :test do
-  gem "rspec", '>2'
   gem 'test-construct'
   gem 'json'
   gem 'pry'
@@ -20,3 +18,10 @@ group :test do
 end
 
 gemspec :path => File.expand_path('..', __FILE__)
+
+# group :development, :test do
+#   gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
+# end
+
+# Added by devtools
+eval_gemfile 'Gemfile.devtools'
