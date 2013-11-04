@@ -1,3 +1,5 @@
+require 'yaml'
+require 'fileutils'
 module MetricFu
   module Utility
     module_function
@@ -21,6 +23,14 @@ module MetricFu
 
     def mkdir_p(*args)
       FileUtils.mkdir_p(*args)
+    end
+
+    def glob(*args)
+      Dir.glob(*args)
+    end
+
+    def load_yaml(file)
+      YAML.load_file(file)
     end
 
   end

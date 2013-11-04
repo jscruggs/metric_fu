@@ -28,7 +28,6 @@ describe MetricFu::RcovGenerator do
     end
 
     it "should set the RAILS_ENV" do
-      next if breaks_when?(MetricFu.configuration.rubinius?)
       MetricFu::Utility.should_receive(:rm_rf).with(MetricFu::RcovGenerator.metric_directory, :verbose => false)
       MetricFu::Utility.should_receive(:mkdir_p).with(MetricFu::RcovGenerator.metric_directory)
       options = {:environment => 'metrics', :external => nil}
@@ -38,7 +37,6 @@ describe MetricFu::RcovGenerator do
   end
 
   describe "with RCOV_OUTPUT fed into" do
-    next if breaks_when?(MetricFu.configuration.rubinius?)
     before :each do
       options = {:external =>  nil}
       @rcov = MetricFu::RcovGenerator.new(@default_options.merge(options))

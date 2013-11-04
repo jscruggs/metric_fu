@@ -32,7 +32,9 @@ module MetricFu
     private
 
     def metric_files
-      Dir[File.join(MetricFu::Io::FileSystem.directory('data_directory'), '*.yml')].sort
+      MetricFu::Utility.glob(
+        File.join(MetricFu::Io::FileSystem.directory('data_directory'), '*.yml')
+      ).sort
     end
 
     def generate_graphs_for_files
@@ -44,15 +46,11 @@ module MetricFu
     def generate_graphs_for_file(metric_file)
       mf_log "Generating graphs for #{metric_file}"
       date_parts = year_month_day_from_filename(metric_file)
-      metrics = load_yaml_metric_file(metric_file)
+      metrics = MetricFu::Utility.load_yaml(metric_file)
 
       build_graph(metrics, "#{date_parts[:m]}/#{date_parts[:d]}")
     rescue NameError => e
       mf_log "#{e.message} called in MetricFu::Graph.generate with #{metric_file}"
-    end
-
-    def load_yaml_metric_file(metric_file)
-      YAML.load(File.read(metric_file))
     end
 
     def build_graph(metrics, sortable_prefix)

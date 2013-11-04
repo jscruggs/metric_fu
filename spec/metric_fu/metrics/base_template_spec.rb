@@ -1,4 +1,5 @@
 require "spec_helper"
+require 'tempfile'
 require 'erb'
 
 describe MetricFu::Template do
@@ -22,22 +23,23 @@ describe MetricFu::Template do
 
     before(:each) do
       @section = double('section')
-      @template.should_receive(:template).
-                with(@section).and_return(@section)
     end
 
     describe 'if the template exists' do
       it 'should return true' do
-        File.should_receive(:exist?).with(@section).and_return(true)
-        result = @template.send(:template_exists?, @section)
-        result.should be_true
+        Tempfile.open('file') do |file|
+          @template.should_receive(:template).with(@section).and_return(file.path)
+          result = @template.send(:template_exists?,@section)
+          result.should be_true
+        end
       end
     end
 
     describe 'if the template does not exist' do
       it 'should return false' do
-        File.should_receive(:exist?).with(@section).and_return(false)
-        result = @template.send(:template_exists?, @section)
+        path = 'path'
+        @template.should_receive(:template).with(@section).and_return(path)
+        result = @template.send(:template_exists?,@section)
         result.should be_false
       end
     end
