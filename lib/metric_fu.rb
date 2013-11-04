@@ -1,5 +1,6 @@
 require 'metric_fu/version'
 require 'forwardable'
+require 'pathname'
 module MetricFu
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
   LIB_ROOT = File.join(APP_ROOT,'lib/metric_fu')
@@ -8,6 +9,10 @@ module MetricFu
 
   def run_dir
     @run_dir ||= Dir.pwd
+  end
+
+  def run_path
+    Pathname(run_dir)
   end
 
   def run_dir=(run_dir)
