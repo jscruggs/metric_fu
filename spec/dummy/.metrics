@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+# For testing that this file gets loaded
+$metric_file_loaded = true
