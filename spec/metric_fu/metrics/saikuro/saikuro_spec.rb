@@ -47,7 +47,7 @@ describe MetricFu::SaikuroGenerator do
     end
 
     it "doesn't try to get information if the file does not exist" do
-      File.should_receive(:exists?).at_least(:once).and_return(false)
+      @saikuro.should_receive(:file_not_exists?).at_least(:once).and_return(true)
       @saikuro.per_file_info('ignore_me')
     end
   end

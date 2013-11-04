@@ -17,15 +17,11 @@ describe MetricFu::Graph do
   end
 
   describe "setting the date on the graph" do
-    next if breaks_when?(MetricFu.configuration.rubinius?)
-    before(:each) do
-      @graph.stub(:mf_log)
-    end
 
     it "should set the date once for one data point" do
-      Dir.should_receive(:[]).and_return(["metric_fu/tmp/_data/20101105.yml"])
-      File.should_receive(:join)
-      File.should_receive(:read).and_return("Metrics")
+      metric_file = "metric_fu/tmp/_data/20101105.yml"
+      MetricFu::Utility.should_receive(:glob).and_return([metric_file].sort)
+      MetricFu::Utility.should_receive(:load_yaml).with(metric_file).and_return("Metrics")
       double_grapher = double
       double_grapher.should_receive(:get_metrics).with("Metrics", "11/5")
       double_grapher.should_receive(:graph!)
@@ -35,9 +31,9 @@ describe MetricFu::Graph do
     end
 
     it "should set the date when the data directory isn't in the default place" do
-      Dir.should_receive(:[]).and_return(["/some/kind/of/weird/directory/somebody/configured/_data/20101105.yml"])
-      File.should_receive(:join)
-      File.should_receive(:read).and_return("Metrics")
+      metric_file = "/some/kind/of/weird/directory/somebody/configured/_data/20101105.yml"
+      MetricFu::Utility.should_receive(:glob).and_return([metric_file].sort)
+      MetricFu::Utility.should_receive(:load_yaml).with(metric_file).and_return("Metrics")
       double_grapher = double
       double_grapher.should_receive(:get_metrics).with("Metrics", "11/5")
       double_grapher.should_receive(:graph!)

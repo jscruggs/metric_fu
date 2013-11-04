@@ -48,28 +48,39 @@ module MetricFu
 
     def per_file_info(out)
       @saikuro_data[:files].each do |file_data|
-        next if File.extname(file_data[:filename]) == '.erb' || !File.exists?(file_data[:filename])
-        begin
-          line_numbers = MetricFu::LineNumbers.new(File.read(file_data[:filename]))
-        rescue StandardError => e
-          raise e unless e.message =~ /you shouldn't be able to get here/
-          mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
-          next
-        end
+        filename = file_data[:filename]
+        next if erb_file?(filename) || file_not_exists?(filename)
+        next unless line_numbers = line_number_from_file(filename)
 
-        out[file_data[:filename]] ||= {}
+        out[filename] ||= {}
         file_data[:classes].each do |class_data|
           class_data[:methods].each do |method_data|
             line = line_numbers.start_line_for_method(method_data[:name])
-            out[file_data[:filename]][line.to_s] ||= []
-            out[file_data[:filename]][line.to_s] << {:type => :saikuro,
+            out[filename][line.to_s] ||= []
+            out[filename][line.to_s] << {:type => :saikuro,
                                                       :description => "Complexity #{method_data[:complexity]}"}
           end
         end
       end
     end
 
+    def line_number_from_file(filename)
+      MetricFu::LineNumbers.new(File.read(filename))
+    rescue StandardError => e
+      raise e unless e.message =~ /you shouldn't be able to get here/
+      mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
+    end
+
     private
+
+    def erb_file?(filename)
+      File.extname(filename) == '.erb'
+    end
+
+    def file_not_exists?(filename)
+      !File.exists?(filename)
+    end
+
     def sort_methods(methods)
       methods.sort_by {|method| method.complexity.to_i}.reverse
     end
