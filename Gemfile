@@ -20,4 +20,4 @@ gemspec :path => File.expand_path('..', __FILE__)
 # end
 
 # Added by devtools
-eval_gemfile 'Gemfile.devtools'
+eval_gemfile File.expand_path('Gemfile.devtools', File.dirname(__FILE__))
