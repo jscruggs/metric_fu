@@ -82,7 +82,7 @@ module MetricFu
     end
 
     def load_user_configuration
-      file = File.join(Dir.pwd, '.metrics')
+      file = File.join(MetricFu.run_dir, '.metrics')
       load file if File.exist?(file)
     end
 

@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-# For testing that this file gets loaded
-$metric_file_loaded = true
-
 # Example Configuration
 #
 # MetricFu::Configuration.run do |config|

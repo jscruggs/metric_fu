@@ -2957,7 +2957,7 @@
     - :was_run: false
       :content: "       # Getting rid of the crap before and after the project name from integrity"
     - :was_run: false
-      :content: "       @name = File.basename(Dir.pwd).gsub(/^\\w+-|-\\w+$/, \"\")"
+      :content: "       @name = File.basename(MetricFu.run_dir).gsub(/^\\w+-|-\\w+$/, \"\")"
     - :was_run: false
       :content: "   "
     - :was_run: false

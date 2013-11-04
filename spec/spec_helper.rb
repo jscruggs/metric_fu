@@ -19,7 +19,7 @@ require 'date'
 require 'construct'
 require 'json'
 require 'pry-nav'
-#
+
 # add lib to the load path just like rubygems does
 $:.unshift File.expand_path("../../lib", __FILE__)
 require 'metric_fu'
@@ -43,6 +43,14 @@ RSpec.configure do |config|
   # :suite after/before all specs
   # :each every describe block
   # :all every it block
+
+  def run_dir
+    File.expand_path('dummy', File.dirname(__FILE__))
+  end
+
+  config.before(:suite) do
+    MetricFu.run_dir = run_dir
+  end
 
   config.after(:suite) do
     cleanup_fs
