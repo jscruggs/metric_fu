@@ -67,7 +67,7 @@ class AwesomeTemplate < MetricFu::Template
   def write_file_data
 
     per_file_data.each_pair do |file, lines|
-      data = File.open(file, 'r').readlines
+      data = File.readlines(file)
       fn = "#{file.gsub(%r{/}, '_')}.html"
 
       out = <<-HTML

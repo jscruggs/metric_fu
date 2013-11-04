@@ -46,7 +46,7 @@ module MetricFu
         file_path = file_data[:file_path]
         next if File.extname(file_path) =~ /\.erb|\.html|\.haml/
         begin
-          line_numbers = MetricFu::LineNumbers.new(File.open(file_path, 'r').read,file_path)
+          line_numbers = MetricFu::LineNumbers.new(File.read(file_path),file_path)
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
           mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level reek information for this file."

@@ -50,7 +50,7 @@ module MetricFu
       @saikuro_data[:files].each do |file_data|
         next if File.extname(file_data[:filename]) == '.erb' || !File.exists?(file_data[:filename])
         begin
-          line_numbers = MetricFu::LineNumbers.new(File.open(file_data[:filename], 'r').read)
+          line_numbers = MetricFu::LineNumbers.new(File.read(file_data[:filename]))
         rescue StandardError => e
           raise e unless e.message =~ /you shouldn't be able to get here/
           mf_log "ruby_parser blew up while trying to parse #{file_path}. You won't have method level Saikuro information for this file."
