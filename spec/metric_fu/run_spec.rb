@@ -39,13 +39,6 @@ describe MetricFu do
 
     end
 
-    it "loads the .metrics file" do
-      # Global only for testing that this file gets loaded
-      $metric_file_loaded = false
-      MetricFu::Run.new
-      $metric_file_loaded.should be_true
-    end
-
     it "creates a report yaml file" do
       expect { metric_fu }.to create_file("#{base_directory}/report.yml")
     end
