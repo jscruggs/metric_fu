@@ -53,10 +53,8 @@ module MetricFu
           next
         end
 
-        out[file_data[:file_path]] ||= {}
         file_data[:code_smells].each do |smell_data|
           line = line_numbers.start_line_for_method(smell_data[:method])
-          out[file_data[:file_path]][line.to_s] ||= []
           out[file_data[:file_path]][line.to_s] << {:type => :reek,
                                                     :description => "#{smell_data[:type]} - #{smell_data[:message]}"}
         end

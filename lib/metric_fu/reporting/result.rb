@@ -24,7 +24,11 @@ module MetricFu
     end
 
     def per_file_data
-      @per_file_data ||= {}
+      @per_file_data ||= Hash.new do |hash, filename|
+        hash[filename] = Hash.new do |h, line|
+          h[line] = Array.new
+        end
+      end
     end
 
     def result_hash #:nodoc:

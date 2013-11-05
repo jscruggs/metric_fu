@@ -34,12 +34,10 @@
             <b>
               <%= display_location(location) %>
             </b>
-            <% if file != '' %>
-              <% if per_file_data[file] %>
-                <small>&laquo;
-                  <b><a href="<%= file.gsub(%r{/}, '_') %>.html<%= (line.nil? ? '' : "#line#{line}") %>">annotate</a></b>
-                 &raquo;</small>
-              <% end %>
+            <% unless per_file_data[file].empty? %>
+              <small>&laquo;
+                <b><a href="<%= file.gsub(%r{/}, '_') %>.html<%= (line.nil? ? '' : "#line#{line}") %>">annotate</a></b>
+               &raquo;</small>
             <% end %>
             <br/><br/>
             <!-- TODO HOTSPOTS for metric fu nice metric_link method -->

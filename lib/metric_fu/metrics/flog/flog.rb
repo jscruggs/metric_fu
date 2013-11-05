@@ -48,8 +48,6 @@ module MetricFu
 
           file, line = data[:path].split(':')
 
-          out[file] ||= {}
-          out[file][line] ||= []
           out[file][line] << {:type => :flog, :description => "Score of %.2f" % data[:score]}
         end
       end

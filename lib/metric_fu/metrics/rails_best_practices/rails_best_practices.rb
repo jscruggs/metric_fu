@@ -34,11 +34,9 @@ module MetricFu
       @rails_best_practices_results[:problems].each do |problem|
         next if problem[:file] == '' || problem[:problem].nil?
 
-        out[problem[:file]] ||= {}
 
         lines = problem[:line].split(/\s*,\s*/)
         lines.each do |line|
-          out[problem[:file]][line] ||= []
           out[problem[:file]][line] << {:type => :rails_best_practices, :description => problem[:problem]}
         end
       end

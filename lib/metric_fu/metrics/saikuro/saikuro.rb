@@ -58,15 +58,16 @@ module MetricFu
 
     def build_output_from_line_numbers(out, line_numbers, file_data)
       filename = file_data[:filename]
-      out[filename] ||= Hash.new {|hash, key| hash[key] = [] }
+      output = out[filename]
       method_data_for_file_data(file_data) do |method_data|
          line = line_numbers.start_line_for_method(method_data[:name]).to_s
          result = {
            :type => :saikuro,
            :description => "Complexity #{method_data[:complexity]}"
          }
-         out[filename][line] <<  result
+         output[line] <<  result
       end
+      out
     end
 
     def line_numbers_from_file(filename)
