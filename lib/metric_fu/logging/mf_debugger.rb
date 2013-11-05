@@ -42,6 +42,7 @@ module MfDebugger
       STDOUT.reopen(old_stdout)
       pipe_w.close
       reader.join
+      pipe_r.close
       return output
     end
   end
