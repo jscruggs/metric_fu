@@ -8,7 +8,8 @@ Gem::Specification.new do |s|
   s.summary     = "A fistful of code metrics, with awesome templates and graphs"
   s.description = "Code metrics from Flog, Flay, Saikuro, Churn, Reek, Roodi, Code Statistics, and Rails Best Practices. (and optionally RCov)"
   s.email       = "github@benjaminfleischer.com"
-  s.authors     = File.readlines('AUTHORS').map(&:strip)
+  author_file   = File.expand_path('AUTHORS', File.dirname(__FILE__))
+  s.authors     = File.readlines(author_file).map(&:strip)
 
   s.rubyforge_project           = 'metric_fu'
   s.license                     = 'MIT'
