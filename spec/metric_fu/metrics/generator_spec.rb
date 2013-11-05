@@ -43,25 +43,6 @@ describe MetricFu::Generator do
     end
   end
 
-  describe '@concrete_class should have hook methods for '\
-           +'[before|after]_[emit|analyze|to_h]' do
-
-    %w[emit analyze].each do |meth|
-
-      it "should respond to #before_#{meth}" do
-        @concrete_class.respond_to?("before_#{meth}".to_sym).should be_true
-      end
-
-      it "should respond to #after_#{meth}" do
-        @concrete_class.respond_to?("after_#{meth}".to_sym).should be_true
-      end
-    end
-
-    it "should respond to #before_to_h" do
-      @concrete_class.respond_to?("before_to_h".to_sym).should be_true
-    end
-  end
-
   describe "#generate_result" do
     it 'should  raise an error when calling #emit' do
       @abstract_class = MetricFu::Generator.new
@@ -82,25 +63,10 @@ describe MetricFu::Generator do
   describe "#generate_result (in a concrete class)" do
 
     %w[emit analyze].each do |meth|
-      it "should call #before_#{meth}" do
-        @concrete_class.should_receive("before_#{meth}")
-        @concrete_class.generate_result
-      end
-
       it "should call ##{meth}" do
         @concrete_class.should_receive("#{meth}")
         @concrete_class.generate_result
       end
-
-      it "should call #after_#{meth}" do
-        @concrete_class.should_receive("after_#{meth}")
-        @concrete_class.generate_result
-      end
-    end
-
-    it "should call #before_to_h" do
-      @concrete_class.should_receive("before_to_h")
-      @concrete_class.generate_result
     end
 
     it "should call #to_h" do

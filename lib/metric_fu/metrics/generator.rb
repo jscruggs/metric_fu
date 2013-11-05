@@ -38,6 +38,14 @@ module MetricFu
       @options = options
     end
 
+    def self.metric
+      not_implemented
+    end
+
+    def metric
+      self.class.metric
+    end
+
     @generators = []
     # @return all subclassed generators [Array<MetricFu::Generator>]
     def self.generators
@@ -76,13 +84,6 @@ module MetricFu
       paths - files_to_remove
     end
 
-    # Defines some hook methods for the concrete classes to hook into.
-    %w[emit analyze].each do |meth|
-      define_method("before_#{meth}".to_sym) {}
-      define_method("after_#{meth}".to_sym) {}
-    end
-    define_method("before_to_h".to_sym) {}
-
     # Provides a template method to drive the production of a metric
     # from a concrete implementation of this class.  Each concrete
     # class must implement the three methods that this template method
@@ -93,15 +94,10 @@ module MetricFu
     # methods to allow extra hooks into the processing methods, and help
     # to keep the logic of your Generators clean.
     def generate_result
-      mf_debug "Executing #{self.class.to_s.gsub(/.*::/, '')}"
-
-      %w[emit analyze].each do |meth|
-        send("before_#{meth}".to_sym)
-        send("#{meth}".to_sym)
-        send("after_#{meth}".to_sym)
-      end
-      before_to_h()
-      to_h()
+      mf_debug "Executing #{metric}"
+      emit
+      analyze
+      to_h
     end
 
     def round_to_tenths(decimal)
@@ -110,27 +106,25 @@ module MetricFu
     end
 
     def emit #:nodoc:
-      raise <<-EOF
-        This method must be implemented by a concrete class descending
-        from Generator.  See generator class documentation for more
-        information.
-      EOF
+      self.class.not_implemented
     end
 
     def analyze #:nodoc:
+      self.class.not_implemented
+    end
+
+    def to_h #:nodoc:
+      self.class.not_implemented
+    end
+
+    def self.not_implemented
       raise <<-EOF
+        Required method #{caller[0]} not implemented in #{__FILE__}.
         This method must be implemented by a concrete class descending
         from Generator.  See generator class documentation for more
         information.
       EOF
     end
 
-    def to_h #:nodoc:
-      raise <<-EOF
-        This method must be implemented by a concrete class descending
-        from Generator.  See generator class documentation for more
-        information.
-      EOF
-    end
   end
 end
