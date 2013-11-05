@@ -1,3 +1,5 @@
+# encoding: utf-8
+MetricFu.lib_require       { 'utility'                 }
 MetricFu.metrics_require   { 'saikuro/scratch_file'    }
 MetricFu.metrics_require   { 'saikuro/parsing_element' }
 module MetricFu
@@ -29,20 +31,12 @@ module MetricFu
     end
 
     def to_h
-      files = @files.map do |file|
-        my_file = file.to_h
-
-        f = file.filepath
-        f.gsub!(%r{^#{metric_directory}/}, '')
-        f << "/#{file.filename}"
-
-        my_file[:filename] = f
-        my_file
-      end
-      @saikuro_data = {:files => files,
-                       :classes => @classes.map {|c| c.to_h},
-                       :methods => @meths.map {|m| m.to_h}
-                      }
+      @saikuro_data = {
+        files:    files_with_relative_paths(@files),
+        classes:  @classes.map { |c| c.to_h },
+        methods:  @meths.map   { |m| m.to_h },
+       }
+      clear_scratch_files!
       {:saikuro => @saikuro_data}
     end
 
@@ -131,6 +125,24 @@ module MetricFu
 
     def assemble_files
       SaikuroScratchFile.assemble_files( Dir.glob("#{metric_directory}/**/*.html") )
+    end
+
+    def files_with_relative_paths(files)
+      files.map do |file|
+        file_hash = file.to_h
+        file_hash[:filename] = file_relative_path(file)
+        file_hash
+      end.to_a
+    end
+
+    def file_relative_path(file)
+      filepath = file.filepath
+      path = filepath.gsub(/^#{metric_directory}\//, '')
+      "#{path}/#{file.filename}"
+    end
+
+    def clear_scratch_files!
+      MetricFu::Utility.rm_rf(metric_directory)
     end
 
   end

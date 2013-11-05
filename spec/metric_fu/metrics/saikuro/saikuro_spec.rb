@@ -1,13 +1,19 @@
 require "spec_helper"
 
 describe MetricFu::SaikuroGenerator do
+  STUB_TEST_DATA = lambda do |generator|
+    # set test data dir; ensure it doesn't get cleared
+    def generator.metric_directory
+      "#{resources_path}/saikuro"
+    end
+    generator.stub(:clear_scratch_files!)
+  end
   describe "to_h method" do
-    before :all do
+    before do
       options = {}
       saikuro = MetricFu::SaikuroGenerator.new(options)
-      def saikuro.metric_directory
-        "#{resources_path}/saikuro"
-      end
+      STUB_TEST_DATA[saikuro]
+
       saikuro.analyze
       @output = saikuro.to_h
     end
@@ -39,9 +45,7 @@ describe MetricFu::SaikuroGenerator do
     before :all do
       options = {}
       @saikuro = MetricFu::SaikuroGenerator.new(options)
-      def @saikuro.metric_directory
-        "#{resources_path}/saikuro"
-      end
+      STUB_TEST_DATA[@saikuro]
       @saikuro.analyze
       @output = @saikuro.to_h
     end
