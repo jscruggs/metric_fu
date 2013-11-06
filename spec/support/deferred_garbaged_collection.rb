@@ -16,16 +16,19 @@ class DeferredGarbageCollection
       @@last_gc_run = Time.now
     end
   end
+
+  def self.configure(config)
+    return if defined?(JRUBY_VERSION)
+    config.before(:all) do
+      DeferredGarbageCollection.start
+    end
+
+    config.after(:all) do
+      DeferredGarbageCollection.reconsider
+    end
+  end
 end
 
 RSpec.configure do |config|
-
-  config.before(:all) do
-      DeferredGarbageCollection.start
-  end
-
-  config.after(:all) do
-      DeferredGarbageCollection.reconsider
-  end
-
+  DeferredGarbageCollection.configure(config)
 end
