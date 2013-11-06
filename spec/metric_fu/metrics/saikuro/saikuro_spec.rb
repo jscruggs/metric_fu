@@ -4,7 +4,7 @@ describe MetricFu::SaikuroGenerator do
   STUB_TEST_DATA = lambda do |generator|
     # set test data dir; ensure it doesn't get cleared
     def generator.metric_directory
-      "#{resources_path}/saikuro"
+      FIXTURE.fixtures_path.join("saikuro").to_s
     end
     generator.stub(:clear_scratch_files!)
   end
@@ -59,8 +59,8 @@ describe MetricFu::SaikuroGenerator do
   describe MetricFu::SaikuroScratchFile do
     describe "getting elements from a Saikuro result file" do
      it "should parse nested START/END sections" do
-       path = "#{resources_path}/saikuro_sfiles/thing.rb_cyclo.html"
-        sfile = MetricFu::SaikuroScratchFile.new path
+       path = FIXTURE.fixtures_path.join("saikuro_sfiles", "thing.rb_cyclo.html").to_s
+       sfile = MetricFu::SaikuroScratchFile.new path
        sfile.elements.map { |e| e.complexity }.sort.should eql(["0","0","2"])
       end
     end

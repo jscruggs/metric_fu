@@ -26,7 +26,7 @@ describe MetricFu::HotspotAnalyzedProblems do
   context "with several types of data" do
 
     before do
-      @result_hash = metric_data('hotspots/several_metrics.yml')
+      @result_hash = HOTSPOT_DATA["several_metrics.yml"]
       @analyzed_problems = analyzed_problems(@result_hash)
       @worst_items = @analyzed_problems.worst_items
     end
@@ -81,7 +81,7 @@ describe MetricFu::HotspotAnalyzedProblems do
   context "with Saikuro data" do
 
     before do
-      @result_hash = metric_data('hotspots/saikuro.yml')
+      @result_hash = HOTSPOT_DATA["saikuro.yml"]
       @analyzed_problems = analyzed_problems(@result_hash)
       @worst_items = @analyzed_problems.worst_items
     end

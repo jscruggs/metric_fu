@@ -1,12 +1,11 @@
 require "spec_helper"
 
 describe MetricFu::HotspotsGenerator do
-
   describe "analyze method" do
     before :each do
       MetricFu::Configuration.run {}
       File.stub(:directory?).and_return(true)
-      @yaml = metric_data('hotspots/generator.yml')
+      @yaml = HOTSPOT_DATA["generator.yml"]
     end
 
     it "should be empty on error" do
@@ -21,7 +20,7 @@ describe MetricFu::HotspotsGenerator do
       hotspots = MetricFu::HotspotsGenerator.new
       hotspots.analyze
       result = hotspots.to_h[:hotspots]
-      expected = metric_data('hotspots/generator_analysis.yml')
+      expected = HOTSPOT_DATA["generator_analysis.yml"]
       # ensure expected granularities
       expect(result.keys).to eq(expected.keys)
 
