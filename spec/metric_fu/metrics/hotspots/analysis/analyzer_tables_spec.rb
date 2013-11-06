@@ -25,7 +25,7 @@ describe MetricFu::AnalyzerTables do
   context "with Stats data" do
 
     before do
-      @result_hash = metric_data('hotspots/stats.yml')
+      @result_hash = HOTSPOT_DATA["stats.yml"]
       @table = analyzer_table(@result_hash).table
     end
 
@@ -49,7 +49,7 @@ describe MetricFu::AnalyzerTables do
   context "with three different path representations of file (from Saikuro, Flog, and Reek)" do
 
     before do
-      @result_hash = metric_data('hotspots/three_metrics_on_same_file.yml')
+      @result_hash = HOTSPOT_DATA["three_metrics_on_same_file.yml"]
       @table = analyzer_table(@result_hash).table
     end
 

@@ -29,13 +29,13 @@ describe MetricFu::HotspotRankings do
       rankings(result_hash).worst_files.should == expected
     end
     def result_hash
-      @result_hash ||= metric_data('hotspots/several_metrics.yml')
+      @result_hash ||= HOTSPOT_DATA["several_metrics.yml"]
     end
   end
   context "with Reek data" do
 
     before do
-      @result_hash = metric_data('hotspots/reek.yml')
+      @result_hash = HOTSPOT_DATA["reek.yml"]
     end
 
     it "gives worst method" do
@@ -54,7 +54,7 @@ describe MetricFu::HotspotRankings do
   context "with Saikuro data" do
 
     before do
-      @result_hash = metric_data('hotspots/saikuro.yml')
+      @result_hash = HOTSPOT_DATA["saikuro.yml"]
     end
 
     it "gives worst method" do
@@ -69,7 +69,7 @@ describe MetricFu::HotspotRankings do
   context "with Flog data" do
 
     before do
-      @result_hash = metric_data('hotspots/flog.yml')
+      @result_hash = HOTSPOT_DATA["flog.yml"]
     end
 
     it "gives worst method" do
@@ -89,7 +89,7 @@ describe MetricFu::HotspotRankings do
   context "with Roodi data" do
 
     before do
-      @result_hash = metric_data('hotspots/roodi.yml')
+      @result_hash = HOTSPOT_DATA["roodi.yml"]
     end
 
     it "gives worst file" do

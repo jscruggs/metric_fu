@@ -47,7 +47,7 @@ describe MetricFu::FlogGrapher do
 
     context "when metrics were not generated" do
       before(:each) do
-        @metrics = metric_data('metric_missing.yml')
+        @metrics = FIXTURE.load_metric('metric_missing.yml')
         @date = "1/2"
       end
 
@@ -69,7 +69,7 @@ describe MetricFu::FlogGrapher do
 
     context "when metrics have been generated" do
       before(:each) do
-        @metrics = metric_data('20090630.yml')
+        @metrics = FIXTURE.load_metric('20090630.yml')
         @date = "1/2"
       end
 
@@ -93,7 +93,7 @@ describe MetricFu::FlogGrapher do
 
   describe "responding to #get_metrics with legacy data" do
     before(:each) do
-      @metrics = YAML::load(File.read("#{resources_path}/yml/20090630.yml"))
+      @metrics = FIXTURE.load_metric("20090630.yml")
 
       @date = "1/2"
     end
